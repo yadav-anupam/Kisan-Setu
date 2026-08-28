@@ -1,0 +1,447 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-variant":"#e1e3e1","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002203","on-primary":"#ffffff","surface-container-high":"#e6e9e7","surface-container-highest":"#e1e3e1","on-secondary-fixed-variant":"#005313","secondary-fixed":"#94f990","tertiary-container":"#3a7b39","primary-container":"#2e7d32","on-secondary-fixed":"#002204","on-error":"#ffffff","on-error-container":"#93000a","surface":"#f8faf8","on-secondary":"#ffffff","secondary-container":"#91f78e","secondary":"#006e1c","inverse-surface":"#2e3130","on-background":"#191c1b","surface-bright":"#f8faf8","primary-fixed-dim":"#88d982","on-primary-fixed":"#002204","outline-variant":"#bfcaba","error-container":"#ffdad6","surface-dim":"#d8dad9","on-secondary-container":"#00731e","on-primary-fixed-variant":"#005312","tertiary":"#1f6223","secondary-fixed-dim":"#78dc77","on-surface-variant":"#40493d","on-surface":"#191c1b","outline":"#707a6c","surface-container-low":"#f2f4f2","tertiary-fixed":"#acf4a4","primary":"#0d631b","primary-fixed":"#a3f69c","inverse-primary":"#88d982","surface-container":"#eceeec","inverse-on-surface":"#eff1ef","on-primary-container":"#cbffc2","error":"#ba1a1a","on-tertiary-container":"#c8ffbf","tertiary-fixed-dim":"#91d78a","on-tertiary-fixed-variant":"#0c5216","background":"#f8faf8","surface-tint":"#1b6d24"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"gutter-md":"16px","stack-md":"24px","stack-sm":"12px","container-padding":"24px","unit":"8px","stack-lg":"48px"},"fontFamily":{"label-lg":["Public Sans"],"body-md":["Public Sans"],"label-sm":["Public Sans"],"display-lg":["Manrope"],"body-lg":["Public Sans"],"display-lg-mobile":["Manrope"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-background"><aside class="fixed left-0 top-0 h-full w-72 bg-primary text-on-primary z-50 flex flex-col overflow-y-auto"><div class="p-8 mb-4 flex items-center gap-3"><span class="material-symbols-outlined text-[32px]">agriculture</span><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight">Kisan Setu</span><span class="text-[10px] uppercase tracking-widest opacity-80">Procurement Portal</span></div></div><nav class="flex-1 px-4 flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="dashboard" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Procurement</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="centre-management" href="#"><span class="material-symbols-outlined">hub</span><span class="font-label-lg text-label-lg">Centre Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-centres" href="#">All Centres</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="add-new-centre" href="#">Add New Centre</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-verification" href="#">Centre Verification</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-categories" href="#">Centre Categories</a></div><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Administration</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="user-role-management" href="#"><span class="material-symbols-outlined">group_work</span><span class="font-label-lg text-label-lg">User &amp; Roles</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="staff-management" href="#"><span class="material-symbols-outlined">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-staff" href="#">All Staff</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="departments" href="#">Departments</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="attendance" href="#">Attendance</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="leave-management" href="#">Leave Management</a></div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="permission-management" href="#"><span class="material-symbols-outlined">key</span><span class="font-label-lg text-label-lg">Permissions</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Operations</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="reports-analytics" href="#"><span class="material-symbols-outlined">analytics</span><span class="font-label-lg text-label-lg">Reports &amp; Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="audit-logs" href="#"><span class="material-symbols-outlined">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><div class="mt-auto pb-8 flex flex-col gap-1"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="announcements" href="#"><span class="material-symbols-outlined">campaign</span><span class="font-label-lg text-label-lg">Announcements</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="system-settings" href="#"><span class="material-symbols-outlined">settings</span><span class="font-label-lg text-label-lg">System Settings</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="help-support" href="#"><span class="material-symbols-outlined">help</span><span class="font-label-lg text-label-lg">Help &amp; Support</span></a></div></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl z-40 px-8 flex items-center justify-between border-b border-outline-variant/30"><div class="flex items-center gap-6 flex-1"><div class="relative max-w-md w-full"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full pl-12 pr-4 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/50 focus:outline-none focus:border-primary text-sm" placeholder="Search centres, staff or transactions..." type="text"/></div><div class="hidden lg:flex items-center gap-2 text-on-surface-variant bg-surface-container px-4 py-2 rounded-full"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="text-label-sm font-label-sm" id="current-time-display">Oct 24, 2023 • 10:45 AM</span></div></div><div class="flex items-center gap-4"><button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span></button><div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30"><div class="text-right hidden sm:block"><div class="text-sm font-bold text-on-surface">Admin User</div><div class="text-xs text-on-surface-variant">Super Administrator</div></div><div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[24px]">person</span></div></div></div></header><main class="relative pt-20 min-h-screen px-8 py-10"><div class="flex flex-col w-full gap-8">
+<!-- Header Section -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-surface-variant">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Reports &amp; Analytics</h1>
+<span class="material-symbols-outlined text-primary text-[32px]">analytics</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Track performance, analyze trends and generate insightful reports.</p>
+</div>
+<div class="flex items-center gap-4 overflow-x-auto pb-2 lg:pb-0 hide-scrollbar">
+<nav class="flex gap-2">
+<button class="px-5 py-2.5 rounded-full bg-primary-container text-on-primary-container font-label-lg text-label-lg whitespace-nowrap shadow-sm">Overview</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap transition-colors">Procurement</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap transition-colors">Centres</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap transition-colors">Farmers</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap transition-colors">Payments</button>
+</nav>
+</div>
+</div>
+<!-- Filters Section -->
+<div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full text-on-surface-variant text-sm">
+<span>21/08/2026 - 28/08/2026</span>
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</div>
+<select class="appearance-none px-4 py-2 pr-10 bg-surface-container-lowest border border-outline-variant rounded-full text-on-surface-variant text-sm bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2340493d%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_12px_center] bg-[length:16px]">
+<option>All Centres</option>
+</select>
+<select class="appearance-none px-4 py-2 pr-10 bg-surface-container-lowest border border-outline-variant rounded-full text-on-surface-variant text-sm bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2340493d%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_12px_center] bg-[length:16px]">
+<option>All Categories</option>
+</select>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container hover:bg-surface-container-high rounded-full text-on-surface-variant text-sm transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                Filters
+            </button>
+</div>
+<button class="w-full lg:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-surface-container-lowest border border-primary text-primary rounded-full font-label-lg hover:bg-primary hover:text-on-primary transition-all shadow-sm hover:shadow-md">
+<span class="material-symbols-outlined text-[20px]">download</span>
+            Export Report
+        </button>
+</div>
+<!-- Key Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border border-outline-variant/30">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium mb-1">Total Procurement</p>
+<div class="flex items-baseline gap-1">
+<h3 class="font-headline-md text-headline-md text-on-surface">12,458.75</h3>
+<span class="text-xs text-on-surface-variant">MT</span>
+</div>
+<div class="flex items-center gap-1 text-primary text-[10px] font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>12.5% vs last week</span>
+</div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border border-outline-variant/30">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary shrink-0">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium mb-1">Total Farmers</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">8,560</h3>
+<div class="flex items-center gap-1 text-primary text-[10px] font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>8.3% vs last week</span>
+</div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border border-outline-variant/30">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium mb-1">Total Centres</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">156</h3>
+<div class="flex items-center gap-1 text-primary text-[10px] font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>5.6% vs last week</span>
+</div>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border border-outline-variant/30">
+<div class="w-12 h-12 rounded-full bg-error-container/40 flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium mb-1">Total Payments</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md text-on-surface">₹ 28.75</span>
+<span class="text-xs text-on-surface-variant">Cr</span>
+</div>
+<div class="flex items-center gap-1 text-primary text-[10px] font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>10.2% vs last week</span>
+</div>
+</div>
+</div>
+<!-- Metric 5 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex items-center gap-4 border border-outline-variant/30">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">star</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium mb-1">Avg. Quality Grade</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">A</h3>
+<div class="flex items-center gap-1 text-primary text-[10px] font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>0.2 grade vs last week</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Area: Charts & Sidebars -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Left Column: Primary Charts (Takes up 3/4) -->
+<div class="lg:col-span-3 flex flex-col gap-6">
+<!-- Row 1: Line Chart & Doughnut -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Procurement Trend -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-lg text-label-lg text-on-surface">Procurement Trend (MT)</h3>
+<select class="appearance-none px-3 py-1 bg-surface-container border border-outline-variant rounded text-xs text-on-surface-variant">
+<option>Daily</option>
+<option>Weekly</option>
+</select>
+</div>
+<div class="relative h-64 w-full">
+<!-- SVG Line Chart Placeholder -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 500 200">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#2e7d32" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#2e7d32" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#e1e3e1" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="20" y2="20"></line>
+<line stroke="#e1e3e1" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="70" y2="70"></line>
+<line stroke="#e1e3e1" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="120" y2="120"></line>
+<line stroke="#e1e3e1" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="170" y2="170"></line>
+<!-- Y-axis labels -->
+<text fill="#707a6c" font-size="10" x="0" y="25">2.5K</text>
+<text fill="#707a6c" font-size="10" x="0" y="75">2K</text>
+<text fill="#707a6c" font-size="10" x="0" y="125">1.5K</text>
+<text fill="#707a6c" font-size="10" x="0" y="175">1K</text>
+<!-- Area -->
+<polygon fill="url(#chartGradient)" points="50,120 120,90 190,110 260,60 330,90 400,70 470,110 470,180 50,180"></polygon>
+<!-- Line -->
+<polyline fill="none" points="50,120 120,90 190,110 260,60 330,90 400,70 470,110" stroke="#2e7d32" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Points -->
+<circle cx="50" cy="120" fill="#2e7d32" r="4"></circle>
+<circle cx="120" cy="90" fill="#2e7d32" r="4"></circle>
+<circle cx="190" cy="110" fill="#2e7d32" r="4"></circle>
+<circle cx="260" cy="60" fill="#2e7d32" r="4"></circle>
+<circle cx="330" cy="90" fill="#2e7d32" r="4"></circle>
+<circle cx="400" cy="70" fill="#2e7d32" r="4"></circle>
+<circle cx="470" cy="110" fill="#2e7d32" r="4"></circle>
+<!-- X-axis labels -->
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="50" y="195">21 Aug</text>
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="120" y="195">22 Aug</text>
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="190" y="195">23 Aug</text>
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="260" y="195">24 Aug</text>
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="330" y="195">25 Aug</text>
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="400" y="195">26 Aug</text>
+<text fill="#707a6c" font-size="10" text-anchor="middle" x="470" y="195">27 Aug</text>
+</svg>
+</div>
+</div>
+<!-- Procurement by Commodity -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-lg text-label-lg text-on-surface">Procurement by Commodity</h3>
+<a class="text-xs font-semibold text-primary hover:underline" href="#">View Details</a>
+</div>
+<div class="flex-1 flex items-center justify-center gap-6">
+<div class="relative w-40 h-40">
+<!-- Donut Chart SVG -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Base Circle -->
+<circle cx="50" cy="50" fill="none" r="40" stroke="#e1e3e1" stroke-width="15"></circle>
+<!-- Segments (Approximated stroke-dasharray for percentages) -->
+<!-- Paddy 42% -->
+<circle class="transition-all duration-1000" cx="50" cy="50" fill="none" r="40" stroke="#2e7d32" stroke-dasharray="105.5 251.2" stroke-dashoffset="0" stroke-width="15"></circle>
+<!-- Wheat 25% -->
+<circle class="transition-all duration-1000 delay-100" cx="50" cy="50" fill="none" r="40" stroke="#005313" stroke-dasharray="62.8 251.2" stroke-dashoffset="-105.5" stroke-width="15"></circle>
+<!-- Maize 16% -->
+<circle class="transition-all duration-1000 delay-200" cx="50" cy="50" fill="none" r="40" stroke="#94f990" stroke-dasharray="40.2 251.2" stroke-dashoffset="-168.3" stroke-width="15"></circle>
+<!-- Pulses 10% -->
+<circle class="transition-all duration-1000 delay-300" cx="50" cy="50" fill="none" r="40" stroke="#88d982" stroke-dasharray="25.1 251.2" stroke-dashoffset="-208.5" stroke-width="15"></circle>
+</svg>
+<!-- Inner Text -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-md text-sm text-on-surface">12,458.75</span>
+<span class="text-[10px] text-on-surface-variant">MT</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2 text-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary block"></span>
+<span class="w-16 text-on-surface-variant">Paddy</span>
+<span class="text-on-surface font-medium">5,240.50 MT (42.0%)</span>
+</div>
+<div class="flex items-center gap-2 text-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-on-secondary-fixed-variant block"></span>
+<span class="w-16 text-on-surface-variant">Wheat</span>
+<span class="text-on-surface font-medium">3,128.40 MT (25.1%)</span>
+</div>
+<div class="flex items-center gap-2 text-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed block"></span>
+<span class="w-16 text-on-surface-variant">Maize</span>
+<span class="text-on-surface font-medium">2,056.30 MT (16.5%)</span>
+</div>
+<div class="flex items-center gap-2 text-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-inverse-primary block"></span>
+<span class="w-16 text-on-surface-variant">Pulses</span>
+<span class="text-on-surface font-medium">1,245.20 MT (10.0%)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Row 2: Table & Bar Chart -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Centre Performance Table -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-lg text-label-lg text-on-surface">Centre Performance</h3>
+<a class="text-xs font-semibold text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-xs text-on-surface-variant border-b border-surface-container">
+<th class="font-medium py-3 font-normal">Centre Name</th>
+<th class="font-medium py-3 font-normal text-right">Total (MT)</th>
+<th class="font-medium py-3 font-normal text-right">Farmers</th>
+<th class="font-medium py-3 font-normal text-center">Avg. Quality</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-surface-container/50 hover:bg-surface-container/30 transition-colors">
+<td class="py-3 text-on-surface">Kanpur Centre</td>
+<td class="py-3 text-right font-medium text-on-surface">1,485.60</td>
+<td class="py-3 text-right text-on-surface-variant">1,025</td>
+<td class="py-3 text-center"><span class="px-2 py-0.5 rounded-full bg-secondary-container/50 text-secondary text-[10px] font-bold">A</span></td>
+</tr>
+<tr class="border-b border-surface-container/50 hover:bg-surface-container/30 transition-colors">
+<td class="py-3 text-on-surface">Lucknow Centre</td>
+<td class="py-3 text-right font-medium text-on-surface">1,256.40</td>
+<td class="py-3 text-right text-on-surface-variant">890</td>
+<td class="py-3 text-center"><span class="px-2 py-0.5 rounded-full bg-secondary-container/50 text-secondary text-[10px] font-bold">A</span></td>
+</tr>
+<tr class="border-b border-surface-container/50 hover:bg-surface-container/30 transition-colors">
+<td class="py-3 text-on-surface">Prayagraj Centre</td>
+<td class="py-3 text-right font-medium text-on-surface">1,105.30</td>
+<td class="py-3 text-right text-on-surface-variant">754</td>
+<td class="py-3 text-center"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-[10px] font-bold">B+</span></td>
+</tr>
+<tr class="border-b border-surface-container/50 hover:bg-surface-container/30 transition-colors">
+<td class="py-3 text-on-surface">Varanasi Centre</td>
+<td class="py-3 text-right font-medium text-on-surface">985.20</td>
+<td class="py-3 text-right text-on-surface-variant">645</td>
+<td class="py-3 text-center"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-[10px] font-bold">B+</span></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="py-3 text-on-surface">Agra Centre</td>
+<td class="py-3 text-right font-medium text-on-surface">875.40</td>
+<td class="py-3 text-right text-on-surface-variant">512</td>
+<td class="py-3 text-center"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-[10px] font-bold">B</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Payments Overview Bar Chart -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Payments Overview</h3>
+<p class="text-sm text-on-surface-variant mt-1">Total Payments: <span class="font-bold text-on-surface">₹ 28.75 Cr</span></p>
+</div>
+<a class="text-xs font-semibold text-primary hover:underline" href="#">View Details</a>
+</div>
+<div class="flex-1 w-full h-48 flex items-end justify-between gap-2 px-2 pb-6 relative">
+<!-- Y-Axis Mock -->
+<div class="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-[10px] text-on-surface-variant text-right pr-2">
+<span>8 Cr</span>
+<span>6 Cr</span>
+<span>4 Cr</span>
+<span>2 Cr</span>
+<span>0</span>
+</div>
+<!-- Bars Container, offset for y-axis -->
+<div class="flex-1 h-full flex items-end justify-between gap-2 ml-8 relative z-10 border-b border-surface-container">
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[30%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">21</span>
+</div>
+<div class="w-full bg-primary hover:bg-primary-container transition-colors rounded-t-sm h-[60%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">22</span>
+</div>
+<div class="w-full bg-primary/80 hover:bg-primary transition-colors rounded-t-sm h-[50%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">23</span>
+</div>
+<div class="w-full bg-primary hover:bg-primary-container transition-colors rounded-t-sm h-[85%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">24</span>
+</div>
+<div class="w-full bg-primary/60 hover:bg-primary/80 transition-colors rounded-t-sm h-[45%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">25</span>
+</div>
+<div class="w-full bg-primary/40 hover:bg-primary/60 transition-colors rounded-t-sm h-[35%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">26</span>
+</div>
+<div class="w-full bg-primary/90 hover:bg-primary transition-colors rounded-t-sm h-[70%] relative group">
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">27</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Insights & Alerts Banner -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-secondary-container/20 border border-secondary-container rounded-xl p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-0.5">trending_up</span>
+<div>
+<h4 class="text-sm font-semibold text-on-surface">Procurement is up 12.5%</h4>
+<p class="text-xs text-on-surface-variant mt-1">Compared to last week.</p>
+</div>
+</div>
+<div class="bg-error-container/20 border border-error-container rounded-xl p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div>
+<h4 class="text-sm font-semibold text-on-error-container">3 centres need attention</h4>
+<p class="text-xs text-on-surface-variant mt-1">Based on quality metrics.</p>
+</div>
+</div>
+<div class="bg-tertiary-container/10 border border-tertiary-container/30 rounded-xl p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary mt-0.5">info</span>
+<div>
+<h4 class="text-sm font-semibold text-on-surface">Paddy procurement highest</h4>
+<p class="text-xs text-on-surface-variant mt-1">42% of total volume.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar (Takes up 1/4) -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Quick Reports -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-4">Quick Reports</h3>
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors text-sm text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                            Procurement Summary
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors text-sm text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]">storefront</span>
+                            Centre Performance
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors text-sm text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+                            Farmer Registration
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors text-sm text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                            Payment Report
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors text-sm text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                            Quality Report
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors text-sm text-primary font-medium bg-primary/5" href="#">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                            Custom Report
+                        </a>
+</li>
+</ul>
+</div>
+<!-- Recent Reports -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-lg text-label-lg text-on-surface">Recent Reports</h3>
+<a class="text-xs font-semibold text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<!-- Report Item -->
+<div class="flex items-start gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors shrink-0">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">Daily Procurement Summary</h4>
+<p class="text-[10px] text-on-surface-variant mt-0.5">28 Aug 2026, 10:15 AM</p>
+</div>
+</div>
+<!-- Report Item -->
+<div class="flex items-start gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors shrink-0">
+<span class="material-symbols-outlined text-[18px]">table_chart</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">Centre Performance Report</h4>
+<p class="text-[10px] text-on-surface-variant mt-0.5">28 Aug 2026, 09:45 AM</p>
+</div>
+</div>
+<!-- Report Item -->
+<div class="flex items-start gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors shrink-0">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">Payment Summary Report</h4>
+<p class="text-[10px] text-on-surface-variant mt-0.5">28 Aug 2026, 09:20 AM</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2.5 border border-primary text-primary rounded-full font-label-sm hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+                    Schedule New Report
+                </button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

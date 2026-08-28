@@ -1,0 +1,427 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-tint":"#1b6d24","outline-variant":"#bfcaba","tertiary-container":"#3a7b39","inverse-on-surface":"#eff1ef","on-background":"#191c1b","secondary-fixed-dim":"#78dc77","on-tertiary-fixed":"#002203","on-secondary":"#ffffff","on-secondary-container":"#00731e","surface-variant":"#e1e3e1","surface-container":"#eceeec","primary-container":"#2e7d32","on-primary-fixed-variant":"#005312","on-primary-fixed":"#002204","secondary":"#006e1c","background":"#f8faf8","on-error-container":"#93000a","surface-dim":"#d8dad9","surface-container-high":"#e6e9e7","on-secondary-fixed":"#002204","outline":"#707a6c","tertiary":"#1f6223","surface-container-highest":"#e1e3e1","on-surface-variant":"#40493d","secondary-container":"#91f78e","surface":"#f8faf8","inverse-surface":"#2e3130","on-tertiary":"#ffffff","primary":"#0d631b","on-primary-container":"#cbffc2","on-tertiary-container":"#c8ffbf","inverse-primary":"#88d982","error-container":"#ffdad6","on-error":"#ffffff","primary-fixed-dim":"#88d982","on-tertiary-fixed-variant":"#0c5216","tertiary-fixed-dim":"#91d78a","secondary-fixed":"#94f990","surface-container-low":"#f2f4f2","on-primary":"#ffffff","tertiary-fixed":"#acf4a4","surface-container-lowest":"#ffffff","error":"#ba1a1a","primary-fixed":"#a3f69c","on-surface":"#191c1b","surface-bright":"#f8faf8","on-secondary-fixed-variant":"#005313"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"unit":"8px","stack-lg":"48px","stack-sm":"12px","stack-md":"24px","container-padding":"24px","gutter-md":"16px"},"fontFamily":{"display-lg-mobile":["Manrope"],"body-lg":["Public Sans"],"body-md":["Public Sans"],"headline-lg":["Manrope"],"label-lg":["Public Sans"],"display-lg":["Manrope"],"headline-md":["Manrope"],"label-sm":["Public Sans"]},"fontSize":{"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col shadow-[0_0_20px_rgba(0,0,0,0.02)] overflow-y-auto"><div class="p-container-padding flex items-center gap-3"><span class="material-symbols-outlined text-primary text-3xl">agriculture</span><span class="font-headline-md text-headline-md text-primary">Kisan Setu</span></div><nav class="flex-1 px-4 py-2 space-y-1" data-active-classes="bg-primary text-on-primary shadow-lg shadow-primary/20"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><a aria-current="page" class="flex items-center px-4 py-3 rounded-DEFAULT transition-all group bg-primary text-on-primary shadow-lg shadow-primary/20" data-path="payments" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">payments</span><span class="font-label-lg text-label-lg">Payments</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="price-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">sell</span><span class="font-label-lg text-label-lg">Price Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="appointments" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">calendar_today</span><span class="font-label-lg text-label-lg">Appointments</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="token-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">confirmation_number</span><span class="font-label-lg text-label-lg">Token Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="procurement-overview" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">inventory_2</span><span class="font-label-lg text-label-lg">Procurement Overview</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="weighment-records" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">scale</span><span class="font-label-lg text-label-lg">Weighment Records</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="quality-check-records" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">verified</span><span class="font-label-lg text-label-lg">Quality Check Records</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="reports-analytics" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">analytics</span><span class="font-label-lg text-label-lg">Reports & Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="farmers" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">person_search</span><span class="font-label-lg text-label-lg">Farmers</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="staff-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="notifications" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">notifications_active</span><span class="font-label-lg text-label-lg">Notifications</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="audit-logs" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="settings" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">settings</span><span class="font-label-lg text-label-lg">Settings</span></a></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-container-padding flex items-center justify-between"><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface">XYZ Procurement Centre</span><span class="font-label-sm text-label-sm text-on-surface-variant">Village Rampur, Kanpur, UP</span></div><div class="flex items-center gap-8"><div class="text-right hidden lg:block"><span class="block font-label-lg text-label-lg text-on-surface">28 August 2026, Thursday</span><span class="block font-label-sm text-label-sm text-on-surface-variant">10:24 AM</span></div><div class="flex items-center gap-4 border-l border-outline-variant pl-8"><div class="relative cursor-pointer group"><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">notifications</span><span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-on-error text-[10px] flex items-center justify-center rounded-full font-bold">3</span></div><div class="flex items-center gap-3 cursor-pointer group"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Amit Kumar</span><span class="font-label-sm text-label-sm text-on-surface-variant">Centre Admin</span></div><img alt="Profile" class="w-10 h-10 rounded-full object-cover ring-2 ring-transparent group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida/AEtjO1XiEJAmIZdJMizMhJ1xUCh8MOf4BzZ1gyePpkGpN-OGPP6rbLQaZbOWPdflSaXRxIqAmlbaJ2WYhksATOgxapPd_FMD_FIKgZRy6cINKZWYvxY5eozRnUPYJBOQtxMsjHzTFL5QQnEIMem1friN1QgiLQ2Z4MU1WJl6n68gdGaGImkU8_FteGmeIEuS7Uic8xrnC2_suBdMg0O2uKg_bd5mIuNBEksrgi2aqKwwSybCIIQqpIosBRZEBA"/></div></div></div></header><main class="pt-20 bg-background min-h-screen"><div class="flex flex-col w-full px-container-padding py-stack-md gap-stack-md">
+<!-- Page Header -->
+<div class="flex flex-col gap-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Payments (Admin)</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Approve payments, set crop prices and process payments.</p>
+</div>
+<!-- Main Content Area: Split Layout -->
+<div class="flex flex-col xl:flex-row gap-stack-md">
+<!-- Left Column: Stats & Table -->
+<div class="flex-1 flex flex-col gap-stack-md min-w-0">
+<!-- Top Stat Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-md">
+<!-- Card 1: Pending -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-start gap-4 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-error-container/30 text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pending Payments</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Needs your approval</span>
+<span class="font-label-lg text-label-lg text-on-surface mt-1">₹ 48,250</span>
+</div>
+</div>
+<!-- Card 2: Approved -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-start gap-4 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-primary-container/30 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Approved Today</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">12</span>
+<span class="font-label-lg text-label-lg text-on-surface mt-1">₹ 35,680</span>
+</div>
+</div>
+<!-- Card 3: Total -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-start gap-4 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">currency_rupee</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Payments (This Month)</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">78</span>
+<span class="font-label-lg text-label-lg text-on-surface mt-1">₹ 2,67,850</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +18% vs last month
+            </span>
+</div>
+</div>
+<!-- Card 4: Avg Time -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-start gap-4 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/30 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Avg. Payment Time</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">12 min</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -5 min vs last month
+            </span>
+</div>
+</div>
+</div>
+<!-- Main Data Section -->
+<div class="bg-surface rounded-xl shadow-sm border border-outline-variant/30 flex flex-col min-h-0 overflow-hidden">
+<!-- Tabs -->
+<div class="flex items-center border-b border-outline-variant/30 px-4">
+<button class="px-4 py-4 font-label-lg text-label-lg text-primary border-b-2 border-primary">Pending Approval (8)</button>
+<button class="px-4 py-4 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">Approved</button>
+<button class="px-4 py-4 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">All Payments</button>
+<button class="px-4 py-4 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">Payment History</button>
+</div>
+<!-- Filters Toolbar -->
+<div class="p-4 flex flex-wrap gap-3 items-center border-b border-outline-variant/30 bg-surface-container-low">
+<!-- Date -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-outline-variant rounded-lg pl-10 pr-8 py-2 font-label-sm text-label-sm text-on-surface focus:ring-1 focus:ring-primary focus:outline-none">
+<option>28 Aug 2026</option>
+</select>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">calendar_today</span>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<!-- Crops -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-outline-variant rounded-lg pl-4 pr-8 py-2 font-label-sm text-label-sm text-on-surface focus:ring-1 focus:ring-primary focus:outline-none">
+<option>All Crops</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<!-- Payment Modes -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-outline-variant rounded-lg pl-4 pr-8 py-2 font-label-sm text-label-sm text-on-surface focus:ring-1 focus:ring-primary focus:outline-none">
+<option>All Payment Modes</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<!-- Staff -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-outline-variant rounded-lg pl-4 pr-8 py-2 font-label-sm text-label-sm text-on-surface focus:ring-1 focus:ring-primary focus:outline-none">
+<option>All Staff</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<!-- Search -->
+<div class="flex-1 min-w-[200px]">
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-lg pl-10 pr-4 py-2 font-body-sm text-body-sm text-on-surface focus:ring-1 focus:ring-primary focus:outline-none placeholder:text-on-surface-variant/60" placeholder="Search by token no., farmer name..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">search</span>
+</div>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-lg font-label-sm text-label-sm text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filters
+          </button>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/30">
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Token No.</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Farmer Name</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Crop & Grade</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Net Weight</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Proposed Rate (₹/qtl)</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Amount (₹)</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Status</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 (Active) -->
+<tr class="hover:bg-surface-container-low transition-colors bg-primary/5 cursor-pointer">
+<td class="p-4">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-md bg-surface border border-outline-variant/50 font-label-lg text-label-lg text-on-surface">A-38</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Rakesh Kumar</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+91 98765 43213</span>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Wheat (Lok-1)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Grade: A</span>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface">95.20 kg</td>
+<td class="p-4 font-body-md text-body-md text-on-surface">2,125</td>
+<td class="p-4 font-body-md text-body-md text-on-surface font-medium">₹ 2,022.00</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-error-container/30 text-error font-label-sm text-[11px] font-bold tracking-wide">Pending</span>
+</td>
+<td class="p-4 text-right flex items-center justify-end gap-2">
+<button class="px-4 py-2 border border-primary text-primary rounded-lg font-label-sm text-label-sm hover:bg-primary/5 transition-colors">Review & Approve</button>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="p-4">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-md bg-surface border border-outline-variant/50 font-label-lg text-label-lg text-on-surface">A-37</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Mohan Lal</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+91 98765 43212</span>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Gram (Desi)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Grade: B</span>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface">80.00 kg</td>
+<td class="p-4 font-body-md text-body-md text-on-surface">2,150</td>
+<td class="p-4 font-body-md text-body-md text-on-surface font-medium">₹ 4,320.00</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-error-container/30 text-error font-label-sm text-[11px] font-bold tracking-wide">Pending</span>
+</td>
+<td class="p-4 text-right flex items-center justify-end gap-2">
+<button class="px-4 py-2 border border-primary text-primary rounded-lg font-label-sm text-label-sm hover:bg-primary/5 transition-colors">Review & Approve</button>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="p-4">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-md bg-surface border border-outline-variant/50 font-label-lg text-label-lg text-on-surface">A-36</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Suresh Yadav</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+91 98765 43211</span>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Paddy (Common)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Grade: A</span>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface">120.50 kg</td>
+<td class="p-4 font-body-md text-body-md text-on-surface">2,150</td>
+<td class="p-4 font-body-md text-body-md text-on-surface font-medium">₹ 2,591.00</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-error-container/30 text-error font-label-sm text-[11px] font-bold tracking-wide">Pending</span>
+</td>
+<td class="p-4 text-right flex items-center justify-end gap-2">
+<button class="px-4 py-2 border border-primary text-primary rounded-lg font-label-sm text-label-sm hover:bg-primary/5 transition-colors">Review & Approve</button>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant/30 flex items-center justify-between bg-surface-container-lowest">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 8 of 8 payments</span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary font-label-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Overview Widgets -->
+<div class="flex flex-col gap-4 mt-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Today's Payment Overview</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter-md">
+<!-- Today's Col -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Today's Collection</div>
+<div class="font-headline-md text-headline-md text-on-surface">₹ 35,680</div>
+<div class="font-label-sm text-[11px] text-primary mt-0.5">12 Payments</div>
+</div>
+</div>
+<!-- Approved -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">fact_check</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Approved</div>
+<div class="font-headline-md text-headline-md text-on-surface">12</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">₹ 35,680</div>
+</div>
+</div>
+<!-- Pending -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container/30 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Pending</div>
+<div class="font-headline-md text-headline-md text-on-surface">8</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">₹ 48,250</div>
+</div>
+</div>
+<!-- Failed -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant/30 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">cancel</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Failed / Cancelled</div>
+<div class="font-headline-md text-headline-md text-on-surface">0</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">₹ 0</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Detail Panel -->
+<div class="w-full xl:w-[400px] flex-shrink-0">
+<div class="bg-surface rounded-xl shadow-lg border border-outline-variant/30 flex flex-col h-full max-h-[85vh] sticky top-24 overflow-hidden">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-lowest">
+<h2 class="font-headline-md text-headline-md text-on-surface">Payment Details</h2>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-6 overflow-y-auto flex-1 flex flex-col gap-6">
+<!-- Token Info -->
+<div class="flex justify-between items-start">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Token No.</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">A-38</span>
+</div>
+<div class="text-right">
+<span class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Status</span>
+<span class="inline-block px-3 py-1 rounded-full bg-error-container/30 text-error font-label-sm text-[12px] font-bold">Pending Approval</span>
+</div>
+</div>
+<!-- People Info -->
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wider">Farmer</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Rakesh Kumar</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant">+91 98765 43213</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex flex-col text-right w-full">
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wider">Staff</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Amit Kumar (Staff)</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant">10:20 AM, 28 Aug 2026</span>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Crop Details -->
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-4">Crop Details</h3>
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[28px]">grass</span>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-y-4">
+<div>
+<span class="block font-label-sm text-[11px] text-on-surface-variant">Crop</span>
+<span class="font-label-md text-on-surface font-medium">Wheat (Lok-1)</span>
+</div>
+<div>
+<span class="block font-label-sm text-[11px] text-on-surface-variant">Quality Grade</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/20 text-primary font-bold text-[12px]">A</span>
+</div>
+<div>
+<span class="block font-label-sm text-[11px] text-on-surface-variant">Net Weight</span>
+<span class="font-label-md text-on-surface font-medium">95.20 kg</span>
+</div>
+<div>
+<span class="block font-label-sm text-[11px] text-on-surface-variant">Moisture</span>
+<span class="font-label-md text-on-surface font-medium">11.5%</span>
+</div>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Price & Amount -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-lg text-label-lg text-on-surface">Price & Amount</h3>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between mb-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Proposed Rate (₹/qtl)</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">View Standard Rate</a>
+</div>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:ring-1 focus:ring-primary focus:outline-none" type="text" value="2,125"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Final Amount (₹)</label>
+<div class="bg-primary/10 rounded-lg p-4 border border-primary/20">
+<span class="font-headline-lg text-headline-lg text-primary">2,022.00</span>
+</div>
+<p class="font-label-sm text-[11px] text-on-surface-variant mt-2">Amount will be paid to farmer.</p>
+</div>
+</div>
+</div>
+<!-- Payment Mode -->
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-3">Payment Mode</h3>
+<div class="grid grid-cols-3 gap-2">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="pay_mode" type="radio"/>
+<div class="px-2 py-3 rounded-lg border border-primary bg-primary/5 text-primary text-center font-label-sm peer-checked:ring-1 peer-checked:ring-primary flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span> UPI
+                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="pay_mode" type="radio"/>
+<div class="px-2 py-3 rounded-lg border border-outline-variant text-on-surface-variant text-center font-label-sm hover:bg-surface-container-low flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">account_balance</span> Bank Transfer
+                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="pay_mode" type="radio"/>
+<div class="px-2 py-3 rounded-lg border border-outline-variant text-on-surface-variant text-center font-label-sm hover:bg-surface-container-low flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">payments</span> Cash
+                </div>
+</label>
+</div>
+</div>
+<!-- Remarks -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Remarks (Optional)</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface focus:ring-1 focus:ring-primary focus:outline-none resize-none" placeholder="Add remarks if any..." rows="3"></textarea>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 border-t border-outline-variant/30 bg-surface flex gap-3">
+<button class="flex-1 py-3 px-4 rounded-xl border border-outline-variant text-on-surface font-label-lg text-label-lg hover:bg-surface-container-low transition-colors">Cancel</button>
+<button class="flex-1 py-3 px-4 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary/90 transition-colors">Approve & Pay</button>
+</div>
+</div>
+<!-- Info Note -->
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<div class="flex items-center gap-2 text-primary font-label-md mb-2">
+<span class="material-symbols-outlined text-[18px]">info</span> Note
+        </div>
+<ul class="list-disc list-inside space-y-1 font-body-sm text-[12px] text-on-surface-variant">
+<li>You can edit the rate if required before approval.</li>
+<li>Once approved, payment will be processed and farmer will be notified.</li>
+<li>All payment actions are recorded in audit logs.</li>
+</ul>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

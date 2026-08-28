@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kisan Setu - My Appointments</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styles">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased flex h-screen overflow-hidden">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col h-full shrink-0">
+<div class="p-6 flex items-center gap-3 border-b border-slate-100">
+<div class="w-10 h-10 bg-brand-50 rounded-full flex items-center justify-center text-brand-600">
+<i class="fa-solid fa-seedling text-xl"></i>
+</div>
+<div>
+<h1 class="font-bold text-lg leading-tight">Kisan Setu</h1>
+<p class="text-xs text-slate-500">Procurement Platform</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-solid fa-house w-5 text-center"></i>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-700 text-white shadow-sm transition-colors" href="#">
+<i class="fa-regular fa-calendar-check w-5 text-center"></i>
+<span class="font-medium">My Appointments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-regular fa-calendar-plus w-5 text-center"></i>
+<span class="font-medium">Book New Slot</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-solid fa-users-line w-5 text-center"></i>
+<span class="font-medium">Live Queue</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-solid fa-boxes-stacked w-5 text-center"></i>
+<span class="font-medium">My Procurement</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-solid fa-indian-rupee-sign w-5 text-center"></i>
+<span class="font-medium">Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
+<span class="font-medium">History</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-100">
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<div class="flex items-center gap-3">
+<i class="fa-regular fa-bell w-5 text-center"></i>
+<span class="font-medium">Notifications</span>
+</div>
+<span class="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-regular fa-user w-5 text-center"></i>
+<span class="font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors" href="#">
+<i class="fa-regular fa-circle-question w-5 text-center"></i>
+<span class="font-medium">Help &amp; Support</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-100">
+<div class="bg-brand-50 rounded-xl p-4 text-center">
+<img alt="Farmer illustration" class="w-16 h-16 mx-auto mb-2 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH3TLR-tWytFheRDJsLfCE3HfVtqEKjK-6TvjoHF7Lqg-z58tfTxa715dI7fQkM11B3r9_BQnSsBPH3zBbEHFnkv4UxJ60ObK1BBQB77BDyhDI52sZbo7o9ej_mPIZqmw0XupJvbyKiDMr1rMEPEqJCSd1LWVCnGnfL4oxo5Y19YBoHkigjug70CXlgAo8tRC7EdMXI5Mv1gDC34Oz__hYeYlFpIy8y1MATyR-LpeYPkQVyl_UaqSU"/>
+<h4 class="font-semibold text-brand-800 text-sm mb-1">Smart Procurement<br/>Better Farming</h4>
+<p class="text-xs text-brand-600 mb-3">Save time, avoid long queues and get fair value for your produce.</p>
+</div>
+<button class="mt-4 flex items-center gap-2 text-red-600 font-medium px-2 hover:bg-red-50 py-2 rounded-lg w-full transition-colors">
+<i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Logout
+      </button>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-50/50">
+<!-- BEGIN: Topbar -->
+<header class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center shrink-0">
+<div>
+<h2 class="text-2xl font-bold text-slate-800">My Appointments</h2>
+<p class="text-sm text-slate-500 mt-1">Manage your upcoming and past procurement bookings.</p>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-slate-500 hover:text-slate-700 transition-colors">
+<i class="fa-regular fa-bell text-xl"></i>
+<span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-white">3</span>
+</button>
+<div class="flex items-center gap-2">
+<select class="bg-slate-50 border-slate-200 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block py-1.5 pl-3 pr-8 text-slate-700 font-medium cursor-pointer">
+<option>English</option>
+<option>Hindi</option>
+</select>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 cursor-pointer">
+<img alt="Ramesh Kumar" class="w-10 h-10 rounded-full border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC3Yheb6541sthyFlgOSsIdretX1guLoh5rcX3fGGsaBWYeuSjpuOnnUTCP8EHaxVgmzMwVbtzDOk8oOud583KKBN2ZFmhg1afKWB_HFqAiI2hZMakAZThKWRhlTVdAb6thPqb99LfbyFU0S9CEhJ3bk3ee3pNJ7tbqY13Y_k6FhhJbMTcVcvAVQNNOMPSIYtGRyTaGGBgAm5kCAeIJcnHtlfuz-NaXRl-Ht3r0j4H2XOKDWFccpQY"/>
+<div>
+<p class="text-sm font-semibold text-slate-700">Ramesh Kumar</p>
+<p class="text-xs text-slate-500">Farmer ID: 987654</p>
+</div>
+<i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+</div>
+</div>
+</header>
+<!-- END: Topbar -->
+<!-- BEGIN: Page Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="max-w-5xl mx-auto space-y-6">
+<!-- Header & Actions -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<!-- Tabs -->
+<div class="flex space-x-1 bg-slate-200/50 p-1 rounded-lg">
+<button class="px-6 py-2 rounded-md bg-white text-brand-700 font-medium shadow-sm text-sm">Upcoming</button>
+<button class="px-6 py-2 rounded-md text-slate-600 hover:text-slate-800 font-medium text-sm transition-colors">Past</button>
+</div>
+<button class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg font-medium shadow-sm transition-colors flex items-center gap-2 text-sm">
+<i class="fa-regular fa-calendar-plus"></i>
+            Book New Slot
+          </button>
+</div>
+<!-- Appointments List -->
+<div class="space-y-4">
+<!-- Appointment Card 1 -->
+<div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex flex-col md:flex-row gap-6 md:items-center">
+<!-- Date/Time Block -->
+<div class="flex md:flex-col items-center justify-between md:justify-center md:w-32 bg-slate-50 rounded-lg p-3 md:py-4 shrink-0 border border-slate-100">
+<div class="text-center">
+<span class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Aug</span>
+<span class="block text-3xl font-extrabold text-slate-800 leading-none">28</span>
+<span class="block text-xs font-medium text-slate-500 mt-1">2026</span>
+</div>
+<div class="hidden md:block w-8 h-px bg-slate-200 my-3"></div>
+<div class="text-center md:mt-0 text-slate-600">
+<i class="fa-regular fa-clock text-sm mb-1 block hidden md:block"></i>
+<span class="text-xs font-semibold">10:00 AM</span>
+</div>
+</div>
+<!-- Details Block -->
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<div class="flex items-start gap-2 mb-2">
+<i class="fa-solid fa-location-dot text-brand-500 mt-1"></i>
+<div>
+<h3 class="font-bold text-slate-800">XYZ Procurement Centre</h3>
+<p class="text-sm text-slate-500">Village Rampur, District Kanpur, UP</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-4">
+<div class="flex items-center gap-1.5 bg-brand-50 text-brand-700 px-2.5 py-1 rounded-md text-sm font-medium">
+<i class="fa-solid fa-wheat-awn"></i> Wheat
+                   </div>
+<span class="text-sm font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">48 Quintal</span>
+</div>
+</div>
+<div class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 sm:border-l border-slate-100 pt-4 sm:pt-0 sm:pl-4">
+<div class="text-left sm:text-right mb-0 sm:mb-4">
+<p class="text-xs text-slate-500 uppercase font-semibold mb-1">Token Number</p>
+<p class="text-2xl font-bold text-brand-700">A-47</p>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Upcoming
+                </span>
+</div>
+</div>
+<!-- Actions Block -->
+<div class="flex flex-row md:flex-col gap-2 shrink-0 border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
+<button class="flex-1 md:flex-none text-center bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                View Details
+              </button>
+<button class="flex-1 md:flex-none text-center bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+<i class="fa-regular fa-calendar-xmark"></i> Reschedule
+              </button>
+</div>
+</div>
+<!-- Appointment Card 2 -->
+<div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex flex-col md:flex-row gap-6 md:items-center">
+<!-- Date/Time Block -->
+<div class="flex md:flex-col items-center justify-between md:justify-center md:w-32 bg-slate-50 rounded-lg p-3 md:py-4 shrink-0 border border-slate-100 opacity-80">
+<div class="text-center">
+<span class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Sep</span>
+<span class="block text-3xl font-extrabold text-slate-800 leading-none">05</span>
+<span class="block text-xs font-medium text-slate-500 mt-1">2026</span>
+</div>
+<div class="hidden md:block w-8 h-px bg-slate-200 my-3"></div>
+<div class="text-center md:mt-0 text-slate-600">
+<i class="fa-regular fa-clock text-sm mb-1 block hidden md:block"></i>
+<span class="text-xs font-semibold">11:00 AM</span>
+</div>
+</div>
+<!-- Details Block -->
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<div class="flex items-start gap-2 mb-2">
+<i class="fa-solid fa-location-dot text-brand-500 mt-1"></i>
+<div>
+<h3 class="font-bold text-slate-800">ABC Procurement Centre</h3>
+<p class="text-sm text-slate-500">Village Bhognipur, Kanpur, UP</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-4">
+<div class="flex items-center gap-1.5 bg-brand-50 text-brand-700 px-2.5 py-1 rounded-md text-sm font-medium">
+<i class="fa-solid fa-wheat-awn"></i> Wheat
+                   </div>
+<span class="text-sm font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">50 Quintal</span>
+</div>
+</div>
+<div class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 sm:border-l border-slate-100 pt-4 sm:pt-0 sm:pl-4">
+<div class="text-left sm:text-right mb-0 sm:mb-4">
+<p class="text-xs text-slate-500 uppercase font-semibold mb-1">Token Number</p>
+<p class="text-2xl font-bold text-slate-700">B-12</p>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Upcoming
+                </span>
+</div>
+</div>
+<!-- Actions Block -->
+<div class="flex flex-row md:flex-col gap-2 shrink-0 border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
+<button class="flex-1 md:flex-none text-center bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                View Details
+              </button>
+<button class="flex-1 md:flex-none text-center bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+<i class="fa-regular fa-calendar-xmark"></i> Reschedule
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Page Content -->
+</main>
+<!-- END: Main Content Area -->
+</body></html>

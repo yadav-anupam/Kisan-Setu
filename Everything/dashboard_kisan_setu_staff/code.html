@@ -1,0 +1,465 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full h-full p-container-padding gap-stack-md bg-surface text-on-surface">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-1 flex items-center gap-2">
+        Good Morning, Amit <span class="text-2xl animate-wave">👋</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Let's serve our farmers efficiently today.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+        28 August 2026, Thursday
+      </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+        10:24 AM
+      </div>
+<div class="relative">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+</button>
+<span class="absolute top-1 right-1 w-4 h-4 bg-error text-on-error rounded-full text-[10px] font-bold flex items-center justify-center border-2 border-surface">8</span>
+</div>
+</div>
+</header>
+<!-- Summary Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-gutter-md w-full">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-start gap-4 shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Farmers Served Today</p>
+<p class="font-headline-md text-headline-md text-on-surface mb-1">156</p>
+<p class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+          +20% vs yesterday
+        </p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-start gap-4 shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 shrink-0">
+<span class="material-symbols-outlined text-[24px]">confirmation_number</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Tokens Issued Today</p>
+<p class="font-headline-md text-headline-md text-on-surface mb-1">198</p>
+<p class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+          +15% vs yesterday
+        </p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-start gap-4 shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 shrink-0">
+<span class="material-symbols-outlined text-[24px]">hourglass_empty</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Avg. Waiting Time</p>
+<p class="font-headline-md text-headline-md text-on-surface mb-1 flex items-baseline gap-1">
+          28 <span class="font-label-lg text-label-lg text-on-surface-variant font-normal">min</span>
+</p>
+<p class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+          -6 min vs yesterday
+        </p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-start gap-4 shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 shrink-0">
+<span class="material-symbols-outlined text-[24px]">shopping_bag</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total Produce Procured</p>
+<p class="font-headline-md text-headline-md text-on-surface mb-1 flex items-baseline gap-1">
+          312.45 <span class="font-label-lg text-label-lg text-on-surface-variant font-normal">Quintal</span>
+</p>
+<p class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+          +18% vs yesterday
+        </p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-start gap-4 shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">currency_rupee</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Payments Completed</p>
+<p class="font-headline-md text-headline-md text-on-surface mb-1">142</p>
+<p class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+          +22% vs yesterday
+        </p>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter-md w-full">
+<!-- Left Column (Span 2) -->
+<div class="xl:col-span-2 flex flex-col gap-stack-md">
+<!-- Live Queue Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-variant flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md text-on-surface">Live Queue</h2>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live</span>
+</div>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface">Total Waiting: <span class="font-bold">42</span></p>
+</div>
+<div class="flex flex-col lg:flex-row gap-6">
+<!-- Now Serving Card -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col items-center justify-center min-w-[240px] text-center border border-surface-variant">
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-2 uppercase tracking-wider">Now Serving</p>
+<h3 class="font-display-lg text-display-lg text-primary mb-3">A-36</h3>
+<span class="bg-primary-container/20 text-primary px-3 py-1 rounded-full font-label-sm text-label-sm mb-4">Counter 1</span>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold mb-1">Suresh Yadav</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Paddy (120.50 Quintal)</p>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mb-6">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+              Started at 10:18 AM
+            </div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-lg text-label-lg hover:bg-primary/90 transition-colors">
+              View Details
+            </button>
+</div>
+<!-- Queue Table -->
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-on-surface-variant font-label-sm text-label-sm">
+<th class="py-3 px-4 font-medium">Token No.</th>
+<th class="py-3 px-4 font-medium">Farmer Name</th>
+<th class="py-3 px-4 font-medium">Produce</th>
+<th class="py-3 px-4 font-medium">Status</th>
+<th class="py-3 px-4 font-medium">Counter</th>
+<th class="py-3 px-4 font-medium">Waiting Time</th>
+<th class="py-3 px-4 font-medium text-center">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-surface-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-4 font-semibold">A-36</td>
+<td class="py-4 px-4">Suresh Yadav</td>
+<td class="py-4 px-4">Paddy</td>
+<td class="py-4 px-4">
+<span class="bg-primary-container/20 text-primary px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">In Progress</span>
+</td>
+<td class="py-4 px-4">Counter 1</td>
+<td class="py-4 px-4 text-center">--</td>
+<td class="py-4 px-4 text-center">--</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-4 font-semibold">A-37</td>
+<td class="py-4 px-4">Mohan Lal</td>
+<td class="py-4 px-4">Gram</td>
+<td class="py-4 px-4">
+<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">Waiting</span>
+</td>
+<td class="py-4 px-4">Counter 1</td>
+<td class="py-4 px-4">12 min</td>
+<td class="py-4 px-4 text-center">
+<button class="text-primary border border-primary px-3 py-1 rounded-md font-label-sm text-label-sm hover:bg-primary-container/10 transition-colors whitespace-nowrap">Call Next</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-4 font-semibold">A-38</td>
+<td class="py-4 px-4">Rakesh Kumar</td>
+<td class="py-4 px-4">Wheat</td>
+<td class="py-4 px-4">
+<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">Waiting</span>
+</td>
+<td class="py-4 px-4">Counter 1</td>
+<td class="py-4 px-4">24 min</td>
+<td class="py-4 px-4 text-center">
+<button class="text-primary border border-primary px-3 py-1 rounded-md font-label-sm text-label-sm hover:bg-primary-container/10 transition-colors whitespace-nowrap">Call Next</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-4 font-semibold">A-39</td>
+<td class="py-4 px-4">Vijay Singh</td>
+<td class="py-4 px-4">Paddy</td>
+<td class="py-4 px-4">
+<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">Waiting</span>
+</td>
+<td class="py-4 px-4">Counter 2</td>
+<td class="py-4 px-4">33 min</td>
+<td class="py-4 px-4 text-center">
+<button class="text-primary border border-primary px-3 py-1 rounded-md font-label-sm text-label-sm hover:bg-primary-container/10 transition-colors whitespace-nowrap">Call Next</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="text-center pt-2 border-t border-surface-variant">
+<button class="text-primary font-label-lg text-label-lg flex items-center justify-center w-full gap-2 hover:underline">
+            View Full Queue <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Bottom Row Grid (Appointments & Quick Actions) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter-md">
+<!-- Today's Appointments -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-variant flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Today's Appointments</h3>
+<button class="text-primary font-label-sm text-label-sm hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-on-surface-variant font-label-sm text-label-sm">
+<th class="py-3 px-2 font-medium">Time Slot</th>
+<th class="py-3 px-2 font-medium">Appointment (Booked / Slot)</th>
+<th class="py-3 px-2 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-surface-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-2 whitespace-nowrap">09:00 AM - 10:00 AM</td>
+<td class="py-3 px-2">25 / 25</td>
+<td class="py-3 px-2">
+<span class="bg-green-100 text-green-700 px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-2 whitespace-nowrap">10:00 AM - 11:00 AM</td>
+<td class="py-3 px-2">32 / 35</td>
+<td class="py-3 px-2">
+<span class="bg-primary-container/20 text-primary px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">In Progress</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-2 whitespace-nowrap">11:00 AM - 12:00 PM</td>
+<td class="py-3 px-2">18 / 30</td>
+<td class="py-3 px-2">
+<span class="bg-orange-100 text-orange-700 px-2 py-1 rounded-full font-label-sm text-label-sm whitespace-nowrap">Upcoming</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="text-center pt-4">
+<button class="border border-surface-variant px-4 py-2 rounded-lg text-on-surface font-label-lg text-label-lg hover:bg-surface-container transition-colors inline-flex items-center gap-2">
+              View Full Schedule <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-variant flex flex-col gap-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Quick Actions</h3>
+<div class="grid grid-cols-3 gap-4 flex-1 content-start">
+<button class="flex flex-col items-center justify-center p-4 border border-surface-variant rounded-xl hover:bg-surface-container-low transition-colors gap-2 text-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[24px]">confirmation_number</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface leading-tight">Issue<br/>Token</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border border-surface-variant rounded-xl hover:bg-surface-container-low transition-colors gap-2 text-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+<span class="material-symbols-outlined text-blue-700 text-[24px]">campaign</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface leading-tight">Call Next<br/>Farmer</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border border-surface-variant rounded-xl hover:bg-surface-container-low transition-colors gap-2 text-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[24px]">person_add</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface leading-tight">Farmer<br/>Check-In</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border border-surface-variant rounded-xl hover:bg-surface-container-low transition-colors gap-2 text-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+<span class="material-symbols-outlined text-purple-700 text-[24px]">scale</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface leading-tight">Start<br/>Weighment</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border border-surface-variant rounded-xl hover:bg-surface-container-low transition-colors gap-2 text-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-orange-100 transition-colors">
+<span class="material-symbols-outlined text-orange-700 text-[24px]">verified_user</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface leading-tight">Quality<br/>Check</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border border-surface-variant rounded-xl hover:bg-surface-container-low transition-colors gap-2 text-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[24px]">currency_rupee</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface leading-tight">Process<br/>Payment</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Column (Span 1) -->
+<div class="flex flex-col gap-stack-md">
+<!-- Counters Status -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-variant flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Counters Status</h3>
+<span class="font-label-sm text-label-sm text-primary font-medium">4 Active</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Counter 1 -->
+<div class="border border-surface-variant rounded-lg p-4 flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-lg text-label-lg text-on-surface">Counter 1</span>
+<span class="flex items-center gap-1 text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> In Progress
+                   </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Serving: A-36</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">group</span> 1
+               </span>
+</div>
+</div>
+<!-- Counter 2 -->
+<div class="border border-surface-variant rounded-lg p-4 flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-lg text-label-lg text-on-surface">Counter 2</span>
+<span class="flex items-center gap-1 text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> In Progress
+                   </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Serving: A-39</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">group</span> 1
+               </span>
+</div>
+</div>
+<!-- Counter 3 -->
+<div class="border border-orange-200 rounded-lg p-4 flex items-center justify-between bg-orange-50/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-lg text-label-lg text-on-surface">Counter 3</span>
+<span class="flex items-center gap-1 text-orange-600 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-orange-600"></span> Waiting
+                   </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Waiting: 2 Farmers</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">group_add</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">group</span> 2
+               </span>
+</div>
+</div>
+<!-- Counter 4 -->
+<div class="border border-surface-variant rounded-lg p-4 flex items-center justify-between bg-surface-container-low opacity-75">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-lg text-label-lg text-on-surface">Counter 4</span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span> Idle
+                   </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">No one in queue</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">group</span> 0
+               </span>
+</div>
+</div>
+</div>
+<div class="text-center pt-2 border-t border-surface-variant mt-2">
+<button class="text-primary font-label-lg text-label-lg flex items-center justify-center w-full gap-2 hover:underline">
+            View All Counters <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Today's Summary -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-variant flex flex-col gap-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Today's Summary</h3>
+<ul class="flex flex-col gap-3 font-body-md text-body-md">
+<li class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-primary">receipt_long</span> Total Tokens Issued</span>
+<span class="font-semibold text-on-surface">198</span>
+</li>
+<li class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-primary">groups</span> Total Farmers Served</span>
+<span class="font-semibold text-on-surface">156</span>
+</li>
+<li class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-primary">timer</span> Avg. Serving Time</span>
+<span class="font-semibold text-on-surface">07 min</span>
+</li>
+<li class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-primary">shopping_bag</span> Produce Procured</span>
+<span class="font-semibold text-on-surface">312.45 Quintal</span>
+</li>
+<li class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-primary">payments</span> Payments Completed</span>
+<span class="font-semibold text-on-surface">142</span>
+</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<style>
+  @keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+  }
+  .animate-wave {
+    animation: wave 2.5s infinite;
+    transform-origin: 70% 70%;
+    display: inline-block;
+  }
+</style></main></body></html>

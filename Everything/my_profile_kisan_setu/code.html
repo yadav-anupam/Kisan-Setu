@@ -1,0 +1,382 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full h-full lg:flex-row bg-surface">
+<!-- Desktop Sidebar Overlay Toggle / Mobile Menu button handled outside -->
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+<!-- Header Area -->
+<header class="flex items-center justify-between px-6 py-4 bg-surface lg:px-10 border-b border-surface-variant/30 sticky top-0 z-10">
+<div>
+<h1 class="text-headline-md text-on-surface mb-1">My Profile</h1>
+<p class="text-body-md text-on-surface-variant">View and manage your personal information and account settings.</p>
+</div>
+<!-- Top Nav Right (Desktop) -->
+<div class="hidden lg:flex items-center gap-6">
+<button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors focus:outline-none rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded-full border border-surface-variant/50 cursor-pointer hover:bg-surface-container transition-colors">
+<span class="text-label-lg text-on-surface">English</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-surface-variant">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container-low" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="flex items-center gap-1 cursor-pointer">
+<span class="text-label-lg text-on-surface font-semibold">Ramesh Kumar</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Body -->
+<div class="p-6 lg:p-10">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8 max-w-[1400px] mx-auto">
+<!-- Left Column (Profile & Security) -->
+<div class="xl:col-span-3 flex flex-col gap-6">
+<!-- User Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6 flex flex-col items-center text-center relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="relative mb-4 mt-2">
+<div class="w-24 h-24 rounded-full bg-surface-container flex items-center justify-center p-1 border-4 border-surface-container-lowest shadow-sm z-10 relative">
+<img alt="Profile Photo" class="w-full h-full object-cover rounded-full" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+</div>
+<!-- Edit button overlapping avatar -->
+<button class="absolute bottom-0 right-0 p-1.5 bg-surface-container-lowest border border-surface-variant text-primary rounded-full shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-colors z-20">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<!-- Decorative background blob behind avatar -->
+<div class="absolute inset-0 bg-primary/5 rounded-full scale-150 -z-10 group-hover:scale-175 transition-transform duration-500 ease-out"></div>
+</div>
+<h2 class="text-headline-md text-on-surface mb-2">Ramesh Kumar</h2>
+<!-- Verified Badge -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full mb-8 border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-sm font-semibold">Verified Farmer</span>
+</div>
+<!-- Contact Details List -->
+<div class="w-full flex flex-col gap-4 text-left border-t border-surface-variant/40 pt-6">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5 text-[20px]">call</span>
+<span class="text-body-md text-on-surface">+91 98765 43210</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5 text-[20px]">mail</span>
+<span class="text-body-md text-on-surface break-all">rameshkumar@email.com</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5 text-[20px]">location_on</span>
+<span class="text-body-md text-on-surface leading-snug">Village Rampur, Kanpur, UP</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5 text-[20px]">calendar_today</span>
+<div>
+<div class="text-label-sm text-on-surface-variant mb-0.5">Member since</div>
+<div class="text-body-md text-on-surface">15 July 2025</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Account Security Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6 flex flex-col">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant">shield</span>
+<h3 class="text-headline-sm text-on-surface font-semibold">Account Security</h3>
+</div>
+<div class="flex items-center justify-between py-4 border-b border-surface-variant/30 group">
+<div>
+<div class="text-body-md text-on-surface font-medium mb-1">Password</div>
+<div class="text-label-sm text-on-surface-variant">Last changed on 15 July 2025</div>
+</div>
+<button class="px-4 py-1.5 border border-outline text-primary text-label-lg rounded-full hover:bg-surface-container-low transition-colors">
+                Change
+              </button>
+</div>
+<button class="flex items-center justify-between py-4 border-b border-surface-variant/30 group w-full text-left hover:bg-surface-container-lowest/50 transition-colors rounded-lg -mx-2 px-2">
+<div>
+<div class="text-body-md text-on-surface font-medium mb-1">Two-Factor Authentication</div>
+<div class="text-label-sm text-secondary font-medium">Enabled</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">chevron_right</span>
+</button>
+<button class="flex items-center justify-between py-4 group w-full text-left hover:bg-surface-container-lowest/50 transition-colors rounded-lg -mx-2 px-2">
+<div>
+<div class="text-body-md text-on-surface font-medium mb-1">Login Activity</div>
+<div class="text-label-sm text-on-surface-variant">View recent login activity</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Middle Column (Forms) -->
+<div class="xl:col-span-6 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6 lg:p-8">
+<!-- Section 1: Personal Information -->
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person</span>
+<h3 class="text-headline-sm text-on-surface font-semibold">Personal Information</h3>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-primary text-label-lg rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                 Edit Profile
+               </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 mb-10">
+<!-- Field -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Full Name</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+                  Ramesh Kumar
+                </div>
+</div>
+<!-- Field -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Phone Number</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+                  +91 98765 43210
+                </div>
+</div>
+<!-- Field -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Email Address</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+                  rameshkumar@email.com
+                </div>
+</div>
+<!-- Field -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Date of Birth</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface flex items-center justify-between group focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all cursor-pointer">
+<span>15 March 1988</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface text-[20px]">calendar_today</span>
+</div>
+</div>
+<!-- Dropdown Field -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Gender</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface flex items-center justify-between group hover:border-outline cursor-pointer transition-colors">
+<span>Male</span>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Dropdown Field -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Marital Status</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface flex items-center justify-between group hover:border-outline cursor-pointer transition-colors">
+<span>Married</span>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px bg-surface-variant/50 w-full mb-8"></div>
+<!-- Section 2: Address -->
+<div class="flex items-center gap-2 mb-6">
+<h3 class="text-headline-sm text-primary font-semibold">Address</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 mb-10">
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Village</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface">Village Rampur</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Post Office</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface">Rampur</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">Tehsil</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface">Bhitargaon</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">District</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface">Kanpur</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">State</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface flex items-center justify-between group hover:border-outline cursor-pointer transition-colors">
+<span>Uttar Pradesh</span>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm text-on-surface-variant">PIN Code</label>
+<div class="px-4 py-3 bg-surface border border-outline-variant rounded-xl text-body-md text-on-surface">208002</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px bg-surface-variant/50 w-full mb-8"></div>
+<!-- Section 3: Farming Information -->
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">eco</span>
+<h3 class="text-headline-sm text-on-surface font-semibold">Farming Information</h3>
+</div>
+<div class="flex flex-wrap items-start justify-between gap-6 bg-surface-container-low p-6 rounded-2xl border border-surface-variant/30">
+<div class="flex flex-col gap-2 min-w-[120px]">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wide">Primary Produce</span>
+<div class="flex items-center gap-2">
+<span class="text-[20px]">🌾</span>
+<span class="text-body-md text-on-surface font-medium">Wheat</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 min-w-[100px]">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wide">Land Holding</span>
+<span class="text-body-md text-on-surface font-medium">3.5 Acre</span>
+</div>
+<div class="flex flex-col gap-2 min-w-[140px]">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wide">Farming Experience</span>
+<span class="text-body-md text-on-surface font-medium">12 Years</span>
+</div>
+<div class="flex flex-col gap-2 min-w-[100px]">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-wide">Farmer Type</span>
+<span class="text-body-md text-on-surface font-medium">Small Farmer</span>
+</div>
+</div>
+</div>
+<!-- Bottom Status Banner -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">shield_lock</span>
+</div>
+<div>
+<h4 class="text-body-md text-on-surface font-semibold mb-0.5">Your account is secure and verified</h4>
+<p class="text-label-sm text-on-surface-variant">Thank you for being a part of Kisan Setu.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 border-t md:border-t-0 md:border-l border-surface-variant/40 pt-4 md:pt-0 pl-0 md:pl-6 w-full md:w-auto justify-between md:justify-end">
+<div class="hidden sm:block text-right">
+<div class="text-label-sm text-on-surface font-medium mb-0.5">Need to update something?</div>
+<div class="text-label-sm text-on-surface-variant">Edit your profile information anytime.</div>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-primary text-label-lg rounded-full hover:bg-surface-container-low transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                 Edit Profile
+               </button>
+</div>
+</div>
+</div>
+<!-- Right Column (Documents & Preferences) -->
+<div class="xl:col-span-3 flex flex-col gap-6">
+<!-- Documents Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+<h3 class="text-headline-sm text-on-surface font-semibold">Documents</h3>
+</div>
+<div class="flex flex-col gap-2 mb-6">
+<!-- Doc Item -->
+<button class="flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-surface-container-low transition-colors group text-left">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">badge</span>
+<span class="text-body-md text-on-surface font-medium">Aadhar Card</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded uppercase tracking-wider">Verified</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">chevron_right</span>
+</div>
+</button>
+<!-- Doc Item -->
+<button class="flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-surface-container-low transition-colors group text-left">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">account_balance</span>
+<span class="text-body-md text-on-surface font-medium">Bank Account</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded uppercase tracking-wider">Verified</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">chevron_right</span>
+</div>
+</button>
+<!-- Doc Item -->
+<button class="flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-surface-container-low transition-colors group text-left">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">description</span>
+<span class="text-body-md text-on-surface font-medium">Land Ownership Proof</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded uppercase tracking-wider">Verified</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">chevron_right</span>
+</div>
+</button>
+<!-- Doc Item -->
+<button class="flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-surface-container-low transition-colors group text-left">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">assignment_ind</span>
+<span class="text-body-md text-on-surface font-medium">Farmer ID</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded uppercase tracking-wider">Verified</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">chevron_right</span>
+</div>
+</button>
+</div>
+<button class="w-full flex items-center justify-between text-primary font-semibold text-label-lg hover:bg-primary/5 p-3 -mx-3 rounded-xl transition-colors">
+<span>View All Documents</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Preferences Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+<h3 class="text-headline-sm text-on-surface font-semibold">Preferences</h3>
+</div>
+<div class="flex flex-col">
+<button class="flex items-center justify-between py-4 border-b border-surface-variant/30 group text-left rounded-lg -mx-2 px-2 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">language</span>
+<span class="text-body-md text-on-surface font-medium">Language</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-label-sm text-on-surface-variant">English</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] group-hover:text-on-surface">chevron_right</span>
+</div>
+</button>
+<button class="flex items-center justify-between py-4 border-b border-surface-variant/30 group text-left rounded-lg -mx-2 px-2 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">notifications</span>
+<span class="text-body-md text-on-surface font-medium">Notification Preferences</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] group-hover:text-on-surface">chevron_right</span>
+</button>
+<button class="flex items-center justify-between py-4 border-b border-surface-variant/30 group text-left rounded-lg -mx-2 px-2 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">scale</span>
+<span class="text-body-md text-on-surface font-medium">Units</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-label-sm text-on-surface-variant">Quintal (qtl)</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] group-hover:text-on-surface">chevron_right</span>
+</div>
+</button>
+<button class="flex items-center justify-between py-4 group text-left rounded-lg -mx-2 px-2 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">palette</span>
+<span class="text-body-md text-on-surface font-medium">Theme</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-label-sm text-on-surface-variant">Light</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] group-hover:text-on-surface">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Help Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant/50 p-6 relative overflow-hidden group">
+<!-- Decorative bg -->
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/5 rounded-full z-0 group-hover:scale-110 transition-transform"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">headset_mic</span>
+<h3 class="text-headline-sm text-on-surface font-semibold">Need Help?</h3>
+</div>
+<p class="text-body-md text-on-surface-variant mb-6">Our support team is here to help you with any queries.</p>
+<button class="w-full flex items-center justify-center gap-2 px-6 py-3 border border-outline text-primary font-semibold text-label-lg rounded-full hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container transition-all">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+                 Contact Support
+               </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main></body></html>

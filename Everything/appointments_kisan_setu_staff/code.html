@@ -1,0 +1,406 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full min-h-screen bg-surface p-container-padding gap-stack-md lg:ml-[280px]">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-stack-sm pb-stack-sm">
+<div class="flex flex-col gap-unit">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Appointments</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">View and manage today's appointments and farmer schedule.</p>
+</div>
+<div class="flex items-center gap-gutter-md">
+<div class="flex items-center gap-unit text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="font-label-lg text-label-lg">28 August 2026, Thursday</span>
+</div>
+<div class="flex items-center gap-unit text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-label-lg text-label-lg">10:24 AM</span>
+</div>
+<button class="relative p-unit text-on-surface hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-md">
+<!-- Total -->
+<div class="bg-surface-container-lowest p-container-padding rounded-xl shadow-sm border border-surface-variant flex flex-col gap-stack-sm relative overflow-hidden">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">calendar_month</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Appointments</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mt-1">128</span>
+</div>
+</div>
+<div class="flex items-center gap-unit">
+<span class="font-label-sm text-label-sm text-primary bg-primary-container/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +18%
+        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">vs yesterday</span>
+</div>
+</div>
+<!-- Completed -->
+<div class="bg-surface-container-lowest p-container-padding rounded-xl shadow-sm border border-surface-variant flex flex-col gap-stack-sm">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center text-[#1976D2]">
+<span class="material-symbols-outlined text-[24px]">event_available</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Completed</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mt-1">92</span>
+</div>
+</div>
+<div class="flex items-center gap-unit">
+<span class="font-label-sm text-label-sm text-[#1976D2] font-semibold">72%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">of total</span>
+</div>
+</div>
+<!-- Upcoming -->
+<div class="bg-surface-container-lowest p-container-padding rounded-xl shadow-sm border border-surface-variant flex flex-col gap-stack-sm">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full bg-[#FFF3E0] flex items-center justify-center text-[#F57C00]">
+<span class="material-symbols-outlined text-[24px]">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Upcoming</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mt-1">14</span>
+</div>
+</div>
+<div class="flex items-center gap-unit">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Next: 10:30 AM</span>
+</div>
+</div>
+<!-- Cancelled / Missed -->
+<div class="bg-surface-container-lowest p-container-padding rounded-xl shadow-sm border border-surface-variant flex flex-col gap-stack-sm">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full bg-[#F3E5F5] flex items-center justify-center text-[#7B1FA2]">
+<span class="material-symbols-outlined text-[24px]">event_busy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cancelled / Missed</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mt-1">22</span>
+</div>
+</div>
+<div class="flex items-center gap-unit">
+<span class="font-label-sm text-label-sm text-[#7B1FA2] font-semibold">17%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">of total</span>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-stack-md items-start">
+<!-- Left Column: Table area -->
+<div class="xl:col-span-2 flex flex-col gap-stack-sm">
+<!-- Tabs -->
+<div class="flex items-center gap-stack-md border-b border-surface-variant px-unit">
+<button class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-stack-sm px-unit">Today's Appointments</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface pb-stack-sm px-unit transition-colors">Upcoming</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface pb-stack-sm px-unit transition-colors">All Appointments</button>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-gutter-md py-stack-sm">
+<!-- Date Picker -->
+<div class="flex items-center gap-unit bg-surface-container-lowest border border-surface-variant rounded-lg px-3 py-2 cursor-pointer hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span>
+<span class="font-body-md text-body-md text-on-surface text-sm">28 Aug 2026</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
+</div>
+<!-- Dropdowns -->
+<div class="flex items-center gap-unit bg-surface-container-lowest border border-surface-variant rounded-lg px-3 py-2 cursor-pointer hover:border-primary transition-colors">
+<span class="font-body-md text-body-md text-on-surface text-sm">All Time Slots</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
+</div>
+<div class="flex items-center gap-unit bg-surface-container-lowest border border-surface-variant rounded-lg px-3 py-2 cursor-pointer hover:border-primary transition-colors">
+<span class="font-body-md text-body-md text-on-surface text-sm">All Status</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
+</div>
+<div class="flex items-center gap-unit bg-surface-container-lowest border border-surface-variant rounded-lg px-3 py-2 cursor-pointer hover:border-primary transition-colors">
+<span class="font-body-md text-body-md text-on-surface text-sm">All Counters</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
+</div>
+<!-- Search -->
+<div class="flex-1 min-w-[200px]">
+<div class="flex items-center bg-surface-container-lowest border border-surface-variant rounded-lg px-3 py-2 focus-within:border-primary transition-colors">
+<input class="bg-transparent border-none outline-none w-full font-body-md text-sm text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search by farmer name or token no..." type="text"/>
+</div>
+</div>
+<!-- Filter Action -->
+<button class="flex items-center gap-unit bg-surface-container-lowest border border-surface-variant rounded-lg px-3 py-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface text-[18px]">filter_list</span>
+<span class="font-label-lg text-label-lg text-on-surface text-sm">Filters</span>
+</button>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant">
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Time Slot</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Token No.</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Farmer Name</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Mobile Number</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Produce</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Status</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider">Check-In</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-4 font-semibold uppercase tracking-wider text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body-md text-sm text-on-surface">09:00 AM - 10:00 AM</span>
+<span class="font-label-sm text-xs text-on-surface-variant mt-0.5">25 / 25</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-label-lg text-sm text-primary">A-25</span>
+</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Suresh Yadav</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">+91 98765 43211</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Paddy</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-primary-container/20 text-primary">Completed</span>
+</td>
+<td class="py-4 px-4 font-label-lg text-sm text-primary">09:05 AM</td>
+<td class="py-4 px-4 text-center">
+<button class="font-label-sm text-sm text-primary border border-primary px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-colors">View</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body-md text-sm text-on-surface">10:00 AM - 11:00 AM</span>
+<span class="font-label-sm text-xs text-on-surface-variant mt-0.5">32 / 35</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-label-lg text-sm text-primary">A-36</span>
+</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Mohan Lal</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">+91 98765 43212</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Gram</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-[#E3F2FD] text-[#1976D2]">In Progress</span>
+</td>
+<td class="py-4 px-4 font-label-lg text-sm text-primary">10:12 AM</td>
+<td class="py-4 px-4 text-center">
+<button class="font-label-sm text-sm text-primary border border-primary px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-colors">View</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body-md text-sm text-on-surface">11:00 AM - 12:00 PM</span>
+<span class="font-label-sm text-xs text-on-surface-variant mt-0.5">18 / 30</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-label-lg text-sm text-[#1976D2]">A-54</span>
+</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Rakesh Kumar</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">+91 98765 43213</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Wheat</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-[#FFF3E0] text-[#F57C00]">Upcoming</span>
+</td>
+<td class="py-4 px-4 font-label-lg text-sm text-on-surface-variant">--</td>
+<td class="py-4 px-4 text-center">
+<button class="font-label-sm text-sm text-primary border border-outline-variant px-3 py-1.5 rounded-lg hover:border-primary transition-colors">Check-In</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body-md text-sm text-on-surface">12:00 PM - 01:00 PM</span>
+<span class="font-label-sm text-xs text-on-surface-variant mt-0.5">0 / 28</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-label-lg text-sm text-[#1976D2]">A-62</span>
+</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Vijay Singh</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">+91 98765 43214</td>
+<td class="py-4 px-4 font-body-md text-sm text-on-surface">Paddy</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold bg-[#FFF3E0] text-[#F57C00]">Upcoming</span>
+</td>
+<td class="py-4 px-4 font-label-lg text-sm text-on-surface-variant">--</td>
+<td class="py-4 px-4 text-center">
+<button class="font-label-sm text-sm text-primary border border-outline-variant px-3 py-1.5 rounded-lg hover:border-primary transition-colors">Check-In</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="flex items-center justify-between p-4 border-t border-surface-variant">
+<span class="font-label-sm text-sm text-on-surface-variant">Showing 1 to 8 of 8 appointments</span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant text-on-surface-variant hover:bg-surface-variant transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-label-sm text-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant text-on-surface-variant hover:bg-surface-variant transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Instructions Panel -->
+<div class="bg-[#F5F8FF] border border-[#D0E2FF] rounded-xl p-container-padding flex flex-col md:flex-row gap-stack-md mt-stack-sm">
+<div class="flex-1 flex flex-col gap-unit">
+<div class="flex items-center gap-2 text-[#0043CE]">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<span class="font-label-lg text-label-lg font-bold">Staff Instructions</span>
+</div>
+<ul class="flex flex-col gap-2 mt-2">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check</span>
+<span class="font-body-md text-sm text-on-surface">Verify farmer details and appointment before check-in.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check</span>
+<span class="font-body-md text-sm text-on-surface">Ensure the farmer has reached their scheduled time slot.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check</span>
+<span class="font-body-md text-sm text-on-surface">Click on "Check-In" to generate token for the farmer.</span>
+</li>
+</ul>
+</div>
+<div class="flex-1 border-t md:border-t-0 md:border-l border-[#D0E2FF] pt-4 md:pt-0 md:pl-container-padding flex flex-col gap-2">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Note:</span>
+<span class="font-body-md text-sm text-on-surface-variant leading-relaxed">Walk-in farmers can be added from the "Add Walk-in" option. For any issues, contact the Centre Admin.</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="xl:col-span-1 flex flex-col gap-stack-md">
+<!-- Appointments Overview Chart -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-container-padding flex flex-col gap-stack-md">
+<h3 class="font-headline-md text-lg text-on-surface">Appointments Overview</h3>
+<div class="flex items-center justify-center relative py-4">
+<!-- Donut Chart SVG -->
+<svg class="w-40 h-40 transform -rotate-90" viewbox="0 0 100 100">
+<!-- Completed (72%) -->
+<circle class="opacity-90" cx="50" cy="50" fill="transparent" r="40" stroke="#2E7D32" stroke-dasharray="180 251.2" stroke-width="15"></circle>
+<!-- Upcoming (11%) -->
+<circle class="opacity-90" cx="50" cy="50" fill="transparent" r="40" stroke="#1976D2" stroke-dasharray="27 251.2" stroke-dashoffset="-180" stroke-width="15"></circle>
+<!-- Cancelled (9%) -->
+<circle class="opacity-90" cx="50" cy="50" fill="transparent" r="40" stroke="#F57C00" stroke-dasharray="22 251.2" stroke-dashoffset="-207" stroke-width="15"></circle>
+<!-- Missed (8%) -->
+<circle class="opacity-90" cx="50" cy="50" fill="transparent" r="40" stroke="#7B1FA2" stroke-dasharray="20 251.2" stroke-dashoffset="-229" stroke-width="15"></circle>
+</svg>
+<!-- Center Text -->
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg-mobile text-2xl text-on-surface font-bold">128</span>
+<span class="font-label-sm text-xs text-on-surface-variant uppercase">Total</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-body-md text-sm text-on-surface">Completed</span>
+</div>
+<span class="font-label-lg text-sm text-on-surface">92 (72%)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#1976D2]"></span>
+<span class="font-body-md text-sm text-on-surface">Upcoming</span>
+</div>
+<span class="font-label-lg text-sm text-on-surface">14 (11%)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#F57C00]"></span>
+<span class="font-body-md text-sm text-on-surface">Cancelled</span>
+</div>
+<span class="font-label-lg text-sm text-on-surface">12 (9%)</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#7B1FA2]"></span>
+<span class="font-body-md text-sm text-on-surface">Missed</span>
+</div>
+<span class="font-label-lg text-sm text-on-surface">10 (8%)</span>
+</div>
+</div>
+</div>
+<!-- Time Slot Summary -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-container-padding flex flex-col gap-stack-md">
+<h3 class="font-headline-md text-lg text-on-surface">Time Slot Summary</h3>
+<div class="flex flex-col">
+<div class="grid grid-cols-3 gap-2 pb-2 border-b border-surface-variant">
+<span class="font-label-sm text-xs text-on-surface-variant uppercase">Time Slot</span>
+<span class="font-label-sm text-xs text-on-surface-variant uppercase text-center">Booked / Total</span>
+<span class="font-label-sm text-xs text-on-surface-variant uppercase text-right">Status</span>
+</div>
+<div class="flex flex-col divide-y divide-surface-variant/50">
+<div class="grid grid-cols-3 gap-2 py-3 items-center">
+<span class="font-body-md text-xs text-on-surface">09:00 AM - 10:00 AM</span>
+<span class="font-label-lg text-xs text-on-surface text-center">25 / 25</span>
+<div class="flex justify-end">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary-container/20 text-primary">Completed</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 items-center">
+<span class="font-body-md text-xs text-on-surface">10:00 AM - 11:00 AM</span>
+<span class="font-label-lg text-xs text-on-surface text-center">32 / 35</span>
+<div class="flex justify-end">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#E3F2FD] text-[#1976D2]">In Progress</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 items-center">
+<span class="font-body-md text-xs text-on-surface">11:00 AM - 12:00 PM</span>
+<span class="font-label-lg text-xs text-on-surface text-center">18 / 30</span>
+<div class="flex justify-end">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFF3E0] text-[#F57C00]">Upcoming</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 items-center">
+<span class="font-body-md text-xs text-on-surface">12:00 PM - 01:00 PM</span>
+<span class="font-label-lg text-xs text-on-surface text-center">0 / 28</span>
+<div class="flex justify-end">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFF3E0] text-[#F57C00]">Upcoming</span>
+</div>
+</div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-1 text-primary font-label-lg text-sm hover:underline mt-2">
+          View Full Schedule <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-container-padding flex flex-col gap-stack-md">
+<h3 class="font-headline-md text-lg text-on-surface">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center gap-2 p-3 rounded-lg border border-[#A5D6A7] bg-[#E8F5E9] hover:bg-[#C8E6C9] transition-colors text-primary justify-center">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span class="font-label-sm text-xs font-semibold">Check-In Farmer</span>
+</button>
+<button class="flex items-center gap-2 p-3 rounded-lg border border-[#90CAF9] bg-[#E3F2FD] hover:bg-[#BBDEFB] transition-colors text-[#1565C0] justify-center">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span class="font-label-sm text-xs font-semibold">Search Appointment</span>
+</button>
+<button class="flex items-center gap-2 p-3 rounded-lg border border-[#E1BEE7] bg-[#F3E5F5] hover:bg-[#E1BEE7] transition-colors text-[#6A1B9A] justify-center">
+<span class="material-symbols-outlined text-[20px]">directions_walk</span>
+<span class="font-label-sm text-xs font-semibold">Add Walk-in</span>
+</button>
+<button class="flex items-center gap-2 p-3 rounded-lg border border-surface-variant bg-surface hover:bg-surface-variant transition-colors text-on-surface justify-center">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+<span class="font-label-sm text-xs font-semibold">Export Schedule</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></body></html>

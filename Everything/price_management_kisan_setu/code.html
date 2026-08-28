@@ -1,0 +1,375 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-tint":"#1b6d24","outline-variant":"#bfcaba","tertiary-container":"#3a7b39","inverse-on-surface":"#eff1ef","on-background":"#191c1b","secondary-fixed-dim":"#78dc77","on-tertiary-fixed":"#002203","on-secondary":"#ffffff","on-secondary-container":"#00731e","surface-variant":"#e1e3e1","surface-container":"#eceeec","primary-container":"#2e7d32","on-primary-fixed-variant":"#005312","on-primary-fixed":"#002204","secondary":"#006e1c","background":"#f8faf8","on-error-container":"#93000a","surface-dim":"#d8dad9","surface-container-high":"#e6e9e7","on-secondary-fixed":"#002204","outline":"#707a6c","tertiary":"#1f6223","surface-container-highest":"#e1e3e1","on-surface-variant":"#40493d","secondary-container":"#91f78e","surface":"#f8faf8","inverse-surface":"#2e3130","on-tertiary":"#ffffff","primary":"#0d631b","on-primary-container":"#cbffc2","on-tertiary-container":"#c8ffbf","inverse-primary":"#88d982","error-container":"#ffdad6","on-error":"#ffffff","primary-fixed-dim":"#88d982","on-tertiary-fixed-variant":"#0c5216","tertiary-fixed-dim":"#91d78a","secondary-fixed":"#94f990","surface-container-low":"#f2f4f2","on-primary":"#ffffff","tertiary-fixed":"#acf4a4","surface-container-lowest":"#ffffff","error":"#ba1a1a","primary-fixed":"#a3f69c","on-surface":"#191c1b","surface-bright":"#f8faf8","on-secondary-fixed-variant":"#005313"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"unit":"8px","stack-lg":"48px","stack-sm":"12px","stack-md":"24px","container-padding":"24px","gutter-md":"16px"},"fontFamily":{"display-lg-mobile":["Manrope"],"body-lg":["Public Sans"],"body-md":["Public Sans"],"headline-lg":["Manrope"],"label-lg":["Public Sans"],"display-lg":["Manrope"],"headline-md":["Manrope"],"label-sm":["Public Sans"]},"fontSize":{"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col shadow-[0_0_20px_rgba(0,0,0,0.02)] overflow-y-auto"><div class="p-container-padding flex items-center gap-3"><span class="material-symbols-outlined text-primary text-3xl">agriculture</span><span class="font-headline-md text-headline-md text-primary">Kisan Setu</span></div><nav class="flex-1 px-4 py-2 space-y-1" data-active-classes="bg-primary text-on-primary shadow-lg shadow-primary/20"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="payments" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">payments</span><span class="font-label-lg text-label-lg">Payments</span></a><a aria-current="page" class="flex items-center px-4 py-3 rounded-DEFAULT transition-all group bg-primary text-on-primary shadow-lg shadow-primary/20" data-path="price-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">sell</span><span class="font-label-lg text-label-lg">Price Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="appointments" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">calendar_today</span><span class="font-label-lg text-label-lg">Appointments</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="token-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">confirmation_number</span><span class="font-label-lg text-label-lg">Token Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="procurement-overview" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">inventory_2</span><span class="font-label-lg text-label-lg">Procurement Overview</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="weighment-records" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">scale</span><span class="font-label-lg text-label-lg">Weighment Records</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="quality-check-records" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">verified</span><span class="font-label-lg text-label-lg">Quality Check Records</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="reports-analytics" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">analytics</span><span class="font-label-lg text-label-lg">Reports & Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="farmers" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">person_search</span><span class="font-label-lg text-label-lg">Farmers</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="staff-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="notifications" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">notifications_active</span><span class="font-label-lg text-label-lg">Notifications</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="audit-logs" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="settings" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">settings</span><span class="font-label-lg text-label-lg">Settings</span></a></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-container-padding flex items-center justify-between"><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface">XYZ Procurement Centre</span><span class="font-label-sm text-label-sm text-on-surface-variant">Village Rampur, Kanpur, UP</span></div><div class="flex items-center gap-8"><div class="text-right hidden lg:block"><span class="block font-label-lg text-label-lg text-on-surface">28 August 2026, Thursday</span><span class="block font-label-sm text-label-sm text-on-surface-variant">10:24 AM</span></div><div class="flex items-center gap-4 border-l border-outline-variant pl-8"><div class="relative cursor-pointer group"><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">notifications</span><span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-on-error text-[10px] flex items-center justify-center rounded-full font-bold">3</span></div><div class="flex items-center gap-3 cursor-pointer group"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Amit Kumar</span><span class="font-label-sm text-label-sm text-on-surface-variant">Centre Admin</span></div><img alt="Profile" class="w-10 h-10 rounded-full object-cover ring-2 ring-transparent group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida/AEtjO1XiEJAmIZdJMizMhJ1xUCh8MOf4BzZ1gyePpkGpN-OGPP6rbLQaZbOWPdflSaXRxIqAmlbaJ2WYhksATOgxapPd_FMD_FIKgZRy6cINKZWYvxY5eozRnUPYJBOQtxMsjHzTFL5QQnEIMem1friN1QgiLQ2Z4MU1WJl6n68gdGaGImkU8_FteGmeIEuS7Uic8xrnC2_suBdMg0O2uKg_bd5mIuNBEksrgi2aqKwwSybCIIQqpIosBRZEBA"/></div></div></div></header><main class="pt-20 bg-background min-h-screen"><div class="flex flex-col w-full min-h-screen px-container-padding py-stack-md gap-stack-lg">
+<!-- Header Area (Logical, distinct from shell) -->
+<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+<div class="flex flex-col">
+<h1 class="font-display-lg text-display-lg text-on-background">Price Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+        Manage crop prices for your procurement centre. Set, update and approve rates.
+      </p>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 bg-surface text-primary border border-outline-variant rounded-full hover:bg-surface-container-low transition-colors shadow-sm self-start sm:self-auto font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[20px]">history</span>
+      Price Update History
+    </button>
+</div>
+<!-- Stat Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter-md">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[24px]">grass</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Total Crops</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">12</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Active crops</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center shrink-0 text-[#1976D2]">
+<span class="material-symbols-outlined text-[24px]">currency_rupee</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Standard Prices</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">10</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Centre standard rates</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-[#FFF3E0] flex items-center justify-center shrink-0 text-[#F57C00]">
+<span class="material-symbols-outlined text-[24px]">edit_note</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Updated Today</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">3</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Prices updated</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-[#F3E5F5] flex items-center justify-center shrink-0 text-[#7B1FA2]">
+<span class="material-symbols-outlined text-[24px]">assignment_turned_in</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Last Updated</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">10:10 AM</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">28 Aug 2026</span>
+</div>
+</div>
+</div>
+<!-- Main Content Split -->
+<div class="flex flex-col xl:flex-row gap-gutter-md">
+<!-- Left Column: Table & Bottom Panels -->
+<div class="flex-1 flex flex-col gap-gutter-md min-w-0">
+<!-- Table Section -->
+<div class="bg-surface rounded-xl shadow-sm flex flex-col overflow-hidden">
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant px-6 pt-4 gap-8 overflow-x-auto no-scrollbar">
+<button class="pb-3 border-b-2 border-primary text-primary font-label-lg text-label-lg whitespace-nowrap">All Crops</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg whitespace-nowrap transition-colors">Active</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg whitespace-nowrap transition-colors">Inactive</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg whitespace-nowrap transition-colors flex items-center gap-2">
+            Pending Approval
+            <span class="w-5 h-5 rounded-full bg-error text-on-error text-[10px] flex items-center justify-center font-bold">2</span>
+</button>
+</div>
+<!-- Filters -->
+<div class="p-4 border-b border-outline-variant flex flex-wrap gap-4 items-center bg-surface-container-low">
+<div class="flex-1 min-w-[200px] flex gap-4">
+<select class="w-40 h-10 px-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23707a6c%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_12px_center]">
+<option>All Crops</option>
+</select>
+<select class="w-40 h-10 px-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23707a6c%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_12px_center]">
+<option>All Seasons</option>
+</select>
+<select class="w-40 h-10 px-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23707a6c%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_12px_center]">
+<option>All Grades</option>
+</select>
+</div>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline-variant" placeholder="Search crop name..." type="text"/>
+</div>
+<button class="h-10 px-4 flex items-center gap-2 border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span class="font-label-lg text-label-lg">Filters</span>
+</button>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-lowest">
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold">Crop</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold">Variety / Type</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold">Grade</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold text-right">Standard Rate (₹/qtl)</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold text-right">Centre Rate (₹/qtl)</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold">Effective From</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold">Status</th>
+<th class="p-4 font-label-lg text-label-lg text-on-surface-variant font-semibold text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant bg-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">🌾</div>
+<span class="font-body-md text-body-md text-on-surface font-medium">Wheat</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Lok-1</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">A</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant text-right">2,100</td>
+<td class="p-4 font-body-md text-body-md text-primary font-semibold text-right">2,125</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">28 Aug 2026</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
+                    Active
+                  </span>
+</td>
+<td class="p-4">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">🌿</div>
+<span class="font-body-md text-body-md text-on-surface font-medium">Paddy</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Common</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">A</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant text-right">2,050</td>
+<td class="p-4 font-body-md text-body-md text-primary font-semibold text-right">2,150</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">28 Aug 2026</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
+                    Active
+                  </span>
+</td>
+<td class="p-4">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">🌻</div>
+<span class="font-body-md text-body-md text-on-surface font-medium">Gram (Chana)</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Desi</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">A</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant text-right">5,400</td>
+<td class="p-4 font-body-md text-body-md text-primary font-semibold text-right">5,500</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">25 Aug 2026</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
+                    Active
+                  </span>
+</td>
+<td class="p-4">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-lowest flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Showing 1 to 10 of 12 crops</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-container disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-primary text-on-primary font-label-lg">1</button>
+<button class="w-8 h-8 rounded flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-lg">2</button>
+<button class="w-8 h-8 rounded flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Panels Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-md">
+<!-- Pending Approval -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex flex-col h-full border border-yellow-100">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Pending Approval (If any)</h3>
+<div class="flex-1 flex flex-col items-center justify-center text-center p-6 bg-yellow-50/50 rounded-lg border border-yellow-100 border-dashed">
+<div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 mb-3">
+<span class="material-symbols-outlined text-[24px]">pending_actions</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface mb-1">No price updates pending</p>
+<p class="font-body-md text-body-md text-on-surface-variant">All price updates are approved.</p>
+</div>
+</div>
+<!-- Recent History -->
+<div class="bg-surface rounded-xl p-6 shadow-sm lg:col-span-2 flex flex-col h-full">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Price Update History</h3>
+<button class="text-primary font-label-lg text-label-lg hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-2 pr-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Crop</th>
+<th class="py-2 px-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Grade</th>
+<th class="py-2 px-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Old Rate (₹/qtl)</th>
+<th class="py-2 px-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">New Rate (₹/qtl)</th>
+<th class="py-2 px-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Updated By</th>
+<th class="py-2 pl-4 font-label-sm text-label-sm text-on-surface-variant font-semibold">Effective From</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<tr>
+<td class="py-3 pr-4 font-body-md text-body-md text-on-surface">Wheat (Lok-1)</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">A</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant line-through opacity-70">2,100</td>
+<td class="py-3 px-4 font-body-md text-body-md text-primary font-medium">2,125</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">Amit Kumar</td>
+<td class="py-3 pl-4 font-body-md text-body-md text-on-surface-variant text-sm">28 Aug 2026, 10:10 AM</td>
+</tr>
+<tr>
+<td class="py-3 pr-4 font-body-md text-body-md text-on-surface">Paddy (Common)</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">A</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant line-through opacity-70">2,000</td>
+<td class="py-3 px-4 font-body-md text-body-md text-primary font-medium">2,150</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">Amit Kumar</td>
+<td class="py-3 pl-4 font-body-md text-body-md text-on-surface-variant text-sm">28 Aug 2026, 09:45 AM</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Form -->
+<div class="w-full xl:w-[400px] shrink-0 flex flex-col gap-gutter-md">
+<!-- Update Form -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/50">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Update Crop Price</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Select a crop to update its price.</p>
+<form class="flex flex-col gap-5" onsubmit="event.preventDefault();">
+<div class="flex flex-col gap-2">
+<select class="w-full h-12 px-4 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23707a6c%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_16px_center]">
+<option disabled="" selected="" value="">Select Crop</option>
+<option>Wheat</option>
+<option>Paddy</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<select class="w-full h-12 px-4 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23707a6c%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_16px_center]">
+<option disabled="" selected="" value="">Select Grade</option>
+<option>A</option>
+<option>B</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Centre Rate (₹/qtl)</label>
+<input class="w-full h-12 px-4 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" placeholder="Enter rate" type="number"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Effective From</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">calendar_today</span>
+<input class="w-full h-12 pl-10 pr-4 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Reason (Optional)</label>
+<textarea class="w-full p-4 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60 resize-none" placeholder="Enter reason for price update" rows="3"></textarea>
+</div>
+<button class="w-full h-12 mt-2 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg hover:bg-surface-tint transition-colors shadow-md shadow-primary/20 flex items-center justify-center" type="submit">
+            Save & Submit for Approval
+          </button>
+</form>
+</div>
+<!-- Guidelines -->
+<div class="bg-blue-50/50 rounded-xl p-6 border border-blue-100">
+<div class="flex items-center gap-2 mb-4 text-[#1976D2]">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<h3 class="font-label-lg text-label-lg font-bold">Price Update Guidelines</h3>
+</div>
+<ul class="flex flex-col gap-3">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Ensure rates are as per government guidelines.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Changes will be effective from selected date.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">All updates are recorded in audit logs.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Pending prices require your approval to be active.</span>
+</li>
+</ul>
+</div>
+<!-- Today's Updates Sidebar List -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/50">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Today's Price Updates</h3>
+<button class="text-primary font-label-sm text-label-sm hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-3">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface text-sm font-medium">Wheat (Lok-1) - A Grade</span>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 bg-green-50 text-green-700 rounded text-[10px] font-bold border border-green-100">UPDATED</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-xs">10:10 AM</span>
+</div>
+</div>
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-3">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface text-sm font-medium">Paddy (Common) - A Grade</span>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 bg-green-50 text-green-700 rounded text-[10px] font-bold border border-green-100">UPDATED</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-xs">09:45 AM</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface text-sm font-medium">Gram (Desi) - A Grade</span>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 bg-green-50 text-green-700 rounded text-[10px] font-bold border border-green-100">UPDATED</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-xs">09:20 AM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

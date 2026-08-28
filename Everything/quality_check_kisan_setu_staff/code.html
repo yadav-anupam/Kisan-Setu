@@ -1,0 +1,574 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full min-h-screen bg-surface">
+<div class="flex flex-col lg:flex-row w-full h-full">
+<!-- Sidebar -->
+<aside class="hidden lg:flex flex-col w-72 bg-primary text-on-primary h-full fixed overflow-y-auto">
+<div class="p-container-padding flex items-center gap-gutter-md">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-primary font-bold text-xl">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<h1 class="font-headline-md text-on-primary">Kisan Setu</h1>
+<p class="font-label-sm text-primary-fixed-dim">Procurement Platform</p>
+</div>
+</div>
+<div class="px-container-padding py-stack-md mt-4">
+<div class="flex items-center gap-3 bg-tertiary-container/30 p-3 rounded-xl cursor-pointer">
+<img alt="Location" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5vbNQBr3u0-8jie1FczhwVWhH_Y_4VonBKmi4RLKVMrLGapiY9aK88wR5oUColfKSaqKFwvpwbkPtwLr52Dhg8aTGAgePDuvf5VPKMFGBbnEFkkMHTsFHVBPFY0gCmEZ3ojxpPPwTsDDSI5OFcryBVbBpiwHy_pzpdq9R1MBcBzCOT3ONpTm3rdOWUih7GF3TbG9wEShm9Qk84nen2fBkDF3ot_MSaSbDLx98YkhrlyvdZgHjE3tlFRHiwp2m20zzMA"/>
+<div class="flex-1">
+<h2 class="font-label-lg text-on-primary truncate">XYZ Procurement Centre</h2>
+<p class="font-label-sm text-primary-fixed-dim truncate">Village Rampur, Kanpur, UP</p>
+</div>
+<span class="material-symbols-outlined text-on-primary/70">expand_more</span>
+</div>
+</div>
+<nav class="flex-1 px-container-padding py-stack-sm space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">format_list_bulleted</span>
+<span class="font-label-lg">Live Queue</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-label-lg">Token Management</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-label-lg">Farmer Check-In</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-lg">Appointments</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">agriculture</span>
+<span class="font-label-lg">Procurement</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">scale</span>
+<span class="font-label-lg">Weighment</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full bg-primary-container text-on-primary-container font-medium" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-lg">Quality Check</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg">Payments</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-lg">Notifications</span>
+</div>
+<span class="bg-error text-on-error font-label-sm w-5 h-5 rounded-full flex items-center justify-center">8</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full text-on-primary/80 hover:bg-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-lg">Help &amp; Support</span>
+</a>
+</nav>
+<div class="p-container-padding mt-auto border-t border-on-primary/10">
+<div class="flex items-center justify-between mb-4 cursor-pointer">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of Amit Kumar, Centre Staff, professional attire, well-lit, shallow depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnj5UN1aW_EvISOYoqbmO-hlpEeTcWTsUnudjW4_4TKpzebe_1A0NuwJ_009dQu1xW_kv6b95UUNm3ntTYD7xVHzkL7NzqY7gcM_A1fX7nuq1T5HM57swLChOtnUAp02-Ha8AYMJgFRGWZUegPOzx4DjNlNm6aWAvbIVrt_CfIEgsvrAV_prObb-V01_HGUSTzKxYy6_TgJw-PNzKaDHjLY06Il-UbI80wDS8dCLSrGqf_zDSTlzHb"/>
+<div>
+<p class="font-label-lg text-on-primary">Amit Kumar</p>
+<p class="font-label-sm text-primary-fixed-dim">Centre Staff</p>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+<span class="font-label-sm text-secondary-fixed">Online</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-primary/70">expand_more</span>
+</div>
+<a class="flex items-center gap-4 text-error-container hover:text-error transition-colors px-2 py-2" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-lg">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-72 flex flex-col min-h-screen">
+<!-- Top Header -->
+<header class="bg-surface sticky top-0 z-10 p-container-padding flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-variant">
+<div>
+<h1 class="font-headline-lg text-on-surface">Quality Check</h1>
+<p class="font-body-md text-on-surface-variant mt-1">Check the quality of produce and record the results.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>28 August 2026, Thursday</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg">
+<span class="material-symbols-outlined">schedule</span>
+<span>10:24 AM</span>
+</div>
+<button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface"></span>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-container-padding flex-1 overflow-y-auto space-y-stack-md">
+<!-- Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-md">
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Quality Checks Today</p>
+<h3 class="font-headline-md text-on-surface">72</h3>
+<p class="font-label-sm text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                +14% <span class="text-on-surface-variant">vs yesterday</span>
+</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center text-[#1976D2]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Accepted</p>
+<h3 class="font-headline-md text-on-surface flex items-baseline gap-2">58 <span class="font-body-md text-on-surface-variant">(80.6%)</span></h3>
+<p class="font-label-sm text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                +10% <span class="text-on-surface-variant">vs yesterday</span>
+</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Rejected</p>
+<h3 class="font-headline-md text-on-surface flex items-baseline gap-2">12 <span class="font-body-md text-on-surface-variant">(16.7%)</span></h3>
+<p class="font-label-sm text-error flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                +20% <span class="text-on-surface-variant">vs yesterday</span>
+</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-[#F3E5F5] flex items-center justify-center text-[#7B1FA2]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">schedule</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Pending</p>
+<h3 class="font-headline-md text-on-surface flex items-baseline gap-2">2 <span class="font-body-md text-on-surface-variant">(2.7%)</span></h3>
+<p class="font-label-sm text-[#7B1FA2] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+                -5% <span class="text-on-surface-variant">vs yesterday</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Main Workspace Area -->
+<div class="flex flex-col xl:flex-row gap-gutter-md">
+<!-- Left Column: Forms & Details -->
+<div class="flex-1 space-y-stack-md">
+<!-- Current Token / Produce Details -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-6">
+<h2 class="font-headline-md text-on-surface mb-6">Current Token / Produce</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Info Grid -->
+<div class="space-y-6">
+<div>
+<p class="font-label-sm text-on-surface-variant">Token No.</p>
+<p class="font-headline-md text-primary">A-38</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Farmer</p>
+<p class="font-body-md font-semibold text-on-surface">Rakesh Kumar</p>
+<p class="font-label-sm text-on-surface-variant">+91 98765 43213</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Produce</p>
+<p class="font-body-md font-semibold text-on-surface">Wheat (Lok-1)</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">scale</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Net Weight</p>
+<p class="font-body-md font-semibold text-on-surface">95.20 kg</p>
+</div>
+</div>
+</div>
+<!-- Instructions -->
+<div class="bg-surface p-5 rounded-xl border border-surface-variant">
+<h3 class="font-label-lg text-on-surface mb-4">Instructions</h3>
+<ul class="space-y-3 font-body-md text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+<span>Check the produce sample carefully.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+<span>Verify quality parameters as per standards.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+<span>Mark as Accepted or Rejected.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+<span>If rejected, select rejection reason.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+<span>Add remarks if required.</span>
+</li>
+</ul>
+<div class="mt-6 flex items-start gap-2 bg-[#E3F2FD] p-3 rounded-lg text-[#1976D2]">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<p class="font-label-sm">Ensure fair and accurate quality check for every farmer.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quality Check Form -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-6">
+<h2 class="font-headline-md text-on-surface mb-6">Quality Check Form</h2>
+<!-- Grade Selection -->
+<div class="mb-8">
+<p class="font-label-sm text-on-surface-variant mb-3">Select Quality Grade / Condition</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<button class="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-primary bg-primary/5 text-primary">
+<span class="font-headline-md">A Grade</span>
+<span class="font-label-sm mt-1">Good Quality</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-xl border border-surface-variant bg-surface hover:bg-surface-container transition-colors text-on-surface">
+<span class="font-headline-md">B Grade</span>
+<span class="font-label-sm text-on-surface-variant mt-1">Medium Quality</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-xl border border-surface-variant bg-surface hover:bg-surface-container transition-colors text-on-surface">
+<span class="font-headline-md">C Grade</span>
+<span class="font-label-sm text-on-surface-variant mt-1">Low Quality</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-xl border border-surface-variant bg-surface hover:bg-error-container/30 transition-colors text-error">
+<span class="font-headline-md">Reject</span>
+<span class="font-label-sm mt-1">Not Acceptable</span>
+</button>
+</div>
+</div>
+<!-- Quality Parameters Table -->
+<div class="mb-8">
+<h3 class="font-label-lg text-on-surface mb-4">Quality Parameters</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-on-surface-variant font-label-sm">
+<th class="py-3 px-4 font-medium">Parameter</th>
+<th class="py-3 px-4 font-medium">Standard</th>
+<th class="py-3 px-4 font-medium">Observed</th>
+<th class="py-3 px-4 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-on-surface">
+<tr class="border-b border-surface-variant/50">
+<td class="py-4 px-4">Grain Color</td>
+<td class="py-4 px-4 text-on-surface-variant">Bright &amp; Natural</td>
+<td class="py-4 px-4">
+<div class="relative">
+<select class="appearance-none w-full bg-surface border border-surface-variant rounded-lg py-2 pl-3 pr-10 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>Bright &amp; Natural</option>
+<option>Dull</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-primary font-label-sm bg-primary/10 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Pass
+                          </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant/50">
+<td class="py-4 px-4">Moisture Content</td>
+<td class="py-4 px-4 text-on-surface-variant">Upto 12%</td>
+<td class="py-4 px-4">
+<div class="relative">
+<select class="appearance-none w-full bg-surface border border-surface-variant rounded-lg py-2 pl-3 pr-10 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>11.5%</option>
+<option>12.5%</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-primary font-label-sm bg-primary/10 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Pass
+                          </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant/50">
+<td class="py-4 px-4">Foreign Matter</td>
+<td class="py-4 px-4 text-on-surface-variant">Upto 2%</td>
+<td class="py-4 px-4">
+<div class="relative">
+<select class="appearance-none w-full bg-surface border border-surface-variant rounded-lg py-2 pl-3 pr-10 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>1.2%</option>
+<option>2.5%</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-primary font-label-sm bg-primary/10 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Pass
+                          </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant/50">
+<td class="py-4 px-4">Damaged Grains</td>
+<td class="py-4 px-4 text-on-surface-variant">Upto 3%</td>
+<td class="py-4 px-4">
+<div class="relative">
+<select class="appearance-none w-full bg-surface border border-surface-variant rounded-lg py-2 pl-3 pr-10 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>2.0%</option>
+<option>3.5%</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-primary font-label-sm bg-primary/10 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Pass
+                          </span>
+</td>
+</tr>
+<tr>
+<td class="py-4 px-4">Broken Grains</td>
+<td class="py-4 px-4 text-on-surface-variant">Upto 5%</td>
+<td class="py-4 px-4">
+<div class="relative">
+<select class="appearance-none w-full bg-surface border border-surface-variant rounded-lg py-2 pl-3 pr-10 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>3.5%</option>
+<option>5.5%</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 text-primary font-label-sm bg-primary/10 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Pass
+                          </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Remarks & Attachments -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-2">Remarks (Optional)</label>
+<textarea class="w-full bg-surface border border-surface-variant rounded-xl p-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary h-32 resize-none" placeholder="Enter remarks...">Good quality wheat. Clean and dry.</textarea>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-2">Attachments (Optional)</label>
+<div class="w-full h-32 bg-surface border border-dashed border-surface-variant rounded-xl flex flex-col items-center justify-center text-on-surface-variant cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined mb-2 text-2xl">cloud_upload</span>
+<span class="font-label-sm font-medium">Upload Photo / Document</span>
+<span class="text-[11px] mt-1">JPG, PNG or PDF (Max. 2MB)</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-end gap-4 border-t border-surface-variant pt-6">
+<button class="w-full sm:w-auto px-6 py-3 rounded-full border border-surface-variant text-on-surface hover:bg-surface-container transition-colors font-label-lg">
+                  Reset
+                </button>
+<button class="w-full sm:w-auto px-6 py-3 rounded-full border-2 border-primary text-primary hover:bg-primary/5 transition-colors font-label-lg">
+                  Save &amp; Next
+                </button>
+<button class="w-full sm:w-auto px-8 py-3 rounded-full bg-primary text-on-primary hover:bg-primary-container transition-colors font-label-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                  Accept &amp; Complete
+                </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="w-full xl:w-80 space-y-stack-md flex-shrink-0">
+<!-- Token & Weight Summary -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-5 border border-surface-variant">
+<h3 class="font-headline-md text-on-surface mb-4">Token &amp; Weight Summary</h3>
+<div class="grid grid-cols-2 gap-y-6">
+<div>
+<p class="font-label-sm text-on-surface-variant">Token No.</p>
+<p class="font-headline-md text-primary">A-38</p>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Counter</p>
+<p class="font-body-md font-semibold text-on-surface">Counter 1</p>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Gross Weight</p>
+<p class="font-body-md text-on-surface">100.20 kg</p>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Tare Weight</p>
+<p class="font-body-md text-on-surface">5.00 kg</p>
+</div>
+<div class="col-span-2 bg-primary/5 p-3 rounded-xl flex items-center justify-between">
+<p class="font-label-sm text-on-surface-variant">Net Weight</p>
+<p class="font-headline-md text-primary">95.20 kg</p>
+</div>
+</div>
+</div>
+<!-- Quality History -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-5 border border-surface-variant">
+<h3 class="font-headline-md text-on-surface mb-4 flex items-baseline gap-2">Quality History <span class="font-body-md text-on-surface-variant">(This Token)</span></h3>
+<div class="relative pl-6 space-y-6">
+<!-- Vertical Line -->
+<div class="absolute left-2.5 top-2 bottom-2 w-px bg-surface-variant"></div>
+<!-- Step 1 -->
+<div class="relative">
+<div class="absolute -left-6 w-5 h-5 rounded-full bg-primary flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[12px] text-on-primary">check</span>
+</div>
+<div class="flex justify-between items-start">
+<p class="font-label-sm font-semibold text-on-surface">Weighment Completed</p>
+<p class="font-label-sm text-on-surface-variant">10:15 AM</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<div class="absolute -left-6 w-5 h-5 rounded-full bg-secondary-fixed flex items-center justify-center border-4 border-surface-container-lowest">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div class="flex justify-between items-start">
+<p class="font-label-sm font-semibold text-primary">Quality Check In Progress</p>
+<p class="font-label-sm text-primary">10:20 AM</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<div class="absolute -left-6 w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center border-4 border-surface-container-lowest">
+</div>
+<div class="flex justify-between items-start">
+<p class="font-label-sm text-on-surface-variant">Procurement Pending</p>
+<p class="font-label-sm text-on-surface-variant">--</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative">
+<div class="absolute -left-6 w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center border-4 border-surface-container-lowest">
+</div>
+<div class="flex justify-between items-start">
+<p class="font-label-sm text-on-surface-variant">Payment Pending</p>
+<p class="font-label-sm text-on-surface-variant">--</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Quality Checks -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-5 border border-surface-variant">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-on-surface">Recent Quality Checks</h3>
+<a class="font-label-sm text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-[13px]">
+<thead>
+<tr class="text-on-surface-variant font-medium border-b border-surface-variant pb-2">
+<th class="pb-2 font-medium">Token No.</th>
+<th class="pb-2 font-medium">Farmer Name</th>
+<th class="pb-2 font-medium">Produce</th>
+<th class="pb-2 font-medium">Result</th>
+<th class="pb-2 font-medium text-right">Time</th>
+</tr>
+</thead>
+<tbody class="text-on-surface divide-y divide-surface-variant/50">
+<tr>
+<td class="py-2.5">A-37</td>
+<td class="py-2.5">Mohan Lal</td>
+<td class="py-2.5 text-on-surface-variant">Gram (Desi)</td>
+<td class="py-2.5"><span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[11px] font-semibold">Accepted</span></td>
+<td class="py-2.5 text-right text-on-surface-variant">10:12 AM</td>
+</tr>
+<tr>
+<td class="py-2.5">A-36</td>
+<td class="py-2.5">Suresh Yadav</td>
+<td class="py-2.5 text-on-surface-variant">Paddy (Common)</td>
+<td class="py-2.5"><span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[11px] font-semibold">Accepted</span></td>
+<td class="py-2.5 text-right text-on-surface-variant">10:05 AM</td>
+</tr>
+<tr>
+<td class="py-2.5">A-35</td>
+<td class="py-2.5">Vijay Singh</td>
+<td class="py-2.5 text-on-surface-variant">Paddy (Common)</td>
+<td class="py-2.5"><span class="bg-error-container text-error px-2 py-0.5 rounded text-[11px] font-semibold">Rejected</span></td>
+<td class="py-2.5 text-right text-on-surface-variant">09:58 AM</td>
+</tr>
+<tr>
+<td class="py-2.5">A-34</td>
+<td class="py-2.5">Harish Chandra</td>
+<td class="py-2.5 text-on-surface-variant">Wheat (Lok-1)</td>
+<td class="py-2.5"><span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[11px] font-semibold">Accepted</span></td>
+<td class="py-2.5 text-right text-on-surface-variant">09:45 AM</td>
+</tr>
+<tr>
+<td class="py-2.5">A-33</td>
+<td class="py-2.5">Om Prakash</td>
+<td class="py-2.5 text-on-surface-variant">Wheat (Lok-1)</td>
+<td class="py-2.5"><span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[11px] font-semibold">Accepted</span></td>
+<td class="py-2.5 text-right text-on-surface-variant">09:30 AM</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Tips -->
+<div class="bg-surface-container p-5 rounded-2xl border border-surface-variant">
+<h3 class="font-label-lg text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">lightbulb</span>
+                Quality Check Tips
+              </h3>
+<ul class="space-y-2 font-label-sm text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+                  Take sample from different parts of the lot.
+                </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+                  Ensure moisture is within the standard limit.
+                </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+                  Remove foreign matter before acceptance.
+                </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+                  Be fair and consistent in quality evaluation.
+                </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div></main></body></html>

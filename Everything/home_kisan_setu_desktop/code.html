@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kisan Setu - Procurement Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              primary: '#2e7d32', // Main brand color
+            }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style data-purpose="custom-styles">
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: #333;
+    }
+    .hero-bg {
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+<!-- BEGIN: Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<!-- Logo -->
+<div class="flex items-center">
+<div class="flex-shrink-0 flex items-center gap-2 text-brand-primary">
+<i class="fa-solid fa-seedling text-3xl"></i>
+<div>
+<span class="font-bold text-xl block leading-none">Kisan Setu</span>
+<span class="text-xs text-gray-500 font-medium">Procurement Platform</span>
+</div>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="hidden md:flex space-x-8">
+<a class="text-brand-primary font-bold border-b-2 border-brand-primary pb-1" href="#">Home</a>
+<a class="text-gray-600 hover:text-brand-primary font-medium transition" href="#">About Us</a>
+<a class="text-gray-600 hover:text-brand-primary font-medium transition" href="#">How It Works</a>
+<a class="text-gray-600 hover:text-brand-primary font-medium transition" href="#">For Farmers</a>
+<a class="text-gray-600 hover:text-brand-primary font-medium transition" href="#">For Centres</a>
+<a class="text-gray-600 hover:text-brand-primary font-medium transition" href="#">Features</a>
+<a class="text-gray-600 hover:text-brand-primary font-medium transition" href="#">Contact Us</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center space-x-4">
+<div class="relative group hidden lg:block">
+<button class="flex items-center gap-2 text-gray-700 hover:text-brand-primary border border-gray-300 rounded-full px-4 py-2 text-sm font-medium transition">
+<i class="fa-solid fa-globe"></i> English <i class="fa-solid fa-chevron-down text-xs"></i>
+</button>
+</div>
+<a class="bg-brand-primary hover:bg-brand-800 text-white px-6 py-2.5 rounded-full font-semibold flex items-center gap-2 transition shadow-md" href="#">
+<i class="fa-regular fa-user"></i> Login / Sign In
+          </a>
+</div>
+</div>
+</div>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Hero Section -->
+<main>
+<section class="relative bg-gray-100 overflow-hidden min-h-[600px] flex items-center">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="Smiling farmer using a smartphone" class="w-full h-full object-cover object-right" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5hJUQ4KMWCh_xiHHJXnbZkBpzZUvziS63PQLptOPV03g2cvZtqI-TXjjqf67nGk3cUAOPnGrNAxWHWluuLTmixPyGxjhquYvSuOPi-6S0AdkjF0s_d2xNOnLAi7yrGuB58A70S_eI9PJaXE91V0NiO6fjHNqQSK6peZBOAdh1gtp9ZM_ynjDofH68bcKi-nKlCrxa8ozPet5SNIwwa85v8n5j0BxLeGr-wSD896JiGcFsUdGDytQ"/>
+</div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 hero-bg z-10 w-full md:w-2/3"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<!-- Hero Content -->
+<div class="pt-10 pb-16">
+<div class="inline-block bg-brand-50 text-brand-primary font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-brand-100">
+              Smart Procurement. Happy Farmers.
+            </div>
+<h1 class="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+              Digital Procurement, <br/>
+<span class="text-brand-primary">Better Farming</span>
+</h1>
+<p class="text-lg text-gray-600 mb-8 max-w-lg">
+              A smart platform for farmers to book slots, avoid long queues, track procurement status and get timely payments - all in one place.
+            </p>
+<div class="flex flex-wrap gap-4 mb-10">
+<a class="bg-brand-primary hover:bg-brand-800 text-white px-8 py-3.5 rounded-full font-bold text-lg flex items-center gap-2 transition shadow-lg" href="#">
+<i class="fa-regular fa-calendar-check"></i> Book Your Slot
+              </a>
+<a class="bg-white hover:bg-gray-50 text-brand-primary border-2 border-brand-primary px-8 py-3.5 rounded-full font-bold text-lg flex items-center gap-2 transition shadow-md" href="#">
+<i class="fa-regular fa-circle-play"></i> How It Works
+              </a>
+</div>
+<!-- Mini Features -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-sm border border-gray-100">
+<div class="flex flex-col gap-2">
+<i class="fa-solid fa-stopwatch text-brand-primary text-xl"></i>
+<h3 class="font-bold text-sm text-gray-900">Save Time</h3>
+<p class="text-xs text-gray-500">Avoid long waiting</p>
+</div>
+<div class="flex flex-col gap-2">
+<i class="fa-solid fa-satellite-dish text-brand-primary text-xl"></i>
+<h3 class="font-bold text-sm text-gray-900">Real-time Updates</h3>
+<p class="text-xs text-gray-500">Get live queue status</p>
+</div>
+<div class="flex flex-col gap-2">
+<i class="fa-solid fa-list-check text-brand-primary text-xl"></i>
+<h3 class="font-bold text-sm text-gray-900">Transparent</h3>
+<p class="text-xs text-gray-500">Track process clearly</p>
+</div>
+<div class="flex flex-col gap-2">
+<i class="fa-solid fa-wallet text-brand-primary text-xl"></i>
+<h3 class="font-bold text-sm text-gray-900">Timely Payments</h3>
+<p class="text-xs text-gray-500">Receive securely</p>
+</div>
+</div>
+</div>
+<!-- Right Side Widget -->
+<div class="hidden lg:block relative">
+<div class="bg-white rounded-3xl p-8 shadow-2xl max-w-sm ml-auto border border-gray-100">
+<h3 class="text-xl font-bold text-gray-900 mb-6">Your Journey, Simplified</h3>
+<div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent">
+<!-- Step 1 -->
+<div class="relative flex items-center gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 text-brand-primary border-2 border-brand-100 z-10 shrink-0">
+<i class="fa-regular fa-calendar text-sm"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 text-sm">Book Slot Online</h4>
+<p class="text-xs text-gray-500">Choose centre, date &amp; time</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-center gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 text-brand-primary border-2 border-brand-100 z-10 shrink-0">
+<i class="fa-solid fa-ticket text-sm"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 text-sm">Get Token</h4>
+<p class="text-xs text-gray-500">Receive your token instantly</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-center gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 text-brand-primary border-2 border-brand-100 z-10 shrink-0">
+<i class="fa-solid fa-tower-broadcast text-sm"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 text-sm">Live Queue Updates</h4>
+<p class="text-xs text-gray-500">Track your queue in real-time</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex items-center gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 text-brand-primary border-2 border-brand-100 z-10 shrink-0">
+<i class="fa-solid fa-clipboard-check text-sm"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 text-sm">Procurement</h4>
+<p class="text-xs text-gray-500">Hassle-free &amp; transparent</p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="relative flex items-center gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 text-brand-primary border-2 border-brand-100 z-10 shrink-0">
+<i class="fa-solid fa-indian-rupee-sign text-sm"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 text-sm">Payment</h4>
+<p class="text-xs text-gray-500">Get paid directly to your account</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- BEGIN: Stats Bar -->
+<section class="bg-brand-900 text-white relative z-30 -mt-8 mx-4 sm:mx-6 lg:mx-8 rounded-2xl shadow-xl">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-8 divide-x divide-white/20 text-center">
+<div class="flex flex-col items-center justify-center px-4">
+<div class="flex items-center gap-3 mb-2">
+<i class="fa-solid fa-users text-3xl opacity-80"></i>
+<span class="text-3xl font-extrabold">48,562+</span>
+</div>
+<span class="text-sm font-medium text-brand-100">Registered Farmers</span>
+</div>
+<div class="flex flex-col items-center justify-center px-4">
+<div class="flex items-center gap-3 mb-2">
+<i class="fa-regular fa-building text-3xl opacity-80"></i>
+<span class="text-3xl font-extrabold">125+</span>
+</div>
+<span class="text-sm font-medium text-brand-100">Procurement Centres</span>
+</div>
+<div class="flex flex-col items-center justify-center px-4">
+<div class="flex items-center gap-3 mb-2">
+<i class="fa-regular fa-calendar-check text-3xl opacity-80"></i>
+<span class="text-3xl font-extrabold">1,256+</span>
+</div>
+<span class="text-sm font-medium text-brand-100">Appointments Today</span>
+</div>
+<div class="flex flex-col items-center justify-center px-4">
+<div class="flex items-center gap-3 mb-2">
+<i class="fa-solid fa-sack-dollar text-3xl opacity-80"></i>
+<span class="text-3xl font-extrabold">3,245+</span>
+</div>
+<span class="text-sm font-medium text-brand-100">Quintal Procured Today</span>
+</div>
+<div class="flex flex-col items-center justify-center px-4">
+<div class="flex items-center gap-3 mb-2">
+<i class="fa-solid fa-indian-rupee-sign text-3xl opacity-80"></i>
+<span class="text-3xl font-extrabold">1.85 Cr+</span>
+</div>
+<span class="text-sm font-medium text-brand-100">Payments Completed</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Stats Bar -->
+<!-- BEGIN: What You Can Do Section -->
+<section class="py-20 bg-gray-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-3xl font-bold text-gray-900 mb-12">What You Can Do</h2>
+<div class="flex items-center justify-between">
+<button class="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-gray-500 hover:text-brand-primary transition shrink-0 hidden md:flex">
+<i class="fa-solid fa-chevron-left"></i>
+</button>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full px-4">
+<!-- Card 1 -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition group cursor-pointer flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-4 group-hover:bg-brand-50 transition">
+<i class="fa-regular fa-calendar text-2xl text-brand-primary"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">Book Your Slot</h3>
+<p class="text-sm text-gray-500">Choose your nearest centre, date and time slot easily.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition group cursor-pointer flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 group-hover:bg-blue-100 transition">
+<i class="fa-solid fa-users text-2xl text-blue-600"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">Live Queue Tracking</h3>
+<p class="text-sm text-gray-500">Track your token and estimated waiting time in real-time.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition group cursor-pointer flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-purple-50 flex items-center justify-center mb-4 group-hover:bg-purple-100 transition">
+<i class="fa-solid fa-clipboard-list text-2xl text-purple-600"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">Procurement Status</h3>
+<p class="text-sm text-gray-500">Know your procurement progress at every step.</p>
+</div>
+<!-- Card 4 -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition group cursor-pointer flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center mb-4 group-hover:bg-orange-100 transition">
+<i class="fa-solid fa-indian-rupee-sign text-2xl text-orange-600"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">Secure Payments</h3>
+<p class="text-sm text-gray-500">Receive payments directly in your bank account.</p>
+</div>
+<!-- Card 5 -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition group cursor-pointer flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-teal-50 flex items-center justify-center mb-4 group-hover:bg-teal-100 transition">
+<i class="fa-solid fa-file-invoice text-2xl text-teal-600"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">History &amp; Records</h3>
+<p class="text-sm text-gray-500">View your past procurements, payments and receipts.</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-gray-500 hover:text-brand-primary transition shrink-0 hidden md:flex">
+<i class="fa-solid fa-chevron-right"></i>
+</button>
+</div>
+</div>
+</section>
+<!-- END: What You Can Do Section -->
+<!-- BEGIN: Why Choose Section -->
+<section class="py-12 bg-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-brand-50 rounded-3xl p-8 lg:p-12 border border-brand-100">
+<h2 class="text-2xl font-bold text-gray-900 text-center mb-10">Why Choose Kisan Setu?</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-primary shrink-0">
+<i class="fa-regular fa-clock text-xl"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">Reduce Waiting Time</h4>
+<p class="text-sm text-gray-600 mt-1">Smart queue management saves your time.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-brand-primary shadow-sm flex items-center justify-center text-white shrink-0">
+<i class="fa-solid fa-chart-line text-xl"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">Better Planning</h4>
+<p class="text-sm text-gray-600 mt-1">Book in advance and plan your visit better.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-brand-900 shadow-sm flex items-center justify-center text-white shrink-0">
+<i class="fa-solid fa-magnifying-glass text-xl"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">Complete Transparency</h4>
+<p class="text-sm text-gray-600 mt-1">All information and updates at your fingertips.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-primary shrink-0 border border-brand-100">
+<i class="fa-solid fa-shield-halved text-xl"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">Secure &amp; Reliable</h4>
+<p class="text-sm text-gray-600 mt-1">Your data and payments are always safe.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Why Choose Section -->
+</main>
+<!-- BEGIN: Footer -->
+<footer class="bg-brand-900 text-white pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+<!-- Brand Info -->
+<div class="lg:col-span-2">
+<div class="flex items-center gap-2 text-white mb-6">
+<i class="fa-solid fa-seedling text-4xl"></i>
+<div>
+<span class="font-bold text-2xl block leading-none">Kisan Setu</span>
+<span class="text-sm text-brand-100 font-medium">Procurement Platform</span>
+</div>
+</div>
+<p class="text-brand-100 mb-8 max-w-sm">
+            A Government of India initiative to empower farmers with a transparent, efficient and technology-driven procurement system.
+          </p>
+<div class="flex space-x-4">
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition" href="#">
+<i class="fa-brands fa-facebook-f"></i>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition" href="#">
+<i class="fa-brands fa-x-twitter"></i>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition" href="#">
+<i class="fa-brands fa-youtube"></i>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition" href="#">
+<i class="fa-brands fa-instagram"></i>
+</a>
+</div>
+</div>
+<!-- Links -->
+<div>
+<h4 class="font-bold text-lg mb-6">Quick Links</h4>
+<ul class="space-y-3 text-brand-100">
+<li><a class="hover:text-white transition" href="#">Home</a></li>
+<li><a class="hover:text-white transition" href="#">About Us</a></li>
+<li><a class="hover:text-white transition" href="#">How It Works</a></li>
+<li><a class="hover:text-white transition" href="#">For Farmers</a></li>
+<li><a class="hover:text-white transition" href="#">For Centres</a></li>
+<li><a class="hover:text-white transition" href="#">Features</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-lg mb-6">Important Links</h4>
+<ul class="space-y-3 text-brand-100">
+<li><a class="hover:text-white transition" href="#">FAQs</a></li>
+<li><a class="hover:text-white transition" href="#">Help &amp; Support</a></li>
+<li><a class="hover:text-white transition" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-white transition" href="#">Terms &amp; Conditions</a></li>
+<li><a class="hover:text-white transition" href="#">Disclaimer</a></li>
+</ul>
+</div>
+<!-- Contact -->
+<div>
+<h4 class="font-bold text-lg mb-6">Contact Us</h4>
+<ul class="space-y-4 text-brand-100">
+<li class="flex items-start gap-3">
+<i class="fa-solid fa-phone mt-1"></i>
+<div>
+<span class="block font-bold text-white">1800-123-4567</span>
+<span class="text-xs">(8:00 AM - 8:00 PM)</span>
+</div>
+</li>
+<li class="flex items-center gap-3">
+<i class="fa-regular fa-envelope"></i>
+<a class="hover:text-white transition" href="mailto:support@kisansetu.gov.in">support@kisansetu.gov.in</a>
+</li>
+<li class="flex items-start gap-3">
+<i class="fa-solid fa-location-dot mt-1"></i>
+<span>Krishi Bhawan, New Delhi - 110001</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/20 pt-8 text-center text-brand-100 text-sm">
+<p>© 2024 Kisan Setu. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>

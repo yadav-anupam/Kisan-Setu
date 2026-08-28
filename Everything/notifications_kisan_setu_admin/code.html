@@ -1,0 +1,309 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-tint":"#1b6d24","outline-variant":"#bfcaba","tertiary-container":"#3a7b39","inverse-on-surface":"#eff1ef","on-background":"#191c1b","secondary-fixed-dim":"#78dc77","on-tertiary-fixed":"#002203","on-secondary":"#ffffff","on-secondary-container":"#00731e","surface-variant":"#e1e3e1","surface-container":"#eceeec","primary-container":"#2e7d32","on-primary-fixed-variant":"#005312","on-primary-fixed":"#002204","secondary":"#006e1c","background":"#f8faf8","on-error-container":"#93000a","surface-dim":"#d8dad9","surface-container-high":"#e6e9e7","on-secondary-fixed":"#002204","outline":"#707a6c","tertiary":"#1f6223","surface-container-highest":"#e1e3e1","on-surface-variant":"#40493d","secondary-container":"#91f78e","surface":"#f8faf8","inverse-surface":"#2e3130","on-tertiary":"#ffffff","primary":"#0d631b","on-primary-container":"#cbffc2","on-tertiary-container":"#c8ffbf","inverse-primary":"#88d982","error-container":"#ffdad6","on-error":"#ffffff","primary-fixed-dim":"#88d982","on-tertiary-fixed-variant":"#0c5216","tertiary-fixed-dim":"#91d78a","secondary-fixed":"#94f990","surface-container-low":"#f2f4f2","on-primary":"#ffffff","tertiary-fixed":"#acf4a4","surface-container-lowest":"#ffffff","error":"#ba1a1a","primary-fixed":"#a3f69c","on-surface":"#191c1b","surface-bright":"#f8faf8","on-secondary-fixed-variant":"#005313"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"unit":"8px","stack-lg":"48px","stack-sm":"12px","stack-md":"24px","container-padding":"24px","gutter-md":"16px"},"fontFamily":{"display-lg-mobile":["Manrope"],"body-lg":["Public Sans"],"body-md":["Public Sans"],"headline-lg":["Manrope"],"label-lg":["Public Sans"],"display-lg":["Manrope"],"headline-md":["Manrope"],"label-sm":["Public Sans"]},"fontSize":{"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col shadow-[0_0_20px_rgba(0,0,0,0.02)] overflow-y-auto"><div class="p-container-padding flex items-center gap-3"><span class="material-symbols-outlined text-primary text-3xl">agriculture</span><span class="font-headline-md text-headline-md text-primary">Kisan Setu</span></div><nav class="flex-1 px-4 py-2 space-y-1" data-active-classes="bg-primary text-on-primary shadow-lg shadow-primary/20"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="payments" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">payments</span><span class="font-label-lg text-label-lg">Payments</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="price-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">sell</span><span class="font-label-lg text-label-lg">Price Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="appointments" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">calendar_today</span><span class="font-label-lg text-label-lg">Appointments</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="token-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">confirmation_number</span><span class="font-label-lg text-label-lg">Token Management</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="procurement-overview" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">inventory_2</span><span class="font-label-lg text-label-lg">Procurement Overview</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="weighment-records" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">scale</span><span class="font-label-lg text-label-lg">Weighment Records</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="quality-check-records" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">verified</span><span class="font-label-lg text-label-lg">Quality Check Records</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="reports-analytics" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">analytics</span><span class="font-label-lg text-label-lg">Reports & Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="farmers" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">person_search</span><span class="font-label-lg text-label-lg">Farmers</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="staff-management" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><a aria-current="page" class="flex items-center px-4 py-3 rounded-DEFAULT transition-all group bg-primary text-on-primary shadow-lg shadow-primary/20" data-path="notifications" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">notifications_active</span><span class="font-label-lg text-label-lg">Notifications</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="audit-logs" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all group" data-path="settings" href="#"><span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">settings</span><span class="font-label-lg text-label-lg">Settings</span></a></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-container-padding flex items-center justify-between"><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface">XYZ Procurement Centre</span><span class="font-label-sm text-label-sm text-on-surface-variant">Village Rampur, Kanpur, UP</span></div><div class="flex items-center gap-8"><div class="text-right hidden lg:block"><span class="block font-label-lg text-label-lg text-on-surface">28 August 2026, Thursday</span><span class="block font-label-sm text-label-sm text-on-surface-variant">10:24 AM</span></div><div class="flex items-center gap-4 border-l border-outline-variant pl-8"><div class="relative cursor-pointer group"><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">notifications</span><span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-on-error text-[10px] flex items-center justify-center rounded-full font-bold">3</span></div><div class="flex items-center gap-3 cursor-pointer group"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Amit Kumar</span><span class="font-label-sm text-label-sm text-on-surface-variant">Centre Admin</span></div><img alt="Profile" class="w-10 h-10 rounded-full object-cover ring-2 ring-transparent group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida/AEtjO1XiEJAmIZdJMizMhJ1xUCh8MOf4BzZ1gyePpkGpN-OGPP6rbLQaZbOWPdflSaXRxIqAmlbaJ2WYhksATOgxapPd_FMD_FIKgZRy6cINKZWYvxY5eozRnUPYJBOQtxMsjHzTFL5QQnEIMem1friN1QgiLQ2Z4MU1WJl6n68gdGaGImkU8_FteGmeIEuS7Uic8xrnC2_suBdMg0O2uKg_bd5mIuNBEksrgi2aqKwwSybCIIQqpIosBRZEBA"/></div></div></div></header><main class="pt-20 bg-background min-h-screen"><div class="flex flex-col w-full p-container-padding gap-stack-md">
+<!-- Header Section -->
+<div class="flex items-end justify-between w-full">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Notifications</h1>
+<span class="material-symbols-outlined text-primary text-3xl">notifications_active</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Stay updated with important alerts and activities.</p>
+</div>
+<button class="flex items-center gap-2 bg-surface hover:bg-surface-container transition-colors px-4 py-2 rounded-full border border-outline-variant text-primary font-label-lg shadow-sm">
+<span class="material-symbols-outlined text-xl">done_all</span>
+            Mark all as read
+        </button>
+</div>
+<!-- Stat Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-md w-full">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30 flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl">notifications</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface-variant mb-1">Total Notifications</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mb-2">128</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="text-primary font-bold">+18%</span> vs yesterday
+                </span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30 flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-2xl">mark_chat_unread</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface-variant mb-1">Unread</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mb-2">8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="text-primary font-bold">+14%</span> vs yesterday
+                </span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30 flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-error-container/40 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error text-2xl">priority_high</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface-variant mb-1">Important</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mb-2">5</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="text-primary font-bold">+25%</span> vs yesterday
+                </span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30 flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-2xl">today</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface-variant mb-1">This Week</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mb-2">32</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="text-primary font-bold">+12%</span> vs last week
+                </span>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-md w-full">
+<!-- Left Column: Notification Feed -->
+<div class="lg:col-span-2 bg-surface rounded-xl shadow-sm border border-outline-variant/30 flex flex-col overflow-hidden">
+<!-- Filters -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30 bg-surface-container-lowest">
+<div class="flex items-center gap-6 overflow-x-auto no-scrollbar">
+<button class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-1 whitespace-nowrap">All</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">Unread</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">Important</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">System</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">Payments</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">Procurement</button>
+</div>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary border border-outline-variant rounded-full px-3 py-1.5 transition-colors shrink-0">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span class="font-label-sm text-label-sm">Filters</span>
+</button>
+</div>
+<!-- Feed List -->
+<div class="flex flex-col">
+<!-- Item 1 -->
+<div class="flex items-start gap-4 p-6 border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full"></div>
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-xl">payments</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-md font-semibold text-on-surface">Payment Approved</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:20 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Payment of ₹ 22,140 to farmer Suresh Yadav (A-31) has been approved.</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="bg-primary-container/20 text-primary px-2 py-0.5 rounded-sm font-label-sm text-[10px] uppercase tracking-wider">Payment</span>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Unread</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Item 2 -->
+<div class="flex items-start gap-4 p-6 border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full"></div>
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-xl">confirmation_number</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-md font-semibold text-on-surface">New Token Issued</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">09:45 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Token A-44 has been issued for farmer Deepak Verma.</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="bg-secondary-container/30 text-secondary px-2 py-0.5 rounded-sm font-label-sm text-[10px] uppercase tracking-wider">Token Management</span>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Unread</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Item 3 -->
+<div class="flex items-start gap-4 p-6 border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error rounded-r-full"></div>
+<div class="w-12 h-12 rounded-full bg-error-container/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-error text-xl">warning</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-md font-semibold text-on-surface">High Rush Expected</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">09:15 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">High rush expected between 11:00 AM - 01:00 PM today.</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="bg-error-container/40 text-error px-2 py-0.5 rounded-sm font-label-sm text-[10px] uppercase tracking-wider">System Alert</span>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Unread</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Item 4 (Read) -->
+<div class="flex items-start gap-4 p-6 border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group relative opacity-70">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary text-xl">scale</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-md font-semibold text-on-surface">Weighment Completed</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">08:30 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Weighment for token A-41 (Ram Prakash) has been completed.</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="bg-tertiary-container/20 text-tertiary px-2 py-0.5 rounded-sm font-label-sm text-[10px] uppercase tracking-wider">Weighment</span>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Read</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="p-4 flex items-center justify-between border-t border-outline-variant/30 bg-surface-container-lowest mt-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Showing 1 to 8 of 128 notifications</span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-label-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-label-sm">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm">16</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Right Sidebar -->
+<div class="flex flex-col gap-gutter-md">
+<!-- Preferences -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30">
+<h3 class="font-headline-md text-lg text-on-surface mb-2">Notification Preferences</h3>
+<p class="font-body-md text-sm text-on-surface-variant mb-6">Choose what notifications you want to receive.</p>
+<div class="flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">payments</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-sm text-on-surface">Payment Notifications</span>
+<span class="font-body-md text-xs text-on-surface-variant">Alerts for payment approvals and updates</span>
+</div>
+</div>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer shadow-inner">
+<div class="absolute right-1 top-1 w-4 h-4 bg-on-primary rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">confirmation_number</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-sm text-on-surface">Token Notifications</span>
+<span class="font-body-md text-xs text-on-surface-variant">Alerts for token issuance and updates</span>
+</div>
+</div>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer shadow-inner">
+<div class="absolute right-1 top-1 w-4 h-4 bg-on-primary rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">inventory_2</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-sm text-on-surface">Procurement Updates</span>
+<span class="font-body-md text-xs text-on-surface-variant">Alerts for procurement activities</span>
+</div>
+</div>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer shadow-inner">
+<div class="absolute right-1 top-1 w-4 h-4 bg-on-primary rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border border-outline-variant rounded-lg text-primary font-label-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+                    Manage Preferences <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Important Notifications -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-lg text-on-surface">Important Notifications</h3>
+<a class="font-label-sm text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-start border-b border-outline-variant/20 pb-4">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div class="flex flex-col flex-1">
+<span class="font-label-lg text-sm text-on-surface">8 payments are pending your approval.</span>
+<span class="font-body-md text-xs text-on-surface-variant">Review and approve to process payments.</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant shrink-0">10:24 AM</span>
+</div>
+<div class="flex gap-3 items-start border-b border-outline-variant/20 pb-4">
+<span class="material-symbols-outlined text-secondary mt-0.5">info</span>
+<div class="flex flex-col flex-1">
+<span class="font-label-lg text-sm text-on-surface">New government price update for Wheat.</span>
+<span class="font-body-md text-xs text-on-surface-variant">Check and update the crop price.</span>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-label-sm text-[10px] text-on-surface-variant">05:00 PM</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Yesterday</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface rounded-xl p-6 shadow-sm border border-outline-variant/30">
+<h3 class="font-headline-md text-lg text-on-surface mb-4">Quick Actions</h3>
+<div class="flex flex-col gap-2">
+<button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-surface-container-low transition-colors group border border-outline-variant/50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">done_all</span>
+<span class="font-label-lg text-sm text-on-surface">Mark all as read</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-sm">arrow_forward</span>
+</button>
+<button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-surface-container-low transition-colors group border border-outline-variant/50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-xl">delete_sweep</span>
+<span class="font-label-lg text-sm text-on-surface">Clear all notifications</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-sm">arrow_forward</span>
+</button>
+<button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-surface-container-low transition-colors group border border-outline-variant/50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">settings</span>
+<span class="font-label-lg text-sm text-on-surface">Notification Settings</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

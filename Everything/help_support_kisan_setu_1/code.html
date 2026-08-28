@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex w-full min-h-screen bg-background">
+<!-- Sidebar (Replicated for layout context, normally part of shell) -->
+<aside class="hidden lg:flex flex-col w-64 bg-surface-container-lowest border-r border-outline-variant/30 h-screen sticky top-0 shrink-0">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">psychiatry</span>
+</div>
+<div>
+<h1 class="font-headline-md text-primary font-bold leading-tight">Kisan Setu</h1>
+<p class="font-label-sm text-on-surface-variant">Procurement Platform</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">home</span>
+          Dashboard
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">event</span>
+          My Appointments
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">calendar_add_on</span>
+          Book New Slot
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">queue</span>
+          Live Queue
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">inventory_2</span>
+          My Procurement
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">payments</span>
+          Payments
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">history</span>
+          History
+        </a>
+<a class="flex items-center justify-between px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">notifications</span>
+             Notifications
+          </div>
+<span class="bg-error text-on-error font-label-sm w-5 h-5 flex items-center justify-center rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined text-outline">person</span>
+          Profile
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-highest text-on-surface font-body-md font-medium" href="#">
+<span class="material-symbols-outlined text-primary">help</span>
+          Help &amp; Support
+        </a>
+</nav>
+</div>
+<div class="mt-auto p-6">
+<div class="bg-surface-container-low rounded-2xl p-4 overflow-hidden relative mb-6">
+<h3 class="font-label-lg text-primary mb-1">Smart Procurement<br>Better Farming</h3>
+<p class="font-label-sm text-on-surface-variant mb-4 max-w-[140px] relative z-10">We're here to help you at every step of your procurement journey.</p>
+<div class="absolute bottom-0 right-0 w-24 h-24 bg-cover bg-bottom z-0" data-alt="Illustration of a happy Indian farmer standing in a field next to a tractor" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAoEJw6okwxcKJd_-bSvnM2J645ezCW7Wq27Y0n3bkbzLMZtx02oSoH6QiuSPruvIukkVCAc8yhYcM2CrVT4dyNZTRfomnlZQhWS8xoBORWKPfP7RY1-6KWa3aKJGvHnPHAFmUt5PwrrgeqEuqgJoXWwJz1RovA5GIZdpDDA_DcIaR7Knr9_tSDKEVGWmAtCYbqU58iLvUKdNlGDlkS5uYN4Cpj30gns4hIMoBqvNOAtCoLJIfRPhftVCdazFYFiWtoidG4Zygu6uASFg&quot;);"></div>
+</div>
+<button class="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-error hover:bg-error-container/30 transition-colors font-body-md font-medium">
+<span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Top Header (Replicated for layout) -->
+<header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<div>
+<h1 class="font-headline-lg text-on-surface">Help &amp; Support</h1>
+<p class="font-body-md text-on-surface-variant mt-1">We're here to help you with any questions or issues.</p>
+</div>
+<div class="flex items-center gap-4 self-end sm:self-auto">
+<button class="relative p-2 rounded-full hover:bg-surface-container-highest transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant/50 hover:bg-surface-container-lowest cursor-pointer transition-colors bg-surface-container-lowest shadow-sm">
+<span class="font-label-sm text-on-surface">English</span>
+<span class="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+</div>
+<div class="flex items-center gap-3 pl-2">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="A portrait of an Indian farmer with a warm smile, wearing traditional attire, against a soft outdoor background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOVh90aquchudm9GL-FH8NJjxg66cZYDxvu3xZYDRSBaUHzoIONyFCp1HOcwVuos7mqRmhJ3st9FL4QzWiicnFgnS62OsvlSpIRS6fKwzWQ6Pj6CFhH8sbmjmZ6hXXlBvm1sqffxdXqfotIb7s2VrRHPJ79AgZfXqD-ptcqPxw5f7GxkAsZwesV8MbkJtkkd_GK_qfjVhV3UdVqDOz2Lh3xwpYTS1Hls0BwRln6PFyzS2cCUD58I03">
+<div class="hidden sm:flex items-center gap-1 cursor-pointer">
+<span class="font-label-sm text-on-surface font-medium">Ramesh Kumar</span>
+<span class="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Support Categories -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!-- FAQ Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-start h-full relative overflow-hidden group cursor-pointer border border-outline-variant/20">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[28px]">quiz</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface mb-2">FAQs</h3>
+<p class="font-body-md text-sm text-on-surface-variant flex-grow mb-4">Find answers to common questions</p>
+<button class="font-label-lg text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+          View FAQs <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Contact Support Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-start h-full relative overflow-hidden group cursor-pointer border border-outline-variant/20">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[28px]">support_agent</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface mb-2">Contact Support</h3>
+<p class="font-body-md text-sm text-on-surface-variant flex-grow mb-4">Talk to our support team for help</p>
+<button class="font-label-lg text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+          Contact Us <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Raise Ticket Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-start h-full relative overflow-hidden group cursor-pointer border border-outline-variant/20">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[28px]">confirmation_number</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface mb-2">Raise a Ticket</h3>
+<p class="font-body-md text-sm text-on-surface-variant flex-grow mb-4">Report an issue or share your concern</p>
+<button class="font-label-lg text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+          Raise Ticket <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- User Guide Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-start h-full relative overflow-hidden group cursor-pointer border border-outline-variant/20">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[28px]">menu_book</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface mb-2">User Guide</h3>
+<p class="font-body-md text-sm text-on-surface-variant flex-grow mb-4">Learn how to use Kisan Setu platform</p>
+<button class="font-label-lg text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+          View Guides <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
+<!-- Left Column: FAQs & Tickets -->
+<div class="flex flex-col gap-6">
+<!-- FAQs List Section -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<h2 class="font-headline-md text-xl text-on-surface">Frequently Asked Questions</h2>
+<button class="font-label-lg text-primary flex items-center gap-1 hover:underline">
+              View All FAQs <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="flex flex-col">
+<button class="w-full px-6 py-4 flex justify-between items-center hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 group text-left">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">How can I book a new slot?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</button>
+<button class="w-full px-6 py-4 flex justify-between items-center hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 group text-left">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">How does the live queue work?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</button>
+<button class="w-full px-6 py-4 flex justify-between items-center hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 group text-left">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">How will I receive payment for my produce?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</button>
+<button class="w-full px-6 py-4 flex justify-between items-center hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 group text-left">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">What documents are required for procurement?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</button>
+<button class="w-full px-6 py-4 flex justify-between items-center hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 group text-left">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">How can I check my procurement history?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</button>
+<button class="w-full px-6 py-4 flex justify-between items-center hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 group text-left">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">Who can I contact for payment related issues?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Support Tickets Section -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<h2 class="font-headline-md text-xl text-on-surface">Your Support Tickets</h2>
+<button class="font-label-lg text-primary flex items-center gap-1 hover:underline">
+              View All Tickets <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="flex flex-col p-2">
+<!-- Ticket Item -->
+<div class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/50 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface group-hover:text-primary transition-colors">Payment not received</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Ticket ID: #KS784512</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<span class="px-3 py-1 rounded-full bg-primary-container/10 text-primary font-label-sm">Resolved</span>
+<span class="font-body-md text-sm text-on-surface-variant hidden sm:block">28 Aug 2026</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Ticket Item -->
+<div class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-[#FFB74D]/20 text-[#F57C00] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface group-hover:text-primary transition-colors">Slot booking issue</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Ticket ID: #KS783210</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<span class="px-3 py-1 rounded-full bg-[#FFB74D]/20 text-[#F57C00] font-label-sm">In Progress</span>
+<span class="font-body-md text-sm text-on-surface-variant hidden sm:block">26 Aug 2026</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Ticket Item -->
+<div class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-[#64B5F6]/20 text-[#1976D2] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface group-hover:text-primary transition-colors">Document upload problem</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Ticket ID: #KS781105</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<span class="px-3 py-1 rounded-full bg-[#64B5F6]/20 text-[#1976D2] font-label-sm">Closed</span>
+<span class="font-body-md text-sm text-on-surface-variant hidden sm:block">20 Aug 2026</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-outline-variant/20 bg-surface-container-lowest flex justify-center items-center gap-4">
+<span class="font-body-md text-on-surface-variant">Don't see your issue?</span>
+<button class="px-5 py-2 rounded-full border border-primary text-primary font-label-lg hover:bg-primary-container/10 transition-colors">Raise a New Ticket</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Contact & Emergency -->
+<div class="flex flex-col gap-6">
+<!-- Need More Help Section -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/20 p-6">
+<h2 class="font-headline-md text-xl text-on-surface mb-6">Need More Help?</h2>
+<div class="bg-primary-container/5 rounded-xl p-4 flex gap-4 items-start mb-6 border border-primary-container/20">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined">headset_mic</span>
+</div>
+<div>
+<h4 class="font-label-lg text-primary mb-1">Our support team is available to assist you</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Reach out to us through any of the following channels. We usually respond within 24 hours.</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Contact Option: Phone -->
+<a class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors border border-outline-variant/10 group" href="tel:18001234567">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center shrink-0 group-hover:bg-primary-container/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface">Phone Support</h4>
+<p class="font-body-md text-xs text-on-surface-variant">Mon - Sat (9:00 AM - 6:00 PM)</p>
+</div>
+</div>
+<span class="font-label-lg text-primary">1800-123-4567</span>
+</a>
+<!-- Contact Option: WhatsApp -->
+<a class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors border border-outline-variant/10 group" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-[#25D366]/10 text-[#075E54] flex items-center justify-center shrink-0 group-hover:bg-[#25D366]/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface">WhatsApp Support</h4>
+<p class="font-body-md text-xs text-on-surface-variant">Chat with us on WhatsApp</p>
+</div>
+</div>
+<span class="font-label-lg text-primary">+91 98765 43210</span>
+</a>
+<!-- Contact Option: Email -->
+<a class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors border border-outline-variant/10 group" href="mailto:support@kisansetu.in">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center shrink-0 group-hover:bg-primary-container/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface">Email Support</h4>
+<p class="font-body-md text-xs text-on-surface-variant">We'll respond within 24 hours</p>
+</div>
+</div>
+<span class="font-label-lg text-primary truncate pl-4">support@kisansetu.in</span>
+</a>
+<!-- Contact Option: Visit -->
+<a class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors border border-outline-variant/10 group" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center shrink-0 group-hover:bg-primary-container/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+<div>
+<h4 class="font-label-lg text-on-surface">Visit Procurement Centre</h4>
+<p class="font-body-md text-xs text-on-surface-variant">Get help in person at your nearest centre</p>
+</div>
+</div>
+<span class="font-label-lg text-primary flex items-center gap-1">Find Centre <span class="material-symbols-outlined text-[16px]">arrow_forward</span></span>
+</a>
+</div>
+</div>
+<!-- Emergency Help Banner -->
+<div class="bg-error-container/30 rounded-2xl p-6 border border-error/20 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+<div class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-error mt-1 sm:mt-0">warning</span>
+<div>
+<h3 class="font-label-lg text-on-surface mb-1">Emergency Help</h3>
+<p class="font-body-md text-sm text-on-surface-variant">Facing an urgent issue during your visit to the procurement centre?<br>Contact our centre staff or call the helpline immediately.</p>
+</div>
+</div>
+<button class="px-5 py-2.5 rounded-full border border-error text-error font-label-lg flex items-center gap-2 hover:bg-error/5 transition-colors whitespace-nowrap shrink-0">
+<span class="material-symbols-outlined text-[18px]">call</span>
+             Call Helpline
+           </button>
+</div>
+</div>
+</div>
+<!-- Satisfaction Footer -->
+<div class="mt-8 bg-surface-container-low rounded-2xl p-6 flex items-center justify-center sm:justify-start gap-4 text-center sm:text-left">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shrink-0 shadow-sm border border-outline-variant/20">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div>
+<h4 class="font-label-lg text-primary mb-1">Your satisfaction is our priority</h4>
+<p class="font-body-md text-sm text-on-surface-variant">We are committed to providing you the best support experience.</p>
+</div>
+</div>
+</div>
+</div></main>
+
+</body></html>

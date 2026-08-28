@@ -1,0 +1,328 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full min-h-screen bg-background text-on-background">
+<!-- Top Header -->
+<header class="flex items-center justify-between px-container-padding py-stack-md bg-surface-container-lowest sticky top-0 z-10 shadow-sm">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Farmer Check-In</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Verify farmer details and check them in for token generation.</p>
+</div>
+<div class="flex items-center gap-gutter-md">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>28 August 2026, Thursday</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg border-l border-outline-variant pl-gutter-md">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span>10:24 AM</span>
+</div>
+<button class="relative p-2 ml-4 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-4 h-4 bg-error text-on-error rounded-full text-[10px] font-bold flex items-center justify-center">8</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="flex flex-col lg:flex-row gap-stack-md p-container-padding">
+<!-- Left Column: Main Forms -->
+<div class="flex-1 flex flex-col gap-stack-md min-w-0">
+<!-- Search Section -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<!-- Tabs -->
+<div class="flex gap-stack-md border-b border-outline-variant mb-stack-md">
+<button class="pb-3 text-primary font-label-lg border-b-2 border-primary">Search Farmer</button>
+<button class="pb-3 text-on-surface-variant font-label-lg hover:text-on-surface transition-colors">Scan QR / Aadhaar</button>
+</div>
+<!-- Search Bar -->
+<div class="flex gap-4">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-12 pl-12 pr-4 bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-on-surface transition-all" placeholder="Search by mobile number, Aadhaar number or name..." type="text"/>
+</div>
+<button class="h-12 px-6 rounded-full border border-outline-variant text-on-surface-variant font-label-lg flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                        Clear
+                    </button>
+</div>
+</section>
+<!-- Farmer Details Card -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Farmer Details</h2>
+<div class="flex flex-col md:flex-row gap-stack-lg">
+<!-- Profile Info -->
+<div class="flex flex-col items-center md:items-start gap-4 min-w-[200px]">
+<div class="w-24 h-24 bg-surface-container-highest rounded-full flex items-center justify-center text-primary overflow-hidden">
+<span class="material-symbols-outlined text-[48px]">person</span>
+</div>
+<div class="text-center md:text-left">
+<h3 class="font-headline-md text-[20px] text-on-surface font-bold">Suresh Yadav</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md mt-2">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                                +91 98765 43211
+                            </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md mt-1">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+                                Aadhaar: **** **** 3214
+                            </div>
+</div>
+<div class="flex gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-primary-container/20 text-primary-container rounded-full font-label-sm">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                Verified
+                            </span>
+<span class="inline-flex items-center px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm">
+                                Registered Farmer
+                            </span>
+</div>
+</div>
+<!-- Details Grid -->
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 md:border-l md:border-outline-variant md:pl-stack-lg">
+<div class="grid grid-cols-[140px_1fr] gap-4">
+<span class="text-on-surface-variant font-body-md">Father / Husband Name</span>
+<span class="text-on-surface font-label-lg">: Ram Yadav</span>
+</div>
+<div class="grid grid-cols-[140px_1fr] gap-4">
+<span class="text-on-surface-variant font-body-md">Village</span>
+<span class="text-on-surface font-label-lg">: Rampur</span>
+</div>
+<div class="grid grid-cols-[140px_1fr] gap-4">
+<span class="text-on-surface-variant font-body-md">Account Number</span>
+<span class="text-on-surface font-label-lg">: ********4321</span>
+</div>
+<div class="grid grid-cols-[140px_1fr] gap-4">
+<span class="text-on-surface-variant font-body-md">Farmer ID</span>
+<span class="text-on-surface font-label-lg">: FARMER-000125</span>
+</div>
+<div class="grid grid-cols-[140px_1fr] gap-4">
+<span class="text-on-surface-variant font-body-md">Member Since</span>
+<span class="text-on-surface font-label-lg">: 12 Jan 2024</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Check-In Details Form -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Check-In Details</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md mb-stack-md">
+<!-- Appointment Slot -->
+<div>
+<label class="block font-body-md text-on-surface-variant mb-2">Appointment Slot (If any)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">event</span>
+<select class="w-full h-12 pl-10 pr-10 bg-surface rounded-lg border border-outline-variant appearance-none font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>10:00 AM - 11:00 AM</option>
+</select>
+<span class="absolute left-[180px] top-1/2 -translate-y-1/2 px-2 py-0.5 bg-primary-container/20 text-primary-container rounded text-[10px] font-bold">Booked</span>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[20px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Expected Produce -->
+<div>
+<label class="block font-body-md text-on-surface-variant mb-2">Expected Produce</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">eco</span>
+<select class="w-full h-12 pl-10 pr-10 bg-surface rounded-lg border border-outline-variant appearance-none font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>Paddy</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[20px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Purpose of Visit -->
+<div class="mb-stack-md">
+<label class="block font-body-md text-on-surface-variant mb-3">Purpose of Visit</label>
+<div class="flex flex-wrap gap-6">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-5 h-5 accent-primary" name="purpose" type="radio"/>
+<span class="font-body-md text-on-surface">Procurement</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-5 h-5 accent-primary" name="purpose" type="radio"/>
+<span class="font-body-md text-on-surface">Quality Re-check</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-5 h-5 accent-primary" name="purpose" type="radio"/>
+<span class="font-body-md text-on-surface">Other Inquiry</span>
+</label>
+</div>
+</div>
+<!-- Notes -->
+<div class="mb-stack-md">
+<label class="block font-body-md text-on-surface-variant mb-2">Notes (Optional)</label>
+<textarea class="w-full h-24 p-3 bg-surface rounded-lg border border-outline-variant font-body-md text-on-surface resize-none focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Add any notes..."></textarea>
+</div>
+<!-- Action Button -->
+<button class="w-full h-[56px] bg-primary text-on-primary rounded-xl font-label-lg flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors mb-4 shadow-sm hover:shadow-md">
+<span class="material-symbols-outlined">person_add</span>
+                    Check-In Farmer
+                </button>
+<!-- Info Alert -->
+<div class="flex items-start gap-3 p-4 bg-[#e8f0fe] rounded-lg text-[#1967d2]">
+<span class="material-symbols-outlined text-[20px] mt-0.5">info</span>
+<p class="font-body-md text-sm">After check-in, a token will be generated and assigned to the farmer.</p>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar -->
+<aside class="w-full lg:w-[360px] flex flex-col gap-stack-md shrink-0">
+<!-- Summary Stats -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<h2 class="font-headline-md text-[18px] text-primary mb-stack-md font-bold">Today's Check-In Summary</h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Stat Card 1 -->
+<div class="p-4 bg-surface rounded-xl border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">group</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Total Check-Ins</span>
+</div>
+<div class="font-display-lg-mobile text-on-surface">128</div>
+<div class="text-[11px] text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+                            +15% vs yesterday
+                        </div>
+</div>
+<!-- Stat Card 2 -->
+<div class="p-4 bg-surface rounded-xl border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-[#e8f0fe] text-[#1967d2] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">event_available</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">With Appointments</span>
+</div>
+<div class="font-display-lg-mobile text-on-surface">92</div>
+<div class="text-[11px] text-on-surface-variant">
+<span class="text-primary font-bold">72%</span> of total
+                        </div>
+</div>
+<!-- Stat Card 3 -->
+<div class="p-4 bg-surface rounded-xl border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">directions_walk</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Walk-in Farmers</span>
+</div>
+<div class="font-display-lg-mobile text-on-surface">36</div>
+<div class="text-[11px] text-on-surface-variant">
+<span class="text-primary font-bold">28%</span> of total
+                        </div>
+</div>
+<!-- Stat Card 4 -->
+<div class="p-4 bg-surface rounded-xl border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-[#fff8e1] text-[#f57f17] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Yet to Check-In</span>
+</div>
+<div class="font-display-lg-mobile text-on-surface">14</div>
+<div class="text-[11px] text-on-surface-variant">Appointments</div>
+</div>
+</div>
+</section>
+<!-- Guidelines -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<h3 class="font-headline-md text-[16px] text-on-surface mb-3 font-bold">Check-In Guidelines</h3>
+<ol class="list-decimal list-inside text-sm font-body-md text-on-surface-variant space-y-2 mb-4">
+<li>Search farmer using mobile number, Aadhaar or name.</li>
+<li>Verify farmer details and appointment (if any).</li>
+<li>Select purpose of visit.</li>
+<li>Click on "Check-In Farmer" to generate token.</li>
+</ol>
+<div class="flex items-center gap-2 p-3 bg-primary-container/10 rounded-lg text-primary-container font-label-sm">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+                    Ensure farmer brings their original ID proof.
+                </div>
+</section>
+<!-- Recent Check-Ins -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-[16px] text-on-surface font-bold">Recent Check-Ins</h3>
+<button class="text-primary font-label-sm hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Item 1 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30 last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-lg text-on-surface">Mohan Lal</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body-md text-on-surface-variant">
+<span class="font-bold text-on-surface">A-37</span>
+<span>10:12 AM</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30 last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-lg text-on-surface">Rakesh Kumar</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body-md text-on-surface-variant">
+<span class="font-bold text-on-surface">A-38</span>
+<span>10:10 AM</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30 last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-lg text-on-surface">Vijay Singh</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body-md text-on-surface-variant">
+<span class="font-bold text-on-surface">A-39</span>
+<span>10:05 AM</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30 last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-lg text-on-surface">Harish Chandra</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body-md text-on-surface-variant">
+<span class="font-bold text-on-surface">A-40</span>
+<span>10:03 AM</span>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30 last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-lg text-on-surface">Om Prakash</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body-md text-on-surface-variant">
+<span class="font-bold text-on-surface">A-41</span>
+<span>09:58 AM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm">
+<h3 class="font-headline-md text-[16px] text-on-surface mb-4 font-bold">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex flex-col items-center justify-center gap-2 p-3 bg-surface rounded-lg border border-outline-variant/30 hover:bg-surface-container transition-colors text-primary font-label-sm">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                        Scan QR Code
+                    </button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 bg-surface rounded-lg border border-outline-variant/30 hover:bg-surface-container transition-colors text-[#1967d2] font-label-sm">
+<span class="material-symbols-outlined">edit_square</span>
+                        Manual Entry
+                    </button>
+</div>
+</section>
+</aside>
+</div>
+</div></main></body></html>

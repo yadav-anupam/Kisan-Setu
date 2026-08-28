@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full h-full lg:flex-row bg-surface">
+<!-- Sidebar -->
+<aside class="hidden lg:flex flex-col w-[280px] min-w-[280px] h-full bg-surface-container-lowest border-r border-outline-variant/30 sticky top-0 overflow-y-auto">
+<div class="p-stack-md flex items-center gap-gutter-md">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">agriculture</span>
+</div>
+<div>
+<h2 class="font-headline-md text-on-surface text-lg leading-tight">Kisan Setu</h2>
+<p class="font-label-sm text-on-surface-variant">Procurement Platform</p>
+</div>
+</div>
+<nav class="flex-1 px-stack-sm flex flex-col gap-unit">
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg flex-1">Dashboard</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-lg flex-1">My Appointments</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span class="font-label-lg flex-1">Book New Slot</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg flex-1">Live Queue</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg flex-1">My Procurement</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg flex-1">Payments</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-lg flex-1">History</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg bg-primary-container/20 text-on-secondary-container transition-colors relative" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">notifications</span>
+<span class="font-label-lg flex-1">Notifications</span>
+<span class="w-5 h-5 rounded-full bg-error text-on-error flex items-center justify-center font-label-sm text-[10px]">3</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg flex-1">Profile</span>
+</a>
+<a class="flex items-center gap-stack-sm px-stack-sm py-stack-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-lg flex-1">Help &amp; Support</span>
+</a>
+</nav>
+<div class="p-stack-md mt-auto">
+<div class="rounded-xl overflow-hidden relative shadow-sm">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-container/10 to-primary-container/40 z-10"></div>
+<img class="w-full h-[200px] object-cover relative z-0" data-alt="A smiling Indian farmer in traditional attire standing in front of a green field with a tractor, symbolizing modern agriculture and prosperity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6Hg_1yJsQBEkO7mnamXT4b5tPzmHS2v7kdw-px1Ukkq_m5LjhurUAlP6mjOeo-yCr5iz3NxIr-2Y07L_rPw6_kf5lpKT-cz3Jgn7_Beg5vPPDLW1W8--wpi_-gp3_A69mWOqv_f28a8UO6oIm-Asz4SRUAy84inv7EZ1wyew6jLakh4-VfLKla6Gr07c27rdBRUT7WO9bad-Yb5lLoCLe8ago7odDF9o3ZWyqoQa2GZQ1R3I-b-tgH9a6uhKjk2X_sT5SJs0FcjHU0g">
+<div class="absolute inset-0 z-20 p-stack-sm flex flex-col justify-between">
+<div>
+
+
+</div>
+
+</div>
+</div>
+<button class="mt-stack-md flex items-center gap-stack-sm text-error hover:text-error-container hover:bg-error/10 w-full px-stack-sm py-stack-sm rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-lg">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col w-full h-full min-h-0 bg-surface">
+<!-- Header -->
+<header class="h-[80px] px-container-padding flex items-center justify-between bg-surface-container-lowest border-b border-outline-variant/30 shrink-0">
+<div>
+<h1 class="font-headline-lg text-on-surface">Notifications</h1>
+<p class="font-body-md text-on-surface-variant mt-1">Stay updated with important alerts and updates about your procurements.</p>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="relative w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant/50 cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="font-label-sm text-on-surface">English</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+<div class="flex items-center gap-3 cursor-pointer hover:bg-surface-container-low p-1.5 rounded-full transition-colors pr-4">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Profile picture of Ramesh Kumar, a middle-aged man with a warm smile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyrcfX5kWkAGKLP136I5UI8uOAZSHsePperrQwGAIF0xiwS1lxcnlgJUWpM10BQRAodbSkP5qzUhVG5fOyNyyqtloOKhsCwV738PubaOUavfpQSeQa2CSMmoPCEJ-GVGpXCnTJgw0sGdacOv-hx2e7-nplxI5RCBtpoZ8cC0z6MJd32Z6qk9wstMhhaHV2SOumcyoG-Icjw_43T9Bja64Id5DYKGuWvmAm1tkCJMGRlBYrgTpcqAjM">
+<span class="font-label-sm text-on-surface hidden md:block">Ramesh Kumar</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] hidden md:block">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-container-padding">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-stack-md">
+<!-- Notifications List Container -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 flex flex-col min-h-0">
+<!-- Tabs & Actions -->
+<div class="px-container-padding pt-stack-md border-b border-outline-variant/20 flex items-end justify-between">
+<div class="flex gap-stack-md overflow-x-auto hide-scrollbar">
+<button class="pb-3 border-b-2 border-primary text-primary font-label-lg whitespace-nowrap">All (12)</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg whitespace-nowrap">Unread (3)</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg whitespace-nowrap">Appointments (4)</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg whitespace-nowrap">Payments (3)</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg whitespace-nowrap">Procurement (3)</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-lg whitespace-nowrap">System (2)</button>
+</div>
+<button class="hidden sm:flex items-center gap-2 pb-3 text-primary hover:text-primary-container font-label-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+                            Mark all as read
+                        </button>
+</div>
+<!-- List -->
+<div class="flex-1 overflow-y-auto">
+<!-- Item 1 -->
+<div class="p-container-padding border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors group cursor-pointer relative">
+<div class="absolute right-stack-md top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-error"></div>
+<div class="flex gap-stack-md items-start pr-8">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-base text-on-surface truncate">Slot Confirmed</h3>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-lg bg-primary-container/20 text-on-secondary-container">New</span>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm line-clamp-2">Your slot A-47 at XYZ Procurement Centre on 28 Aug 2026 at 10:00 AM is confirmed.</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-on-surface-variant text-[11px]">09:15 AM</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-container-padding border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors group cursor-pointer relative">
+<div class="absolute right-stack-md top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-error"></div>
+<div class="flex gap-stack-md items-start pr-8">
+<div class="w-12 h-12 rounded-full bg-[#E3F2FD] text-[#1976D2] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-base text-on-surface truncate">Your turn is approaching</h3>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm line-clamp-2">You are next in line. Please reach the centre and be ready with your token.</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-on-surface-variant text-[11px]">09:48 AM</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-container-padding border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors group cursor-pointer relative">
+<div class="absolute right-stack-md top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-error"></div>
+<div class="flex gap-stack-md items-start pr-8">
+<div class="w-12 h-12 rounded-full bg-[#FFF3E0] text-[#F57C00] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-base text-on-surface truncate">Payment Credited</h3>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm line-clamp-2">Payment of ₹ 22,140 has been credited to your bank account.</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-on-surface-variant text-[11px]">Yesterday, 04:30 PM</span>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="p-container-padding border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors group cursor-pointer relative">
+<div class="absolute right-stack-md top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-error"></div>
+<div class="flex gap-stack-md items-start pr-8">
+<div class="w-12 h-12 rounded-full bg-[#F3E5F5] text-[#7B1FA2] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-base text-on-surface truncate">Procurement Completed</h3>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm line-clamp-2">Your procurement of 42.30 Quintal Wheat at ABC Procurement Centre is completed.</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-on-surface-variant text-[11px]">Yesterday, 02:15 PM</span>
+</div>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="p-container-padding border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors group cursor-pointer relative">
+<div class="flex gap-stack-md items-start pr-8">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">event</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-base text-on-surface truncate">Upcoming Appointment Reminder</h3>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm line-clamp-2">You have a booking tomorrow (29 Aug 2026) at PQR Procurement Centre.</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-on-surface-variant text-[11px]">28 Aug 2026, 06:00 PM</span>
+</div>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="p-container-padding border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors group cursor-pointer relative">
+<div class="flex gap-stack-md items-start pr-8">
+<div class="w-12 h-12 rounded-full bg-[#E1F5FE] text-[#0288D1] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-base text-on-surface truncate">Receipt Available</h3>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm line-clamp-2">Your payment receipt for TXN789456 is now available. Download it.</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-on-surface-variant text-[11px]">28 Aug 2026, 11:20 AM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="p-container-padding border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-on-surface-variant">Showing 1 to 8 of 12 notifications</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded border border-outline-variant/50 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-label-lg flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded border border-outline-variant/50 flex items-center justify-center text-on-surface hover:bg-surface-container-low font-label-lg">2</button>
+<button class="w-8 h-8 rounded border border-outline-variant/50 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Sidebar -->
+<div class="w-full lg:w-[320px] flex flex-col gap-stack-md shrink-0">
+<!-- Filter Panel -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 p-container-padding">
+<h3 class="font-headline-md text-on-surface text-lg mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined">filter_alt</span>
+                            Filter Notifications
+                        </h3>
+<div class="flex flex-col gap-1">
+<button class="flex items-center justify-between p-3 rounded-lg bg-primary-container/10 text-on-secondary-container transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-lg">All Notifications</span>
+</div>
+<span class="font-label-lg">12</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-label-lg">Unread</span>
+<span class="w-1.5 h-1.5 rounded-full bg-error ml-1"></span>
+</div>
+<span class="font-label-lg">3</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="font-label-lg">Appointments</span>
+</div>
+<span class="font-label-lg">4</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="font-label-lg">Payments</span>
+</div>
+<span class="font-label-lg">3</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-label-lg">Procurement</span>
+</div>
+<span class="font-label-lg">3</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-lg">System</span>
+</div>
+<span class="font-label-lg">2</span>
+</button>
+</div>
+</div>
+<!-- Notification Settings -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 p-container-padding">
+<h3 class="font-headline-md text-on-surface text-lg mb-2">Notification Settings</h3>
+<p class="font-body-md text-on-surface-variant text-sm mb-stack-md">Choose how you want to receive notifications.</p>
+<div class="flex flex-col gap-stack-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface">Push Notifications</span>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer shadow-inner">
+<div class="absolute right-1 top-1 w-4 h-4 bg-surface-container-lowest rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface">SMS Alerts</span>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer shadow-inner">
+<div class="absolute right-1 top-1 w-4 h-4 bg-surface-container-lowest rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface">Email Notifications</span>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer shadow-inner">
+<div class="absolute right-1 top-1 w-4 h-4 bg-surface-container-lowest rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Need Help -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 p-container-padding">
+<h3 class="font-headline-md text-on-surface text-lg mb-2">Need Help?</h3>
+<p class="font-body-md text-on-surface-variant text-sm mb-stack-md">Our support team is here to help you with any queries.</p>
+<button class="w-full flex items-center justify-center gap-2 py-3 rounded-lg border border-primary text-primary hover:bg-primary-container/10 transition-colors font-label-lg">
+<span class="material-symbols-outlined">headset_mic</span>
+                            Contact Support
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div></main>
+
+</body></html>

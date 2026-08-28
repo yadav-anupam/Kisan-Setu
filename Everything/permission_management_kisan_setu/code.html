@@ -1,0 +1,311 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-variant":"#e1e3e1","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002203","on-primary":"#ffffff","surface-container-high":"#e6e9e7","surface-container-highest":"#e1e3e1","on-secondary-fixed-variant":"#005313","secondary-fixed":"#94f990","tertiary-container":"#3a7b39","primary-container":"#2e7d32","on-secondary-fixed":"#002204","on-error":"#ffffff","on-error-container":"#93000a","surface":"#f8faf8","on-secondary":"#ffffff","secondary-container":"#91f78e","secondary":"#006e1c","inverse-surface":"#2e3130","on-background":"#191c1b","surface-bright":"#f8faf8","primary-fixed-dim":"#88d982","on-primary-fixed":"#002204","outline-variant":"#bfcaba","error-container":"#ffdad6","surface-dim":"#d8dad9","on-secondary-container":"#00731e","on-primary-fixed-variant":"#005312","tertiary":"#1f6223","secondary-fixed-dim":"#78dc77","on-surface-variant":"#40493d","on-surface":"#191c1b","outline":"#707a6c","surface-container-low":"#f2f4f2","tertiary-fixed":"#acf4a4","primary":"#0d631b","primary-fixed":"#a3f69c","inverse-primary":"#88d982","surface-container":"#eceeec","inverse-on-surface":"#eff1ef","on-primary-container":"#cbffc2","error":"#ba1a1a","on-tertiary-container":"#c8ffbf","tertiary-fixed-dim":"#91d78a","on-tertiary-fixed-variant":"#0c5216","background":"#f8faf8","surface-tint":"#1b6d24"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"gutter-md":"16px","stack-md":"24px","stack-sm":"12px","container-padding":"24px","unit":"8px","stack-lg":"48px"},"fontFamily":{"label-lg":["Public Sans"],"body-md":["Public Sans"],"label-sm":["Public Sans"],"display-lg":["Manrope"],"body-lg":["Public Sans"],"display-lg-mobile":["Manrope"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-background"><aside class="fixed left-0 top-0 h-full w-72 bg-primary text-on-primary z-50 flex flex-col overflow-y-auto"><div class="p-8 mb-4 flex items-center gap-3"><span class="material-symbols-outlined text-[32px]">agriculture</span><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight">Kisan Setu</span><span class="text-[10px] uppercase tracking-widest opacity-80">Procurement Portal</span></div></div><nav class="flex-1 px-4 flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="dashboard" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Procurement</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="centre-management" href="#"><span class="material-symbols-outlined">hub</span><span class="font-label-lg text-label-lg">Centre Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-centres" href="#">All Centres</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="add-new-centre" href="#">Add New Centre</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-verification" href="#">Centre Verification</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-categories" href="#">Centre Categories</a></div><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Administration</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="user-role-management" href="#"><span class="material-symbols-outlined">group_work</span><span class="font-label-lg text-label-lg">User &amp; Roles</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="staff-management" href="#"><span class="material-symbols-outlined">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-staff" href="#">All Staff</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="departments" href="#">Departments</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="attendance" href="#">Attendance</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="leave-management" href="#">Leave Management</a></div><a aria-current="page" class="flex items-center px-4 py-3 rounded-DEFAULT transition-all gap-3 bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="permission-management" href="#"><span class="material-symbols-outlined">key</span><span class="font-label-lg text-label-lg">Permissions</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Operations</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="reports-analytics" href="#"><span class="material-symbols-outlined">analytics</span><span class="font-label-lg text-label-lg">Reports &amp; Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="audit-logs" href="#"><span class="material-symbols-outlined">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><div class="mt-auto pb-8 flex flex-col gap-1"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="announcements" href="#"><span class="material-symbols-outlined">campaign</span><span class="font-label-lg text-label-lg">Announcements</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="system-settings" href="#"><span class="material-symbols-outlined">settings</span><span class="font-label-lg text-label-lg">System Settings</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="help-support" href="#"><span class="material-symbols-outlined">help</span><span class="font-label-lg text-label-lg">Help &amp; Support</span></a></div></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl z-40 px-8 flex items-center justify-between border-b border-outline-variant/30"><div class="flex items-center gap-6 flex-1"><div class="relative max-w-md w-full"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full pl-12 pr-4 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/50 focus:outline-none focus:border-primary text-sm" placeholder="Search centres, staff or transactions..." type="text"/></div><div class="hidden lg:flex items-center gap-2 text-on-surface-variant bg-surface-container px-4 py-2 rounded-full"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="text-label-sm font-label-sm" id="current-time-display">Oct 24, 2023 • 10:45 AM</span></div></div><div class="flex items-center gap-4"><button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span></button><div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30"><div class="text-right hidden sm:block"><div class="text-sm font-bold text-on-surface">Admin User</div><div class="text-xs text-on-surface-variant">Super Administrator</div></div><div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[24px]">person</span></div></div></div></header><main class="relative pt-20 min-h-screen px-8 py-10"><div class="flex flex-col w-full gap-stack-lg">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-stack-md">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface m-0">Permission Management</h1>
+<span class="material-symbols-outlined text-primary text-[28px]">verified_user</span>
+</div>
+<p class="font-body-md text-on-surface-variant m-0 mb-4">Manage roles, permissions and access control across the platform.</p>
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px] opacity-50">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Permission Management</a>
+<span class="material-symbols-outlined text-[16px] opacity-50">chevron_right</span>
+<span class="text-on-surface font-semibold">Permissions</span>
+</nav>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant/30">
+<button class="px-6 py-4 font-label-lg text-label-lg text-primary border-b-2 border-primary">Role Permissions</button>
+<button class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors border-b-2 border-transparent">Permission Library</button>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-md items-start">
+<!-- Left Column: Roles List -->
+<div class="lg:col-span-3 flex flex-col gap-4 bg-surface-container-lowest rounded-xl p-4 shadow-sm h-[calc(100vh-280px)] overflow-hidden">
+<div class="flex items-center justify-between pb-2 border-b border-outline-variant/20">
+<h2 class="font-headline-md text-[18px] text-on-surface font-bold">Roles</h2>
+<button class="flex items-center gap-1 text-primary font-label-sm text-label-sm hover:bg-primary/5 px-2 py-1.5 rounded-lg transition-colors border border-primary/30">
+<span class="material-symbols-outlined text-[18px]">add</span> Add Role
+        </button>
+</div>
+<div class="relative mt-2">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 focus:outline-none focus:border-primary text-sm font-body-md" placeholder="Search roles..." type="text"/>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-2 mt-2 custom-scrollbar">
+<!-- Active Role -->
+<button class="w-full flex items-start gap-3 p-3 rounded-xl bg-primary/5 border border-primary/30 text-left transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">shield_person</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">Super Admin</div>
+<div class="font-body-md text-[12px] text-on-surface-variant mt-0.5">Full access</div>
+</div>
+</button>
+<!-- Other Roles -->
+<button class="w-full flex items-start gap-3 p-3 rounded-xl hover:bg-surface-container-low border border-transparent text-left transition-colors group">
+<div class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error text-[20px]">admin_panel_settings</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Centre Admin</div>
+<div class="font-body-md text-[12px] text-on-surface-variant mt-0.5">86 permissions</div>
+</div>
+</button>
+<button class="w-full flex items-start gap-3 p-3 rounded-xl hover:bg-surface-container-low border border-transparent text-left transition-colors group">
+<div class="w-10 h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[#f59e0b] text-[20px]">security</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Centre Operator</div>
+<div class="font-body-md text-[12px] text-on-surface-variant mt-0.5">56 permissions</div>
+</div>
+</button>
+<button class="w-full flex items-start gap-3 p-3 rounded-xl hover:bg-surface-container-low border border-transparent text-left transition-colors group">
+<div class="w-10 h-10 rounded-full bg-[#8b5cf6]/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[#8b5cf6] text-[20px]">fact_check</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Quality Checker</div>
+<div class="font-body-md text-[12px] text-on-surface-variant mt-0.5">38 permissions</div>
+</div>
+</button>
+<button class="w-full flex items-start gap-3 p-3 rounded-xl hover:bg-surface-container-low border border-transparent text-left transition-colors group">
+<div class="w-10 h-10 rounded-full bg-[#3b82f6]/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[#3b82f6] text-[20px]">scale</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Weighment In-Charge</div>
+<div class="font-body-md text-[12px] text-on-surface-variant mt-0.5">32 permissions</div>
+</div>
+</button>
+</div>
+<div class="pt-3 border-t border-outline-variant/20 font-label-sm text-[12px] text-on-surface-variant">
+        Total Roles: 9
+      </div>
+</div>
+<!-- Center Column: Permission Matrix -->
+<div class="lg:col-span-6 flex flex-col gap-6 bg-surface-container-lowest rounded-xl p-6 shadow-sm h-[calc(100vh-280px)] overflow-hidden">
+<!-- Header -->
+<div class="flex items-start justify-between border-b border-outline-variant/20 pb-4">
+<div>
+<div class="flex items-center gap-3">
+<h2 class="font-headline-md text-[20px] text-on-surface font-bold">Role: Super Admin</h2>
+<span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-label-sm text-[10px] uppercase tracking-wider">System Role</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Full system access with all permissions</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="flex items-center gap-2 font-label-sm text-sm text-on-surface-variant bg-surface-container-low px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span>Users with this role: <strong>6</strong></span>
+</div>
+<button class="flex items-center gap-2 font-label-sm text-sm text-primary hover:bg-primary/5 px-4 py-2 rounded-lg border border-outline-variant/50 transition-colors">
+            Edit Role Details <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex items-center justify-between gap-4">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 focus:outline-none focus:border-primary text-sm font-body-md" placeholder="Search permissions..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<select class="pl-3 pr-8 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 focus:outline-none focus:border-primary text-sm font-body-md appearance-none">
+<option>All Modules</option>
+<option>Centre Management</option>
+<option>User Management</option>
+</select>
+</div>
+<div class="flex items-center gap-4 font-label-sm text-[12px] ml-auto">
+<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary text-[18px] bg-primary/10 rounded-sm">check_box</span> Allowed</div>
+<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-error text-[18px] bg-error/10 rounded-sm">disabled_by_default</span> Denied</div>
+<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-on-surface-variant/50 text-[18px] bg-surface-container rounded-sm">indeterminate_check_box</span> Not Set</div>
+</div>
+</div>
+<!-- Matrix Table -->
+<div class="flex-1 overflow-auto rounded-lg border border-outline-variant/30 custom-scrollbar relative">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low z-10 shadow-sm">
+<tr>
+<th class="py-3 px-4 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider w-1/3">Module / Permission</th>
+<th class="py-3 px-2 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider text-center">View</th>
+<th class="py-3 px-2 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider text-center">Create</th>
+<th class="py-3 px-2 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider text-center">Edit</th>
+<th class="py-3 px-2 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider text-center">Delete</th>
+<th class="py-3 px-2 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider text-center">Export</th>
+<th class="py-3 px-2 font-label-sm text-xs text-on-surface-variant uppercase tracking-wider text-center">Approve</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-sm divide-y divide-outline-variant/20">
+<!-- Module Group -->
+<tr class="bg-surface-container-lowest/50 hover:bg-surface-container-lowest transition-colors">
+<td class="py-2 px-4 font-label-sm text-sm text-on-surface font-semibold flex items-center gap-2 cursor-pointer" colspan="7">
+                Centre Management <span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_less</span>
+</td>
+</tr>
+<!-- Rows -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-2.5 px-4 pl-8 text-on-surface-variant">View Centres</td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-2.5 px-4 pl-8 text-on-surface-variant">Add New Centre</td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-2.5 px-4 pl-8 text-on-surface-variant">Edit Centre</td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-on-surface-variant/30 text-[20px] bg-surface-container rounded-sm cursor-pointer">indeterminate_check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-error text-[20px] bg-error/10 rounded-sm cursor-pointer">disabled_by_default</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+</tr>
+<!-- Module Group 2 -->
+<tr class="bg-surface-container-lowest/50 hover:bg-surface-container-lowest transition-colors mt-4">
+<td class="py-2 px-4 pt-4 border-t border-outline-variant/20 font-label-sm text-sm text-on-surface font-semibold flex items-center gap-2 cursor-pointer" colspan="7">
+                User &amp; Role Management <span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_less</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-2.5 px-4 pl-8 text-on-surface-variant">View Users</td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+<td class="py-2.5 px-2 text-center"><span class="material-symbols-outlined text-primary text-[20px] bg-primary/10 rounded-sm cursor-pointer">check_box</span></td>
+</tr>
+<!-- More collapsed modules -->
+<tr class="bg-surface-container-lowest/50 hover:bg-surface-container-lowest transition-colors mt-4">
+<td class="py-2 px-4 pt-4 border-t border-outline-variant/20 font-label-sm text-sm text-on-surface font-semibold flex items-center gap-2 cursor-pointer" colspan="7">
+                Procurement Management <span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest/50 hover:bg-surface-container-lowest transition-colors mt-4">
+<td class="py-2 px-4 pt-4 border-t border-outline-variant/20 font-label-sm text-sm text-on-surface font-semibold flex items-center gap-2 cursor-pointer" colspan="7">
+                Reports &amp; Analytics <span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Context/Stats -->
+<div class="lg:col-span-3 flex flex-col gap-6 h-[calc(100vh-280px)] overflow-y-auto custom-scrollbar">
+<!-- Summary Chart -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<h3 class="font-headline-md text-[16px] text-on-surface font-bold mb-4">Permission Summary</h3>
+<div class="flex items-center justify-between">
+<div class="relative w-24 h-24 shrink-0">
+<!-- SVG Donut Chart -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-low" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-width="4"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="83, 100" stroke-width="4"></path>
+<path class="text-error" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="6, 100" stroke-dashoffset="-83" stroke-width="4"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-xl font-bold leading-none text-on-surface">286</span>
+<span class="text-[8px] font-label-sm uppercase text-on-surface-variant">Total</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 font-label-sm text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-on-surface-variant w-14">Allowed</span>
+<span class="text-on-surface font-semibold">238 (83%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="text-on-surface-variant w-14">Denied</span>
+<span class="text-on-surface font-semibold">18 (6%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-variant"></span>
+<span class="text-on-surface-variant w-14">Not Set</span>
+<span class="text-on-surface font-semibold">30 (11%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<h3 class="font-headline-md text-[16px] text-on-surface font-bold mb-3">Quick Actions</h3>
+<div class="flex flex-col gap-1">
+<button class="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-surface-container-low transition-colors text-left text-sm font-label-sm text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">add</span> Create New Role
+          </button>
+<button class="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-surface-container-low transition-colors text-left text-sm font-label-sm text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">content_copy</span> Clone Role
+          </button>
+<button class="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-surface-container-low transition-colors text-left text-sm font-label-sm text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">upload</span> Import Permissions
+          </button>
+<button class="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-surface-container-low transition-colors text-left text-sm font-label-sm text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">download</span> Export Permissions
+          </button>
+<button class="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-error-container hover:text-on-error-container transition-colors text-left text-sm font-label-sm text-on-surface-variant mt-2 border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">device_reset</span> Reset Role Permissions
+          </button>
+</div>
+</div>
+<!-- Role Details Summary -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<h3 class="font-headline-md text-[16px] text-on-surface font-bold mb-3">Role Details</h3>
+<dl class="flex flex-col gap-3 font-body-md text-sm">
+<div class="grid grid-cols-3 gap-2">
+<dt class="text-on-surface-variant">Role Name</dt>
+<dd class="col-span-2 text-on-surface font-medium">Super Admin</dd>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<dt class="text-on-surface-variant">Role Type</dt>
+<dd class="col-span-2"><span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-label-sm text-[10px] uppercase">System Role</span></dd>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<dt class="text-on-surface-variant">Created</dt>
+<dd class="col-span-2 text-on-surface text-xs">15 Jan 2026, 09:30 AM</dd>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<dt class="text-on-surface-variant">Status</dt>
+<dd class="col-span-2"><span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-[10px] uppercase">Active</span></dd>
+</div>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<style>
+  /* Basic scrollbar styling for internal areas to keep it clean */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.1); 
+    border-radius: 10px;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2); 
+  }
+</style></main></div></body></html>

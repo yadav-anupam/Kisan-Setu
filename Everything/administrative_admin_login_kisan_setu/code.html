@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administrative Admin Login - Kisan Setu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            primary: '#115e34', // Custom dark green based on image
+            'primary-light': '#34d399',
+            'surface-lowest': '#ffffff',
+            'surface-container': '#eceee9',
+            'text-strong': '#171917',
+            'text-normal': '#424945',
+            'text-weak': '#727974',
+            border: '#c2c9c4',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styles">body {
+    font-family: "Manrope", sans-serif;
+    background-color: #f8faf8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh
+    }
+.bg-landscape {
+    background-image: linear-gradient(to bottom, rgba(7, 43, 31, 0.9) 0%, rgba(7, 43, 31, 0.7) 40%, rgba(7, 43, 31, 0.2) 100%), url(https://lh3.googleusercontent.com/aida-public/AB6AXuA4n7MNb5aniERF6GRKmdEGi5WOgjdHA0QeKA5V0TDYjiUNjkaUWnKY05AS2wfxcO_OSIn7Qp5sT65-JnH7kLuGc1R88fxfL_u77g-lOfeobxDKGyrt6zzR4X5JF9Aiyb7odyvqoIYceLn4K7nX-8jQ9JG6IUgHiFB074SX0ZdnSCGp8lRKMdefRnk4kaQW1bn-B-j4aBHimh2sWn8Z_Nypqd1BGwCC_Vq4C8_R608y3E7L8l2QG0Dr);
+    background-size: cover;
+    background-position: center bottom
+    }
+.glass-panel {
+    background: rgba(7, 43, 31, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px)
+    }</style>
+<!-- Phosphor Icons for precise iconography -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="text-text-normal antialiased">
+<!-- BEGIN: Main Content Layout -->
+<main class="flex-grow flex flex-col md:flex-row min-h-screen">
+<!-- BEGIN: Left Panel (Information & Branding) -->
+<section aria-label="Welcome Information" class="hidden lg:flex w-[45%] xl:w-1/2 bg-landscape text-white p-12 xl:p-16 flex-col justify-between">
+<!-- Top Section: Logo & Welcome -->
+<div>
+<div class="flex items-center gap-4 mb-16">
+<div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-green-600 rounded-full flex items-center justify-center shadow-lg border-2 border-[#1a6642]">
+<!-- Abstract Hands/Leaf Logo Placeholder -->
+<i class="ph-fill ph-handshake text-3xl text-white"></i>
+</div>
+<div>
+<h1 class="text-3xl font-extrabold tracking-tight">Kisan Setu</h1>
+<p class="text-sm font-medium opacity-90">Kisan ka Saathi, Har Kadam Saath</p>
+</div>
+</div>
+<h2 class="text-4xl xl:text-5xl font-bold leading-tight mb-2">Welcome,</h2>
+<h2 class="text-4xl xl:text-5xl font-bold leading-tight text-[#4ade80] mb-6">Administrative Admin!</h2>
+<div class="w-16 h-1 bg-[#4ade80] mb-8 rounded-full"></div>
+<p class="text-lg leading-relaxed mb-12 max-w-lg opacity-90">
+          Sign in to access the central administrative dashboard and manage centres, users, roles, policies and platform operations across the entire system.
+        </p>
+<!-- Feature List -->
+<div class="space-y-8 max-w-lg">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
+<i class="ph ph-buildings text-2xl text-[#4ade80]"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">Platform Management</h3>
+<p class="text-sm opacity-80">Manage centres, verification and categories</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
+<i class="ph ph-users-three text-2xl text-[#4ade80]"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">User &amp; Role Administration</h3>
+<p class="text-sm opacity-80">Manage users, staff, roles and permissions</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
+<i class="ph ph-chart-bar text-2xl text-[#4ade80]"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">Analytics &amp; Insights</h3>
+<p class="text-sm opacity-80">Real-time reports and data-driven decisions</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
+<i class="ph ph-shield-check text-2xl text-[#4ade80]"></i>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-1">Security &amp; Compliance</h3>
+<p class="text-sm opacity-80">Audit logs, system settings and security</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Badge -->
+<div class="mt-12 glass-panel p-5 rounded-2xl border border-white/10 max-w-md">
+<div class="flex items-center gap-3">
+<i class="ph-fill ph-check-circle text-2xl text-white"></i>
+<div>
+<p class="font-bold text-[#4ade80]">Secure • Transparent • Scalable</p>
+<p class="text-sm opacity-90">Empowering agriculture with trust and technology</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Left Panel -->
+<!-- BEGIN: Right Panel (Login Form) -->
+<section class="w-full lg:w-[55%] xl:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 xl:p-24 bg-surface-lowest lg:bg-[#f8faf8] relative">
+<!-- Top Right Header Links (Mobile/Desktop) -->
+<div class="absolute top-6 right-6 sm:top-10 sm:right-10 flex items-center gap-6">
+<button class="flex items-center gap-2 text-text-strong font-semibold hover:text-primary transition-colors">
+<i class="ph ph-globe text-xl"></i>
+          English
+          <i class="ph ph-caret-down"></i>
+</button>
+<button class="flex items-center gap-2 text-primary font-bold border border-border px-4 py-2 rounded-full hover:bg-surface-container transition-colors">
+<i class="ph ph-headset text-xl"></i>
+          Need Help?
+        </button>
+</div>
+<!-- Login Card -->
+<div class="w-full max-w-xl bg-surface-lowest rounded-3xl p-8 sm:p-12 shadow-sm border border-border/50 lg:shadow-xl lg:border-none">
+<!-- Header -->
+<div class="text-center mb-10">
+<div class="w-20 h-20 bg-[#e8f5e9] rounded-full flex items-center justify-center mx-auto mb-6">
+<i class="ph ph-shield-user text-4xl text-primary"></i>
+</div>
+<h2 class="text-3xl font-extrabold text-text-strong mb-3">Administrative Admin Login</h2>
+<p class="text-text-normal">Sign in to access the central administrative dashboard</p>
+</div>
+<!-- Form -->
+<form action="#" class="space-y-6" method="POST">
+<div>
+<label class="block text-sm font-bold text-text-strong mb-2" for="email">Admin Email ID</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<i class="ph ph-user text-lg text-text-weak"></i>
+</div>
+<input class="block w-full pl-11 pr-4 py-3.5 border-border rounded-xl focus:ring-primary focus:border-primary sm:text-sm bg-surface-lowest text-text-strong placeholder-text-weak transition-shadow" id="email" name="email" placeholder="Enter your admin email ID" required="" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block text-sm font-bold text-text-strong" for="password">Password</label>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<i class="ph ph-lock text-lg text-text-weak"></i>
+</div>
+<input class="block w-full pl-11 pr-12 py-3.5 border-border rounded-xl focus:ring-primary focus:border-primary sm:text-sm bg-surface-lowest text-text-strong placeholder-text-weak transition-shadow" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+<button class="text-text-weak hover:text-text-normal focus:outline-none" type="button">
+<i class="ph ph-eye-slash text-xl"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center">
+<input class="h-5 w-5 text-primary focus:ring-primary border-border rounded" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-3 block text-sm font-medium text-text-strong" for="remember-me">
+                Remember me
+              </label>
+</div>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Use OTP to login</a>
+</div>
+<div class="pt-4">
+<button class="w-full flex justify-center items-center gap-2 py-4 px-4 border border-transparent rounded-full shadow-sm text-base font-bold text-white bg-primary hover:bg-[#0d47a1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors" type="submit">
+<i class="ph ph-sign-in text-xl"></i>
+              Login
+            </button>
+</div>
+<div class="relative flex items-center justify-center py-2">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-border/60"></div>
+</div>
+<div class="relative bg-surface-lowest px-4 text-sm font-semibold text-text-weak uppercase">
+              OR
+            </div>
+</div>
+<div>
+<button class="w-full flex justify-center items-center gap-2 py-4 px-4 border-2 border-border rounded-full text-base font-bold text-primary bg-surface-lowest hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors" type="button">
+<i class="ph ph-shield-check text-xl"></i>
+              Login with OTP
+            </button>
+</div>
+</form>
+<div class="mt-8 text-center text-sm font-medium">
+<p class="text-text-normal">
+            Don't have access? Contact <a class="font-bold text-primary hover:underline" href="#">Super Administrator</a>
+</p>
+</div>
+</div>
+</section>
+<!-- END: Right Panel -->
+</main>
+<!-- END: Main Content Layout -->
+<!-- BEGIN: Global Footer -->
+<footer class="bg-surface-lowest border-t border-border mt-auto w-full z-10 relative">
+<!-- Footer Features Banner -->
+<div class="border-b border-border">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-sm">
+<div class="flex items-center gap-3">
+<i class="ph ph-shield-check text-2xl text-primary shrink-0"></i>
+<span class="font-semibold text-text-strong">Centralized<br/>Control</span>
+</div>
+<div class="flex items-center gap-3">
+<i class="ph ph-user-circle-gear text-2xl text-primary shrink-0"></i>
+<span class="font-semibold text-text-strong">Role Based<br/>Access</span>
+</div>
+<div class="flex items-center gap-3">
+<i class="ph ph-file-text text-2xl text-primary shrink-0"></i>
+<span class="font-semibold text-text-strong">Audit &amp;<br/>Compliance</span>
+</div>
+<div class="flex items-center gap-3">
+<i class="ph ph-chart-line-up text-2xl text-primary shrink-0"></i>
+<span class="font-semibold text-text-strong">Real-time<br/>Analytics</span>
+</div>
+<div class="flex items-center gap-3">
+<i class="ph ph-gear text-2xl text-primary shrink-0"></i>
+<span class="font-semibold text-text-strong">System<br/>Configuration</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Copyright & Links -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-4 text-sm font-medium text-text-normal">
+<p>© 2026 Kisan Setu. All rights reserved.</p>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="text-border">|</span>
+<a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
+</div>
+</div>
+</footer>
+<!-- END: Global Footer -->
+</body></html>

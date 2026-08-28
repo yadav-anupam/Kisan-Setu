@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Login - Kisan Setu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e4b30', // Deep green from image
+            secondary: '#7cb342', // Light green accents
+            surface: '#f9fbf9',
+            surfaceDim: '#e8ebe8',
+          },
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-styles">
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #f9fbf9;
+      color: #333;
+    }
+    .left-panel-bg {
+      background: linear-gradient(180deg, #1e4b30 0%, #1a3c26 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .left-panel-img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      object-fit: cover;
+      opacity: 0.8;
+      mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    }
+    .glass-card {
+      background: rgba(25, 68, 44, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .input-icon {
+      color: #888;
+    }
+    .btn-primary {
+      background-color: #1e4b30;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #153522;
+    }
+    .btn-outline {
+      border: 1px solid #ccc;
+      color: #333;
+      transition: background-color 0.3s;
+    }
+    .btn-outline:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+<!-- BEGIN: Main Layout -->
+<main class="flex-grow flex w-full">
+<!-- BEGIN: Left Panel -->
+<section class="hidden lg:flex w-[45%] left-panel-bg text-white flex-col justify-between p-12 relative" data-purpose="left-informational-panel">
+<!-- Background Image Placeholder (Illustration) -->
+<div class="absolute inset-0 z-0">
+<img alt="Farm Center" class="w-full h-full object-cover opacity-30 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPpVcty47H8bpo5_PQbL8JCOYkyiUZ8U4vX-IsqCT5z9njuFfAy-jAUCwxumWeg5kQG_6o1L9a3mZ6HGptuuBhUGr0ZNpsBkVB8Q7k1xxzLnvCS6yLlB0XdcIlnSEhjgWRf4nUqcsKFUfrwXXFtsyhnoCt4evhgAjPSJ-SAGWJHLsKsPv-_3dWK9nXehtcShgA0egea5U2jOyhe1Hl_BXA5ZQGKt7xMDYnwUuRPUkEzdXJQCeCp7Ka"/>
+<div class="absolute inset-0 bg-gradient-to-b from-[#1e4b30] via-transparent to-[#1e4b30] opacity-80"></div>
+</div>
+<div class="z-10 flex flex-col h-full max-w-lg relative">
+<!-- Logo Area -->
+<div class="flex items-center space-x-4 mb-16">
+<div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
+<!-- Leaf/Hand Icon Placeholder -->
+<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<h1 class="text-3xl font-bold tracking-tight">Kisan Setu</h1>
+<p class="text-sm opacity-80 font-medium">Kisan ka Saathi, Har Kadam Saath</p>
+</div>
+</div>
+<!-- Welcome Text -->
+<div class="mb-10">
+<h2 class="text-4xl font-bold mb-2">Welcome Back,</h2>
+<h2 class="text-4xl font-bold text-secondary mb-4">Staff Member!</h2>
+<div class="w-16 h-1 bg-secondary rounded-full mb-6"></div>
+<p class="text-lg opacity-90 leading-relaxed max-w-md">
+            Login to your staff account to manage procurement operations, serve farmers and keep the process smooth and transparent.
+          </p>
+</div>
+<!-- Role Features Grid -->
+<div class="glass-card rounded-2xl p-6 mt-auto">
+<h3 class="text-secondary font-semibold mb-6">Your Role. Our Responsibility.</h3>
+<div class="grid grid-cols-4 gap-4 text-center text-xs">
+<!-- Feature 1 -->
+<div class="flex flex-col items-center">
+<svg class="w-8 h-8 mb-2 text-secondary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Manage<br/>Live Queue</span>
+</div>
+<!-- Feature 2 -->
+<div class="flex flex-col items-center border-l border-white/20 pl-2">
+<svg class="w-8 h-8 mb-2 text-secondary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Weighment<br/>&amp; Quality Check</span>
+</div>
+<!-- Feature 3 -->
+<div class="flex flex-col items-center border-l border-white/20 pl-2">
+<svg class="w-8 h-8 mb-2 text-secondary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Procurement<br/>Operations</span>
+</div>
+<!-- Feature 4 -->
+<div class="flex flex-col items-center border-l border-white/20 pl-2">
+<svg class="w-8 h-8 mb-2 text-secondary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Fair &amp; Secure<br/>Payments</span>
+</div>
+</div>
+</div>
+<!-- Trust Badge -->
+<div class="flex items-center mt-12 opacity-90 text-sm">
+<svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<div>
+<div class="font-semibold">Secure • Transparent • Farmer First</div>
+<div class="opacity-75">Trusted by thousands of staff across India</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Left Panel -->
+<!-- BEGIN: Right Panel (Login Form) -->
+<section class="flex-grow flex flex-col bg-surface relative" data-purpose="right-login-panel">
+<!-- Top Right Nav -->
+<div class="absolute top-6 right-8 flex space-x-4 z-10">
+<button class="flex items-center space-x-2 text-sm font-medium text-gray-600 hover:text-gray-900 border border-gray-200 px-3 py-2 rounded-full bg-white shadow-sm">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>English</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="flex items-center space-x-2 text-sm font-medium text-gray-600 hover:text-gray-900 border border-gray-200 px-4 py-2 rounded-full bg-white shadow-sm">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Need Help?</span>
+</button>
+</div>
+<!-- Login Container -->
+<div class="flex-grow flex flex-col justify-center items-center px-6 py-12 lg:px-8">
+<div class="w-full max-w-[480px]">
+<!-- Card Start -->
+<div class="bg-white rounded-[24px] shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100">
+<div class="px-8 pt-10 pb-8 text-center border-b border-gray-50">
+<!-- Staff Icon -->
+<div class="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-6">
+<svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-2">Staff Login</h2>
+<p class="text-sm text-gray-500">Login to access your staff dashboard</p>
+</div>
+<div class="p-8">
+<form action="#" class="space-y-6" method="POST">
+<!-- Staff ID Field -->
+<div>
+<label class="block text-sm font-semibold text-gray-700 mb-1.5" for="staff-id">Staff ID / Mobile Number</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+<svg class="h-5 w-5 input-icon" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary sm:text-sm transition-colors" id="staff-id" name="staff-id" placeholder="Enter Staff ID or registered mobile number" required="" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block text-sm font-semibold text-gray-700" for="password">Password</label>
+<a class="text-sm font-medium text-primary hover:text-green-800" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+<svg class="h-5 w-5 input-icon" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<input class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary sm:text-sm transition-colors" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+<svg class="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+<!-- Remember Me & OTP Link -->
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<input checked="" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded text-primary" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-2 block text-sm text-gray-700 font-medium" for="remember-me">
+                      Remember me
+                    </label>
+</div>
+<div class="text-sm">
+<a class="font-medium text-primary hover:text-green-800" href="#">Use OTP to login</a>
+</div>
+</div>
+<!-- Actions -->
+<div class="space-y-4 pt-2">
+<button class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-full shadow-sm text-sm font-semibold text-white bg-primary hover:bg-[#153522] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors" type="submit">
+<svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Login
+                  </button>
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-200"></div>
+</div>
+<div class="relative flex justify-center text-xs">
+<span class="px-2 bg-white text-gray-500 uppercase tracking-wider">OR</span>
+</div>
+</div>
+<button class="w-full flex justify-center py-3.5 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors" type="button">
+<svg class="w-5 h-5 mr-2 -ml-1 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Login with OTP
+                  </button>
+</div>
+</form>
+</div>
+<!-- Secure System Notice -->
+<div class="bg-green-50/50 px-8 py-4 border-t border-green-100 flex items-center justify-center text-sm text-gray-600">
+<svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>This is a secure system. All activities are monitored and recorded.</span>
+</div>
+</div>
+<!-- Card End -->
+<p class="mt-8 text-center text-sm text-gray-500">
+            Don't have access? Contact your <a class="font-semibold text-primary hover:underline" href="#">Centre Admin</a> or <a class="font-semibold text-primary hover:underline" href="#">System Administrator</a>.
+          </p>
+</div>
+</div>
+<!-- BEGIN: Bottom Features & Footer -->
+<div class="w-full mt-auto bg-white border-t border-gray-100">
+<!-- Bottom Feature Bar -->
+<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-50">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm text-gray-600">
+<div class="flex items-center space-x-3 justify-center md:justify-start">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Real-time<br/>Queue Updates</span>
+</div>
+<div class="flex items-center space-x-3 justify-center md:justify-start">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Accurate<br/>Weighment</span>
+</div>
+<div class="flex items-center space-x-3 justify-center md:justify-start">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Quality<br/>Assurance</span>
+</div>
+<div class="flex items-center space-x-3 justify-center md:justify-start">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span>Secure<br/>Transactions</span>
+</div>
+</div>
+</div>
+<!-- Footer Links -->
+<footer class="py-4 text-center text-sm text-gray-500 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4">
+<p>© 2026 Kisan Setu. All rights reserved.</p>
+<div class="hidden md:block w-px h-4 bg-gray-300"></div>
+<div class="space-x-4">
+<a class="hover:text-gray-900 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-gray-900 transition-colors" href="#">Terms of Use</a>
+</div>
+</footer>
+</div>
+<!-- END: Bottom Features & Footer -->
+</section>
+<!-- END: Right Panel -->
+</main>
+<!-- END: Main Layout -->
+</body></html>

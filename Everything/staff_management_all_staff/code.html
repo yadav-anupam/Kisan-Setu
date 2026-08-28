@@ -1,0 +1,351 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-variant":"#e1e3e1","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002203","on-primary":"#ffffff","surface-container-high":"#e6e9e7","surface-container-highest":"#e1e3e1","on-secondary-fixed-variant":"#005313","secondary-fixed":"#94f990","tertiary-container":"#3a7b39","primary-container":"#2e7d32","on-secondary-fixed":"#002204","on-error":"#ffffff","on-error-container":"#93000a","surface":"#f8faf8","on-secondary":"#ffffff","secondary-container":"#91f78e","secondary":"#006e1c","inverse-surface":"#2e3130","on-background":"#191c1b","surface-bright":"#f8faf8","primary-fixed-dim":"#88d982","on-primary-fixed":"#002204","outline-variant":"#bfcaba","error-container":"#ffdad6","surface-dim":"#d8dad9","on-secondary-container":"#00731e","on-primary-fixed-variant":"#005312","tertiary":"#1f6223","secondary-fixed-dim":"#78dc77","on-surface-variant":"#40493d","on-surface":"#191c1b","outline":"#707a6c","surface-container-low":"#f2f4f2","tertiary-fixed":"#acf4a4","primary":"#0d631b","primary-fixed":"#a3f69c","inverse-primary":"#88d982","surface-container":"#eceeec","inverse-on-surface":"#eff1ef","on-primary-container":"#cbffc2","error":"#ba1a1a","on-tertiary-container":"#c8ffbf","tertiary-fixed-dim":"#91d78a","on-tertiary-fixed-variant":"#0c5216","background":"#f8faf8","surface-tint":"#1b6d24"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"gutter-md":"16px","stack-md":"24px","stack-sm":"12px","container-padding":"24px","unit":"8px","stack-lg":"48px"},"fontFamily":{"label-lg":["Public Sans"],"body-md":["Public Sans"],"label-sm":["Public Sans"],"display-lg":["Manrope"],"body-lg":["Public Sans"],"display-lg-mobile":["Manrope"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-background"><aside class="fixed left-0 top-0 h-full w-72 bg-primary text-on-primary z-50 flex flex-col overflow-y-auto"><div class="p-8 mb-4 flex items-center gap-3"><span class="material-symbols-outlined text-[32px]">agriculture</span><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight">Kisan Setu</span><span class="text-[10px] uppercase tracking-widest opacity-80">Procurement Portal</span></div></div><nav class="flex-1 px-4 flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="dashboard" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Procurement</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="centre-management" href="#"><span class="material-symbols-outlined">hub</span><span class="font-label-lg text-label-lg">Centre Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-centres" href="#">All Centres</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="add-new-centre" href="#">Add New Centre</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-verification" href="#">Centre Verification</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-categories" href="#">Centre Categories</a></div><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Administration</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="user-role-management" href="#"><span class="material-symbols-outlined">group_work</span><span class="font-label-lg text-label-lg">User &amp; Roles</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="staff-management" href="#"><span class="material-symbols-outlined">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a aria-current="page" class="py-2 transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="all-staff" href="#">All Staff</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="departments" href="#">Departments</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="attendance" href="#">Attendance</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="leave-management" href="#">Leave Management</a></div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="permission-management" href="#"><span class="material-symbols-outlined">key</span><span class="font-label-lg text-label-lg">Permissions</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Operations</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="reports-analytics" href="#"><span class="material-symbols-outlined">analytics</span><span class="font-label-lg text-label-lg">Reports &amp; Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="audit-logs" href="#"><span class="material-symbols-outlined">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><div class="mt-auto pb-8 flex flex-col gap-1"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="announcements" href="#"><span class="material-symbols-outlined">campaign</span><span class="font-label-lg text-label-lg">Announcements</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="system-settings" href="#"><span class="material-symbols-outlined">settings</span><span class="font-label-lg text-label-lg">System Settings</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="help-support" href="#"><span class="material-symbols-outlined">help</span><span class="font-label-lg text-label-lg">Help &amp; Support</span></a></div></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl z-40 px-8 flex items-center justify-between border-b border-outline-variant/30"><div class="flex items-center gap-6 flex-1"><div class="relative max-w-md w-full"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full pl-12 pr-4 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/50 focus:outline-none focus:border-primary text-sm" placeholder="Search centres, staff or transactions..." type="text"/></div><div class="hidden lg:flex items-center gap-2 text-on-surface-variant bg-surface-container px-4 py-2 rounded-full"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="text-label-sm font-label-sm" id="current-time-display">Oct 24, 2023 • 10:45 AM</span></div></div><div class="flex items-center gap-4"><button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span></button><div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30"><div class="text-right hidden sm:block"><div class="text-sm font-bold text-on-surface">Admin User</div><div class="text-xs text-on-surface-variant">Super Administrator</div></div><div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[24px]">person</span></div></div></div></header><main class="relative pt-20 min-h-screen px-8 py-10"><div class="flex flex-col w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Staff Management</h1>
+<span class="material-symbols-outlined text-primary text-[28px]">group</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Manage staff members, their roles, departments and work assignments.</p>
+</div>
+</div>
+<!-- Summary Metrics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+<!-- Total Staff -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-6 shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Total Staff</p>
+<div class="font-display-lg text-on-surface mb-2 leading-none text-[32px]">128</div>
+<p class="font-label-sm text-primary flex items-center gap-1">
+<span class="font-bold">+8</span> this month
+                    </p>
+</div>
+</div>
+</div>
+<!-- Active Staff -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-6 shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[24px]">person_check</span>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Active Staff</p>
+<div class="font-display-lg text-on-surface mb-2 leading-none text-[32px]">112</div>
+<p class="font-label-sm text-secondary flex items-center gap-1">
+<span class="font-bold">87.5%</span> of total
+                    </p>
+</div>
+</div>
+</div>
+<!-- On Leave -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-6 shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center flex-shrink-0 text-yellow-600">
+<span class="material-symbols-outlined text-[24px]">person_off</span>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">On Leave</p>
+<div class="font-display-lg text-on-surface mb-2 leading-none text-[32px]">10</div>
+<p class="font-label-sm text-yellow-600 flex items-center gap-1">
+<span class="font-bold">7.8%</span> of total
+                    </p>
+</div>
+</div>
+</div>
+<!-- Inactive Staff -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-6 shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center flex-shrink-0 text-error">
+<span class="material-symbols-outlined text-[24px]">person_remove</span>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Inactive Staff</p>
+<div class="font-display-lg text-on-surface mb-2 leading-none text-[32px]">6</div>
+<p class="font-label-sm text-error flex items-center gap-1">
+<span class="font-bold">4.7%</span> of total
+                    </p>
+</div>
+</div>
+</div>
+<!-- Departments -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-6 shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center flex-shrink-0 text-tertiary">
+<span class="material-symbols-outlined text-[24px]">domain</span>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Departments</p>
+<div class="font-display-lg text-on-surface mb-2 leading-none text-[32px]">12</div>
+<p class="font-label-sm text-on-surface-variant flex items-center gap-1">
+                        Across centres
+                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex flex-col xl:flex-row gap-6">
+<!-- Left Column: Staff Table -->
+<div class="flex-1 min-w-0 flex flex-col gap-6">
+<!-- Filters & Search -->
+<div class="bg-surface-container-lowest p-4 rounded-DEFAULT shadow-sm border border-outline-variant/20 flex flex-wrap items-center gap-4">
+<div class="relative flex-1 min-w-[200px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface rounded-full border border-outline-variant/30 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-sm transition-all" placeholder="Search by name, employee ID, email or mobile..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative group cursor-pointer">
+<select class="appearance-none bg-surface border border-outline-variant/30 rounded-full pl-4 pr-10 py-2 font-label-lg text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer">
+<option>All Departments</option>
+<option>Procurement</option>
+<option>Quality Check</option>
+<option>Weighment</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+<div class="relative group cursor-pointer hidden sm:block">
+<select class="appearance-none bg-surface border border-outline-variant/30 rounded-full pl-4 pr-10 py-2 font-label-lg text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer">
+<option>All Designations</option>
+<option>Centre Manager</option>
+<option>Quality Supervisor</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+<div class="relative group cursor-pointer hidden md:block">
+<select class="appearance-none bg-surface border border-outline-variant/30 rounded-full pl-4 pr-10 py-2 font-label-lg text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer">
+<option>All Status</option>
+<option>Active</option>
+<option>On Leave</option>
+<option>Inactive</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant/50 text-on-surface font-label-lg text-sm hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filters
+                    </button>
+<button class="flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-on-primary font-label-lg text-sm hover:bg-primary/90 transition-colors shadow-sm ml-auto sm:ml-0">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Add Staff
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-container-lowest rounded-DEFAULT shadow-sm border border-outline-variant/20 overflow-hidden flex-1">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 bg-surface-container/50">
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Staff Member</th>
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Employee ID</th>
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Department</th>
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Designation</th>
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Centre / Location</th>
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Status</th>
+<th class="py-4 px-6 font-label-lg text-xs uppercase tracking-wider text-on-surface-variant font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/30 transition-colors group">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shadow-sm shrink-0 border border-outline-variant/20">
+<img alt="Amit Kumar" class="w-full h-full object-cover" data-alt="Portrait of Amit Kumar, a professional man in his 30s wearing a collared shirt, well-lit studio photography, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx7Q1s5uOdJnEFzH0uIufkS9n56AtVKY3wrnkEJXFs7rnnPClHImQ5gwC7SXRI8pqTHnad_0jBFYSPneaSevXU8B1pDaPKPKBzEGC_vacjPhMYE6d4Q8Fn4zPcH7UYIRYxVRTHKhB5xsy95DLkhlN7lCpiH7zpYm8eO2Bf0mtHBHS--yni0NMAZAxHJq8JaQ9ALCCqJ_SgdepgHRGGayRPnHZ-6cg80T1My4KQ_4RFFgxziyb1n3Xz"/>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-on-surface truncate">Amit Kumar</p>
+<p class="font-body-md text-xs text-on-surface-variant truncate">amit.kumar@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">EMP00125</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Procurement</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Centre Manager</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Kanpur Procurement Centre</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-label-lg bg-secondary/10 text-secondary">Active</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/30 transition-colors group">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shadow-sm shrink-0 border border-outline-variant/20">
+<img alt="Priya Singh" class="w-full h-full object-cover" data-alt="Portrait of Priya Singh, a professional woman in her 20s, friendly smile, business casual attire, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF4Q3YcOs4wUbhqVwQpYm6C3hg8iibRygbPzOZAQVG1W_ohM4fMdcpGY861dNsmvMve-4qKTqtR_PHaQQK9w3Qq11y1tgtTtwEEAqrr_ENHMHdOQbf-3EV_ZRTKo12SbaSb7t2buAndk2pwayS8T50UzJYghkzFM84DLu1v8a-NegbL_gArJ-4nLUJtm91OmJD8_RQn_N4_pWW_6PcYO6x-5ijUVecYToz1JIvxAzKbwCRiS35gm7l"/>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-on-surface truncate">Priya Singh</p>
+<p class="font-body-md text-xs text-on-surface-variant truncate">priya.singh@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">EMP00126</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Quality Check</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Quality Supervisor</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Lucknow Centre</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-label-lg bg-secondary/10 text-secondary">Active</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/30 transition-colors group bg-surface-container/10">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shadow-sm shrink-0 border border-outline-variant/20">
+<img alt="Sunita Devi" class="w-full h-full object-cover" data-alt="Portrait of Sunita Devi, a professional woman wearing glasses, warm expression, office setting background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8f1Yl1XYo2HVQWkTvQxTod7yvNyC2O6i0EsIwA0cCi0n-dLhjUIRS16ctXwmj5XSn8hkWPvGMMXOeOWVWTih8tYaSA60wzxGIpsDWfHhyyLcRaWKhv8iGtppR3Tj65DKPrkt0zqJjRYCl7FFF8DpB5QBKT08T5yvqWTPEeZ7-CxOz_T6ZG9IISqqsuv78FBCYfRovFibDUF6pKddyzRY6RdN4ebkvs5kHEoHr-K7SSX1JHLQHW5wp"/>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-on-surface truncate">Sunita Devi</p>
+<p class="font-body-md text-xs text-on-surface-variant truncate">sunita.devi@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">EMP00128</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Finance</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Account Assistant</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Varanasi Centre</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-label-lg bg-yellow-500/10 text-yellow-700">On Leave</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/30 transition-colors group">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shadow-sm shrink-0 border border-outline-variant/20 flex items-center justify-center text-on-surface-variant font-label-lg">
+                                            ML
+                                        </div>
+<div class="min-w-0">
+<p class="font-label-lg text-on-surface truncate">Mohan Lal</p>
+<p class="font-body-md text-xs text-on-surface-variant truncate">mohan.lal@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">EMP00131</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Support</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Support Staff</td>
+<td class="py-3 px-6 font-body-md text-sm text-on-surface">Head Office</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-label-lg bg-error/10 text-error">Inactive</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="border-t border-outline-variant/20 p-4 flex items-center justify-between bg-surface-container-lowest">
+<p class="font-body-md text-sm text-on-surface-variant">Showing 1 to 10 of 128 staff members</p>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface-variant transition-colors disabled:opacity-50"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-on-primary font-label-lg text-sm transition-colors">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface font-label-lg text-sm transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface font-label-lg text-sm transition-colors">3</button>
+<span class="text-on-surface-variant px-1">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface font-label-lg text-sm transition-colors">13</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="w-full xl:w-80 flex flex-col gap-6 shrink-0">
+<!-- Department Distribution Chart -->
+<div class="bg-surface-container-lowest p-6 rounded-DEFAULT shadow-sm border border-outline-variant/20">
+<h3 class="font-headline-md text-base text-on-surface mb-6">Department Distribution</h3>
+<div class="flex flex-col items-center gap-4">
+<!-- Inline SVG Donut Chart Placeholder -->
+<div class="relative w-40 h-40">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Background ring -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#f2f4f2" stroke-width="15"></circle>
+<!-- Segments (Simulated) -->
+<!-- Procurement (32%) -->
+<circle class="transition-all duration-1000" cx="50" cy="50" fill="transparent" r="40" stroke="#2e7d32" stroke-dasharray="251.2" stroke-dashoffset="170.8" stroke-width="15"></circle>
+<!-- Quality Check (18.8%) -->
+<circle class="transition-all duration-1000" cx="50" cy="50" fill="transparent" r="40" stroke="#0ea5e9" stroke-dasharray="251.2" stroke-dashoffset="204" stroke-width="15" style="stroke-dashoffset: 204; stroke-dasharray: 47 204.2; stroke-dashoffset: -80.4;"></circle>
+<!-- Weighment (15.6%) -->
+<circle class="transition-all duration-1000" cx="50" cy="50" fill="transparent" r="40" stroke="#f59e0b" stroke-dasharray="251.2" stroke-dashoffset="212" stroke-width="15" style="stroke-dasharray: 39 212.2; stroke-dashoffset: -127.4;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-display-lg text-[24px] text-on-surface leading-none">128</span>
+<span class="font-label-sm text-on-surface-variant text-[10px] uppercase">Total Staff</span>
+</div>
+</div>
+<div class="w-full space-y-2 mt-4">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span><span class="text-on-surface-variant">Procurement</span></div>
+<span class="font-label-lg text-on-surface">32 <span class="text-on-surface-variant font-normal opacity-70">(25.0%)</span></span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-sky-500"></span><span class="text-on-surface-variant">Quality Check</span></div>
+<span class="font-label-lg text-on-surface">24 <span class="text-on-surface-variant font-normal opacity-70">(18.8%)</span></span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-on-surface-variant">Weighment</span></div>
+<span class="font-label-lg text-on-surface">20 <span class="text-on-surface-variant font-normal opacity-70">(15.6%)</span></span>
+</div>
+</div>
+<a class="mt-2 text-primary font-label-lg text-sm hover:underline flex items-center gap-1 self-end" href="#">
+                        View All Departments <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest p-6 rounded-DEFAULT shadow-sm border border-outline-variant/20">
+<h3 class="font-headline-md text-base text-on-surface mb-4">Quick Actions</h3>
+<div class="flex flex-col gap-1">
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container transition-colors text-left w-full group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">person_add</span>
+<span class="font-label-lg text-sm text-on-surface group-hover:text-primary transition-colors">Add New Staff</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container transition-colors text-left w-full group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">upload_file</span>
+<span class="font-label-lg text-sm text-on-surface group-hover:text-secondary transition-colors">Import Staff (Excel)</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container transition-colors text-left w-full group">
+<span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">domain</span>
+<span class="font-label-lg text-sm text-on-surface group-hover:text-tertiary transition-colors">Manage Departments</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container transition-colors text-left w-full group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:scale-110 transition-all">badge</span>
+<span class="font-label-lg text-sm text-on-surface group-hover:text-primary transition-colors">Assign Roles</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

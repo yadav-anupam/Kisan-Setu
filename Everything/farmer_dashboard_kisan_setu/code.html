@@ -1,0 +1,401 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full h-full min-h-screen bg-surface font-body-md text-on-surface">
+<div class="flex w-full h-full p-container-padding gap-stack-md">
+<!-- Sidebar -->
+<aside class="hidden lg:flex flex-col w-64 flex-shrink-0 bg-surface-container-lowest rounded-2xl shadow-sm h-[calc(100vh-48px)] sticky top-container-padding overflow-hidden">
+<div class="p-4 bg-primary text-on-primary">
+<h1 class="font-display-lg-mobile text-2xl tracking-tight leading-none mb-1">Kisan Setu</h1>
+<p class="text-xs opacity-90">Agri-Trust Platform</p>
+</div>
+<nav class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto px-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary-container text-on-primary-container font-label-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+          Dashboard
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">event</span>
+          My Appointments
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+          Book New Slot
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">queue</span>
+          Live Queue
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">agriculture</span>
+          My Procurement
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+          Payments
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+          History
+        </a>
+<div class="h-[1px] bg-outline-variant/30 my-2 mx-3"></div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+          Notifications
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">person</span>
+          Profile
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container text-on-surface-variant font-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+          Help &amp; Support
+        </a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-primary-container/20 rounded-xl p-4 border-l-4 border-primary">
+<p class="font-headline-md text-sm text-primary mb-1">Smart Procurement</p>
+<p class="text-xs text-on-surface-variant mb-2">Better Farming for a better tomorrow.</p>
+<button class="text-xs font-bold text-primary underline underline-offset-2">Learn More</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 max-w-[1280px] mx-auto w-full gap-stack-md">
+<!-- Top Header Bar -->
+<header class="flex justify-between items-center bg-surface-container-lowest p-4 rounded-2xl shadow-sm">
+<div>
+<h2 class="font-headline-lg text-2xl text-on-surface">Namaste, Ramesh Kumar</h2>
+<p class="text-on-surface-variant text-sm mt-1">Welcome back to your Kisan Setu dashboard.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface relative">
+<span class="material-symbols-outlined">translate</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-md text-lg overflow-hidden ring-2 ring-surface">
+            RK
+          </div>
+</div>
+</header>
+<!-- Reference Image Debug/Context Block (Visually Hidden in prod, keeping here for reference as requested by prompt structure, though usually we don't output the source image unless asked. The prompt asked to "include the following images in this design". I will add it as a decorative banner or hidden reference.) -->
+<div class="hidden">
+<img alt="Reference Dashboard Design" class="w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuEZpWGG9Z9C0b2WFOdwRWvO0U4jYjkzkrbW6kqEiM-Dtf_RhwTS90gswhEvnlE4gktkurqx_cNUU1SOoe0IfYsNPeok_DHXUzbiOddpcPgffGkewdt1a7dtkgYoJUnyxUKXntzuaFKwnL5hRsd_0sXTxJsK2sqKqqJnwFuKIfH5JxbIMEWyGh3cpfQEr4bunuNtjEVgQXywoDq-CRcDk9-5qtFuDfthabPk-Kw7prFqtsvd582zO-XWWOjRbIUGJZ8w"/>
+</div>
+<!-- Top Row Cards: Next Appt, Live Queue, Quick Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-md">
+<!-- Next Appointment -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col border border-outline-variant/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-4 -mt-4"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<h3 class="font-headline-md text-lg text-on-surface">Next Appointment</h3>
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Upcoming</span>
+</div>
+<div class="flex items-start gap-4 mb-5 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div>
+<p class="font-label-lg text-on-surface text-lg">Aug 28, 2026</p>
+<p class="text-on-surface-variant text-sm mt-1">XYZ Procurement Centre</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-6 relative z-10">
+<div class="bg-surface p-3 rounded-xl border border-outline-variant/10">
+<p class="text-xs text-on-surface-variant mb-1">Crop</p>
+<p class="font-label-lg text-on-surface">Wheat</p>
+</div>
+<div class="bg-surface p-3 rounded-xl border border-outline-variant/10">
+<p class="text-xs text-on-surface-variant mb-1">Quantity</p>
+<p class="font-label-lg text-on-surface">48 Quintal</p>
+</div>
+</div>
+<button class="mt-auto w-full py-3 bg-surface-container hover:bg-surface-variant text-primary font-label-lg rounded-xl transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+            View Live Queue
+          </button>
+</div>
+<!-- Live Queue Status -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col border border-outline-variant/20">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-lg text-on-surface">Live Queue Status</h3>
+<span class="w-2 h-2 bg-secondary rounded-full animate-pulse shadow-[0_0_8px_rgba(0,110,28,0.6)]"></span>
+</div>
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-xs text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">Current Token</p>
+<p class="font-display-lg-mobile text-4xl text-primary leading-none">A-35</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant mb-1">Your Token</p>
+<p class="font-headline-md text-xl text-on-surface">A-48</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant">Farmers Ahead: <strong class="text-on-surface">12</strong></span>
+<span class="text-on-surface-variant">Est. Wait: <strong class="text-on-surface">32 min</strong></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 35%"></div>
+</div>
+</div>
+<div class="mt-auto bg-secondary/10 text-secondary p-3 rounded-xl flex items-start gap-3 border border-secondary/20">
+<span class="material-symbols-outlined text-[20px] mt-0.5">info</span>
+<p class="text-xs leading-relaxed font-medium">Queue is moving at normal pace. Please be ready with your documents.</p>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col border border-outline-variant/20">
+<h3 class="font-headline-md text-lg text-on-surface mb-4">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-3 mb-4 flex-1">
+<button class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface hover:bg-surface-container border border-outline-variant/20 transition-colors gap-2 text-center group">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</div>
+<span class="text-xs font-label-lg text-on-surface">Book New Slot</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface hover:bg-surface-container border border-outline-variant/20 transition-colors gap-2 text-center group">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<span class="text-xs font-label-lg text-on-surface">Find Centre</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface hover:bg-surface-container border border-outline-variant/20 transition-colors gap-2 text-center group">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<span class="text-xs font-label-lg text-on-surface">My Procurement</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface hover:bg-surface-container border border-outline-variant/20 transition-colors gap-2 text-center group">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="text-xs font-label-lg text-on-surface">Payments</span>
+</button>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary font-label-lg rounded-xl hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+            Download Receipt
+          </button>
+</div>
+</div>
+<!-- Statistics Row -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col justify-center">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+<span class="text-xs font-medium">Total Procurements</span>
+</div>
+<p class="font-headline-lg text-2xl text-on-surface">8</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col justify-center">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[18px]">scale</span>
+<span class="text-xs font-medium">Total Quantity</span>
+</div>
+<p class="font-headline-lg text-2xl text-on-surface">247.50<span class="text-sm font-normal text-on-surface-variant ml-1">Qtl</span></p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col justify-center">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[18px]">currency_rupee</span>
+<span class="text-xs font-medium">Total Earnings</span>
+</div>
+<p class="font-headline-lg text-2xl text-on-surface">₹ 1,45,680</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col justify-center">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+<span class="text-xs font-medium">Avg Waiting Time</span>
+</div>
+<p class="font-headline-lg text-2xl text-on-surface">24<span class="text-sm font-normal text-on-surface-variant ml-1">min</span></p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col justify-center col-span-2 md:col-span-1">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span class="text-xs font-medium">Successful Payments</span>
+</div>
+<p class="font-headline-lg text-2xl text-secondary">8</p>
+</div>
+</div>
+<!-- Lower Section Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-md">
+<!-- Left Column (Recent Notifications & Weather) -->
+<div class="flex flex-col gap-gutter-md">
+<!-- Recent Notifications -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/10 flex-1">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-lg text-on-surface">Recent Notifications</h3>
+<button class="text-primary text-xs font-bold hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex gap-3 p-3 rounded-xl bg-surface border border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</div>
+<div>
+<p class="font-label-lg text-on-surface text-sm">Slot Confirmed</p>
+<p class="text-xs text-on-surface-variant mt-0.5 line-clamp-1">Your appointment for Aug 28 is confirmed.</p>
+<p class="text-[10px] text-on-surface-variant mt-1">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-3 p-3 rounded-xl bg-primary/5 border border-primary/20">
+<div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+</div>
+<div>
+<p class="font-label-lg text-on-surface text-sm">Your turn is approaching</p>
+<p class="text-xs text-on-surface-variant mt-0.5 line-clamp-1">Token A-48 is expected in ~30 mins.</p>
+<p class="text-[10px] text-on-surface-variant mt-1">5 hours ago</p>
+</div>
+</div>
+<div class="flex gap-3 p-3 rounded-xl bg-surface border border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">account_balance</span>
+</div>
+<div>
+<p class="font-label-lg text-on-surface text-sm">Payment Credited</p>
+<p class="text-xs text-on-surface-variant mt-0.5 line-clamp-1">₹25,680 credited to A/c ending 4321.</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Yesterday</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Weather -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/10 relative overflow-hidden h-40 flex items-center">
+<!-- Decorative weather background -->
+<div class="absolute inset-0 opacity-10 bg-gradient-to-br from-primary via-transparent to-transparent pointer-events-none"></div>
+<div class="flex justify-between items-center w-full relative z-10">
+<div>
+<p class="text-sm font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Kanpur, UP
+                </p>
+<div class="flex items-baseline gap-2 mt-1">
+<p class="font-display-lg-mobile text-4xl text-on-surface">32°C</p>
+<p class="text-sm text-on-surface-variant">Partly Cloudy</p>
+</div>
+<div class="flex gap-4 mt-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">water_drop</span> 65%</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">air</span> 12 km/h</span>
+</div>
+</div>
+<div class="w-16 h-16 text-primary opacity-80">
+<svg class="w-full h-full" fill="currentColor" viewbox="0 0 24 24">
+<path d="M6.5 17.5C4.57 17.5 3 15.93 3 14C3 12.18 4.39 10.67 6.17 10.56C6.72 7.82 9.09 5.75 12 5.75C14.91 5.75 17.28 7.82 17.83 10.56C19.61 10.67 21 12.18 21 14C21 15.93 19.43 17.5 17.5 17.5H6.5ZM6.5 15.5H17.5C18.33 15.5 19 14.83 19 14C19 13.17 18.33 12.5 17.5 12.5H16.27L16 11.23C15.65 8.94 13.98 7.25 12 7.25C10.02 7.25 8.35 8.94 8 11.23L7.73 12.5H6.5C5.67 12.5 5 13.17 5 14C5 14.83 5.67 15.5 6.5 15.5Z"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Column (Procurement History) -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/10 lg:col-span-1 overflow-hidden flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-lg text-on-surface">Procurement History</h3>
+<button class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20">
+<th class="py-3 px-2 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Date</th>
+<th class="py-3 px-2 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Crop</th>
+<th class="py-3 px-2 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Qty/Price</th>
+<th class="py-3 px-2 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-outline-variant/10 hover:bg-surface-container/50 transition-colors group">
+<td class="py-4 px-2 font-medium text-on-surface">Aug 28</td>
+<td class="py-4 px-2 text-on-surface-variant">Wheat</td>
+<td class="py-4 px-2">
+<div class="flex flex-col">
+<span class="text-on-surface">48 Qtl</span>
+<span class="text-xs text-on-surface-variant">₹ 1,12,000</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Completed
+                    </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-container/50 transition-colors group">
+<td class="py-4 px-2 font-medium text-on-surface">Aug 12</td>
+<td class="py-4 px-2 text-on-surface-variant">Wheat</td>
+<td class="py-4 px-2">
+<div class="flex flex-col">
+<span class="text-on-surface">32 Qtl</span>
+<span class="text-xs text-on-surface-variant">₹ 74,800</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Completed
+                    </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="py-4 px-2 font-medium text-on-surface">Jul 28</td>
+<td class="py-4 px-2 text-on-surface-variant">Wheat</td>
+<td class="py-4 px-2">
+<div class="flex flex-col">
+<span class="text-on-surface">15 Qtl</span>
+<span class="text-xs text-on-surface-variant">₹ 35,000</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Completed
+                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button class="mt-auto w-full py-2 text-sm text-primary font-medium hover:underline flex justify-center items-center gap-1">
+            View Full History <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Right Column (Payment Summary) -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/10 lg:col-span-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-lg text-on-surface">Payment Summary</h3>
+<span class="material-symbols-outlined text-on-surface-variant">account_balance_wallet</span>
+</div>
+<div class="bg-gradient-to-br from-primary-container to-primary text-on-primary rounded-xl p-5 mb-6 shadow-md relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+<p class="text-sm opacity-90 mb-1 relative z-10">Last Payment Received</p>
+<h4 class="font-display-lg-mobile text-3xl mb-4 relative z-10">₹ 25,680</h4>
+<div class="flex items-center gap-2 text-sm relative z-10 bg-black/20 w-fit px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+              Credited on Aug 28
+            </div>
+</div>
+<div class="space-y-4 flex-1">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="text-sm text-on-surface-variant">Payment Method</span>
+<span class="text-sm font-medium text-on-surface">Bank Transfer</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="text-sm text-on-surface-variant">Account Number</span>
+<span class="text-sm font-medium text-on-surface">XXXX-XXXX-4321</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-sm text-on-surface-variant">Bank Name</span>
+<span class="text-sm font-medium text-on-surface">State Bank of India</span>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-surface hover:bg-surface-container border border-outline-variant/20 text-on-surface font-label-lg rounded-xl transition-colors">
+            Manage Bank Accounts
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div></main></body></html>

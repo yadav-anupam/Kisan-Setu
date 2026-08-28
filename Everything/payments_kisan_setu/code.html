@@ -1,0 +1,583 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#0d631b", "surface-container-highest": "#e1e3e1", "on-tertiary-fixed-variant": "#0c5216", "surface": "#f8faf8", "on-secondary-fixed": "#002204", "surface-bright": "#f8faf8", "on-secondary": "#ffffff", "surface-tint": "#1b6d24", "on-primary-container": "#cbffc2", "tertiary-fixed": "#acf4a4", "primary-fixed": "#a3f69c", "surface-container": "#eceeec", "on-primary-fixed": "#002204", "primary-container": "#2e7d32", "tertiary": "#1f6223", "on-tertiary-fixed": "#002203", "outline-variant": "#bfcaba", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#40493d", "on-primary-fixed-variant": "#005312", "on-surface": "#191c1b", "surface-variant": "#e1e3e1", "error-container": "#ffdad6", "on-background": "#191c1b", "on-primary": "#ffffff", "background": "#f8faf8", "secondary-fixed": "#94f990", "secondary": "#006e1c", "surface-container-high": "#e6e9e7", "inverse-primary": "#88d982", "tertiary-container": "#3a7b39", "on-secondary-fixed-variant": "#005313", "inverse-on-surface": "#eff1ef", "secondary-container": "#91f78e", "error": "#ba1a1a", "surface-dim": "#d8dad9", "on-secondary-container": "#00731e", "primary-fixed-dim": "#88d982", "inverse-surface": "#2e3130", "outline": "#707a6c", "secondary-fixed-dim": "#78dc77", "tertiary-fixed-dim": "#91d78a", "on-tertiary-container": "#c8ffbf", "on-error": "#ffffff", "on-error-container": "#93000a", "surface-container-low": "#f2f4f2" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "unit": "8px", "stack-lg": "48px", "gutter-md": "16px", "stack-sm": "12px", "stack-md": "24px", "container-padding": "24px" }, "fontFamily": { "body-md": ["Public Sans"], "label-lg": ["Public Sans"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Public Sans"], "label-sm": ["Public Sans"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }], "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface"><main class="min-h-screen pt-safe pb-safe"><div class="flex flex-col w-full h-full min-h-screen bg-background text-on-background lg:flex-row overflow-hidden">
+<!-- Sidebar -->
+<aside class="hidden lg:flex w-64 flex-col bg-surface-container-lowest border-r border-outline-variant/30 sticky top-0 h-screen overflow-y-auto shrink-0 z-20">
+<div class="p-gutter-md flex items-center gap-2 mb-stack-md">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary m-0 leading-none">Kisan Setu</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant m-0">Procurement Platform</p>
+</div>
+</div>
+<nav class="flex-1 px-unit flex flex-col gap-1">
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">home</span>
+        Dashboard
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">event_note</span>
+        My Appointments
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">calendar_month</span>
+        Book New Slot
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">queue</span>
+        Live Queue
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">inventory_2</span>
+        My Procurement
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-sm" href="#">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+        Payments
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md mt-stack-sm" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">history</span>
+        History
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md justify-between" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">notifications</span>
+          Notifications
+        </div>
+<span class="w-5 h-5 rounded-full bg-error text-on-error flex items-center justify-center font-label-sm text-[10px] leading-none">3</span>
+</a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">person</span>
+        Profile
+      </a>
+<a class="flex items-center gap-3 px-gutter-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">help</span>
+        Help &amp; Support
+      </a>
+</nav>
+<div class="p-gutter-md mt-auto">
+<div class="bg-surface-container-low rounded-xl p-gutter-md relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<h3 class="font-label-lg text-label-lg text-primary mb-1 relative z-10">Smart Procurement<br/>Better Farming</h3>
+<p class="font-label-sm text-[11px] leading-tight text-on-surface-variant mb-3 relative z-10">Quick payments, better transparency and fair value for your produce.</p>
+<div class="w-full h-24 rounded-lg bg-surface-variant bg-cover bg-center mt-2 relative z-10" data-alt="Illustration of a happy Indian farmer standing in a lush green field with a tractor in the background, warm sunny lighting, modern ag-tech aesthetic" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAc0UnCD0GXlGuzKqUlnHyKttaRmSMR3OPXgVedWlqe3mPrs64pIxs-1D46DFlr4B8key6SQon2DSw0e7sk4nNaH6MANzUQaWFJBYK7NMJq2R0EMRXZR_rpPtqSKyt1LO6synpLKpba_Xzv_40SLeoAFoBNwCVvj0OLvIapYkEV0blumYcGKqXAdJa2HBTCkHCTkg5HURUbARRClQTxZIQaA-USGMi2x-vxRFdH3yKgGZeKnv_aGetX')"></div>
+</div>
+<button class="w-full flex items-center gap-2 px-gutter-md py-3 mt-4 rounded-lg text-error hover:bg-error-container/50 transition-colors font-label-lg text-label-lg">
+<span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+<!-- Top Header -->
+<header class="h-16 px-container-padding flex items-center justify-between bg-surface/80 backdrop-blur-md sticky top-0 z-10 border-b border-outline-variant/20 lg:bg-transparent lg:backdrop-blur-none lg:border-none lg:h-auto lg:pt-stack-md lg:pb-0">
+<div class="lg:hidden flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+<h1 class="font-headline-md text-lg text-primary m-0">Kisan Setu</h1>
+</div>
+<div class="hidden lg:block">
+<h2 class="font-headline-lg text-headline-lg text-on-surface m-0">Payments</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">View all your payments, track status and download receipts.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 rounded-full hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="h-6 w-px bg-outline-variant/30 hidden md:block"></div>
+<button class="hidden md:flex items-center gap-1 text-on-surface-variant font-label-lg text-label-lg px-3 py-1.5 rounded-full hover:bg-surface-container-low transition-colors">
+          English
+          <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<div class="flex items-center gap-2 cursor-pointer p-1 rounded-full hover:bg-surface-container-low transition-colors pr-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Small avatar of an Indian farmer with a turban" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCO1F29Mun-w_1CeMLPZ61ylvMLbH0kHu29uNp4LsUDiweBRm1SwR7X_GCmj6uOipX117kIMPoLjIxYqzl_P6CAQvMJxVCPbkquAbWigYfX6_WkNsmX4XSFym3Bytb39z2SAEVpAZ1UnX8euy78Iurd0PyNc0R_BQ6epuebm9i9QElE2nLWCGFgsGY18RTleR6ecPmjsweJCwxa4-glLUz4fMPOzfcw1j-EPtL5TlbjXo_LgBJhFmj"/>
+<div class="hidden md:flex items-center gap-1">
+<span class="font-label-lg text-label-lg text-on-surface">Ramesh Kumar</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+</header>
+<div class="lg:hidden px-container-padding pt-stack-md pb-stack-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface m-0">Payments</h2>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">View all your payments, track status and download receipts.</p>
+</div>
+<!-- Content Area -->
+<div class="p-container-padding pt-stack-sm lg:pt-stack-md flex flex-col xl:flex-row gap-stack-md flex-1 items-start">
+<!-- Left Column: Stats & Table -->
+<div class="flex-1 w-full min-w-0 flex flex-col gap-stack-md">
+<!-- KPI Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-md">
+<!-- Total Earnings -->
+<div class="bg-surface-container-lowest rounded-xl p-gutter-md border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">currency_rupee</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total Earnings</p>
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 mb-1">₹ 1,45,680</h3>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-outline">This Season</span>
+<svg class="w-12 h-6 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 50 20">
+<path d="M5 15L15 8L25 12L35 4L45 8"></path>
+</svg>
+</div>
+</div>
+<!-- Paid Amount -->
+<div class="bg-surface-container-lowest rounded-xl p-gutter-md border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Paid Amount</p>
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 mb-1">₹ 1,27,360</h3>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-outline">This Season</span>
+<svg class="w-12 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 50 20">
+<path d="M5 12L15 14L25 6L35 10L45 4"></path>
+</svg>
+</div>
+</div>
+<!-- Pending Amount -->
+<div class="bg-surface-container-lowest rounded-xl p-gutter-md border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Pending Amount</p>
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 mb-1">₹ 18,320</h3>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-outline">2 Payments</span>
+<svg class="w-12 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 50 20">
+<path d="M5 16L15 10L25 14L35 6L45 8"></path>
+</svg>
+</div>
+</div>
+<!-- Total Transactions -->
+<div class="bg-surface-container-lowest rounded-xl p-gutter-md border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total Transactions</p>
+<h3 class="font-headline-md text-headline-md text-on-surface m-0 mb-1">16</h3>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-outline">This Season</span>
+<svg class="w-12 h-6 text-purple-600" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 50 20">
+<path d="M5 10L15 8L25 12L35 10L45 14"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Main Transactions Area -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm flex flex-col flex-1 overflow-hidden">
+<!-- Table Controls -->
+<div class="p-gutter-md border-b border-outline-variant/20 flex flex-col sm:flex-row gap-stack-sm justify-between items-start sm:items-center">
+<!-- Tabs -->
+<div class="flex space-x-6 border-b border-outline-variant/30 w-full sm:w-auto overflow-x-auto no-scrollbar pb-px">
+<button class="pb-3 text-primary font-label-lg text-label-lg border-b-2 border-primary whitespace-nowrap px-1">All Transactions</button>
+<button class="pb-3 text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg border-b-2 border-transparent hover:border-outline-variant whitespace-nowrap px-1 transition-colors">Paid</button>
+<button class="pb-3 text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg border-b-2 border-transparent hover:border-outline-variant whitespace-nowrap px-1 transition-colors">Pending</button>
+<button class="pb-3 text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg border-b-2 border-transparent hover:border-outline-variant whitespace-nowrap px-1 transition-colors">Failed</button>
+</div>
+<!-- Search & Filter -->
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full pl-9 pr-4 py-2 bg-surface rounded-lg border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-sm text-on-surface transition-all placeholder:text-outline-variant" placeholder="Search by centre, produce..." type="text"/>
+</div>
+<button class="flex items-center justify-center gap-2 px-3 py-2 border border-outline-variant/40 rounded-lg text-on-surface hover:bg-surface-container-low transition-colors font-label-lg text-sm shrink-0">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span class="hidden sm:inline">Filter</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface/50 border-b border-outline-variant/20">
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Date</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Procurement Centre</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Produce</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Quantity</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Amount</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Status</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Payment Method</th>
+<th class="py-3 px-gutter-md font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="py-4 px-gutter-md">
+<div class="font-headline-md text-lg text-on-surface leading-none">28</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Aug 2026</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-primary group-hover:underline cursor-pointer">XYZ Procurement Centre</div>
+<div class="font-body-md text-xs text-on-surface-variant">Village Rampur, Kanpur, UP</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined text-sm">eco</span>
+</div>
+<div>
+<div class="font-label-lg text-sm text-on-surface">Wheat</div>
+<div class="font-body-md text-xs text-on-surface-variant">A Grade</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">47.60</div>
+<div class="font-body-md text-xs text-on-surface-variant">Quintal</div>
+</td>
+<td class="py-4 px-gutter-md font-label-lg text-sm text-on-surface">₹ 25,680</td>
+<td class="py-4 px-gutter-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/20 text-primary font-label-sm text-xs">Paid</span>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">Bank Transfer</div>
+<div class="font-body-md text-xs text-on-surface-variant">UTR: 3589****5621</div>
+</td>
+<td class="py-4 px-gutter-md text-right">
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+                      View Receipt
+                      <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="py-4 px-gutter-md">
+<div class="font-headline-md text-lg text-on-surface leading-none">26</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Aug 2026</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-primary group-hover:underline cursor-pointer">ABC Procurement Centre</div>
+<div class="font-body-md text-xs text-on-surface-variant">Bhognipur, Kanpur, UP</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined text-sm">eco</span>
+</div>
+<div>
+<div class="font-label-lg text-sm text-on-surface">Wheat</div>
+<div class="font-body-md text-xs text-on-surface-variant">A Grade</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">42.30</div>
+<div class="font-body-md text-xs text-on-surface-variant">Quintal</div>
+</td>
+<td class="py-4 px-gutter-md font-label-lg text-sm text-on-surface">₹ 22,140</td>
+<td class="py-4 px-gutter-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/20 text-primary font-label-sm text-xs">Paid</span>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">UPI</div>
+<div class="font-body-md text-xs text-on-surface-variant">UPI ID: ram***@upi</div>
+</td>
+<td class="py-4 px-gutter-md text-right">
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+                      View Receipt
+                      <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="py-4 px-gutter-md">
+<div class="font-headline-md text-lg text-on-surface leading-none">20</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Aug 2026</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-primary group-hover:underline cursor-pointer">PQR Procurement Centre</div>
+<div class="font-body-md text-xs text-on-surface-variant">Naubasta, Kanpur, UP</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined text-sm">eco</span>
+</div>
+<div>
+<div class="font-label-lg text-sm text-on-surface">Wheat</div>
+<div class="font-body-md text-xs text-on-surface-variant">B Grade</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">35.80</div>
+<div class="font-body-md text-xs text-on-surface-variant">Quintal</div>
+</td>
+<td class="py-4 px-gutter-md font-label-lg text-sm text-on-surface">₹ 18,320</td>
+<td class="py-4 px-gutter-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-orange-100 text-orange-700 font-label-sm text-xs">Pending</span>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">Bank Transfer</div>
+<div class="font-body-md text-xs text-on-surface-variant">---</div>
+</td>
+<td class="py-4 px-gutter-md text-right">
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+                      View Details
+                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="py-4 px-gutter-md">
+<div class="font-headline-md text-lg text-on-surface leading-none">15</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Aug 2026</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-primary group-hover:underline cursor-pointer">XYZ Procurement Centre</div>
+<div class="font-body-md text-xs text-on-surface-variant">Village Rampur, Kanpur, UP</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined text-sm">eco</span>
+</div>
+<div>
+<div class="font-label-lg text-sm text-on-surface">Wheat</div>
+<div class="font-body-md text-xs text-on-surface-variant">A Grade</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">50.00</div>
+<div class="font-body-md text-xs text-on-surface-variant">Quintal</div>
+</td>
+<td class="py-4 px-gutter-md font-label-lg text-sm text-on-surface">₹ 27,500</td>
+<td class="py-4 px-gutter-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/20 text-primary font-label-sm text-xs">Paid</span>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">Bank Transfer</div>
+<div class="font-body-md text-xs text-on-surface-variant">UTR: 1267****8890</div>
+</td>
+<td class="py-4 px-gutter-md text-right">
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+                      View Receipt
+                      <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="py-4 px-gutter-md">
+<div class="font-headline-md text-lg text-on-surface leading-none">08</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Aug 2026</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-primary group-hover:underline cursor-pointer">ABC Procurement Centre</div>
+<div class="font-body-md text-xs text-on-surface-variant">Bhognipur, Kanpur, UP</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined text-sm">eco</span>
+</div>
+<div>
+<div class="font-label-lg text-sm text-on-surface">Wheat</div>
+<div class="font-body-md text-xs text-on-surface-variant">B Grade</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">22.20</div>
+<div class="font-body-md text-xs text-on-surface-variant">Quintal</div>
+</td>
+<td class="py-4 px-gutter-md font-label-lg text-sm text-on-surface">₹ 11,996</td>
+<td class="py-4 px-gutter-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/20 text-primary font-label-sm text-xs">Paid</span>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">UPI</div>
+<div class="font-body-md text-xs text-on-surface-variant">UPI ID: ram***@upi</div>
+</td>
+<td class="py-4 px-gutter-md text-right">
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+                      View Receipt
+                      <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="py-4 px-gutter-md">
+<div class="font-headline-md text-lg text-on-surface leading-none">01</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Aug 2026</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-primary group-hover:underline cursor-pointer">PQR Procurement Centre</div>
+<div class="font-body-md text-xs text-on-surface-variant">Naubasta, Kanpur, UP</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined text-sm">eco</span>
+</div>
+<div>
+<div class="font-label-lg text-sm text-on-surface">Wheat</div>
+<div class="font-body-md text-xs text-on-surface-variant">A Grade</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">25.60</div>
+<div class="font-body-md text-xs text-on-surface-variant">Quintal</div>
+</td>
+<td class="py-4 px-gutter-md font-label-lg text-sm text-on-surface">₹ 13,824</td>
+<td class="py-4 px-gutter-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-xs">Failed</span>
+</td>
+<td class="py-4 px-gutter-md">
+<div class="font-label-lg text-sm text-on-surface">Bank Transfer</div>
+<div class="font-body-md text-xs text-on-surface-variant">---</div>
+</td>
+<td class="py-4 px-gutter-md text-right">
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+                      Retry Payment
+                      <span class="material-symbols-outlined text-sm">refresh</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-gutter-md border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="font-body-md text-sm text-on-surface-variant m-0">Showing 1 to 6 of 16 entries</p>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/40 text-outline-variant disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-label-lg text-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/40 text-on-surface hover:bg-surface-container-low transition-colors font-label-lg text-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/40 text-on-surface hover:bg-surface-container-low transition-colors font-label-lg text-sm">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/40 text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Info Banner -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 p-gutter-md flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between mt-stack-sm shadow-sm">
+<div class="flex items-start sm:items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">info</span>
+<div>
+<p class="font-body-md text-on-surface m-0 text-sm">Payments are usually processed within 24–48 hours of procurement.</p>
+<p class="font-body-md text-on-surface-variant m-0 text-sm">For any queries, contact our support team.</p>
+</div>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/5 transition-colors font-label-lg text-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">help</span>
+            View Payment FAQs
+          </button>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<aside class="w-full xl:w-80 flex flex-col gap-stack-md shrink-0">
+<!-- Payment Summary Widget -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm p-gutter-md relative">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-lg text-on-surface m-0">Payment Summary</h3>
+<span class="material-symbols-outlined text-outline text-sm cursor-help" title="Summary of all financial activities">info</span>
+</div>
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">currency_rupee</span>
+</div>
+<span class="font-body-md text-sm text-on-surface-variant">Total Earnings</span>
+</div>
+<span class="font-label-lg text-on-surface">₹ 1,45,680</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">account_balance_wallet</span>
+</div>
+<span class="font-body-md text-sm text-on-surface-variant">Total Paid</span>
+</div>
+<span class="font-label-lg text-on-surface">₹ 1,27,360</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</div>
+<span class="font-body-md text-sm text-on-surface-variant">Pending Payments</span>
+</div>
+<span class="font-label-lg text-on-surface">₹ 18,320</span>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary rounded-lg py-3 px-4 flex items-center justify-center gap-2 font-label-lg text-sm hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">monitoring</span>
+            View Earnings Summary
+            <span class="material-symbols-outlined text-sm ml-auto">arrow_forward</span>
+</button>
+</div>
+<!-- Payment Methods Widget -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm p-gutter-md">
+<h3 class="font-headline-md text-lg text-on-surface m-0 mb-4">Payment Methods</h3>
+<div class="flex flex-col gap-3 mb-4">
+<!-- Bank Transfer -->
+<div class="flex items-center gap-3 p-3 rounded-lg border border-primary/20 bg-primary/5">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-outline-variant/30 text-outline shrink-0">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2">
+<p class="font-label-lg text-sm text-on-surface m-0 truncate">Bank Transfer</p>
+<span class="inline-block px-2 py-0.5 rounded text-[10px] font-label-sm bg-primary-fixed/50 text-primary-container shrink-0">Default</span>
+</div>
+<p class="font-body-md text-xs text-on-surface-variant m-0 truncate">A/C ending with **** 4567</p>
+</div>
+</div>
+<!-- UPI -->
+<div class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-outline-variant/30 shrink-0">
+<!-- Synthetic UPI logo -->
+<div class="flex text-[10px] font-bold italic tracking-tighter">
+<span class="text-orange-500">U</span><span class="text-green-600">P</span><span class="text-orange-500">I</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-sm text-on-surface m-0 truncate">UPI</p>
+<p class="font-body-md text-xs text-on-surface-variant m-0 truncate">ram****@upi</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface transition-colors shrink-0">chevron_right</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 text-primary hover:text-primary-container font-label-lg text-sm transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+            Add Payment Method
+          </button>
+</div>
+<!-- Need Help Widget -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm p-gutter-md">
+<h3 class="font-headline-md text-lg text-on-surface m-0 mb-2">Need Help?</h3>
+<p class="font-body-md text-sm text-on-surface-variant m-0 mb-4">Our support team is here to help you with your payments.</p>
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container-low transition-colors font-label-lg text-sm">
+<span class="material-symbols-outlined text-sm">support_agent</span>
+            Help &amp; Support
+          </button>
+</div>
+</aside>
+</div>
+</main>
+</div></main></body></html>

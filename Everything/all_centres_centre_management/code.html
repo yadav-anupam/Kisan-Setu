@@ -1,0 +1,423 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-variant":"#e1e3e1","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002203","on-primary":"#ffffff","surface-container-high":"#e6e9e7","surface-container-highest":"#e1e3e1","on-secondary-fixed-variant":"#005313","secondary-fixed":"#94f990","tertiary-container":"#3a7b39","primary-container":"#2e7d32","on-secondary-fixed":"#002204","on-error":"#ffffff","on-error-container":"#93000a","surface":"#f8faf8","on-secondary":"#ffffff","secondary-container":"#91f78e","secondary":"#006e1c","inverse-surface":"#2e3130","on-background":"#191c1b","surface-bright":"#f8faf8","primary-fixed-dim":"#88d982","on-primary-fixed":"#002204","outline-variant":"#bfcaba","error-container":"#ffdad6","surface-dim":"#d8dad9","on-secondary-container":"#00731e","on-primary-fixed-variant":"#005312","tertiary":"#1f6223","secondary-fixed-dim":"#78dc77","on-surface-variant":"#40493d","on-surface":"#191c1b","outline":"#707a6c","surface-container-low":"#f2f4f2","tertiary-fixed":"#acf4a4","primary":"#0d631b","primary-fixed":"#a3f69c","inverse-primary":"#88d982","surface-container":"#eceeec","inverse-on-surface":"#eff1ef","on-primary-container":"#cbffc2","error":"#ba1a1a","on-tertiary-container":"#c8ffbf","tertiary-fixed-dim":"#91d78a","on-tertiary-fixed-variant":"#0c5216","background":"#f8faf8","surface-tint":"#1b6d24"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"gutter-md":"16px","stack-md":"24px","stack-sm":"12px","container-padding":"24px","unit":"8px","stack-lg":"48px"},"fontFamily":{"label-lg":["Public Sans"],"body-md":["Public Sans"],"label-sm":["Public Sans"],"display-lg":["Manrope"],"body-lg":["Public Sans"],"display-lg-mobile":["Manrope"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-background"><aside class="fixed left-0 top-0 h-full w-72 bg-primary text-on-primary z-50 flex flex-col overflow-y-auto"><div class="p-8 mb-4 flex items-center gap-3"><span class="material-symbols-outlined text-[32px]">agriculture</span><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight">Kisan Setu</span><span class="text-[10px] uppercase tracking-widest opacity-80">Procurement Portal</span></div></div><nav class="flex-1 px-4 flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="dashboard" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Procurement</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="centre-management" href="#"><span class="material-symbols-outlined">hub</span><span class="font-label-lg text-label-lg">Centre Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a aria-current="page" class="py-2 transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="all-centres" href="#">All Centres</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="add-new-centre" href="#">Add New Centre</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-verification" href="#">Centre Verification</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-categories" href="#">Centre Categories</a></div><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Administration</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="user-role-management" href="#"><span class="material-symbols-outlined">group_work</span><span class="font-label-lg text-label-lg">User &amp; Roles</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="staff-management" href="#"><span class="material-symbols-outlined">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-staff" href="#">All Staff</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="departments" href="#">Departments</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="attendance" href="#">Attendance</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="leave-management" href="#">Leave Management</a></div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="permission-management" href="#"><span class="material-symbols-outlined">key</span><span class="font-label-lg text-label-lg">Permissions</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Operations</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="reports-analytics" href="#"><span class="material-symbols-outlined">analytics</span><span class="font-label-lg text-label-lg">Reports &amp; Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="audit-logs" href="#"><span class="material-symbols-outlined">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><div class="mt-auto pb-8 flex flex-col gap-1"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="announcements" href="#"><span class="material-symbols-outlined">campaign</span><span class="font-label-lg text-label-lg">Announcements</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="system-settings" href="#"><span class="material-symbols-outlined">settings</span><span class="font-label-lg text-label-lg">System Settings</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="help-support" href="#"><span class="material-symbols-outlined">help</span><span class="font-label-lg text-label-lg">Help &amp; Support</span></a></div></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl z-40 px-8 flex items-center justify-between border-b border-outline-variant/30"><div class="flex items-center gap-6 flex-1"><div class="relative max-w-md w-full"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full pl-12 pr-4 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/50 focus:outline-none focus:border-primary text-sm" placeholder="Search centres, staff or transactions..." type="text"/></div><div class="hidden lg:flex items-center gap-2 text-on-surface-variant bg-surface-container px-4 py-2 rounded-full"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="text-label-sm font-label-sm" id="current-time-display">Oct 24, 2023 • 10:45 AM</span></div></div><div class="flex items-center gap-4"><button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span></button><div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30"><div class="text-right hidden sm:block"><div class="text-sm font-bold text-on-surface">Admin User</div><div class="text-xs text-on-surface-variant">Super Administrator</div></div><div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[24px]">person</span></div></div></div></header><main class="relative pt-20 min-h-screen px-8 py-10"><div class="flex flex-col w-full gap-stack-lg">
+<!-- Page Header & Stats -->
+<section class="flex flex-col gap-stack-md">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-background flex items-center gap-3">
+          Centre Management <span class="material-symbols-outlined text-[40px] text-primary">storefront</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Manage all procurement centres across the platform.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-on-primary px-6 py-4 rounded-lg font-label-lg text-label-lg flex items-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+        Add New Centre
+      </button>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-gutter-md">
+<!-- Total Centres -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_24px_-8px_rgba(46,125,50,0.15)] flex flex-col gap-4 border border-outline-variant/20 hover:-translate-y-1 transition-transform cursor-pointer relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Centres</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">156</div>
+</div>
+</div>
+<div class="flex items-center gap-1 text-primary relative z-10">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span class="font-label-sm text-label-sm font-bold">+8 this month</span>
+</div>
+</div>
+<!-- Active Centres -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_24px_-8px_rgba(46,125,50,0.15)] flex flex-col gap-4 border border-outline-variant/20 hover:-translate-y-1 transition-transform cursor-pointer relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-[#0288D1]/5 rounded-full blur-2xl group-hover:bg-[#0288D1]/10 transition-colors"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-[#0288D1]/10 flex items-center justify-center text-[#0288D1]">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Centres</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">142</div>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant relative z-10">
+<span class="font-bold text-primary">91%</span> of total
+        </div>
+</div>
+<!-- Inactive Centres -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_24px_-8px_rgba(46,125,50,0.15)] flex flex-col gap-4 border border-outline-variant/20 hover:-translate-y-1 transition-transform cursor-pointer relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-[#F57C00]/5 rounded-full blur-2xl group-hover:bg-[#F57C00]/10 transition-colors"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-[#F57C00]/10 flex items-center justify-center text-[#F57C00]">
+<span class="material-symbols-outlined">block</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Inactive Centres</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">14</div>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant relative z-10">
+<span class="font-bold text-[#F57C00]">9%</span> of total
+        </div>
+</div>
+<!-- Pending Verification -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_24px_-8px_rgba(46,125,50,0.15)] flex flex-col gap-4 border border-outline-variant/20 hover:-translate-y-1 transition-transform cursor-pointer relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-[#7B1FA2]/5 rounded-full blur-2xl group-hover:bg-[#7B1FA2]/10 transition-colors"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-[#7B1FA2]/10 flex items-center justify-center text-[#7B1FA2]">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Pending Varif.</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">6</div>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant relative z-10 flex items-center gap-1 hover:text-primary transition-colors">
+          View and verify <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<!-- New This Month -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_24px_-8px_rgba(46,125,50,0.15)] flex flex-col gap-4 border border-outline-variant/20 hover:-translate-y-1 transition-transform cursor-pointer relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">add_business</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">New This Month</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">8</div>
+</div>
+</div>
+<div class="flex items-center gap-1 text-primary relative z-10">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span class="font-label-sm text-label-sm font-bold">+8 vs last month</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="flex flex-col lg:flex-row gap-gutter-md items-start">
+<!-- Left Column: Data Table & Filters -->
+<div class="flex-1 flex flex-col gap-stack-md w-full min-w-0">
+<!-- Filters Bar -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-wrap gap-4 items-center">
+<div class="relative flex-1 min-w-[200px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface rounded-lg border border-outline-variant/30 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-all" placeholder="Search by centre name, code or location..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<select class="px-4 py-2 bg-surface rounded-lg border border-outline-variant/30 focus:outline-none focus:border-primary text-body-md text-on-surface-variant appearance-none pr-10 relative">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+<option>Pending</option>
+</select>
+<select class="px-4 py-2 bg-surface rounded-lg border border-outline-variant/30 focus:outline-none focus:border-primary text-body-md text-on-surface-variant appearance-none pr-10 relative">
+<option>All Districts</option>
+<option>Kanpur</option>
+<option>Lucknow</option>
+<option>Agra</option>
+</select>
+<select class="px-4 py-2 bg-surface rounded-lg border border-outline-variant/30 focus:outline-none focus:border-primary text-body-md text-on-surface-variant appearance-none pr-10 relative">
+<option>All Centre Types</option>
+<option>Primary</option>
+<option>Secondary</option>
+<option>Special</option>
+</select>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant/50 rounded-lg text-on-surface hover:bg-surface-container transition-colors font-label-lg">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+            Filters
+          </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 bg-surface/50">
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Centre Code</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Centre Name</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Location</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">District</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Centre Type</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Centre Admin</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold text-right">Farmers</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Status</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/30 transition-colors group">
+<td class="py-4 px-6 font-label-lg text-on-surface">XYZPC001</td>
+<td class="py-4 px-6 text-on-surface font-medium">XYZ Procurement Centre</td>
+<td class="py-4 px-6 text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px] opacity-70">location_on</span> Village Rampur</td>
+<td class="py-4 px-6 text-on-surface-variant">Kanpur</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">Primary</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<img alt="Amit Kumar" class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYU8cP962g6gNHicfqNHoyxrNtBnoF8FHrSqTU1gI53lQEl6d9t0BoyoFNJMcNftEqdvDFffuIzBZN8HHxrFjaWekaP-0hZh9205yzO8zLL8neHZQFwotk8XtxougO2YVGWWcenK6mNiQjpbvoggAbUGbkIa07ngwSiO4TFPFhheGPV7t3kweNjlIwUy7VXfUGE3af9x-VZk5hJgqRdYOK5LbR1Os8fANYoQSpFdK751qwU0ooCJCC"/>
+<span class="text-on-surface">Amit Kumar</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right text-on-surface font-medium">1,248</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">Active</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors" title="View"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors" title="Edit"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-md transition-colors" title="More"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/30 transition-colors group">
+<td class="py-4 px-6 font-label-lg text-on-surface">GFCP002</td>
+<td class="py-4 px-6 text-on-surface font-medium">Green Field Centre</td>
+<td class="py-4 px-6 text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px] opacity-70">location_on</span> Gomti Nagar</td>
+<td class="py-4 px-6 text-on-surface-variant">Lucknow</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">Primary</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<img alt="Priya Singh" class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEzesjFbpJJkhQlkC-2tvDIpFiz03DZB6OO0X2WZgpITfv35x4Hg57DyFM1zsJ68ng1KpKhdADhXlbLJEEaXhtiGiRJS3pFJO21RQuNTYqh5LVDYpngWAlSQIm85NnHh5DInBma4ZmQNQYy5BWNgqpWW8HxhubszvIih5AmdQR60YAAb-xsFjvzXb_McJcHOQ72tRg1kX20pjnp22Jo3zOWN2w9QFp8LIn5IC-2_HHCIs1ZU7mSAG4"/>
+<span class="text-on-surface">Priya Singh</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right text-on-surface font-medium">982</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">Active</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/30 transition-colors group bg-surface/30">
+<td class="py-4 px-6 font-label-lg text-on-surface">STFC004</td>
+<td class="py-4 px-6 text-on-surface font-medium">Sarthak Farmers Centre</td>
+<td class="py-4 px-6 text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px] opacity-70">location_on</span> Mahmoorganj</td>
+<td class="py-4 px-6 text-on-surface-variant">Varanasi</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#0288D1]/10 text-[#0288D1]">Secondary</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<img alt="Vijay Singh" class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMzT9EEj8QlrXHAAVAVhTtWEqgNBCUVNyvquGG3EqAc2HToFZC5maE3pLkkV-TzMYMGOUYwcDmYrKBKF3xQKsPy1YMLoYOa2Vg4oJRYyyW71ccsOC_3cJCWZRoBqxWVr9QnD9Jbb8O_qu5IWOANDDxg519eozrAjrULw2v5P2S0LICb_2a0itZ6ozabwq_PIe6lcEqWxwe8pbBDn7_QIRBDa7UNWj1ND1JwWqEk6beFMUxyAVXcMR_"/>
+<span class="text-on-surface">Vijay Singh</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right text-on-surface font-medium">645</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#F57C00]/10 text-[#F57C00]">Inactive</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/30 transition-colors group">
+<td class="py-4 px-6 font-label-lg text-on-surface">KSKC008</td>
+<td class="py-4 px-6 text-on-surface font-medium">Kisan Suvidha Kendra</td>
+<td class="py-4 px-6 text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px] opacity-70">location_on</span> Faizabad</td>
+<td class="py-4 px-6 text-on-surface-variant">Ayodhya</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">Primary</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<img alt="Harish Chandra" class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_hvJ6JqCSnbIcR63tEkmRtDryMNo30lBv4vOTpL4vzh8mbGT-duevvl56d0WR3NUMDl_BzX68FUAIGGZd_SGWArflfRb7afuZh_qMQHytzyy0MrriV7khIV35dt-K3es5dPCPnTlHiLnBaYQvGaluvalYShm9ix75upb6NaT-AjyCQPEEzeUYGckIVqqa5_ydZgL7m-FE5VLP93nT3SGNUGsZtIKu4NwO5yi5uAcgq5NZqWPpaXhT"/>
+<span class="text-on-surface">Harish Chandra</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right text-on-surface font-medium">315</td>
+<td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#F57C00]/10 text-[#F57C00]">Pending</span></td>
+<td class="py-4 px-6">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant/20 flex items-center justify-between bg-surface-container-lowest">
+<p class="text-sm text-on-surface-variant">Showing <span class="font-medium text-on-surface">1</span> to <span class="font-medium text-on-surface">10</span> of <span class="font-medium text-on-surface">156</span> centres</p>
+<div class="flex items-center gap-1">
+<button class="p-2 border border-outline-variant/30 rounded-md text-on-surface-variant hover:bg-surface-container disabled:opacity-50"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="w-8 h-8 rounded-md bg-primary text-on-primary font-medium text-sm flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded-md hover:bg-surface-container text-on-surface-variant font-medium text-sm flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded-md hover:bg-surface-container text-on-surface-variant font-medium text-sm flex items-center justify-center transition-colors">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded-md hover:bg-surface-container text-on-surface-variant font-medium text-sm flex items-center justify-center transition-colors">16</button>
+<button class="p-2 border border-outline-variant/30 rounded-md text-on-surface-variant hover:bg-surface-container"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Recent Activities -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 p-6">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Recent Centre Activities</h2>
+<a class="text-primary hover:text-primary-container font-label-lg transition-colors" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex gap-4 items-start pb-4 border-b border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">add_business</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-md text-on-surface">New centre <span class="font-medium">"Shree Ram Krishi Kendra"</span> has been added in Kanpur district.</p>
+<div class="flex items-center gap-4 mt-1 text-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">person</span> Admin User</span>
+</div>
+</div>
+<div class="text-sm text-on-surface-variant whitespace-nowrap">10:15 AM</div>
+</div>
+<div class="flex gap-4 items-start pb-4 border-b border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-[#F57C00]/10 flex items-center justify-center text-[#F57C00] shrink-0">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-md text-on-surface">Centre <span class="font-medium">"Kisan Suvidha Kendra"</span> (Ayodhya) is pending verification.</p>
+<div class="flex items-center gap-4 mt-1 text-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">settings</span> System</span>
+</div>
+</div>
+<div class="text-sm text-on-surface-variant whitespace-nowrap">09:45 AM</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="w-full lg:w-[320px] xl:w-[380px] flex flex-col gap-stack-md shrink-0">
+<!-- Centre Status Overview -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Centre Status Overview</h3>
+<div class="flex items-center justify-center relative w-full aspect-square max-w-[200px] mx-auto">
+<!-- Placeholder for Doughnut Chart -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#E1E3E1" stroke-width="20"></circle>
+<!-- Active 91% -->
+<circle class="transition-all duration-1000 ease-out" cx="50" cy="50" fill="transparent" r="40" stroke="#2E7D32" stroke-dasharray="251.2" stroke-dashoffset="22.6" stroke-width="20"></circle>
+<!-- Inactive 5% (rough approx for visual) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#F57C00" stroke-dasharray="251.2" stroke-dashoffset="238.6" stroke-dashoffset-start="228" stroke-width="20" transform="rotate(327 50 50)"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg-mobile text-on-surface leading-none">156</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Total Centres</span>
+</div>
+</div>
+<div class="flex flex-col gap-3 mt-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-body-md text-on-surface-variant">Active</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-medium text-on-surface">142</span>
+<span class="text-sm text-on-surface-variant opacity-70">(91%)</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#F57C00]"></span>
+<span class="text-body-md text-on-surface-variant">Inactive</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-medium text-on-surface">14</span>
+<span class="text-sm text-on-surface-variant opacity-70">(9%)</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#7B1FA2]"></span>
+<span class="text-body-md text-on-surface-variant">Pending</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-medium text-on-surface">6</span>
+<span class="text-sm text-on-surface-variant opacity-70">(4%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Centre Type Distribution -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Centre Type Distribution</h3>
+<div class="flex flex-col gap-5">
+<!-- Primary -->
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant font-medium">Primary Centres</span>
+<span class="text-on-surface font-medium">106 (68%)</span>
+</div>
+<div class="h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+<!-- Secondary -->
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant font-medium">Secondary Centres</span>
+<span class="text-on-surface font-medium">42 (27%)</span>
+</div>
+<div class="h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-[#0288D1] rounded-full" style="width: 27%;"></div>
+</div>
+</div>
+<!-- Special -->
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant font-medium">Special Centres</span>
+<span class="text-on-surface font-medium">8 (5%)</span>
+</div>
+<div class="h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-[#7B1FA2] rounded-full" style="width: 5%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-6 pb-4 border-b border-outline-variant/10">
+<h3 class="font-headline-md text-headline-md text-on-surface">Quick Actions</h3>
+</div>
+<div class="flex flex-col">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container/50 transition-colors text-left group">
+<div class="flex items-center gap-3 text-on-surface group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_business</span>
+<span class="font-medium text-body-md">Add New Centre</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container/50 transition-colors text-left group border-t border-outline-variant/10">
+<div class="flex items-center gap-3 text-on-surface group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+<span class="font-medium text-body-md">Verify Pending Centres</span>
+</div>
+<span class="bg-[#7B1FA2]/10 text-[#7B1FA2] text-xs font-bold px-2 py-0.5 rounded-full">6</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container/50 transition-colors text-left group border-t border-outline-variant/10">
+<div class="flex items-center gap-3 text-on-surface group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="font-medium text-body-md">Download Centre Report</span>
+</div>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container/50 transition-colors text-left group border-t border-outline-variant/10">
+<div class="flex items-center gap-3 text-on-surface group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+<span class="font-medium text-body-md">Import Centres (Excel)</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

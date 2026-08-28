@@ -1,0 +1,352 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-variant":"#e1e3e1","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002203","on-primary":"#ffffff","surface-container-high":"#e6e9e7","surface-container-highest":"#e1e3e1","on-secondary-fixed-variant":"#005313","secondary-fixed":"#94f990","tertiary-container":"#3a7b39","primary-container":"#2e7d32","on-secondary-fixed":"#002204","on-error":"#ffffff","on-error-container":"#93000a","surface":"#f8faf8","on-secondary":"#ffffff","secondary-container":"#91f78e","secondary":"#006e1c","inverse-surface":"#2e3130","on-background":"#191c1b","surface-bright":"#f8faf8","primary-fixed-dim":"#88d982","on-primary-fixed":"#002204","outline-variant":"#bfcaba","error-container":"#ffdad6","surface-dim":"#d8dad9","on-secondary-container":"#00731e","on-primary-fixed-variant":"#005312","tertiary":"#1f6223","secondary-fixed-dim":"#78dc77","on-surface-variant":"#40493d","on-surface":"#191c1b","outline":"#707a6c","surface-container-low":"#f2f4f2","tertiary-fixed":"#acf4a4","primary":"#0d631b","primary-fixed":"#a3f69c","inverse-primary":"#88d982","surface-container":"#eceeec","inverse-on-surface":"#eff1ef","on-primary-container":"#cbffc2","error":"#ba1a1a","on-tertiary-container":"#c8ffbf","tertiary-fixed-dim":"#91d78a","on-tertiary-fixed-variant":"#0c5216","background":"#f8faf8","surface-tint":"#1b6d24"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"gutter-md":"16px","stack-md":"24px","stack-sm":"12px","container-padding":"24px","unit":"8px","stack-lg":"48px"},"fontFamily":{"label-lg":["Public Sans"],"body-md":["Public Sans"],"label-sm":["Public Sans"],"display-lg":["Manrope"],"body-lg":["Public Sans"],"display-lg-mobile":["Manrope"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"label-lg":["14px",{"lineHeight":"1.2","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"label-sm":["12px",{"lineHeight":"1.2","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"1.4","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"1.3","fontWeight":"700"}]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head><body class="bg-background font-body-md text-on-background"><aside class="fixed left-0 top-0 h-full w-72 bg-primary text-on-primary z-50 flex flex-col overflow-y-auto"><div class="p-8 mb-4 flex items-center gap-3"><span class="material-symbols-outlined text-[32px]">agriculture</span><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight">Kisan Setu</span><span class="text-[10px] uppercase tracking-widest opacity-80">Procurement Portal</span></div></div><nav class="flex-1 px-4 flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="dashboard" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Procurement</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="centre-management" href="#"><span class="material-symbols-outlined">hub</span><span class="font-label-lg text-label-lg">Centre Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-centres" href="#">All Centres</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="add-new-centre" href="#">Add New Centre</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-verification" href="#">Centre Verification</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="centre-categories" href="#">Centre Categories</a></div><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Administration</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="user-role-management" href="#"><span class="material-symbols-outlined">group_work</span><span class="font-label-lg text-label-lg">User &amp; Roles</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="staff-management" href="#"><span class="material-symbols-outlined">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="ml-11 flex flex-col gap-1 opacity-80"><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="all-staff" href="#">All Staff</a><a aria-current="page" class="py-2 transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="departments" href="#">Departments</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="attendance" href="#">Attendance</a><a class="py-2 text-sm hover:text-secondary-fixed transition-colors" data-path="leave-management" href="#">Leave Management</a></div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="permission-management" href="#"><span class="material-symbols-outlined">key</span><span class="font-label-lg text-label-lg">Permissions</span></a><div class="mt-4 mb-2 px-4 text-[11px] font-bold uppercase opacity-50 tracking-wider">Operations</div><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="reports-analytics" href="#"><span class="material-symbols-outlined">analytics</span><span class="font-label-lg text-label-lg">Reports &amp; Analytics</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="audit-logs" href="#"><span class="material-symbols-outlined">history_edu</span><span class="font-label-lg text-label-lg">Audit Logs</span></a><div class="mt-auto pb-8 flex flex-col gap-1"><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="announcements" href="#"><span class="material-symbols-outlined">campaign</span><span class="font-label-lg text-label-lg">Announcements</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="system-settings" href="#"><span class="material-symbols-outlined">settings</span><span class="font-label-lg text-label-lg">System Settings</span></a><a class="flex items-center px-4 py-3 rounded-DEFAULT text-on-primary hover:bg-on-primary/10 transition-all gap-3" data-path="help-support" href="#"><span class="material-symbols-outlined">help</span><span class="font-label-lg text-label-lg">Help &amp; Support</span></a></div></nav></aside><div class="pl-72 w-full"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl z-40 px-8 flex items-center justify-between border-b border-outline-variant/30"><div class="flex items-center gap-6 flex-1"><div class="relative max-w-md w-full"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full pl-12 pr-4 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/50 focus:outline-none focus:border-primary text-sm" placeholder="Search centres, staff or transactions..." type="text"/></div><div class="hidden lg:flex items-center gap-2 text-on-surface-variant bg-surface-container px-4 py-2 rounded-full"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="text-label-sm font-label-sm" id="current-time-display">Oct 24, 2023 • 10:45 AM</span></div></div><div class="flex items-center gap-4"><button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span></button><div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30"><div class="text-right hidden sm:block"><div class="text-sm font-bold text-on-surface">Admin User</div><div class="text-xs text-on-surface-variant">Super Administrator</div></div><div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[24px]">person</span></div></div></div></header><main class="relative pt-20 min-h-screen px-8 py-10"><div class="flex flex-col w-full">
+<!-- Metrics Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">business</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Total Departments</p>
+<p class="font-display-lg text-on-surface leading-none">12</p>
+<p class="text-on-surface-variant text-xs mt-1">Across all centres</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+<div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Total Staff</p>
+<p class="font-display-lg text-on-surface leading-none">128</p>
+<p class="text-on-surface-variant text-xs mt-1">Working in departments</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+<div class="w-14 h-14 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">person_apron</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Department Heads</p>
+<p class="font-display-lg text-on-surface leading-none">12</p>
+<p class="text-on-surface-variant text-xs mt-1">One per department</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+<div class="w-14 h-14 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">pin_drop</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Centres Covered</p>
+<p class="font-display-lg text-on-surface leading-none">25</p>
+<p class="text-on-surface-variant text-xs mt-1">Have department presence</p>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Left Column: Table List -->
+<div class="xl:col-span-2 flex flex-col gap-6">
+<!-- Toolbar -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-1 min-w-[280px]">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/30 focus:outline-none focus:border-primary text-sm transition-colors" placeholder="Search by department name..." type="text"/>
+</div>
+<div class="relative min-w-[140px]">
+<select class="w-full pl-4 pr-10 py-2.5 rounded-full bg-surface-container-low border border-outline-variant/30 focus:outline-none focus:border-primary text-sm appearance-none cursor-pointer">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-outline-variant text-on-surface hover:bg-surface-container transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+            Filters
+          </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-on-primary shadow-sm hover:shadow-md transition-all text-sm font-medium hover:bg-primary/90">
+<span class="material-symbols-outlined text-[20px]">add</span>
+            Add Department
+          </button>
+</div>
+</div>
+<!-- Department List -->
+<div class="bg-surface-container-lowest rounded-3xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container/50 border-b border-outline-variant/20">
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Department Name</th>
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Description</th>
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Head of Department</th>
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider text-center">Staff</th>
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider text-center">Centres</th>
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider text-center">Status</th>
+<th class="px-6 py-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+</div>
+<span class="font-semibold text-on-surface">Procurement</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-on-surface-variant line-clamp-2 max-w-[200px]">Handles procurement operations and vendor management</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Amit Kumar" class="w-8 h-8 rounded-full object-cover border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdG1tMr-z58oeJsgmuMoKf9RDocgafkjxfU1vjQUm1sJYjqFrpyOuqZjaB44qGzwGFNZTuB0OB2yJKdvTDN_L4Fmu-TzPATbDhE6floUBCfdLevILUEk3v2xR19FFFPLDXPl5p3_qM2ateqqkZTxFaLyYZFrNduSoT3IvGNTkjK7FE41kGuF2GdLIMUSQDWaancc9MHri4eJMtpOgKaunpTAOQvs5ZnMKYZcmnXyCOtqd5snHsSHQ7"/>
+<div>
+<p class="text-sm font-medium text-on-surface">Amit Kumar</p>
+<p class="text-xs text-on-surface-variant truncate w-32">amit.kumar@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-medium text-on-surface">32</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-medium text-on-surface">18</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-700">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<span class="font-semibold text-on-surface">Quality Check</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-on-surface-variant line-clamp-2 max-w-[200px]">Quality inspection and verification of produce</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Priya Singh" class="w-8 h-8 rounded-full object-cover border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqcGv3W5zgFcH0dcyd-WSxSIb8JXmZhmIKFs4yaOvr2ScVdLQ7FN20UnM2c5pG0dTvOAlzJApvmhkhVF0EfGVGS7PJ42EUBxGM01oYk4iEfeo3XA0DB0I2aHNyr5yzXqQf_yx8Q9QVPy-VlDrtkcMXeRU-jIypG6pkW7BsB8PRj_ymP3AtwVMlUjhKERUd9iDKHTDYT9i9y29Hjaa4aNltIujAUVa0LFET0PAMakXGa0ygjy5fKJ3b"/>
+<div>
+<p class="text-sm font-medium text-on-surface">Priya Singh</p>
+<p class="text-xs text-on-surface-variant truncate w-32">priya.singh@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-medium text-on-surface">24</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-medium text-on-surface">16</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined text-[20px]">scale</span>
+</div>
+<span class="font-semibold text-on-surface">Weighment</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-on-surface-variant line-clamp-2 max-w-[200px]">Weighing and measurement of produce</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Rakesh Verma" class="w-8 h-8 rounded-full object-cover border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0R2BJEo2Ff5V3cUc5_4CXKPJ0ve6HhLVk7w0PAlkQel08XQXMis_IAVg0Or1saKYbtXpXX2iVPQxvGfhtIlO8VXxL6Wf2HFuYITf2iiCUeK053jTvfV_Jb6t_G_F-qwSl66grOAvP8UEMEe-JrkC7Q0q2Rxv_RzkIRt_4spZd2vEiPsywJg_fXuCWMjbzTbh0P2wLAqWrUhI_bGHSBv2mCOkg8le1JyYF34sFeMF9y7i0xJZr4Wqe"/>
+<div>
+<p class="text-sm font-medium text-on-surface">Rakesh Verma</p>
+<p class="text-xs text-on-surface-variant truncate w-32">rakesh.verma@kisansetu.in</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-medium text-on-surface">20</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="text-sm font-medium text-on-surface">15</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-outline-variant/20 flex items-center justify-between bg-surface-container/30">
+<span class="text-sm text-on-surface-variant">Showing 1 to 12 of 12 departments</span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center border border-outline-variant/50 text-on-surface-variant hover:bg-surface-container disabled:opacity-50 transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-on-primary text-sm font-medium">1</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center border border-outline-variant/50 text-on-surface-variant hover:bg-surface-container disabled:opacity-50 transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Panels -->
+<div class="flex flex-col gap-6">
+<!-- Department Overview Chart -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 shadow-sm">
+<h3 class="text-lg font-bold text-on-surface mb-6">Department Overview</h3>
+<div class="flex items-center gap-6">
+<div class="relative w-32 h-32 flex-shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<!-- Background Ring -->
+<path class="text-surface-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4"></path>
+<!-- Procurement Segment (Green) -->
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="25, 100" stroke-width="4"></path>
+<!-- Quality Check Segment (Blue) -->
+<path class="text-blue-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="18.8, 100" stroke-dashoffset="-25" stroke-width="4"></path>
+<!-- Weighment Segment (Orange) -->
+<path class="text-orange-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="15.6, 100" stroke-dashoffset="-43.8" stroke-width="4"></path>
+<!-- Data Entry Segment (Purple) -->
+<path class="text-purple-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="14.1, 100" stroke-dashoffset="-59.4" stroke-width="4"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold text-on-surface">128</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Total Staff</span>
+</div>
+</div>
+<div class="flex-1 space-y-3">
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-on-surface-variant">Procurement</span>
+</div>
+<span class="font-medium text-on-surface">32 <span class="text-xs text-on-surface-variant font-normal">(25.0%)</span></span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+<span class="text-on-surface-variant">Quality Check</span>
+</div>
+<span class="font-medium text-on-surface">24 <span class="text-xs text-on-surface-variant font-normal">(18.8%)</span></span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+<span class="text-on-surface-variant">Weighment</span>
+</div>
+<span class="font-medium text-on-surface">20 <span class="text-xs text-on-surface-variant font-normal">(15.6%)</span></span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-purple-500"></span>
+<span class="text-on-surface-variant">Data Entry</span>
+</div>
+<span class="font-medium text-on-surface">18 <span class="text-xs text-on-surface-variant font-normal">(14.1%)</span></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 shadow-sm">
+<h3 class="text-lg font-bold text-on-surface mb-4">Quick Actions</h3>
+<div class="flex flex-col space-y-1">
+<a class="flex items-center gap-3 py-3 px-2 rounded-xl text-on-surface hover:bg-surface-container transition-colors group" href="#">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</div>
+<span class="text-sm font-medium">Add New Department</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-2 rounded-xl text-on-surface hover:bg-surface-container transition-colors group" href="#">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">assignment_ind</span>
+</div>
+<span class="text-sm font-medium">Assign Department Head</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-2 rounded-xl text-on-surface hover:bg-surface-container transition-colors group" href="#">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</div>
+<span class="text-sm font-medium">Manage Department Staff</span>
+</a>
+</div>
+</div>
+<!-- Recent Activity -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-on-surface">Recent Activity</h3>
+<a class="text-sm font-medium text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="relative pl-6 space-y-6 before:absolute before:inset-y-2 before:left-[11px] before:w-px before:bg-outline-variant/30">
+<!-- Activity Item 1 -->
+<div class="relative">
+<div class="absolute -left-[30px] w-6 h-6 rounded-full bg-surface-container-lowest border-2 border-primary flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<p class="text-sm text-on-surface mb-1">New department <span class="font-medium">"IT &amp; Systems"</span> added.</p>
+<p class="text-xs text-on-surface-variant">Today, 09:45 AM</p>
+</div>
+<!-- Activity Item 2 -->
+<div class="relative">
+<div class="absolute -left-[30px] w-6 h-6 rounded-full bg-surface-container-lowest border-2 border-outline-variant flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<p class="text-sm text-on-surface mb-1">Department <span class="font-medium">"Finance"</span> updated.</p>
+<p class="text-xs text-on-surface-variant">Today, 09:20 AM</p>
+</div>
+<!-- Activity Item 3 -->
+<div class="relative">
+<div class="absolute -left-[30px] w-6 h-6 rounded-full bg-surface-container-lowest border-2 border-outline-variant flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<p class="text-sm text-on-surface mb-1">Department head assigned to <span class="font-medium">"Support"</span>.</p>
+<p class="text-xs text-on-surface-variant">Yesterday, 08:50 AM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
