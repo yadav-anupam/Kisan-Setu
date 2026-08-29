@@ -1,0 +1,11 @@
+{
+  "name": "kisan-setu-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix Everything/farmer-dashboard-app run dev",
+    "build": "npm --prefix Everything/farmer-dashboard-app run build",
+    "lint": "npm --prefix Everything/farmer-dashboard-app run lint",
+    "preview": "npm --prefix Everything/farmer-dashboard-app run preview"
+  }
+}

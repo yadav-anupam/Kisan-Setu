@@ -1,0 +1,618 @@
+/* Kisan Setu Farmer Registration Wizard Styles */
+
+.farmer-reg-page {
+  --fr-green: #0d631b;
+  --fr-green-dark: #075a27;
+  --fr-green-light: #16a34a;
+  --fr-bg: #f8faf8;
+  --fr-surface: #ffffff;
+  --fr-ink: #191c1b;
+  --fr-muted: #526056;
+  --fr-border: #e2ebe4;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--fr-bg);
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  color: var(--fr-ink);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Split Screen Layout */
+.fr-split-container {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Left Side: Story & Journey Milestones
+   ========================================================================== */
+.fr-story-panel {
+  position: relative;
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  color: #ffffff;
+  padding: 36px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.fr-story-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+}
+
+.fr-story-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Brand Header */
+.fr-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.fr-logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+.fr-brand-text strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  display: block;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.fr-brand-text small {
+  font-size: 11px;
+  color: #dcfce7;
+  letter-spacing: 0.4px;
+}
+
+/* Story Copy */
+.fr-story-copy {
+  margin: 28px 0;
+}
+
+.fr-story-copy h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: #ffffff;
+  margin: 0 0 14px;
+  letter-spacing: -0.7px;
+}
+
+.fr-story-copy h2 em {
+  font-style: normal;
+  color: #86efac;
+}
+
+.fr-story-copy p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #dcfce7;
+  max-width: 480px;
+  margin: 0 0 24px;
+}
+
+/* 4 Milestones Journey Steps */
+.fr-milestones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 18px 16px;
+}
+
+.fr-milestone-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fr-milestone-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.fr-milestone-row.active .fr-milestone-number {
+  background: #ffffff;
+  color: var(--fr-green);
+  box-shadow: 0 0 0 4px rgba(134, 239, 172, 0.35);
+}
+
+.fr-milestone-row.done .fr-milestone-number {
+  background: #86efac;
+  color: #064e1e;
+}
+
+.fr-milestone-row strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.fr-milestone-row small {
+  font-size: 11px;
+  color: #bbf7d0;
+  display: block;
+}
+
+/* Story Trust Banner */
+.fr-story-trust-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-top: 20px;
+}
+
+.fr-story-trust-banner svg {
+  color: #86efac;
+  flex-shrink: 0;
+}
+
+.fr-story-trust-banner strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  display: block;
+}
+
+.fr-story-trust-banner small {
+  font-size: 11px;
+  color: #bbf7d0;
+}
+
+/* ==========================================================================
+   Right Side: Multi-Step Registration Form Panel
+   ========================================================================== */
+.fr-form-panel {
+  background: var(--fr-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 36px;
+  overflow-y: auto;
+}
+
+/* Top Utilities Bar */
+.fr-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.fr-back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fr-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.fr-back-home:hover {
+  color: var(--fr-green);
+}
+
+.fr-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fr-help-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: var(--fr-green);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.fr-help-btn:hover {
+  background: #dcfce7;
+  border-color: var(--fr-green);
+}
+
+/* Form Container Card */
+.fr-card-wrap {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Progress Tracker Bar */
+.fr-progress-container {
+  margin-bottom: 20px;
+}
+
+.fr-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fr-muted);
+  margin-bottom: 8px;
+}
+
+.fr-progress-track {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.fr-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #16a34a, #0d631b);
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+/* Step Header */
+.fr-step-header {
+  margin-bottom: 18px;
+}
+
+.fr-step-header h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.fr-step-header p {
+  color: var(--fr-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Form Layout */
+.fr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fr-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fr-field label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.fr-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fr-input-wrap:focus-within {
+  border-color: var(--fr-green);
+  box-shadow: 0 0 0 3px rgba(13, 99, 27, 0.12);
+}
+
+.fr-input-prefix {
+  background: #f8faf8;
+  border-right: 1px solid #cbd5e1;
+  padding: 9px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.fr-input-icon {
+  padding-left: 10px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+.fr-input,
+.fr-select {
+  width: 100%;
+  border: none;
+  padding: 9px 12px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: #0f172a;
+  background: transparent;
+  outline: none;
+}
+
+.fr-select {
+  cursor: pointer;
+}
+
+/* Verified Check Badge */
+.fr-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Action Buttons Navigation */
+.fr-actions-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.fr-prev-btn {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.fr-prev-btn:hover {
+  background: #e2e8f0;
+}
+
+.fr-next-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #0d631b 0%, #15803d 100%);
+  color: #ffffff;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.2);
+}
+
+.fr-next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13, 99, 27, 0.3);
+}
+
+.fr-next-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Quick Demo Pre-fill Box */
+.fr-demo-box {
+  background: #f0fdf4;
+  border: 1px dashed #86efac;
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.fr-demo-box span {
+  font-size: 11.5px;
+  color: #166534;
+  font-weight: 600;
+}
+
+.fr-demo-fill-btn {
+  background: #ffffff;
+  border: 1px solid #16a34a;
+  color: #166534;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.fr-demo-fill-btn:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+/* Success Modal / Card State */
+.fr-success-card {
+  text-align: center;
+  padding: 24px 16px;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.fr-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: var(--fr-green);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+  border: 2px solid #86efac;
+}
+
+.fr-success-card h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+}
+
+.fr-success-card p {
+  color: var(--fr-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.fr-id-box {
+  background: #ffffff;
+  border: 1.5px dashed var(--fr-green);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 0 auto 20px;
+  display: inline-block;
+}
+
+.fr-id-box small {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fr-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+}
+
+.fr-id-box strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--fr-green);
+  letter-spacing: 1px;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Login Link */
+.fr-bottom-links {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.fr-login-text {
+  font-size: 13px;
+  color: var(--fr-muted);
+}
+
+.fr-login-text a {
+  color: var(--fr-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.fr-login-text a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Copyright */
+.fr-footer-bar {
+  text-align: center;
+  font-size: 11.5px;
+  color: #94a3b8;
+  padding-top: 14px;
+  border-top: 1px solid var(--fr-border);
+  margin-top: 16px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 990px) {
+  .fr-split-container {
+    grid-template-columns: 1fr;
+  }
+  .fr-story-panel {
+    padding: 28px 18px;
+  }
+  .fr-story-copy {
+    margin: 18px 0;
+  }
+  .fr-form-panel {
+    padding: 20px 16px;
+  }
+  .fr-field-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

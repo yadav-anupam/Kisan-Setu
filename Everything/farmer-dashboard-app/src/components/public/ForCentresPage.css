@@ -1,0 +1,358 @@
+/* Kisan Setu For Centres Page Styles - Snug & Fully Responsive */
+
+.centres-page {
+  --centres-green: #0d631b;
+  --centres-dark: #075a27;
+  --centres-ink: #0f172a;
+  --centres-muted: #526056;
+  --centres-bg: #fcfdfc;
+  --centres-border: #e2ebe4;
+  color: var(--centres-ink);
+  background: var(--centres-bg);
+  min-height: 100vh;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+}
+
+.centres-hero {
+  padding: 40px 3.2% 45px;
+  max-width: 1320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.centres-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.centres-hero h1 {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+  margin: 0 auto 12px;
+  max-width: 860px;
+  letter-spacing: -0.8px;
+}
+
+.centres-hero h1 em {
+  font-style: normal;
+  color: var(--centres-green);
+}
+
+.centres-hero p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--centres-muted);
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+.centres-hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.centres-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid var(--centres-border);
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  box-shadow: 0 2px 6px rgba(13, 99, 27, 0.04);
+}
+
+.centres-badge svg {
+  color: var(--centres-green);
+}
+
+.centres-capabilities-section {
+  padding: 48px 3.2% 55px;
+  background: #f4fbf5;
+  border-top: 1px solid var(--centres-border);
+  border-bottom: 1px solid var(--centres-border);
+}
+
+.centres-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.centres-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 36px;
+}
+
+.centres-section-header h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(24px, 2.8vw, 32px);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+}
+
+.centres-section-header p {
+  color: var(--centres-muted);
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.centres-capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.centre-capability-card {
+  background: #ffffff;
+  border: 1px solid var(--centres-border);
+  border-radius: 18px;
+  padding: 24px 20px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.centre-capability-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(13, 99, 27, 0.08);
+  border-color: #86efac;
+}
+
+.centre-capability-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: var(--centres-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.centre-capability-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+}
+
+.centre-capability-card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--centres-muted);
+  margin: 0;
+}
+
+.centres-metrics-section {
+  padding: 55px 3.2%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.centres-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.centre-metric-box {
+  background: #ffffff;
+  border: 1px solid var(--centres-border);
+  border-radius: 18px;
+  padding: 24px 18px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+}
+
+.centre-metric-box strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--centres-green);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.centre-metric-box span {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.centre-metric-box small {
+  font-size: 12px;
+  color: var(--centres-muted);
+}
+
+.centres-sim-section {
+  padding: 55px 3.2%;
+  background: #f8faf8;
+  border-top: 1px solid var(--centres-border);
+}
+
+.sim-card {
+  background: #ffffff;
+  border: 1.5px solid #86efac;
+  border-radius: 22px;
+  padding: 32px 28px;
+  box-shadow: 0 14px 35px rgba(13, 99, 27, 0.07);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sim-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sim-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sim-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sim-slider {
+  width: 100%;
+  accent-color: var(--centres-green);
+  cursor: pointer;
+}
+
+.sim-results-box {
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 20px rgba(7, 90, 39, 0.18);
+}
+
+.sim-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  padding-bottom: 10px;
+}
+
+.sim-result-item span {
+  font-size: 12.5px;
+  color: #dcfce7;
+}
+
+.sim-result-item strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.sim-result-payout {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.sim-result-payout small {
+  font-size: 11px;
+  color: #dcfce7;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.sim-result-payout strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  display: block;
+}
+
+.centres-cta-section {
+  padding: 55px 3.2%;
+  text-align: center;
+  background: #ffffff;
+}
+
+.centres-cta-box {
+  max-width: 860px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  color: #ffffff;
+  border-radius: 22px;
+  padding: 38px 24px;
+  box-shadow: 0 16px 35px rgba(7, 90, 39, 0.2);
+}
+
+.centres-cta-box h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.centres-cta-box p {
+  font-size: 14.5px;
+  color: #dcfce7;
+  margin: 0 0 22px;
+}
+
+@media (max-width: 900px) {
+  .centres-hero {
+    padding: 28px 16px 36px;
+  }
+  .sim-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px 18px;
+  }
+  .centres-capabilities-section,
+  .centres-metrics-section,
+  .centres-sim-section,
+  .centres-cta-section {
+    padding: 36px 16px;
+  }
+}

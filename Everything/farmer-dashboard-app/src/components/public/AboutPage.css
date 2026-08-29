@@ -1,0 +1,331 @@
+/* Kisan Setu About Page Styles - Snug & Fully Responsive */
+
+.about-page {
+  --about-green: #0d631b;
+  --about-dark: #075a27;
+  --about-ink: #101822;
+  --about-muted: #526056;
+  --about-pale: #effaf2;
+  --about-border: #e2ebe4;
+  color: var(--about-ink);
+  background: #fdfefd;
+  min-height: 100vh;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+}
+
+.about-hero {
+  padding: 40px 3.2% 45px;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.about-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.about-hero-copy h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(30px, 3.8vw, 46px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+  margin: 0 0 14px;
+  letter-spacing: -0.8px;
+}
+
+.about-hero-copy h1 em {
+  font-style: normal;
+  color: var(--about-green);
+}
+
+.about-hero-copy p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--about-muted);
+  margin: 0 0 22px;
+}
+
+.about-hero-image-wrap {
+  position: relative;
+}
+
+.about-hero-image {
+  width: 100%;
+  height: 380px;
+  border-radius: 20px;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYUselL-PQVbZUGZKw0xjV5xKI7uRUs4do7e-XN3k_7jqISqdVcS09TUGq680M7mYfx0zb-wWX2UQcPyzybepBKUyH1HcQXzYuvbILiCbkcTMcldLloAyXNx7b4_IPITAN5qDiAybrWeAAUznW9QJl0AHPkQLii5wooxjvKd_0ENqPB9xe82UW6gFtP-nu8zZSB1AssfNFQ9f2pGjaePme1cX7gbGhGzfJp4fnYkKWsnoXERQSxuLW');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 16px 35px -12px rgba(13, 99, 27, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.about-hero-floating-card {
+  position: absolute;
+  bottom: -16px;
+  left: -12px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 14px 18px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.about-pillars {
+  background: #f4fbf5;
+  border-top: 1px solid var(--about-border);
+  border-bottom: 1px solid var(--about-border);
+  padding: 50px 3.2%;
+}
+
+.about-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.about-section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+
+.about-section-header h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(24px, 2.8vw, 32px);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+}
+
+.about-section-header p {
+  color: var(--about-muted);
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.pillar-card {
+  background: #ffffff;
+  border: 1px solid var(--about-border);
+  border-radius: 18px;
+  padding: 24px 20px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(13, 99, 27, 0.08);
+}
+
+.pillar-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #e8f5e9;
+  color: var(--about-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.pillar-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.pillar-card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--about-muted);
+  margin: 0;
+}
+
+.problem-solution {
+  padding: 55px 3.2%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.comparison-col {
+  border-radius: 20px;
+  padding: 28px 24px;
+}
+
+.comparison-col.problem {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+}
+
+.comparison-col.solution {
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+}
+
+.comparison-col h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comparison-col.problem h3 {
+  color: #991b1b;
+}
+
+.comparison-col.solution h3 {
+  color: #166534;
+}
+
+.comparison-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comparison-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.comparison-col.problem .comparison-item {
+  color: #7f1d1d;
+}
+
+.comparison-col.solution .comparison-item {
+  color: #14532d;
+}
+
+.about-stats-bar {
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  color: #ffffff;
+  padding: 40px 3.2%;
+}
+
+.stats-flex {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.stat-box strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 800;
+  display: block;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.stat-box span {
+  font-size: 12.5px;
+  color: #dcfce7;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.about-cta-section {
+  padding: 55px 3.2%;
+  text-align: center;
+  background: #ffffff;
+}
+
+.about-cta-box {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #f8faf8;
+  border: 1px solid var(--about-border);
+  border-radius: 22px;
+  padding: 38px 28px;
+}
+
+.about-cta-box h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+}
+
+.about-cta-box p {
+  font-size: 14.5px;
+  color: var(--about-muted);
+  margin: 0 0 22px;
+}
+
+.about-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .about-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 16px 36px;
+  }
+  .about-hero-image {
+    height: 280px;
+  }
+  .about-hero-floating-card {
+    position: static;
+    margin-top: 14px;
+  }
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+  .problem-solution {
+    padding: 36px 16px;
+  }
+  .about-pillars {
+    padding: 36px 16px;
+  }
+}

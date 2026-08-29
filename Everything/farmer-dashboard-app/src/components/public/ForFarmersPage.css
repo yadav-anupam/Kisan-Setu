@@ -1,0 +1,322 @@
+/* Kisan Setu For Farmers Page Styles - Snug & Fully Responsive */
+
+.farmers-page {
+  --farmers-green: #0d631b;
+  --farmers-dark: #075a27;
+  --farmers-ink: #0f172a;
+  --farmers-muted: #526056;
+  --farmers-bg: #fcfdfc;
+  --farmers-border: #e2ebe4;
+  color: var(--farmers-ink);
+  background: var(--farmers-bg);
+  min-height: 100vh;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+}
+
+.farmers-hero {
+  padding: 40px 3.2% 45px;
+  max-width: 1320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.farmers-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.farmers-hero h1 {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+  margin: 0 auto 12px;
+  max-width: 860px;
+  letter-spacing: -0.8px;
+}
+
+.farmers-hero h1 em {
+  font-style: normal;
+  color: var(--farmers-green);
+}
+
+.farmers-hero p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--farmers-muted);
+  max-width: 740px;
+  margin: 0 auto 24px;
+}
+
+.farmers-hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.farmers-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid var(--farmers-border);
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  box-shadow: 0 2px 6px rgba(13, 99, 27, 0.04);
+}
+
+.farmers-badge svg {
+  color: var(--farmers-green);
+}
+
+.farmers-benefits-section {
+  padding: 48px 3.2% 55px;
+  background: #f4fbf5;
+  border-top: 1px solid var(--farmers-border);
+  border-bottom: 1px solid var(--farmers-border);
+}
+
+.farmers-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.farmers-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 36px;
+}
+
+.farmers-section-header h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(24px, 2.8vw, 32px);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+}
+
+.farmers-section-header p {
+  color: var(--farmers-muted);
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.farmers-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.farmer-benefit-card {
+  background: #ffffff;
+  border: 1px solid var(--farmers-border);
+  border-radius: 18px;
+  padding: 24px 20px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.farmer-benefit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(13, 99, 27, 0.08);
+  border-color: #86efac;
+}
+
+.farmer-benefit-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: var(--farmers-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.farmer-benefit-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+}
+
+.farmer-benefit-card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--farmers-muted);
+  margin: 0;
+}
+
+.farmers-calc-section {
+  padding: 55px 3.2%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.calc-card {
+  background: #ffffff;
+  border: 1.5px solid #86efac;
+  border-radius: 22px;
+  padding: 32px 28px;
+  box-shadow: 0 14px 35px rgba(13, 99, 27, 0.07);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.calc-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.calc-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.calc-select,
+.calc-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.calc-results-box {
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 20px rgba(7, 90, 39, 0.18);
+}
+
+.calc-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  padding-bottom: 10px;
+}
+
+.calc-result-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.calc-result-item span {
+  font-size: 12.5px;
+  color: #dcfce7;
+}
+
+.calc-result-item strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.calc-result-payout {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.calc-result-payout small {
+  font-size: 11px;
+  color: #dcfce7;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.calc-result-payout strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  display: block;
+}
+
+.farmers-cta-section {
+  padding: 55px 3.2%;
+  text-align: center;
+  background: #f8faf8;
+  border-top: 1px solid var(--farmers-border);
+}
+
+.farmers-cta-box {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 22px;
+  padding: 38px 24px;
+  box-shadow: 0 10px 25px rgba(13, 99, 27, 0.05);
+}
+
+.farmers-cta-box h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+}
+
+.farmers-cta-box p {
+  font-size: 14.5px;
+  color: var(--farmers-muted);
+  margin: 0 0 22px;
+}
+
+@media (max-width: 900px) {
+  .farmers-hero {
+    padding: 28px 16px 36px;
+  }
+  .calc-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px 18px;
+  }
+  .farmers-benefits-section,
+  .farmers-calc-section,
+  .farmers-cta-section {
+    padding: 36px 16px;
+  }
+}

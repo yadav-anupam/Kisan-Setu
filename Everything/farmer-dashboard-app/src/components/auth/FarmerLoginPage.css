@@ -1,0 +1,628 @@
+/* Kisan Setu Farmer Login Page Styles - High Precision & Fully Responsive */
+
+.farmer-login-page {
+  --fl-green: #0d631b;
+  --fl-green-dark: #075a27;
+  --fl-green-light: #16a34a;
+  --fl-bg: #f8faf8;
+  --fl-surface: #ffffff;
+  --fl-ink: #191c1b;
+  --fl-muted: #526056;
+  --fl-border: #e2ebe4;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--fl-bg);
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  color: var(--fl-ink);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Split View Layout */
+.fl-split-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Left Side: Branding & Storytelling
+   ========================================================================== */
+.fl-story-panel {
+  position: relative;
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  color: #ffffff;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.fl-story-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+}
+
+.fl-story-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Brand Header */
+.fl-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.fl-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+.fl-brand-text strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  display: block;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.fl-brand-text small {
+  font-size: 11px;
+  color: #dcfce7;
+  letter-spacing: 0.4px;
+}
+
+/* Story Copy */
+.fl-story-copy {
+  margin: 36px 0;
+}
+
+.fl-story-copy h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(32px, 3.8vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 16px;
+  letter-spacing: -0.8px;
+}
+
+.fl-story-copy h2 em {
+  font-style: normal;
+  color: #86efac;
+}
+
+.fl-story-copy p {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #dcfce7;
+  max-width: 520px;
+  margin: 0 0 28px;
+}
+
+/* 4 Quick Benefit Cards */
+.fl-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 16px 14px;
+}
+
+.fl-badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0 6px;
+}
+
+.fl-badge-item:last-child {
+  border-right: none;
+}
+
+.fl-badge-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--fl-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fl-badge-item span {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+/* Story Trust Banner */
+.fl-story-trust-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin-top: 24px;
+}
+
+.fl-story-trust-banner svg {
+  color: #86efac;
+  flex-shrink: 0;
+}
+
+.fl-story-trust-banner strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  display: block;
+}
+
+.fl-story-trust-banner small {
+  font-size: 11.5px;
+  color: #bbf7d0;
+}
+
+/* ==========================================================================
+   Right Side: Login Form Panel
+   ========================================================================== */
+.fl-form-panel {
+  background: var(--fl-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 36px;
+}
+
+/* Top Utilities Bar */
+.fl-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.fl-back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fl-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.fl-back-home:hover {
+  color: var(--fl-green);
+}
+
+.fl-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fl-help-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: var(--fl-green);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.fl-help-btn:hover {
+  background: #dcfce7;
+  border-color: var(--fl-green);
+}
+
+/* Form Container Card */
+.fl-card-wrap {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.fl-welcome-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fl-farmer-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: var(--fl-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  border: 2px solid #bbf7d0;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.1);
+}
+
+.fl-welcome-header h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.fl-welcome-header p {
+  color: var(--fl-muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Tab Switcher */
+.fl-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: #f1f5f2;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.fl-tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fl-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fl-tab-btn.active {
+  background: #ffffff;
+  color: var(--fl-green);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Form Styles */
+.fl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fl-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fl-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fl-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fl-input-wrap:focus-within {
+  border-color: var(--fl-green);
+  box-shadow: 0 0 0 3px rgba(13, 99, 27, 0.12);
+}
+
+.fl-input-prefix {
+  background: #f8faf8;
+  border-right: 1px solid #cbd5e1;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.fl-input-icon {
+  padding-left: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+.fl-input {
+  width: 100%;
+  border: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #0f172a;
+  background: transparent;
+  outline: none;
+}
+
+.fl-toggle-pw {
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.fl-forgot-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fl-green);
+  text-decoration: none;
+}
+
+.fl-forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* OTP 6-Digit Grid */
+.fl-otp-inputs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.fl-otp-digit {
+  width: 100%;
+  height: 48px;
+  text-align: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.fl-otp-digit:focus {
+  border-color: var(--fl-green);
+  box-shadow: 0 0 0 3px rgba(13, 99, 27, 0.12);
+}
+
+.fl-otp-timer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--fl-muted);
+}
+
+.fl-resend-btn {
+  background: transparent;
+  border: none;
+  color: var(--fl-green);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fl-resend-btn:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Action Button */
+.fl-submit-btn {
+  background: linear-gradient(135deg, #0d631b 0%, #15803d 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.25);
+  margin-top: 6px;
+}
+
+.fl-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(13, 99, 27, 0.35);
+}
+
+.fl-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Quick Demo Bar */
+.fl-demo-box {
+  background: #f0fdf4;
+  border: 1px dashed #86efac;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.fl-demo-box span {
+  font-size: 11.5px;
+  color: #166534;
+  font-weight: 600;
+}
+
+.fl-demo-fill-btn {
+  background: #ffffff;
+  border: 1px solid #16a34a;
+  color: #166534;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.fl-demo-fill-btn:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+/* Register & Role Switcher Links */
+.fl-bottom-links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.fl-register-text {
+  font-size: 13.5px;
+  color: var(--fl-muted);
+  margin-bottom: 8px;
+}
+
+.fl-register-text a {
+  color: var(--fl-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.fl-register-text a:hover {
+  text-decoration: underline;
+}
+
+.fl-role-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.fl-role-switcher:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Footer Copyright */
+.fl-footer-bar {
+  text-align: center;
+  font-size: 11.5px;
+  color: #94a3b8;
+  padding-top: 16px;
+  border-top: 1px solid var(--fl-border);
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 990px) {
+  .fl-split-container {
+    grid-template-columns: 1fr;
+  }
+  .fl-story-panel {
+    padding: 30px 20px;
+  }
+  .fl-story-copy {
+    margin: 20px 0;
+  }
+  .fl-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .fl-badge-item:nth-child(2) {
+    border-right: none;
+  }
+  .fl-form-panel {
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fl-story-copy h2 {
+    font-size: 26px;
+  }
+  .fl-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fl-top-bar {
+    flex-direction: row;
+    gap: 8px;
+  }
+  .fl-card-wrap {
+    padding: 0;
+  }
+  .fl-otp-inputs {
+    gap: 5px;
+  }
+  .fl-otp-digit {
+    height: 42px;
+    font-size: 18px;
+  }
+}
