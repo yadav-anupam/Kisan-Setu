@@ -193,6 +193,37 @@ export default function Navbar({ activePath = '/' }: NavbarProps) {
             </nav>
 
             <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
+              <div style={{ marginBottom: '12px' }}>
+                <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Select Language / भाषा चुनें
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      type="button"
+                      style={{
+                        padding: '7px 8px',
+                        borderRadius: '8px',
+                        border: currentLang === lang.code ? '1.5px solid #16a34a' : '1px solid #e2e8f0',
+                        background: currentLang === lang.code ? '#f0fdf4' : '#ffffff',
+                        color: currentLang === lang.code ? '#166534' : '#334155',
+                        fontWeight: currentLang === lang.code ? 800 : 600,
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        textAlign: 'center',
+                      }}
+                      onClick={() => {
+                        setLanguage(lang.code)
+                        setMobileMenuOpen(false)
+                      }}
+                    >
+                      {lang.nativeName}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <a
                 className="ks-login-cta"
                 style={{ width: '100%', justifyContent: 'center' }}

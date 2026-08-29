@@ -1585,13 +1585,267 @@ const hiTranslations: Translations = {
   },
 }
 
+// Marathi Translations
+const mrTranslations: Translations = {
+  ...hiTranslations,
+  brandName: 'किसान सेतू',
+  brandTagline: 'डिजिटल खरेदी व्यासपीठ',
+  nav: {
+    home: 'मुख्य पृष्ठ',
+    about: 'आमच्याबद्दल',
+    howItWorks: 'हे कसे कार्य करते',
+    forFarmers: 'शेतकऱ्यांसाठी',
+    forCentres: 'केंद्रांसाठी',
+    features: 'वैशिष्ट्ये',
+    contact: 'संपर्क',
+  },
+  loginBtn: 'लॉगिन / साइन इन',
+  home: {
+    ...hiTranslations.home,
+    heroKicker: 'स्मार्ट खरेदी, समृद्ध शेतकरी',
+    heroTitle1: 'डिजिटल शेती खरेदी,',
+    heroTitle2: 'थेट आणि पारदर्शक',
+    heroDesc: 'स्मार्ट टोकन बुकिंग, थेट रांग व्यवस्थापन आणि खात्रीशीर हमीभाव थेट बँक खात्यात.',
+    bookSlotBtn: 'तुमचा स्लॉट बुक करा',
+    howItWorksBtn: 'कसे कार्य करते',
+    journeyTitle: 'शेतकरी खरेदी प्रवास',
+  },
+  farmerLogin: {
+    ...hiTranslations.farmerLogin,
+    heroTitle1: 'किसान सेतू',
+    heroTitle2: 'तुमचा पिकांचा विश्वासू सोबती',
+    heroDesc: 'जवळच्या खरेदी केंद्राशी जोडा, स्लॉट बुक करा, थेट रांग तपासा आणि खात्रीशीर हमीभाव थेट खात्यात मिळवा.',
+    welcomeTitle: 'स्वागत आहे, शेतकरी बांधव!',
+    welcomeSubtitle: 'तुमच्या किसान सेतू खात्यात लॉगिन करा',
+    loginBtn: 'डॅशबोर्डमध्ये प्रवेश करा',
+    newToPlatform: 'किसान सेतूवर नवीन आहात?',
+    registerNow: 'नोंदणी करा',
+  },
+  farmerRegister: {
+    ...hiTranslations.farmerRegister,
+    heroTitle1: 'किसान सेतूशी जोडा',
+    heroTitle2: 'प्रत्येक शेतकऱ्यासाठी थेट डिजिटल खरेदी',
+    title: 'शेतकरी नोंदणी',
+    subtitle: 'हमीभाव खरेदीसाठी चरणबद्ध ऑनलाइन नोंदणी',
+    proceedToDashboard: 'शेतकरी डॅशबोर्ड उघडा',
+  },
+}
+
+// Punjabi Translations
+const paTranslations: Translations = {
+  ...hiTranslations,
+  brandName: 'ਕਿਸਾਨ ਸੇਤੂ',
+  brandTagline: 'ਡਿਜੀਟਲ ਖਰੀਦ ਪਲੇਟਫਾਰਮ',
+  nav: {
+    home: 'ਮੁੱਖ ਪੰਨਾ',
+    about: 'ਸਾਡੇ ਬਾਰੇ',
+    howItWorks: 'ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ',
+    forFarmers: 'ਕਿਸਾਨਾਂ ਲਈ',
+    forCentres: 'ਖਰੀਦ ਕੇਂਦਰਾਂ ਲਈ',
+    features: 'ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ',
+    contact: 'ਸੰਪਰਕ ਕਰੋ',
+  },
+  loginBtn: 'ਲਾਗਇਨ / ਸਾਈਨ ਇਨ',
+  home: {
+    ...hiTranslations.home,
+    heroKicker: 'ਸਮਾਰਟ ਖਰੀਦ, ਖੁਸ਼ਹਾਲ ਕਿਸਾਨ',
+    heroTitle1: 'ਡਿਜੀਟਲ ਖਰੀਦ,',
+    heroTitle2: 'ਸਿੱਧਾ ਤੇ ਪਾਰਦਰਸ਼ੀ',
+    heroDesc: 'ਆਪਣੀ ਫ਼ਸਲ ਲਈ ਟੋਕਨ ਬੁੱਕ ਕਰੋ, ਲਾਈਵ ਲਾਈਨ ਦੇਖੋ ਅਤੇ ਸਿੱਧਾ ਐਮਐਸਪੀ ਭੁਗਤਾਨ ਆਪਣੇ ਬੈਂਕ ਖਾਤੇ ਵਿੱਚ ਪਾਓ।',
+    bookSlotBtn: 'ਸਲਾਟ ਬੁੱਕ ਕਰੋ',
+    howItWorksBtn: 'ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ',
+  },
+  farmerLogin: {
+    ...hiTranslations.farmerLogin,
+    heroTitle1: 'ਕਿਸਾਨ ਸੇਤੂ',
+    heroTitle2: 'ਤੁਹਾਡੀਆਂ ਫ਼ਸਲਾਂ ਦਾ ਭਰੋਸੇਮੰਦ ਸਾਥੀ',
+    welcomeTitle: 'ਜੀ ਆਇਆਂ ਨੂੰ, ਕਿਸਾਨ ਵੀਰੋ!',
+    welcomeSubtitle: 'ਆਪਣੇ ਕਿਸਾਨ ਸੇਤੂ ਖਾਤੇ ਵਿੱਚ ਲਾਗਇਨ ਕਰੋ',
+    loginBtn: 'ਡੈਸ਼ਬੋਰਡ ਵਿੱਚ ਦਾਖਲ ਹੋਵੋ',
+    newToPlatform: 'ਕਿਸਾਨ ਸੇਤੂ ਤੇ ਨਵੇਂ ਹੋ?',
+    registerNow: 'ਨਵੀਂ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਰੋ',
+  },
+  farmerRegister: {
+    ...hiTranslations.farmerRegister,
+    heroTitle1: 'ਕਿਸਾਨ ਸੇਤੂ ਨਾਲ ਜੁੜੋ',
+    heroTitle2: 'ਹਰ ਕਿਸਾਨ ਲਈ ਆਧੁਨਿਕ ਡਿਜੀਟਲ ਖਰੀਦ',
+    title: 'ਕਿਸਾਨ ਰਜਿਸਟ੍ਰੇਸ਼ਨ',
+    subtitle: 'ਐਮਐਸਪੀ ਖਰੀਦ ਲਈ ਕਦਮ-ਦਰ-ਕਦਮ ਰਜਿਸਟ੍ਰੇਸ਼ਨ',
+  },
+}
+
+// Bhojpuri Translations
+const bhoTranslations: Translations = {
+  ...hiTranslations,
+  brandName: 'किसान सेतु',
+  brandTagline: 'डिजिटल खरीद मंच',
+  nav: {
+    home: 'होम',
+    about: 'हमार बारे में',
+    howItWorks: 'ई कइसे काम करेला',
+    forFarmers: 'किसान भाई खातिर',
+    forCentres: 'खरीद केंद्र खातिर',
+    features: 'खासियत',
+    contact: 'संपर्क करीं',
+  },
+  loginBtn: 'लॉगिन करीं',
+  home: {
+    ...hiTranslations.home,
+    heroKicker: 'स्मार्ट खरीद, सुखी किसान',
+    heroTitle1: 'डिजिटल खरीद,',
+    heroTitle2: 'सीधा आ पारदर्शी',
+    heroDesc: 'टोकन बुक करीं, लाइन देखीं आ सीधे बैंक खाता में एमएसपी पईसा पाईं।',
+    bookSlotBtn: 'स्लॉट बुक करीं',
+    howItWorksBtn: 'काम कइसे करेला',
+  },
+  farmerLogin: {
+    ...hiTranslations.farmerLogin,
+    welcomeTitle: 'प्रणाम, किसान भाई!',
+    welcomeSubtitle: 'किसान सेतु खाता में लॉगिन करीं',
+    loginBtn: 'डैशबोर्ड में जाईं',
+    registerNow: 'नया खाता बनाईं',
+  },
+  farmerRegister: {
+    ...hiTranslations.farmerRegister,
+    heroTitle1: 'किसान सेतु से जुड़ीं',
+    title: 'किसान रजिस्ट्रेशन',
+  },
+}
+
+// Telugu Translations
+const teTranslations: Translations = {
+  ...enTranslations,
+  brandName: 'కిసాన్ సేతు',
+  brandTagline: 'డిజిటల్ సేకరణ వేదిక',
+  nav: {
+    home: 'హోమ్',
+    about: 'మా గురించి',
+    howItWorks: 'ఇది ఎలా పనిచేస్తుంది',
+    forFarmers: 'రైతుల కోసం',
+    forCentres: 'సేకరణ కేంద్రాల కోసం',
+    features: 'ఫీచర్లు',
+    contact: 'సంప్రదించండి',
+  },
+  loginBtn: 'లాగిన్ / సైన్ ఇన్',
+  home: {
+    ...enTranslations.home,
+    heroKicker: 'స్మార్ట్ సేకరణ, ఆనందకరమైన రైతులు',
+    heroTitle1: 'డిజిటల్ వ్యవసాయ సేకరణ,',
+    heroTitle2: 'పారదర్శకం & వేగవంతం',
+    heroDesc: 'స్మార్ట్ స్లాట్ బుకింగ్, లైవ్ క్యూ ట్రాకింగ్ మరియు మీ బ్యాంక్ ఖాతాకు నేరుగా MSP చెల్లింపులు.',
+    bookSlotBtn: 'స్లాట్ బుక్ చేయండి',
+    howItWorksBtn: 'ఇది ఎలా పనిచేస్తుంది',
+  },
+  farmerLogin: {
+    ...enTranslations.farmerLogin,
+    heroTitle1: 'కిసాన్ సేతు',
+    heroTitle2: 'మీ పంటల నమ్మకమైన భాగస్వామి',
+    welcomeTitle: 'స్వాగతం, రైతు మిత్రమా!',
+    welcomeSubtitle: 'మీ కిసాన్ సేతు ఖాతాలోకి లాగిన్ అవ్వండి',
+    loginBtn: 'డ్యాష్‌బోర్డ్‌కు వెళ్లండి',
+    newToPlatform: 'కిసాన్ సేతుకు కొత్తవారా?',
+    registerNow: 'ఇప్పుడే నమోదు చేసుకోండి',
+  },
+  farmerRegister: {
+    ...enTranslations.farmerRegister,
+    heroTitle1: 'కిసాన్ సేతులో చేరండి',
+    heroTitle2: 'ప్రతి రైతుకు ప్రత్యక్ష డిజిటల్ సేకరణ',
+    title: 'రైతు నమోదు',
+    subtitle: 'MSP సేకరణ కోసం దశలవారీగా ధృవీకరించబడిన నమోదు',
+  },
+}
+
+// Kannada Translations
+const knTranslations: Translations = {
+  ...enTranslations,
+  brandName: 'ಕಿಸಾನ್ ಸೇತು',
+  brandTagline: 'ಡಿಜಿಟಲ್ ಖರೀದಿ ವೇದಿಕೆ',
+  nav: {
+    home: 'ಮುಖಪುಟ',
+    about: 'ನಮ್ಮ ಬಗ್ಗೆ',
+    howItWorks: 'ಇದು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ',
+    forFarmers: 'ರೈತರಿಗಾಗಿ',
+    forCentres: 'ಖರೀದಿ ಕೇಂದ್ರಗಳಿಗಾಗಿ',
+    features: 'ವೈಶಿಷ್ಟ್ಯಗಳು',
+    contact: 'ಸಂಪರ್ಕಿಸಿ',
+  },
+  loginBtn: 'ಲಾಗಿನ್ / ಸೈನ್ ಇನ್',
+  home: {
+    ...enTranslations.home,
+    heroKicker: 'ಸ್ಮಾರ್ಟ್ ಖರೀದಿ, ಸಮೃದ್ಧ ರೈತರು',
+    heroTitle1: 'ಡಿಜಿಟಲ್ ಕೃಷಿ ಖರೀದಿ,',
+    heroTitle2: 'ನೇರ ಮತ್ತು ಪಾರದರ್ಶಕ',
+    heroDesc: 'ಸ್ಮಾರ್ಟ್ ಸ್ಲಾಟ್ ಬುಕಿಂಗ್, ಲೈವ್ ಕ್ಯೂ ಟ್ರ್ಯಾಕಿಂಗ್ ಮತ್ತು ನೇರವಾಗಿ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ಎಂಎಸ್‌ಪಿ ಪಾವತಿ.',
+    bookSlotBtn: 'ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಿ',
+    howItWorksBtn: 'ಇದು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ',
+  },
+  farmerLogin: {
+    ...enTranslations.farmerLogin,
+    heroTitle1: 'ಕಿಸಾನ್ ಸೇತು',
+    heroTitle2: 'ನಿಮ್ಮ ಬೆಳೆಗಳ ವಿಶ್ವಾಸಾರ್ಹ ಪಾಲುದಾರ',
+    welcomeTitle: 'ಸ್ವಾಗತ, ರೈತ ಮಿತ್ರರೇ!',
+    welcomeSubtitle: 'ನಿಮ್ಮ ಕಿಸಾನ್ ಸೇತು ಖಾತೆಗೆ ಲಾಗಿನ್ ಮಾಡಿ',
+    loginBtn: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ಗೆ ಪ್ರವೇಶಿಸಿ',
+    newToPlatform: 'ಕಿಸಾನ್ ಸೇತುಗೆ ಹೊಸಬರೇ?',
+    registerNow: 'ಈಗಲೇ ನೋಂದಾಯಿಸಿ',
+  },
+  farmerRegister: {
+    ...enTranslations.farmerRegister,
+    heroTitle1: 'ಕಿಸಾನ್ ಸೇತುಗೆ ಸೇರಿ',
+    heroTitle2: 'ಪ್ರತಿಯೊಬ್ಬ ರೈತರಿಗೆ ನೇರ ಡಿಜಿಟಲ್ ಖರೀದಿ',
+    title: 'ರೈತರ ನೋಂದಣಿ',
+  },
+}
+
+// Malayalam Translations
+const mlTranslations: Translations = {
+  ...enTranslations,
+  brandName: 'കിസാൻ സേതു',
+  brandTagline: 'ഡിജിറ്റൽ സംഭരണ പ്ലാറ്റ്‌ഫോം',
+  nav: {
+    home: 'ഹോം',
+    about: 'ഞങ്ങളെക്കുറിച്ച്',
+    howItWorks: 'ഇത് എങ്ങനെ പ്രവർത്തിക്കുന്നു',
+    forFarmers: 'കർഷകർക്കായി',
+    forCentres: 'സംഭരണ കേന്ദ്രങ്ങൾക്കായി',
+    features: 'സവിശേഷതകൾ',
+    contact: 'ബന്ധപ്പെടുക',
+  },
+  loginBtn: 'ലോഗിൻ / സൈൻ ഇൻ',
+  home: {
+    ...enTranslations.home,
+    heroKicker: 'സ്മാർട്ട് സംഭരണം, സംതൃപ്ത കർഷകർ',
+    heroTitle1: 'ഡിജിറ്റൽ സംഭരണം,',
+    heroTitle2: 'നേരിട്ടും സുതാര്യമായും',
+    heroDesc: 'സ്മാർട്ട് സ്ലോട്ട് ബുക്കിംഗ്, ലൈവ് ക്യൂ ട്രാക്കിംഗ്, ബാങ്ക് അക്കൗണ്ടിലേക്ക് നേരിട്ട് എംഎസ്പി തുക.',
+    bookSlotBtn: 'സ്ലോട്ട് ബുക്ക് ചെയ്യുക',
+    howItWorksBtn: 'പ്രവർത്തനം എങ്ങനെ',
+  },
+  farmerLogin: {
+    ...enTranslations.farmerLogin,
+    heroTitle1: 'കിസാൻ സേതു',
+    heroTitle2: 'നിങ്ങളുടെ കാർഷിക വിളകളുടെ വിശ്വസ്ത പങ്കാളി',
+    welcomeTitle: 'സ്വാഗതം, കർഷക സുഹൃത്തേ!',
+    welcomeSubtitle: 'നിങ്ങളുടെ കിസാൻ സേതു അക്കൗണ്ടിലേക്ക് ലോഗിൻ ചെയ്യുക',
+    loginBtn: 'ഡാഷ്‌ബോർഡിലേക്ക് പ്രവേശിക്കുക',
+    newToPlatform: 'കിസാൻ സേതുവിൽ പുതിയ ആളാണോ?',
+    registerNow: 'ഇപ്പോൾ രജിസ്റ്റർ ചെയ്യുക',
+  },
+  farmerRegister: {
+    ...enTranslations.farmerRegister,
+    heroTitle1: 'കിസാൻ സേതുവിൽ ചേരുക',
+    title: 'കർഷക രജിസ്ട്രേഷൻ',
+  },
+}
+
 export const TRANSLATIONS: Record<LanguageCode, Translations> = {
   en: enTranslations,
   hi: hiTranslations,
-  mr: { ...enTranslations, ...hiTranslations, brandName: 'किसान सेतू' },
-  te: { ...enTranslations, brandName: 'కిసాన్ సేతు', brandTagline: 'డిజిటల్ సేకరణ వేదిక' },
-  ml: { ...enTranslations, brandName: 'കിസാൻ സേതു', brandTagline: 'സംഭരണ പ്ലാറ്റ്‌ഫോം' },
-  bho: { ...hiTranslations, brandName: 'किसान सेतु', brandTagline: 'खरीद मंच' },
-  pa: { ...hiTranslations, brandName: 'ਕਿਸਾਨ ਸੇਤੂ', brandTagline: 'ਡਿਜੀਟਲ ਖਰੀਦ ਪਲੇਟਫਾਰਮ' },
-  kn: { ...enTranslations, brandName: 'ಕಿಸಾನ್ ಸೇತು', brandTagline: 'ಖರೀದಿ ವೇದಿಕೆ' },
+  mr: mrTranslations,
+  te: teTranslations,
+  ml: mlTranslations,
+  bho: bhoTranslations,
+  pa: paTranslations,
+  kn: knTranslations,
 }
+
