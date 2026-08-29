@@ -85,9 +85,6 @@ export default function Footer() {
               <a href="/contact" onClick={(e) => handleNav(e, '/contact')}>
                 <ChevronRight size={13} /> {t.nav.contact}
               </a>
-              <a href="/login" onClick={(e) => handleNav(e, '/login')}>
-                <ChevronRight size={13} /> {t.loginBtn}
-              </a>
             </div>
           </div>
 
