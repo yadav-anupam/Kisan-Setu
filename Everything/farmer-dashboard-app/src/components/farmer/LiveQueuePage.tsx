@@ -447,28 +447,28 @@ export default function LiveQueuePage() {
                 </div>
 
                 {/* 4-Horizon Timeline Forecast Bars */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '6px', textAlign: 'center', background: '#f8faf8', padding: '10px', borderRadius: '10px', border: '1px solid #e2e8f0', marginBottom: '12px' }}>
-                  <div>
+                <div className="lq-forecast-bars">
+                  <div className="lq-forecast-item">
                     <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>Now</span>
                     <strong style={{ fontSize: '15px', color: '#0f172a' }}>{mlData.queue_forecast.current}</strong>
                     <small style={{ fontSize: '9px', color: '#94a3b8', display: 'block' }}>vehicles</small>
                   </div>
-                  <div>
+                  <div className="lq-forecast-item">
                     <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+15 min</span>
                     <strong style={{ fontSize: '15px', color: '#0d631b' }}>{mlData.queue_forecast['15_minutes']}</strong>
                     <small style={{ fontSize: '9px', color: '#94a3b8', display: 'block' }}>est. queue</small>
                   </div>
-                  <div>
+                  <div className="lq-forecast-item">
                     <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+30 min</span>
                     <strong style={{ fontSize: '15px', color: '#0d631b' }}>{mlData.queue_forecast['30_minutes']}</strong>
                     <small style={{ fontSize: '9px', color: '#94a3b8', display: 'block' }}>est. queue</small>
                   </div>
-                  <div>
+                  <div className="lq-forecast-item">
                     <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+45 min</span>
                     <strong style={{ fontSize: '15px', color: '#0d631b' }}>{mlData.queue_forecast['45_minutes']}</strong>
                     <small style={{ fontSize: '9px', color: '#94a3b8', display: 'block' }}>est. queue</small>
                   </div>
-                  <div>
+                  <div className="lq-forecast-item">
                     <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+60 min</span>
                     <strong style={{ fontSize: '15px', color: '#0d631b' }}>{mlData.queue_forecast['60_minutes']}</strong>
                     <small style={{ fontSize: '9px', color: '#94a3b8', display: 'block' }}>est. queue</small>
@@ -701,8 +701,8 @@ export default function LiveQueuePage() {
               </button>
             </div>
 
-            <div style={{ padding: '10px 0', textAlign: 'center' }}>
-              <div style={{ background: '#f0fdf4', border: '1.5px dashed #16a34a', borderRadius: '14px', padding: '20px', margin: '0 auto 16px', maxWidth: '340px' }}>
+            <div style={{ padding: '6px 0', textAlign: 'center' }}>
+              <div className="lq-gatepass-box">
                 <span style={{ fontSize: '11px', fontWeight: 800, color: '#166534', textTransform: 'uppercase', letterSpacing: '1px' }}>
                   {mandiStatus.mandi_name} Gate Pass
                 </span>
@@ -710,11 +710,11 @@ export default function LiveQueuePage() {
                   TOKEN {activeBooking ? activeBooking.token_number : '—'}
                 </h1>
 
-                <div style={{ background: '#ffffff', padding: '14px', borderRadius: '12px', display: 'inline-block', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-                  <QrCode size={130} color="#0d631b" />
+                <div style={{ background: '#ffffff', padding: '12px', borderRadius: '12px', display: 'inline-block', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', maxWidth: '100%', boxSizing: 'border-box' }}>
+                  <QrCode size={120} color="#0d631b" style={{ maxWidth: '100%', height: 'auto' }} />
                 </div>
 
-                <div style={{ marginTop: '14px', fontSize: '12px', color: '#334155', lineHeight: 1.5, textAlign: 'left', background: '#ffffff', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2ebe4' }}>
+                <div style={{ marginTop: '12px', fontSize: '12px', color: '#334155', lineHeight: 1.5, textAlign: 'left', background: '#ffffff', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2ebe4' }}>
                   <div><strong>Farmer:</strong> {farmer.name || activeBooking?.farmer_name || 'Ramesh Kumar Singh'}</div>
                   <div><strong>Produce:</strong> {activeBooking ? `${activeBooking.commodity} (${activeBooking.quantity} Qtl)` : 'MSP Produce'}</div>
                   <div><strong>Vehicle:</strong> {activeBooking?.vehicle_number || 'Not Registered'}</div>
@@ -722,7 +722,7 @@ export default function LiveQueuePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2" style={{ marginTop: '10px' }}>
                 <button
                   type="button"
                   className="fd-card-btn primary"

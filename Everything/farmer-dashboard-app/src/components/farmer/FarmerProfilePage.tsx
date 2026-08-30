@@ -1133,7 +1133,7 @@ export default function FarmerProfilePage() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Phone Number *</label>
                   <input
@@ -1153,7 +1153,7 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Village *</label>
                   <input
@@ -1174,7 +1174,7 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>District *</label>
                   <input
@@ -1195,7 +1195,7 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Total Land Holding *</label>
                   <input
@@ -1216,7 +1216,7 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Primary Produce *</label>
                   <input
@@ -1237,7 +1237,7 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Bank Name *</label>
                   <input
@@ -1258,7 +1258,7 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Bank IFSC Code *</label>
                   <input

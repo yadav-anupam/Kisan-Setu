@@ -869,7 +869,7 @@ export default function FarmerDashboard() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="fd-modal-grid-2">
                 <div className="fd-modal-field">
                   <label>Appointment Date *</label>
                   <input

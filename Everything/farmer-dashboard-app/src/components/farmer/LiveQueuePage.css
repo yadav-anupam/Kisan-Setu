@@ -337,6 +337,36 @@
   color: #0d631b;
 }
 
+/* Forecast Bars Responsive Container */
+.lq-forecast-bars {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  text-align: center;
+  background: #f8faf8;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 12px;
+}
+
+.lq-forecast-item {
+  min-width: 0;
+  padding: 4px 2px;
+}
+
+/* Gate Pass Box in Modal */
+.lq-gatepass-box {
+  background: #f0fdf4;
+  border: 1.5px dashed #16a34a;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 0 auto 16px;
+  max-width: 360px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* Responsive */
 @media (max-width: 1080px) {
   .lq-grid {
@@ -404,6 +434,26 @@
 
   .lq-user-stats-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .lq-forecast-bars {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .lq-gatepass-box {
+    padding: 14px 10px;
+  }
+
+  .lq-gatepass-box h1 {
+    font-size: 26px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .lq-forecast-bars {
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
 }
