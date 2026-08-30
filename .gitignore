@@ -1,0 +1,25 @@
+# Node Dependencies
+node_modules/
+dist/
+
+# Large ML Model binaries (>100MB blocked by GitHub)
+*.pkl
+*.joblib
+*.h5
+*.onnx
+models/*.pkl
+ML - KS/models/*.pkl
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*.class
+.venv/
+venv/
+env/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

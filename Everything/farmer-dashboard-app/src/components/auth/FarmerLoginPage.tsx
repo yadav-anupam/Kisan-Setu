@@ -22,6 +22,7 @@ import logoImg from '../../assets/logo.png'
 import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
 import { useLanguage } from '../../useLanguage'
+import { loginFarmer, getAndClearRedirectAfterLogin, hasPendingRedirect } from '../../auth'
 import './FarmerLoginPage.css'
 
 export default function FarmerLoginPage() {
@@ -102,10 +103,11 @@ export default function FarmerLoginPage() {
     setIsSubmitting(true)
 
     setTimeout(() => {
+      loginFarmer({ mobile: mobile || '9214334494', name: 'Ramesh Kumar Singh' })
       setIsSubmitting(false)
-      // Navigate to farmer dashboard (or simulated success view)
-      navigate('/farmer-dashboard')
-    }, 800)
+      const targetUrl = getAndClearRedirectAfterLogin()
+      navigate(targetUrl)
+    }, 600)
   }
 
   const handleQuickFillDemo = () => {
@@ -261,6 +263,13 @@ export default function FarmerLoginPage() {
               <h1>{fl.welcomeTitle}</h1>
               <p>{fl.welcomeSubtitle}</p>
             </div>
+
+            {hasPendingRedirect() && (
+              <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '10px', padding: '10px 14px', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#92400e', fontWeight: 600 }}>
+                <Lock size={15} color="#d97706" style={{ flexShrink: 0 }} />
+                <span>Authentication Required: Please login to access Farmer Dashboard &amp; Services.</span>
+              </div>
+            )}
 
             {/* Tab Switcher */}
             <div className="fl-tabs">

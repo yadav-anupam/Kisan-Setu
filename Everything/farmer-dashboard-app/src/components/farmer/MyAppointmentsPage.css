@@ -1,0 +1,386 @@
+/* Kisan Setu My Appointments Page Styles */
+
+.appointments-layout {
+  --fd-sidebar-w: 256px;
+  --ap-green: #0d631b;
+  --ap-green-dark: #075a27;
+  --ap-green-light: #16a34a;
+  --ap-surface: #f8faf8;
+  --ap-card: #ffffff;
+  --ap-ink: #191c1b;
+  --ap-muted: #526056;
+  --ap-border: #e1e7e1;
+  --ap-sidebar-w: 256px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--ap-surface);
+  color: var(--ap-ink);
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Main Appointments Content Container */
+.ap-main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 40px;
+  max-width: 1180px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Header & Controls */
+.ap-controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Tabs */
+.ap-tabs-wrap {
+  display: flex;
+  background: #e2ebe4;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.ap-tab-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ap-muted);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ap-tab-btn.active {
+  background: #ffffff;
+  color: var(--ap-green);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.ap-book-new-btn {
+  background: linear-gradient(135deg, #0d631b 0%, #15803d 100%);
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(13, 99, 27, 0.2);
+}
+
+.ap-book-new-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(13, 99, 27, 0.3);
+}
+
+/* Appointment Cards List */
+.ap-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ap-card {
+  background: var(--ap-card);
+  border: 1px solid var(--ap-border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.2s ease;
+}
+
+.ap-card:hover {
+  border-color: #86efac;
+  box-shadow: 0 6px 18px rgba(13, 99, 27, 0.06);
+}
+
+/* Date / Time Column Block */
+.ap-date-block {
+  width: 105px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ap-date-month {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ap-green);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.ap-date-day {
+  font-family: 'Manrope', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  margin: 2px 0;
+}
+
+.ap-date-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: #526056;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+/* Appointment Info Column */
+.ap-info-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.ap-centre-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ap-centre-title strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  display: block;
+}
+
+.ap-centre-title p {
+  font-size: 12px;
+  color: var(--ap-muted);
+  margin: 2px 0 0;
+}
+
+.ap-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ap-crop-badge {
+  background: #f0fdf4;
+  color: var(--ap-green);
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ap-qty-badge {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Token Number & Status Block */
+.ap-token-col {
+  text-align: right;
+  flex-shrink: 0;
+  padding: 0 14px;
+  border-left: 1px solid #f1f5f2;
+}
+
+.ap-token-col small {
+  font-size: 10.5px;
+  color: var(--ap-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.ap-token-col strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ap-green);
+  line-height: 1.1;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.ap-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ap-status-tag.upcoming {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.ap-status-tag.completed {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* Action Buttons Column */
+.ap-actions-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+  border-left: 1px solid #f1f5f2;
+  padding-left: 14px;
+}
+
+.ap-action-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.ap-action-btn:hover {
+  background: #f8fafc;
+  border-color: var(--ap-green);
+  color: var(--ap-green);
+}
+
+.ap-action-btn.danger {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.ap-action-btn.danger:hover {
+  background: #fef2f2;
+}
+
+/* Token Pass QR Modal */
+.ap-qr-box {
+  background: #f8faf8;
+  border: 2px dashed #86efac;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  margin: 16px 0;
+}
+
+.ap-qr-box strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ap-green);
+  display: block;
+}
+
+/* Empty State */
+.ap-empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  background: var(--ap-card);
+  border: 1px dashed var(--ap-border);
+  border-radius: 16px;
+}
+
+.ap-empty-state svg {
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+
+.ap-empty-state h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+}
+
+.ap-empty-state p {
+  color: var(--ap-muted);
+  font-size: 13px;
+  margin: 0 0 16px;
+}
+
+/* Responsive */
+@media (max-width: 990px) {
+  .ap-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .ap-date-block {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 8px 12px;
+  }
+  .ap-token-col {
+    border-left: none;
+    border-top: 1px solid #f1f5f2;
+    padding: 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+  .ap-actions-col {
+    border-left: none;
+    padding-left: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .ap-action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

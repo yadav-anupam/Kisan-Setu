@@ -1,0 +1,445 @@
+/* Kisan Setu My Procurement Page Styles */
+
+.procurement-layout {
+  --fd-sidebar-w: 256px;
+  --pc-green: #0d631b;
+  --pc-green-dark: #075a27;
+  --pc-green-light: #16a34a;
+  --pc-surface: #f8faf8;
+  --pc-card: #ffffff;
+  --pc-ink: #191c1b;
+  --pc-muted: #526056;
+  --pc-border: #e1e7e1;
+  --pc-sidebar-w: 256px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--pc-surface);
+  color: var(--pc-ink);
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  display: flex;
+  align-items: stretch;
+}
+
+.pc-main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 4-Stat Header KPI Grid */
+.pc-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.pc-kpi-card {
+  background: var(--pc-card);
+  border: 1px solid var(--pc-border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pc-kpi-card.highlight {
+  background: linear-gradient(135deg, #0d631b 0%, #15803d 100%);
+  color: #ffffff;
+  border-color: #0d631b;
+}
+
+.pc-kpi-card.pending {
+  background: #fff5f5;
+  border-color: #fed7d7;
+}
+
+.pc-kpi-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--pc-muted);
+  margin-bottom: 6px;
+}
+
+.pc-kpi-card.highlight .pc-kpi-header {
+  color: #dcfce7;
+}
+
+.pc-kpi-card.pending .pc-kpi-header {
+  color: #c53030;
+}
+
+.pc-kpi-card strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--pc-ink);
+  line-height: 1.1;
+}
+
+.pc-kpi-card.highlight strong {
+  color: #ffffff;
+}
+
+.pc-kpi-card.pending strong {
+  color: #991b1b;
+}
+
+.pc-kpi-card small {
+  font-size: 11.5px;
+  color: var(--pc-muted);
+  margin-top: 4px;
+}
+
+.pc-kpi-card.highlight small {
+  color: #bbf7d0;
+}
+
+.pc-kpi-card.pending small {
+  color: #e53e3e;
+}
+
+/* 2-Column Main Section (Table on Left 8 cols, Analytics on Right 4 cols) */
+.pc-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+}
+
+/* Left Table Panel */
+.pc-table-panel {
+  background: var(--pc-card);
+  border: 1px solid var(--pc-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-filter-bar {
+  padding: 14px 16px;
+  background: #f8faf8;
+  border-bottom: 1px solid var(--pc-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pc-filter-chips {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.pc-filter-chip {
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.pc-filter-chip.active {
+  background: var(--pc-green);
+  color: #ffffff;
+  border-color: var(--pc-green);
+}
+
+.pc-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 99px;
+  padding: 5px 12px;
+}
+
+.pc-search-box input {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+  width: 130px;
+}
+
+/* Table */
+.pc-table-wrap {
+  overflow-x: auto;
+  flex: 1;
+}
+
+.pc-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12.5px;
+}
+
+.pc-table th {
+  background: #f8faf8;
+  padding: 12px 14px;
+  border-bottom: 1.5px solid var(--pc-border);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pc-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f2;
+  vertical-align: middle;
+}
+
+.pc-table tr:hover {
+  background: #f8faf8;
+}
+
+.pc-produce-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-crop-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  color: var(--pc-green);
+  border: 1px solid #bbf7d0;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pc-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.pc-status-badge.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pc-status-badge.pending {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.pc-status-badge.processing {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Right Analytics Panel */
+.pc-analytics-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pc-season-box {
+  background: var(--pc-card);
+  border: 1px solid var(--pc-border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.pc-season-box h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+.pc-overview-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid #f1f5f2;
+  font-size: 12.5px;
+}
+
+.pc-overview-row span {
+  color: var(--pc-muted);
+}
+
+.pc-overview-row strong {
+  color: #0f172a;
+}
+
+/* Crop Distribution Donut Visual */
+.pc-donut-box {
+  background: var(--pc-card);
+  border: 1px solid var(--pc-border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.pc-donut-visual {
+  width: 130px;
+  height: 130px;
+  margin: 12px auto;
+  border-radius: 50%;
+  background: conic-gradient(#0d631b 0% 75%, #16a34a 75% 90%, #f59e0b 90% 100%);
+  display: grid;
+  place-items: center;
+}
+
+.pc-donut-inner {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-donut-inner strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--pc-green);
+  line-height: 1;
+}
+
+.pc-donut-inner small {
+  font-size: 10px;
+  color: var(--pc-muted);
+}
+
+.pc-donut-legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 11.5px;
+  margin-top: 10px;
+}
+
+.pc-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pc-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Support Help Banner */
+.pc-support-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pc-support-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--pc-green);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pc-support-card strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #166534;
+  display: block;
+}
+
+.pc-support-card p {
+  font-size: 11px;
+  color: #15803d;
+  margin: 2px 0 0;
+}
+
+/* Detailed Batch Modal */
+.pc-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+  font-size: 12.5px;
+}
+
+.pc-modal-stat-box {
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.pc-modal-stat-box small {
+  font-size: 10.5px;
+  color: var(--pc-muted);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.pc-modal-stat-box strong {
+  font-size: 14px;
+  color: #0f172a;
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .pc-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pc-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pc-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -82,6 +82,9 @@ export default function Footer() {
               <a href="/for-centres" onClick={(e) => handleNav(e, '/for-centres')}>
                 <ChevronRight size={13} /> Mandi Simulator
               </a>
+              <a href="/staff/login" onClick={(e) => handleNav(e, '/staff/login')} style={{ color: '#86efac', fontWeight: 700 }}>
+                <ChevronRight size={13} /> Staff &amp; APMC Desk Login
+              </a>
               <a href="/contact" onClick={(e) => handleNav(e, '/contact')}>
                 <ChevronRight size={13} /> {t.nav.contact}
               </a>

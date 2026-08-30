@@ -7,6 +7,7 @@ import {
   CircleDollarSign,
   Clock3,
   FileText,
+  LogIn,
   Navigation,
   PlayCircle,
   Search,
@@ -18,6 +19,7 @@ import {
 import heroFarmerImg from './assets/hero-farmer.png'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { navigate } from './router'
 import { useLanguage } from './useLanguage'
 import './HomePage.css'
 
@@ -54,18 +56,6 @@ export default function HomePage() {
     ...featureItems.slice(0, carouselIndex),
   ]
 
-  const handleNavClick = (e: React.MouseEvent, targetId: string) => {
-    e.preventDefault()
-    if (targetId === '#top' || targetId === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      return
-    }
-    const el = document.querySelector(targetId)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
   const impactStats = [
     { value: '48,562+', label: t.home.impactLabels.farmers, icon: Users },
     { value: '125+', label: t.home.impactLabels.centres, icon: Navigation },
@@ -92,15 +82,21 @@ export default function HomePage() {
               <div className="hero-buttons">
                 <a
                   className="hero-primary"
-                  href="#features"
-                  onClick={(e) => handleNavClick(e, '#features')}
+                  href="/login"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    navigate('/login')
+                  }}
                 >
-                  <CalendarCheck size={16} /> {t.home.bookSlotBtn}
+                  <LogIn size={16} /> {t.home.bookSlotBtn}
                 </a>
                 <a
                   className="hero-secondary"
-                  href="#features"
-                  onClick={(e) => handleNavClick(e, '#features')}
+                  href="/how-it-works"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    navigate('/how-it-works')
+                  }}
                 >
                   <PlayCircle size={16} /> {t.home.howItWorksBtn}
                 </a>

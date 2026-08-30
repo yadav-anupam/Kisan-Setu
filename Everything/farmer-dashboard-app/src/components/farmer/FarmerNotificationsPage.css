@@ -1,0 +1,286 @@
+/* Kisan Setu Farmer Notifications Page Styles */
+
+.notifications-layout {
+  --fd-sidebar-w: 256px;
+  --nt-green: #0d631b;
+  --nt-green-dark: #075a27;
+  --nt-green-light: #16a34a;
+  --nt-surface: #f8faf8;
+  --nt-card: #ffffff;
+  --nt-ink: #191c1b;
+  --nt-muted: #526056;
+  --nt-border: #e1e7e1;
+  --nt-sidebar-w: 256px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--nt-surface);
+  color: var(--nt-ink);
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  display: flex;
+  align-items: stretch;
+}
+
+.nt-main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Content Grid: Left Feed (1fr), Right Settings (320px) */
+.nt-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+}
+
+/* Feed Panel */
+.nt-feed-panel {
+  background: var(--nt-card);
+  border: 1px solid var(--nt-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.nt-feed-header {
+  padding: 14px 18px;
+  background: #f8faf8;
+  border-bottom: 1px solid var(--nt-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nt-tabs-list {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.nt-tab-btn {
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.nt-tab-btn.active {
+  background: var(--nt-green);
+  color: #ffffff;
+  border-color: var(--nt-green);
+}
+
+.nt-mark-read-btn {
+  background: none;
+  border: none;
+  color: var(--nt-green);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nt-mark-read-btn:hover {
+  text-decoration: underline;
+}
+
+/* Notification Items */
+.nt-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.nt-item {
+  padding: 16px 18px;
+  border-bottom: 1px solid #f1f5f2;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+  position: relative;
+}
+
+.nt-item:hover {
+  background: #f8faf8;
+}
+
+.nt-item.unread {
+  background: #f0fdf4;
+}
+
+.nt-item.unread:hover {
+  background: #e6f9eb;
+}
+
+.nt-item-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.nt-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.nt-item-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.nt-item-title-row strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.nt-item-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1.5px 6px;
+  border-radius: 99px;
+  text-transform: uppercase;
+}
+
+.nt-item-desc {
+  font-size: 12px;
+  color: #526056;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.nt-item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.nt-item-time {
+  font-size: 11px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.nt-unread-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+/* Right Sidebar */
+.nt-right-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nt-widget-card {
+  background: var(--nt-card);
+  border: 1px solid var(--nt-border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.nt-widget-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+/* Toggle Switches */
+.nt-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f2;
+}
+
+.nt-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.nt-toggle-row span {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.nt-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+}
+
+.nt-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.nt-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.nt-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .nt-slider {
+  background-color: var(--nt-green);
+}
+
+input:checked + .nt-slider:before {
+  transform: translateX(16px);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .nt-content-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -204,7 +204,7 @@ export default function ForFarmersPage() {
             <p>{f.ctaDesc}</p>
             <button
               className="hero-primary"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/farmer-dashboard')}
               style={{ cursor: 'pointer', border: 'none', margin: '0 auto' }}
             >
               {f.ctaBookSlot} <ArrowRight size={16} />

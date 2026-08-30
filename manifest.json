@@ -1,0 +1,70 @@
+﻿{
+  "name": "Kisan Setu - Agri-Trust Procurement Platform",
+  "short_name": "Kisan Setu",
+  "description": "Government MSP Procurement, Digital Slot Booking, Live Mandi Queue & DBT Ledger for Farmers and Public Mandi Services",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d631b",
+  "theme_color": "#0d631b",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["business", "finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Farmer Dashboard",
+      "short_name": "Dashboard",
+      "description": "View MSP earnings, active tokens, and deliveries",
+      "url": "/farmer-dashboard",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Book Procurement Slot",
+      "short_name": "Book Slot",
+      "description": "Schedule a weighbridge appointment slot",
+      "url": "/my-appointments",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Live Mandi Queue",
+      "short_name": "Live Queue",
+      "description": "Track current serving tokens and weighbridge bays",
+      "url": "/queue",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "DBT Payment Status",
+      "short_name": "DBT Status",
+      "description": "Check bank transfers and PFMS UTR references",
+      "url": "/dbt-payments",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

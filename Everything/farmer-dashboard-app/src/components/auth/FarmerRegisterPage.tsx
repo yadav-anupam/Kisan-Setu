@@ -2,24 +2,33 @@ import { useState, useEffect, useRef } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
-  Building2,
+  BadgeCheck,
   CheckCircle2,
   ChevronDown,
   CreditCard,
   Eye,
   EyeOff,
+  FileText,
   Globe2,
+  KeyRound,
   Lock,
-  MapPin,
-  MessageSquare,
   ShieldCheck,
-  Sprout,
+  Upload,
   UserCheck,
+  X,
 } from 'lucide-react'
 import logoImg from '../../assets/logo.png'
 import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
 import { useLanguage } from '../../useLanguage'
+import { loginFarmer, getAndClearRedirectAfterLogin } from '../../auth'
+import {
+  ALL_PROCUREMENT_CENTRES,
+  VARANASI_PROCUREMENT_CENTRES,
+  CHANDAULI_PROCUREMENT_CENTRES,
+  GHAZIPUR_PROCUREMENT_CENTRES,
+  JAUNPUR_PROCUREMENT_CENTRES,
+} from '../../data/procurementCentresData'
 import './FarmerRegisterPage.css'
 
 export default function FarmerRegisterPage() {
@@ -31,23 +40,42 @@ export default function FarmerRegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [farmerId, setFarmerId] = useState('')
 
+  // DigiLocker Consent Modal & Sync State
+  const [digiConsentOpen, setDigiConsentOpen] = useState(false)
+  const [isDigiSyncing, setIsDigiSyncing] = useState(false)
+  const [isDigiVerified, setIsDigiVerified] = useState(false)
+  const [consentAadhaar, setConsentAadhaar] = useState(true)
+  const [consentLand, setConsentLand] = useState(true)
+  const [consentBank, setConsentBank] = useState(true)
+
+  // Document Upload State
+  const [uploadedDocs, setUploadedDocs] = useState<{
+    aadhaar: boolean
+    land: boolean
+    passbook: boolean
+  }>({
+    aadhaar: false,
+    land: false,
+    passbook: false,
+  })
+
   // Form Fields State
   const [formData, setFormData] = useState({
     fullName: '',
     mobile: '',
     aadhaarLast4: '',
-    state: 'Rajasthan',
-    district: 'Alwar',
+    state: 'Uttar Pradesh',
+    district: 'Varanasi',
     village: '',
     landCategory: 'Small (1 - 2 Hectares)',
     khasraNo: '',
     crop: 'Wheat (गेहूं)',
     quantity: '50',
-    preferredMandi: 'Alwar Central Grain Mandi',
+    preferredMandi: ALL_PROCUREMENT_CENTRES[0].centreName,
     accountNumber: '',
     confirmAccount: '',
     ifsc: '',
-    bankName: 'State Bank of India (Auto-Verified)',
+    bankName: 'State Bank of India',
     pin: '',
     confirmPin: '',
   })
@@ -68,6 +96,37 @@ export default function FarmerRegisterPage() {
 
   const handleChange = (field: string, val: string) => {
     setFormData((prev) => ({ ...prev, [field]: val }))
+  }
+
+  // Handle DigiLocker 1-Click Verification & Consent Auto-Fill
+  const handleDigiLockerConsent = () => {
+    setIsDigiSyncing(true)
+    setTimeout(() => {
+      setIsDigiSyncing(false)
+      setIsDigiVerified(true)
+      setUploadedDocs({ aadhaar: true, land: true, passbook: true })
+      setFormData({
+        fullName: 'Ramesh Kumar Singh',
+        mobile: '9214334494',
+        aadhaarLast4: '8942',
+        state: 'Uttar Pradesh',
+        district: 'Varanasi',
+        village: 'Chiraigaon Tehsil',
+        landCategory: 'Small (1 - 2 Hectares)',
+        khasraNo: '142/3 & 143/1 (3.50 Acres)',
+        crop: 'Wheat (गेहूं)',
+        quantity: '65',
+        preferredMandi: 'Chiraigaon 1st at Gaurakala (FCS)',
+        accountNumber: '392847291048',
+        confirmAccount: '392847291048',
+        ifsc: 'SBIN0001234',
+        bankName: 'State Bank of India (PFMS DBT Verified)',
+        pin: '123456',
+        confirmPin: '123456',
+      })
+      setDigiConsentOpen(false)
+      alert('DigiLocker verified! Aadhaar, Land Khasra (3.50 Acres), and SBI DBT Bank account auto-filled.')
+    }, 1000)
   }
 
   const handleNext = (e: React.FormEvent) => {
@@ -93,32 +152,20 @@ export default function FarmerRegisterPage() {
       setTimeout(() => {
         const generatedId = `KS-FARM-2026-${Math.floor(1000 + Math.random() * 9000)}`
         setFarmerId(generatedId)
+        loginFarmer({
+          name: formData.fullName || 'Ramesh Kumar Singh',
+          mobile: formData.mobile || '9214334494',
+          farmerId: generatedId,
+          state: formData.state,
+          district: formData.district,
+          village: formData.village,
+          preferredMandi: formData.preferredMandi,
+          bankAccount: formData.accountNumber || 'XXXX-XXXX-4321',
+        })
         setIsSubmitting(false)
         setStep(4)
       }, 900)
     }
-  }
-
-  const handleQuickFill = () => {
-    setFormData({
-      fullName: 'Ramesh Kumar Singh',
-      mobile: '9214334494',
-      aadhaarLast4: '8942',
-      state: 'Rajasthan',
-      district: 'Alwar',
-      village: 'Rampur Tehsil',
-      landCategory: 'Small (1 - 2 Hectares)',
-      khasraNo: 'KHA-104/89',
-      crop: 'Wheat (गेहूं)',
-      quantity: '65',
-      preferredMandi: 'Alwar Central Grain Mandi',
-      accountNumber: '392847291048',
-      confirmAccount: '392847291048',
-      ifsc: 'SBIN0001234',
-      bankName: 'State Bank of India (DBT Verified)',
-      pin: '123456',
-      confirmPin: '123456',
-    })
   }
 
   const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
@@ -141,517 +188,539 @@ export default function FarmerRegisterPage() {
               <img src={logoImg} alt="Kisan Setu Logo" className="fr-logo-img" />
               <div className="fr-brand-text">
                 <strong>{t.brandName}</strong>
-                <small>{t.brandTagline}</small>
+                <small>National Agri-Procurement Portal</small>
               </div>
             </a>
 
             {/* Story Copy */}
             <div className="fr-story-copy">
-              <h2>
-                {fr.heroTitle1}
-                <br />
-                <em>{fr.heroTitle2}</em>
+              <div className="fr-story-badge">
+                <ShieldCheck size={14} /> Official APMC &amp; MSP Platform
+              </div>
+              <h2 className="fr-story-title">
+                Direct Selling, Instant Gate Entry &amp; Guaranteed DBT Payments
               </h2>
-              <p>{fr.heroDesc}</p>
+              <p className="fr-story-desc">
+                Register once with Aadhaar or DigiLocker to book digital tokens, monitor live weighbridge queues, and receive 100% fair MSP settlements directly in your bank account.
+              </p>
+            </div>
 
-              {/* 4 Milestones Journey Steps */}
-              <div className="fr-milestones-list">
-                <div className={`fr-milestone-row ${step === 1 ? 'active' : step > 1 ? 'done' : ''}`}>
-                  <div className="fr-milestone-number">
-                    {step > 1 ? '✓' : '1'}
-                  </div>
-                  <div>
-                    <strong>{fr.steps.step1}</strong>
-                    <small>Name, Mobile & Location</small>
-                  </div>
+            {/* Milestones Vertical Steps */}
+            <div className="fr-milestones-list">
+              <div className={`fr-milestone-item ${step >= 1 ? 'active' : ''}`}>
+                <div className="fr-milestone-icon">1</div>
+                <div className="fr-milestone-body">
+                  <strong>DigiLocker Identity &amp; Profile</strong>
+                  <p>Aadhaar e-KYC and farmer contact details.</p>
                 </div>
+              </div>
 
-                <div className={`fr-milestone-row ${step === 2 ? 'active' : step > 2 ? 'done' : ''}`}>
-                  <div className="fr-milestone-number">
-                    {step > 2 ? '✓' : '2'}
-                  </div>
-                  <div>
-                    <strong>{fr.steps.step2}</strong>
-                    <small>Land, Crop & Mandi Centre</small>
-                  </div>
+              <div className={`fr-milestone-item ${step >= 2 ? 'active' : ''}`}>
+                <div className="fr-milestone-icon">2</div>
+                <div className="fr-milestone-body">
+                  <strong>Landholding &amp; Khasra Records</strong>
+                  <p>Certified Bhulekh land survey numbers &amp; produce.</p>
                 </div>
+              </div>
 
-                <div className={`fr-milestone-row ${step === 3 ? 'active' : step > 3 ? 'done' : ''}`}>
-                  <div className="fr-milestone-number">
-                    {step > 3 ? '✓' : '3'}
-                  </div>
-                  <div>
-                    <strong>{fr.steps.step3}</strong>
-                    <small>Bank Account & Security PIN</small>
-                  </div>
-                </div>
-
-                <div className={`fr-milestone-row ${step === 4 ? 'active done' : ''}`}>
-                  <div className="fr-milestone-number">
-                    {step === 4 ? '✓' : '4'}
-                  </div>
-                  <div>
-                    <strong>{fr.steps.step4}</strong>
-                    <small>Instant Kisan ID Generated</small>
-                  </div>
+              <div className={`fr-milestone-item ${step >= 3 ? 'active' : ''}`}>
+                <div className="fr-milestone-icon">3</div>
+                <div className="fr-milestone-body">
+                  <strong>Aadhaar-Seeded Bank &amp; Passbook Proof</strong>
+                  <p>Direct Benefit Transfer (DBT) setup via PFMS.</p>
                 </div>
               </div>
             </div>
 
-            {/* Trust Banner */}
-            <div className="fr-story-trust-banner">
-              <ShieldCheck size={26} />
-              <div>
-                <strong>{fr.trustBanner}</strong>
-                <small>{fr.trustSub}</small>
-              </div>
+            {/* Trust Pill */}
+            <div className="fr-trust-pill">
+              <UserCheck size={16} /> 2.4+ Lakh Farmers Verified across 450+ APMC Mandis
             </div>
           </div>
         </section>
 
         {/* ==========================================================================
-            Right Side: Registration Multi-Step Form
+            Right Side: Registration Wizard Form
             ========================================================================== */}
         <section className="fr-form-panel">
-          {/* Top Utilities Bar */}
-          <div className="fr-top-bar">
-            <a
-              href="/"
-              className="fr-back-home"
-              onClick={(e) => {
-                e.preventDefault()
-                navigate('/')
+          {/* Top Bar: Back & Language */}
+          <div className="fr-top-nav">
+            <button
+              type="button"
+              className="fr-back-link"
+              onClick={() => {
+                if (step > 1 && step < 4) setStep(step - 1)
+                else navigate('/')
               }}
             >
-              <ArrowLeft size={16} /> Back to Home
-            </a>
+              <ArrowLeft size={16} />
+              <span>{step > 1 && step < 4 ? 'Back to Previous Step' : 'Back to Home'}</span>
+            </button>
 
-            <div className="fr-top-actions">
-              {/* Language Selector */}
-              <div className="ks-lang-wrapper" ref={dropdownRef}>
-                <button
-                  className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                  onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  aria-label="Change Language"
-                >
-                  <Globe2 size={14} />
-                  <span>{activeLangObj.nativeName}</span>
-                  <ChevronDown size={12} className="ks-lang-arrow" />
-                </button>
-
-                {langMenuOpen && (
-                  <div className="ks-lang-dropdown">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                        onClick={() => {
-                          setLanguage(lang.code)
-                          setLangMenuOpen(false)
-                        }}
-                      >
-                        <span className="ks-lang-native">{lang.nativeName}</span>
-                        <span className="ks-lang-english">{lang.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Need Help WhatsApp Link */}
-              <a
-                href="https://wa.me/919214334494"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fr-help-btn"
+            {/* Language Selector */}
+            <div className="ks-lang-wrapper" ref={dropdownRef}>
+              <button
+                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                aria-label="Change Language"
               >
-                <MessageSquare size={14} />
-                <span>Need Help?</span>
-              </a>
+                <Globe2 size={14} />
+                <span>{activeLangObj.nativeName}</span>
+                <ChevronDown size={12} className="ks-lang-arrow" />
+              </button>
+
+              {langMenuOpen && (
+                <div className="ks-lang-dropdown">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
+                      onClick={() => {
+                        setLanguage(lang.code)
+                        setLangMenuOpen(false)
+                      }}
+                    >
+                      <span className="ks-lang-native">{lang.nativeName}</span>
+                      <span className="ks-lang-english">{lang.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Form Content Card */}
-          <div className="fr-card-wrap">
-            {step < 4 && (
-              <>
-                {/* Progress Bar */}
-                <div className="fr-progress-container">
-                  <div className="fr-progress-labels">
-                    <span>
-                      {step === 1
-                        ? fr.step1Title
-                        : step === 2
-                        ? fr.step2Title
-                        : fr.step3Title}
-                    </span>
-                    <span>Step {step} of 3</span>
-                  </div>
-                  <div className="fr-progress-track">
-                    <div
-                      className="fr-progress-bar"
-                      style={{ width: `${(step / 3) * 100}%` }}
-                    />
-                  </div>
+          {/* Progress Bar (Steps 1-3) */}
+          {step < 4 && (
+            <div className="fr-progress-bar">
+              <div className="fr-step-line" />
+              <div className={`fr-step-node ${step === 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`}>
+                <div className="fr-step-circle">{step > 1 ? '✓' : '1'}</div>
+                <span className="fr-step-label">Personal</span>
+              </div>
+              <div className={`fr-step-node ${step === 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}>
+                <div className="fr-step-circle">{step > 2 ? '✓' : '2'}</div>
+                <span className="fr-step-label">Land &amp; Crop</span>
+              </div>
+              <div className={`fr-step-node ${step === 3 ? 'active' : ''}`}>
+                <div className="fr-step-circle">3</div>
+                <span className="fr-step-label">Bank &amp; Docs</span>
+              </div>
+            </div>
+          )}
+
+          {/* DigiLocker Fast Track Banner */}
+          {step < 4 && (
+            <div className="fr-digilocker-fast-card">
+              <div className="fr-digi-left">
+                <div className="fr-digi-badge-icon">
+                  <Lock size={18} />
                 </div>
-
-                <div className="fr-step-header">
-                  <h1>{fr.title}</h1>
-                  <p>{fr.subtitle}</p>
+                <div className="fr-digi-text">
+                  <h4>⚡ Fast-Track Registration via DigiLocker</h4>
+                  <p>
+                    {isDigiVerified
+                      ? '✓ Verified: Aadhaar, Land Khasra & Bank linked.'
+                      : 'Provide 1-click consent to auto-verify Aadhaar, Khasra & Bank.'}
+                  </p>
                 </div>
-              </>
-            )}
+              </div>
+              <button
+                type="button"
+                className="fr-digi-cta-btn"
+                onClick={() => setDigiConsentOpen(true)}
+              >
+                {isDigiVerified ? 'Re-Sync DigiLocker' : 'Consent & Auto-Fill →'}
+              </button>
+            </div>
+          )}
 
-            {/* Step 1: Personal & Contact Details */}
-            {step === 1 && (
-              <form onSubmit={handleNext} className="fr-form">
-                <div className="fr-field">
-                  <label>{fr.fullNameLabel} *</label>
-                  <div className="fr-input-wrap">
-                    <span className="fr-input-icon"><UserCheck size={16} /></span>
-                    <input
-                      type="text"
-                      required
-                      placeholder={fr.fullNamePlaceholder}
-                      className="fr-input"
-                      value={formData.fullName}
-                      onChange={(e) => handleChange('fullName', e.target.value)}
-                    />
-                  </div>
+          {/* ====================================================================
+              Step 1: Personal & Identity Details
+              ==================================================================== */}
+          {step === 1 && (
+            <form onSubmit={handleNext}>
+              <h3 className="fr-form-title">{fr.step1Title}</h3>
+              <p className="fr-form-sub">{fr.subtitle}</p>
+
+              <div className="fr-field-group">
+                <label>{fr.fullNameLabel} *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Ramesh Kumar Singh"
+                  value={formData.fullName}
+                  onChange={(e) => handleChange('fullName', e.target.value)}
+                />
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.mobileLabel} *</label>
+                  <input
+                    type="tel"
+                    required
+                    maxLength={10}
+                    placeholder="10-digit mobile"
+                    value={formData.mobile}
+                    onChange={(e) => handleChange('mobile', e.target.value.replace(/\D/g, ''))}
+                  />
                 </div>
-
-                <div className="fr-field-row">
-                  <div className="fr-field">
-                    <label>{fr.mobileLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <span className="fr-input-prefix">+91</span>
-                      <input
-                        type="tel"
-                        required
-                        pattern="[0-9]{10}"
-                        placeholder={fr.mobilePlaceholder}
-                        className="fr-input"
-                        value={formData.mobile}
-                        onChange={(e) => handleChange('mobile', e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="fr-field">
-                    <label>{fr.aadhaarLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <span className="fr-input-icon"><ShieldCheck size={16} /></span>
-                      <input
-                        type="text"
-                        required
-                        maxLength={4}
-                        placeholder={fr.aadhaarPlaceholder}
-                        className="fr-input"
-                        value={formData.aadhaarLast4}
-                        onChange={(e) => handleChange('aadhaarLast4', e.target.value)}
-                      />
-                    </div>
-                  </div>
+                <div className="fr-field-group">
+                  <label>{fr.aadhaarLabel} *</label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={4}
+                    placeholder="Last 4 digits"
+                    value={formData.aadhaarLast4}
+                    onChange={(e) => handleChange('aadhaarLast4', e.target.value.replace(/\D/g, ''))}
+                  />
                 </div>
+              </div>
 
-                <div className="fr-field-row">
-                  <div className="fr-field">
-                    <label>{fr.stateLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <select
-                        className="fr-select"
-                        value={formData.state}
-                        onChange={(e) => handleChange('state', e.target.value)}
-                      >
-                        <option value="Rajasthan">Rajasthan (राजस्थान)</option>
-                        <option value="Madhya Pradesh">Madhya Pradesh (मध्य प्रदेश)</option>
-                        <option value="Punjab">Punjab (ਪੰਜਾਬ)</option>
-                        <option value="Haryana">Haryana (हरियाणा)</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh (उत्तर प्रदेश)</option>
-                        <option value="Maharashtra">Maharashtra (महाराष्ट्र)</option>
-                        <option value="Telangana">Telangana (తెలంగాణ)</option>
-                        <option value="Karnataka">Karnataka (ಕರ್ನಾಟಕ)</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="fr-field">
-                    <label>{fr.districtLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <span className="fr-input-icon"><MapPin size={16} /></span>
-                      <input
-                        type="text"
-                        required
-                        placeholder="e.g. Alwar, Jaipur"
-                        className="fr-input"
-                        value={formData.district}
-                        onChange={(e) => handleChange('district', e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="fr-field">
-                  <label>{fr.villageLabel}</label>
-                  <div className="fr-input-wrap">
-                    <span className="fr-input-icon"><Building2 size={16} /></span>
-                    <input
-                      type="text"
-                      placeholder={fr.villagePlaceholder}
-                      className="fr-input"
-                      value={formData.village}
-                      onChange={(e) => handleChange('village', e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="fr-actions-row">
-                  <button type="submit" className="fr-next-btn">
-                    {fr.nextStepBtn} <ArrowRight size={16} />
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* Step 2: Land & Crop Information */}
-            {step === 2 && (
-              <form onSubmit={handleNext} className="fr-form">
-                <div className="fr-field">
-                  <label>{fr.landCategoryLabel} *</label>
-                  <div className="fr-input-wrap">
-                    <select
-                      className="fr-select"
-                      value={formData.landCategory}
-                      onChange={(e) => handleChange('landCategory', e.target.value)}
-                    >
-                      <option value="Marginal (< 1 Hectare)">Marginal (&lt; 1 Hectare)</option>
-                      <option value="Small (1 - 2 Hectares)">Small (1 - 2 Hectares)</option>
-                      <option value="Medium (2 - 10 Hectares)">Medium (2 - 10 Hectares)</option>
-                      <option value="Large (> 10 Hectares)">Large (&gt; 10 Hectares)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="fr-field">
-                  <label>{fr.khasraLabel}</label>
-                  <div className="fr-input-wrap">
-                    <input
-                      type="text"
-                      placeholder={fr.khasraPlaceholder}
-                      className="fr-input"
-                      value={formData.khasraNo}
-                      onChange={(e) => handleChange('khasraNo', e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="fr-field-row">
-                  <div className="fr-field">
-                    <label>{fr.cropLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <select
-                        className="fr-select"
-                        value={formData.crop}
-                        onChange={(e) => handleChange('crop', e.target.value)}
-                      >
-                        <option value="Wheat (गेहूं)">Wheat (गेहूं)</option>
-                        <option value="Paddy / Rice (धान)">Paddy / Rice (धान)</option>
-                        <option value="Mustard (सरसों)">Mustard (सरसों)</option>
-                        <option value="Gram / Chana (चना)">Gram / Chana (चना)</option>
-                        <option value="Soybean (सोयाबीन)">Soybean (सोयाबीन)</option>
-                        <option value="Cotton (कपास)">Cotton (कपास)</option>
-                        <option value="Maize (मक्का)">Maize (मक्का)</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="fr-field">
-                    <label>{fr.quantityLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <span className="fr-input-icon"><Sprout size={16} /></span>
-                      <input
-                        type="number"
-                        required
-                        min="1"
-                        placeholder={fr.quantityPlaceholder}
-                        className="fr-input"
-                        value={formData.quantity}
-                        onChange={(e) => handleChange('quantity', e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="fr-field">
-                  <label>{fr.centreLabel} *</label>
-                  <div className="fr-input-wrap">
-                    <select
-                      className="fr-select"
-                      value={formData.preferredMandi}
-                      onChange={(e) => handleChange('preferredMandi', e.target.value)}
-                    >
-                      <option value="Alwar Central Grain Mandi">Alwar Central Grain Mandi (Center #101)</option>
-                      <option value="Khairthal Procurement Yard">Khairthal Procurement Yard (Center #102)</option>
-                      <option value="Behror Agricultural Sub-Mandi">Behror Agricultural Sub-Mandi (Center #103)</option>
-                      <option value="Ramgarh Krishak Seva Kendra">Ramgarh Krishak Seva Kendra (Center #104)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="fr-actions-row">
-                  <button
-                    type="button"
-                    className="fr-prev-btn"
-                    onClick={() => setStep(1)}
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.stateLabel} *</label>
+                  <select
+                    value={formData.state}
+                    onChange={(e) => handleChange('state', e.target.value)}
                   >
-                    <ArrowLeft size={16} /> {fr.prevStepBtn}
-                  </button>
-                  <button type="submit" className="fr-next-btn">
-                    {fr.nextStepBtn} <ArrowRight size={16} />
-                  </button>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  </select>
                 </div>
-              </form>
-            )}
-
-            {/* Step 3: Bank Account for DBT & PIN */}
-            {step === 3 && (
-              <form onSubmit={handleNext} className="fr-form">
-                <div className="fr-field">
-                  <label>{fr.bankAccountLabel} *</label>
-                  <div className="fr-input-wrap">
-                    <span className="fr-input-icon"><CreditCard size={16} /></span>
-                    <input
-                      type="password"
-                      required
-                      placeholder={fr.bankAccountPlaceholder}
-                      className="fr-input"
-                      value={formData.accountNumber}
-                      onChange={(e) => handleChange('accountNumber', e.target.value)}
-                    />
-                  </div>
+                <div className="fr-field-group">
+                  <label>{fr.districtLabel} *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.district}
+                    onChange={(e) => handleChange('district', e.target.value)}
+                  />
                 </div>
+              </div>
 
-                <div className="fr-field-row">
-                  <div className="fr-field">
-                    <label>{fr.ifscLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <input
-                        type="text"
-                        required
-                        placeholder={fr.ifscPlaceholder}
-                        className="fr-input"
-                        value={formData.ifsc}
-                        onChange={(e) => handleChange('ifsc', e.target.value.toUpperCase())}
-                      />
+              <div className="fr-field-group">
+                <label>{fr.villageLabel}</label>
+                <input
+                  type="text"
+                  placeholder="Village & Tehsil"
+                  value={formData.village}
+                  onChange={(e) => handleChange('village', e.target.value)}
+                />
+              </div>
+
+              <button type="submit" className="fr-btn-submit">
+                {fr.nextStepBtn} <ArrowRight size={16} />
+              </button>
+            </form>
+          )}
+
+          {/* ====================================================================
+              Step 2: Land & Crop Details
+              ==================================================================== */}
+          {step === 2 && (
+            <form onSubmit={handleNext}>
+              <h3 className="fr-form-title">{fr.step2Title}</h3>
+              <p className="fr-form-sub">{fr.subtitle}</p>
+
+              <div className="fr-field-group">
+                <label>{fr.landCategoryLabel} *</label>
+                <select
+                  value={formData.landCategory}
+                  onChange={(e) => handleChange('landCategory', e.target.value)}
+                >
+                  <option value="Marginal (< 1 Hectare)">Marginal (&lt; 1 Hectare)</option>
+                  <option value="Small (1 - 2 Hectares)">Small (1 - 2 Hectares)</option>
+                  <option value="Semi-Medium (2 - 4 Hectares)">Semi-Medium (2 - 4 Hectares)</option>
+                  <option value="Medium (4 - 10 Hectares)">Medium (4 - 10 Hectares)</option>
+                  <option value="Large (> 10 Hectares)">Large (&gt; 10 Hectares)</option>
+                </select>
+              </div>
+
+              <div className="fr-field-group">
+                <label>{fr.khasraLabel} *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. KHA-104/89 (or 142/3)"
+                  value={formData.khasraNo}
+                  onChange={(e) => handleChange('khasraNo', e.target.value)}
+                />
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.cropLabel} *</label>
+                  <select
+                    value={formData.crop}
+                    onChange={(e) => handleChange('crop', e.target.value)}
+                  >
+                    <option value="Wheat (गेहूं)">Wheat (गेहूं)</option>
+                    <option value="Mustard (सरसों)">Mustard (सरसों)</option>
+                    <option value="Gram (चना)">Gram (चना)</option>
+                    <option value="Paddy (धान)">Paddy (धान)</option>
+                    <option value="Barley (जौ)">Barley (जौ)</option>
+                    <option value="Cotton (कपास)">Cotton (कपास)</option>
+                  </select>
+                </div>
+                <div className="fr-field-group">
+                  <label>{fr.quantityLabel} (Qtl) *</label>
+                  <input
+                    type="number"
+                    required
+                    placeholder="e.g. 50"
+                    value={formData.quantity}
+                    onChange={(e) => handleChange('quantity', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="fr-field-group">
+                <label>{fr.centreLabel} ({ALL_PROCUREMENT_CENTRES.length} UP Centres Available) *</label>
+                <select
+                  value={formData.preferredMandi}
+                  onChange={(e) => handleChange('preferredMandi', e.target.value)}
+                >
+                  <optgroup label="Varanasi District (43 Centres)">
+                    {VARANASI_PROCUREMENT_CENTRES.map((c) => (
+                      <option key={c.id} value={c.centreName}>
+                        {c.centreName} — {c.blockTehsil} ({c.agency})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Chandauli District (5 Centres)">
+                    {CHANDAULI_PROCUREMENT_CENTRES.map((c) => (
+                      <option key={c.id} value={c.centreName}>
+                        {c.centreName} — {c.blockTehsil} ({c.agency})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Ghazipur District (5 Centres)">
+                    {GHAZIPUR_PROCUREMENT_CENTRES.map((c) => (
+                      <option key={c.id} value={c.centreName}>
+                        {c.centreName} — {c.blockTehsil} ({c.agency})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Jaunpur District (5 Centres)">
+                    {JAUNPUR_PROCUREMENT_CENTRES.map((c) => (
+                      <option key={c.id} value={c.centreName}>
+                        {c.centreName} — {c.blockTehsil} ({c.agency})
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+              </div>
+
+              <button type="submit" className="fr-btn-submit">
+                {fr.nextStepBtn} <ArrowRight size={16} />
+              </button>
+            </form>
+          )}
+
+          {/* ====================================================================
+              Step 3: Bank Details & Document Proof Uploads
+              ==================================================================== */}
+          {step === 3 && (
+            <form onSubmit={handleNext}>
+              <h3 className="fr-form-title">{fr.step3Title}</h3>
+              <p className="fr-form-sub">{fr.subtitle}</p>
+
+              <div className="fr-field-group">
+                <label>{fr.bankAccountLabel} *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter Bank Account Number"
+                  value={formData.accountNumber}
+                  onChange={(e) => handleChange('accountNumber', e.target.value)}
+                />
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.ifscLabel} *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. SBIN0001234"
+                    value={formData.ifsc}
+                    onChange={(e) => handleChange('ifsc', e.target.value.toUpperCase())}
+                  />
+                </div>
+                <div className="fr-field-group">
+                  <label>Bank Name</label>
+                  <input
+                    type="text"
+                    readOnly
+                    value={formData.bankName}
+                    style={{ background: '#e2ebe4', cursor: 'not-allowed' }}
+                  />
+                </div>
+              </div>
+
+              {/* Upload Document Proof Checklist */}
+              <div className="fr-field-group">
+                <label>Document Proof &amp; DigiLocker Verification *</label>
+                <div className="fr-docs-upload-grid">
+                  {/* 1. Aadhaar */}
+                  <div className="fr-doc-upload-item">
+                    <div className="fr-doc-upload-left">
+                      <KeyRound size={16} color="#0d631b" />
+                      <div>
+                        <strong>Aadhaar Card (UIDAI)</strong>
+                        <small>{uploadedDocs.aadhaar ? 'Verified via DigiLocker (XXXX-8942)' : 'Upload PDF/Image or Fetch via DigiLocker'}</small>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="fr-field">
-                    <label>Bank Verification</label>
-                    <div className="fr-verified-badge">
-                      <CheckCircle2 size={13} /> DBT Active (PFMS Linked)
-                    </div>
-                  </div>
-                </div>
-
-                <div className="fr-field-row">
-                  <div className="fr-field">
-                    <label>{fr.pinLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <span className="fr-input-icon"><Lock size={16} /></span>
-                      <input
-                        type={showPin ? 'text' : 'password'}
-                        required
-                        maxLength={12}
-                        placeholder={fr.pinPlaceholder}
-                        className="fr-input"
-                        value={formData.pin}
-                        onChange={(e) => handleChange('pin', e.target.value)}
-                      />
+                    {uploadedDocs.aadhaar ? (
+                      <span className="pf-doc-badge">
+                        <CheckCircle2 size={10} /> Verified
+                      </span>
+                    ) : (
                       <button
                         type="button"
-                        className="fl-toggle-pw"
-                        onClick={() => setShowPin(!showPin)}
+                        className="pf-edit-btn"
+                        style={{ padding: '3px 8px', fontSize: '10.5px' }}
+                        onClick={() => setUploadedDocs((prev) => ({ ...prev, aadhaar: true }))}
                       >
-                        {showPin ? <EyeOff size={16} /> : <Eye size={16} />}
+                        <Upload size={11} /> Upload
                       </button>
-                    </div>
+                    )}
                   </div>
 
-                  <div className="fr-field">
-                    <label>{fr.confirmPinLabel} *</label>
-                    <div className="fr-input-wrap">
-                      <span className="fr-input-icon"><Lock size={16} /></span>
-                      <input
-                        type={showPin ? 'text' : 'password'}
-                        required
-                        placeholder={fr.confirmPinPlaceholder}
-                        className="fr-input"
-                        value={formData.confirmPin}
-                        onChange={(e) => handleChange('confirmPin', e.target.value)}
-                      />
+                  {/* 2. Land Khasra */}
+                  <div className="fr-doc-upload-item">
+                    <div className="fr-doc-upload-left">
+                      <FileText size={16} color="#0d631b" />
+                      <div>
+                        <strong>Land Khasra (Bhulekh RoR)</strong>
+                        <small>{uploadedDocs.land ? 'Verified via DigiLocker (Khasra 142/3)' : 'Upload 7/12 or Khasra certificate'}</small>
+                      </div>
                     </div>
+                    {uploadedDocs.land ? (
+                      <span className="pf-doc-badge">
+                        <CheckCircle2 size={10} /> Verified
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        className="pf-edit-btn"
+                        style={{ padding: '3px 8px', fontSize: '10.5px' }}
+                        onClick={() => setUploadedDocs((prev) => ({ ...prev, land: true }))}
+                      >
+                        <Upload size={11} /> Upload
+                      </button>
+                    )}
+                  </div>
+
+                  {/* 3. Passbook */}
+                  <div className="fr-doc-upload-item">
+                    <div className="fr-doc-upload-left">
+                      <CreditCard size={16} color="#0d631b" />
+                      <div>
+                        <strong>Bank Passbook / Cheque</strong>
+                        <small>{uploadedDocs.passbook ? 'Verified via DigiLocker (SBI-4321)' : 'Upload Passbook front page copy'}</small>
+                      </div>
+                    </div>
+                    {uploadedDocs.passbook ? (
+                      <span className="pf-doc-badge">
+                        <CheckCircle2 size={10} /> Verified
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        className="pf-edit-btn"
+                        style={{ padding: '3px 8px', fontSize: '10.5px' }}
+                        onClick={() => setUploadedDocs((prev) => ({ ...prev, passbook: true }))}
+                      >
+                        <Upload size={11} /> Upload
+                      </button>
+                    )}
                   </div>
                 </div>
-
-                <div className="fr-actions-row">
-                  <button
-                    type="button"
-                    className="fr-prev-btn"
-                    onClick={() => setStep(2)}
-                  >
-                    <ArrowLeft size={16} /> {fr.prevStepBtn}
-                  </button>
-                  <button type="submit" className="fr-next-btn" disabled={isSubmitting}>
-                    <CheckCircle2 size={17} />
-                    {isSubmitting ? fr.registering : fr.registerBtn}
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* Step 4: Registration Success Card */}
-            {step === 4 && (
-              <div className="fr-success-card">
-                <div className="fr-success-icon">
-                  <CheckCircle2 size={36} />
-                </div>
-                <h2>{fr.successTitle}</h2>
-                <p>{fr.successSub}</p>
-
-                <div className="fr-id-box">
-                  <small>{fr.farmerIdLabel}</small>
-                  <strong>{farmerId}</strong>
-                </div>
-
-                <button
-                  type="button"
-                  className="fr-next-btn"
-                  style={{ width: '100%' }}
-                  onClick={() => navigate('/farmer-dashboard')}
-                >
-                  {fr.proceedToDashboard} <ArrowRight size={16} />
-                </button>
               </div>
-            )}
 
-            {/* Quick Demo Pre-fill Box (Only on Steps 1, 2, 3) */}
-            {step < 4 && (
-              <div className="fr-demo-box">
-                <span>Test Demo Data: Ramesh Kumar (Alwar)</span>
-                <button
-                  type="button"
-                  className="fr-demo-fill-btn"
-                  onClick={handleQuickFill}
-                >
-                  {fr.quickFill}
-                </button>
+              {/* Create PIN */}
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.pinLabel} *</label>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      type={showPin ? 'text' : 'password'}
+                      required
+                      maxLength={6}
+                      placeholder="6-digit security PIN"
+                      value={formData.pin}
+                      onChange={(e) => handleChange('pin', e.target.value.replace(/\D/g, ''))}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPin(!showPin)}
+                      style={{ position: 'absolute', right: '10px', top: '10px', background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                    >
+                      {showPin ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+                <div className="fr-field-group">
+                  <label>{fr.confirmPinLabel} *</label>
+                  <input
+                    type={showPin ? 'text' : 'password'}
+                    required
+                    maxLength={6}
+                    placeholder="Re-enter PIN"
+                    value={formData.confirmPin}
+                    onChange={(e) => handleChange('confirmPin', e.target.value.replace(/\D/g, ''))}
+                  />
+                </div>
               </div>
-            )}
 
-            {/* Bottom Link to Login */}
+              <button type="submit" className="fr-btn-submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Verifying & Registering...' : 'Complete DigiLocker Registration & Access Dashboard →'}
+              </button>
+            </form>
+          )}
+
+          {/* ====================================================================
+              Step 4: Success & Farmer ID Generated
+              ==================================================================== */}
+          {step === 4 && (
+            <div className="fr-success-card">
+              <div className="fr-success-icon">
+                <CheckCircle2 size={38} />
+              </div>
+              <h3 className="fr-form-title">{fr.successTitle}</h3>
+              <p className="fr-form-sub">{fr.successSub}</p>
+
+              <div className="fr-id-box">
+                <small>{fr.farmerIdLabel}</small>
+                <strong>{farmerId}</strong>
+                <span className="pf-doc-badge" style={{ marginTop: '6px' }}>
+                  <BadgeCheck size={12} /> DigiLocker Verified Account
+                </span>
+              </div>
+
+              <button
+                type="button"
+                className="fr-btn-submit"
+                onClick={() => {
+                  const targetUrl = getAndClearRedirectAfterLogin()
+                  navigate(targetUrl)
+                }}
+              >
+                {fr.proceedToDashboard} <ArrowRight size={16} />
+              </button>
+            </div>
+          )}
+
+          {/* Bottom Login Link */}
+          {step < 4 && (
             <div className="fr-bottom-links">
-              <p className="fr-login-text">
+              <span className="fr-login-text">
                 {fr.alreadyRegistered}{' '}
                 <a
                   href="/login"
@@ -662,16 +731,102 @@ export default function FarmerRegisterPage() {
                 >
                   {fr.loginLink}
                 </a>
-              </p>
+              </span>
             </div>
-          </div>
+          )}
 
           {/* Footer Copyright */}
           <div className="fr-footer-bar">
-            <span>© 2026 Kisan Setu • Department of Consumer Affairs</span>
+            <span>{t.footer.copyright} • Ministry of Agriculture &amp; Farmers Welfare</span>
           </div>
         </section>
       </div>
+
+      {/* ==========================================================================
+          DigiLocker Consent & Auto-Fill Modal
+          ========================================================================== */}
+      {digiConsentOpen && (
+        <div className="fd-modal-overlay">
+          <div className="fd-modal-card" style={{ maxWidth: '520px' }}>
+            <div className="fd-modal-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: '#eff6ff', color: '#1d4ed8', display: 'grid', placeItems: 'center' }}>
+                  <Lock size={15} />
+                </div>
+                <h2 style={{ fontSize: '17px' }}>DigiLocker Fast-Track Consent</h2>
+              </div>
+              <button
+                className="fd-modal-close"
+                onClick={() => setDigiConsentOpen(false)}
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div style={{ padding: '6px 0' }}>
+              <p style={{ fontSize: '13px', color: '#334155', lineHeight: 1.5, marginBottom: '14px' }}>
+                Provide consent to fetch verified digital proofs directly from DigiLocker repository for instant farmer onboarding:
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px' }}>
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 12px', background: '#f8faf8', border: '1px solid #e2e8f0', borderRadius: '10px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={consentAadhaar}
+                    onChange={(e) => setConsentAadhaar(e.target.checked)}
+                    style={{ marginTop: '2px' }}
+                  />
+                  <div>
+                    <strong style={{ fontSize: '13px', color: '#0f172a', display: 'block' }}>Aadhaar Card (UIDAI)</strong>
+                    <small style={{ color: '#64748b' }}>Fetches verified name, phone, and e-KYC certificate.</small>
+                  </div>
+                </label>
+
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 12px', background: '#f8faf8', border: '1px solid #e2e8f0', borderRadius: '10px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={consentLand}
+                    onChange={(e) => setConsentLand(e.target.checked)}
+                    style={{ marginTop: '2px' }}
+                  />
+                  <div>
+                    <strong style={{ fontSize: '13px', color: '#0f172a', display: 'block' }}>Land Record / Khasra RoR (Bhulekh)</strong>
+                    <small style={{ color: '#64748b' }}>Fetches certified 3.50 Acres landholding in Alwar district.</small>
+                  </div>
+                </label>
+
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 12px', background: '#f8faf8', border: '1px solid #e2e8f0', borderRadius: '10px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={consentBank}
+                    onChange={(e) => setConsentBank(e.target.checked)}
+                    style={{ marginTop: '2px' }}
+                  />
+                  <div>
+                    <strong style={{ fontSize: '13px', color: '#0f172a', display: 'block' }}>Bank Account &amp; Passbook Proof (PFMS)</strong>
+                    <small style={{ color: '#64748b' }}>Links verified SBI account for 100% direct DBT MSP settlements.</small>
+                  </div>
+                </label>
+              </div>
+
+              <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '10px', padding: '10px 12px', fontSize: '11.5px', color: '#1e40af', marginBottom: '16px' }}>
+                🔒 <strong>Govt Digital Security:</strong> Data is fetched via DigiLocker API gateways with SHA-256 digital signature encryption.
+              </div>
+
+              <button
+                type="button"
+                className="fd-card-btn primary"
+                disabled={isDigiSyncing || (!consentAadhaar && !consentLand && !consentBank)}
+                onClick={handleDigiLockerConsent}
+                style={{ padding: '12px' }}
+              >
+                {isDigiSyncing ? 'Authenticating with DigiLocker...' : 'Give Consent & Auto-Fill Registration Form →'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

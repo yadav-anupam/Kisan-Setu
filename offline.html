@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kisan Setu - Offline Mode</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: #f4fbf5; color: #1e293b; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; text-align: center; }
+    .card { background: #ffffff; border: 1.5px solid #d1e7d6; border-radius: 20px; padding: 32px 24px; max-width: 440px; box-shadow: 0 10px 30px rgba(13,99,27,0.08); }
+    .icon-wrap { width: 72px; height: 72px; border-radius: 50%; background: #dcfce7; color: #166534; display: grid; place-items: center; margin: 0 auto 16px; font-size: 32px; }
+    h1 { font-size: 22px; font-weight: 800; color: #0d631b; margin-bottom: 8px; }
+    p { font-size: 14px; color: #64748b; line-height: 1.5; margin-bottom: 20px; }
+    .note { background: #f8faf8; border: 1px solid #e2ebe4; border-radius: 10px; padding: 12px; font-size: 12.5px; color: #334155; margin-bottom: 24px; text-align: left; }
+    .btn { background: #0d631b; color: #ffffff; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; }
+    .btn:hover { background: #0a4f15; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-wrap">🌾</div>
+    <h1>You are Offline (ऑफ़लाइन मोड)</h1>
+    <p>Kisan Setu is operating in offline mode. Previously cached slot passes and Mandi information remain saved on your device.</p>
+    <div class="note">
+      <strong>💡 Tip for Farmers:</strong> Any downloaded QR Gate Passes and token receipts stored in your gallery/downloads can still be scanned at Mandi Gate 2 without active internet.
+    </div>
+    <button id="retryBtn" class="btn" onclick="handleRetry()">Retry Connection (पुनः प्रयास करें)</button>
+    <button class="btn" onclick="window.location.href='/'" style="background: #ffffff; color: #0d631b; border: 1.5px solid #0d631b; margin-top: 10px;">Return to Home / Dashboard</button>
+  </div>
+
+  <script>
+    async function handleRetry() {
+      const btn = document.getElementById('retryBtn');
+      btn.innerText = 'Checking Connection... (जांच हो रही है...)';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/?t=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const currentUrl = window.location.href;
+          if (currentUrl.includes('offline.html')) {
+            window.location.replace('/farmer-dashboard');
+          } else {
+            window.location.reload();
+          }
+          return;
+        }
+      } catch (err) {
+        // Still unreachable
+      }
+
+      setTimeout(() => {
+        btn.innerText = 'Still Offline — Retry Connection';
+        btn.disabled = false;
+      }, 800);
+    }
+
+    // Auto-listen for online status
+    window.addEventListener('online', () => {
+      handleRetry();
+    });
+  </script>
+</body>
+</html>

@@ -362,7 +362,7 @@ const enTranslations: Translations = {
     heroTitle2: 'Better Farming',
     heroDesc:
       'A smart platform for farmers to book slots, avoid long queues, track procurement status and get timely payments - all in one place.',
-    bookSlotBtn: 'Book Your Slot',
+    bookSlotBtn: 'Login Farmer',
     howItWorksBtn: 'How It Works',
     journeyTitle: 'Your Journey, Simplified',
     journey: [
@@ -983,7 +983,7 @@ const hiTranslations: Translations = {
     heroTitle2: 'बेहतर किसानी',
     heroDesc:
       'किसानों के लिए स्लॉट बुक करने, लंबी कतारों से बचने, खरीद स्थिति ट्रैक करने और पारदर्शी भुगतान प्राप्त करने का एक विश्वसनीय मंच।',
-    bookSlotBtn: 'स्लॉट बुक करें',
+    bookSlotBtn: 'किसान लॉगिन (Login Farmer)',
     howItWorksBtn: 'यह कैसे काम करता है',
     journeyTitle: 'आपकी यात्रा, हुई आसान',
     journey: [

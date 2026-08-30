@@ -1,0 +1,382 @@
+/* Kisan Setu DBT Payments Page Styles */
+
+.dbt-payments-layout {
+  --fd-sidebar-w: 256px;
+  --pm-green: #0d631b;
+  --pm-green-dark: #075a27;
+  --pm-green-light: #16a34a;
+  --pm-surface: #f8faf8;
+  --pm-card: #ffffff;
+  --pm-ink: #191c1b;
+  --pm-muted: #526056;
+  --pm-border: #e1e7e1;
+  --pm-sidebar-w: 256px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--pm-surface);
+  color: var(--pm-ink);
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  display: flex;
+  align-items: stretch;
+}
+
+.pm-main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 4-KPI Grid */
+.pm-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.pm-kpi-card {
+  background: var(--pm-card);
+  border: 1px solid var(--pm-border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pm-kpi-card.highlight {
+  background: linear-gradient(135deg, #0d631b 0%, #15803d 100%);
+  color: #ffffff;
+  border-color: #0d631b;
+}
+
+.pm-kpi-card.paid {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.pm-kpi-card.pending {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.pm-kpi-card.transactions {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+}
+
+.pm-kpi-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--pm-muted);
+  margin-bottom: 6px;
+}
+
+.pm-kpi-card.highlight .pm-kpi-header { color: #dcfce7; }
+.pm-kpi-card.paid .pm-kpi-header { color: #166534; }
+.pm-kpi-card.pending .pm-kpi-header { color: #b45309; }
+.pm-kpi-card.transactions .pm-kpi-header { color: #6d28d9; }
+
+.pm-kpi-card strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--pm-ink);
+  line-height: 1.1;
+}
+
+.pm-kpi-card.highlight strong { color: #ffffff; }
+.pm-kpi-card.paid strong { color: #15803d; }
+.pm-kpi-card.pending strong { color: #d97706; }
+.pm-kpi-card.transactions strong { color: #7c3aed; }
+
+.pm-kpi-card small {
+  font-size: 11.5px;
+  color: var(--pm-muted);
+  margin-top: 4px;
+}
+
+.pm-kpi-card.highlight small { color: #bbf7d0; }
+
+/* 2-Column Main Section: Left Table (1fr), Right Widgets (340px) */
+.pm-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+}
+
+/* Left Table Panel */
+.pm-table-panel {
+  background: var(--pm-card);
+  border: 1px solid var(--pm-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.03);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-filter-bar {
+  padding: 14px 16px;
+  background: #f8faf8;
+  border-bottom: 1px solid var(--pm-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pm-filter-chips {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.pm-filter-chip {
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.pm-filter-chip.active {
+  background: var(--pm-green);
+  color: #ffffff;
+  border-color: var(--pm-green);
+}
+
+.pm-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 99px;
+  padding: 5px 12px;
+}
+
+.pm-search-box input {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+  width: 140px;
+}
+
+/* Table */
+.pm-table-wrap {
+  overflow-x: auto;
+  flex: 1;
+}
+
+.pm-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12.5px;
+}
+
+.pm-table th {
+  background: #f8faf8;
+  padding: 12px 14px;
+  border-bottom: 1.5px solid var(--pm-border);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pm-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pm-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f2;
+  vertical-align: middle;
+}
+
+.pm-table tr:hover {
+  background: #f8faf8;
+}
+
+.pm-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.pm-status-pill.paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pm-status-pill.pending {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.pm-status-pill.failed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Right Column Widgets */
+.pm-right-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pm-widget-box {
+  background: var(--pm-card);
+  border: 1px solid var(--pm-border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.pm-widget-box h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+/* Bank Account Card */
+.pm-bank-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pm-bank-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--pm-green);
+  border: 1px solid #86efac;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pm-bank-card strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: #166534;
+  display: block;
+}
+
+.pm-bank-card p {
+  font-size: 11px;
+  color: #15803d;
+  margin: 2px 0 0;
+}
+
+.pm-bank-badge {
+  margin-left: auto;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 99px;
+  text-transform: uppercase;
+}
+
+/* DBT 24-48h Guarantee Box */
+.pm-dbt-guarantee {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 14px;
+}
+
+.pm-dbt-guarantee strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.pm-dbt-guarantee p {
+  font-size: 11px;
+  color: #bfdbfe;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Modal Receipt Styles */
+.pm-receipt-box {
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 14px 0;
+  font-size: 12.5px;
+}
+
+.pm-receipt-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eef2ee;
+}
+
+.pm-receipt-row:last-child {
+  border-bottom: none;
+}
+
+.pm-receipt-row span {
+  color: var(--pm-muted);
+}
+
+.pm-receipt-row strong {
+  color: #0f172a;
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .pm-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pm-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pm-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
