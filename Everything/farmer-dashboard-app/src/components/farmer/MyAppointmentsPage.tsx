@@ -343,8 +343,16 @@ export default function MyAppointmentsPage() {
               tabIndex={0}
               title="Open Farmer Profile"
             >
-              <div className="fd-avatar-circle">
-                {farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'}
+              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
+                {farmer.profilePhoto ? (
+                  <img
+                    src={farmer.profilePhoto}
+                    alt={farmer.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
+                )}
               </div>
               <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
             </div>

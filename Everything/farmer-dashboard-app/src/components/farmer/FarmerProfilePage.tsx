@@ -4,6 +4,7 @@ import {
   Bell,
   Building,
   Calendar,
+  Camera,
   CheckCircle2,
   ChevronDown,
   CreditCard,
@@ -25,12 +26,14 @@ import {
   Shield,
   ShieldCheck,
   Sprout,
+  Trash2,
+  Upload,
   UploadCloud,
   User,
   X,
 } from 'lucide-react'
 import { useLanguage } from '../../useLanguage'
-import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
+import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin, updateFarmerProfile } from '../../auth'
 import { navigate } from '../../router'
 import FarmerSidebar from './FarmerSidebar'
 import './FarmerDashboard.css'
@@ -46,107 +49,6 @@ interface DigiDocument {
   uri: string
   fields: { label: string; value: string }[]
   signatory: string
-}
-
-const DIGILOCKER_DOCS: Record<string, DigiDocument> = {
-  aadhaar: {
-    id: 'doc-aadhaar',
-    title: 'Aadhaar Card (UIDAI Verified)',
-    issuer: 'Unique Identification Authority of India (UIDAI)',
-    category: 'aadhaar',
-    docNumber: 'XXXX-XXXX-8942',
-    verifiedDate: '12 Aug 2025, 11:30 AM',
-    uri: 'in.gov.uidai.aadhaar-8942',
-    fields: [
-      { label: 'Cardholder Name', value: 'Ramesh Kumar Singh' },
-      { label: 'Aadhaar Number', value: 'XXXX-XXXX-8942' },
-      { label: 'Date of Birth', value: '15/03/1988' },
-      { label: 'Gender', value: 'Male' },
-      { label: 'Registered Mobile', value: '+91 92143 34494' },
-      { label: 'Permanent Address', value: 'Village Chiraigaon, Tehsil Chiraigaon, Varanasi, Uttar Pradesh - 221112' },
-      { label: 'Authentication Mode', value: 'Biometric & Aadhaar OTP KYC' },
-      { label: 'Verification Status', value: 'Digitally Signed & Valid' },
-    ],
-    signatory: 'Digitally Signed by UIDAI Sub-CA Certificate Server',
-  },
-  land: {
-    id: 'doc-land',
-    title: 'Land Record - Khasra & RoR Certificate',
-    issuer: 'Department of Revenue, Govt. of Uttar Pradesh (Bhulekh UP)',
-    category: 'land',
-    docNumber: 'UP-VNS-KH-2024-142',
-    verifiedDate: '15 Aug 2025, 02:45 PM',
-    uri: 'in.gov.up.revenue.ror-142-3',
-    fields: [
-      { label: 'Landowner Name', value: 'Ramesh Kumar Singh s/o Ram Singh' },
-      { label: 'Khasra / Survey No', value: '142/3 (2.10 Acre) & 143/1 (1.40 Acre)' },
-      { label: 'Total Landholding', value: '3.50 Acres (1.41 Hectares)' },
-      { label: 'Land Classification', value: 'Chahi / Barani (Irrigated Agricultural)' },
-      { label: 'Tehsil & District', value: 'Tehsil Chiraigaon, District Varanasi' },
-      { label: 'Patwar Circle', value: 'Chiraigaon Circle No. 04' },
-      { label: 'Approved Crops', value: 'Wheat (गेहूं), Mustard (सरसों), Gram (चना)' },
-      { label: 'Soil Health Score', value: 'Optimal (Organic Carbon 0.68%)' },
-    ],
-    signatory: 'Digitally Certified by Tehsildar & Revenue Officer, Varanasi Division',
-  },
-  bank: {
-    id: 'doc-bank',
-    title: 'Bank Account & PFMS DBT Verification',
-    issuer: 'Public Financial Management System (PFMS) & NPCI',
-    category: 'bank',
-    docNumber: 'PFMS-VAL-2025-983210',
-    verifiedDate: '18 Aug 2025, 04:10 PM',
-    uri: 'in.gov.pfms.dbt-sbi-4321',
-    fields: [
-      { label: 'Account Holder Name', value: 'Ramesh Kumar Singh' },
-      { label: 'Bank Name', value: 'State Bank of India' },
-      { label: 'Account Number', value: 'XXXX-XXXX-4321' },
-      { label: 'IFSC Code', value: 'SBIN0001234 (Varanasi Main Branch)' },
-      { label: 'Aadhaar Seeding Status', value: 'Seeded & Active on NPCI Mapper' },
-      { label: 'DBT Scheme Mapping', value: 'PM-KISAN & APMC MSP Direct Transfer' },
-      { label: 'PFMS Validation Code', value: 'VALIDATED_OK_01' },
-      { label: 'Transfer Assurance', value: 'Instant Direct Credit Enabled' },
-    ],
-    signatory: 'PFMS Central Clearing & NPCI e-Mandate Verification Authority',
-  },
-  passbook: {
-    id: 'doc-passbook',
-    title: 'Official Bank Passbook Document',
-    issuer: 'State Bank of India (Digital Records)',
-    category: 'passbook',
-    docNumber: 'SBI-PB-2025-4321',
-    verifiedDate: '18 Aug 2025, 04:15 PM',
-    uri: 'in.bank.sbi.passbook-4321',
-    fields: [
-      { label: 'Customer Name', value: 'Ramesh Kumar Singh' },
-      { label: 'CIF Number', value: '89421098234' },
-      { label: 'Branch Name', value: 'Chiraigaon Mandi Complex' },
-      { label: 'Account Type', value: 'Regular Savings Bank (Agri DBT)' },
-      { label: 'Account Number', value: 'XXXX-XXXX-4321' },
-      { label: 'MICR Code', value: '221002005' },
-      { label: 'Status', value: 'KYC Compliant & Active' },
-    ],
-    signatory: 'State Bank of India Electronic Vault Authentication Server',
-  },
-  farmer_id: {
-    id: 'doc-farmer_id',
-    title: 'PM-KISAN & Farmer Registry Certificate',
-    issuer: 'Ministry of Agriculture & Farmers Welfare, Govt. of India',
-    category: 'farmer_id',
-    docNumber: 'KS-FARM-2026-8942',
-    verifiedDate: '10 Aug 2025, 09:00 AM',
-    uri: 'in.gov.agricoop.farmer-8942',
-    fields: [
-      { label: 'Farmer Registration ID', value: 'KS-FARM-2026-8942' },
-      { label: 'PM-KISAN Beneficiary ID', value: 'PMK-UP-VNS-984210' },
-      { label: 'Farmer Category', value: 'Small & Marginal Farmer (SF/MF)' },
-      { label: 'State & District', value: 'Uttar Pradesh, Varanasi' },
-      { label: 'Preferred Procurement Mandi', value: 'Chiraigaon 1st at Gaurakala (FCS)' },
-      { label: 'Aadhaar e-KYC', value: 'Completed & Verified' },
-      { label: 'Validity Period', value: '2025 - 2030 (Rabi/Kharif Active)' },
-    ],
-    signatory: 'Ministry of Agriculture & Farmers Welfare Electronic Verification Desk',
-  },
 }
 
 interface FarmerData {
@@ -165,8 +67,15 @@ interface FarmerData {
   pincode: string
   primaryProduce: string
   landHolding: string
+  khasraNo: string
   experience: string
   farmerType: string
+  bankName: string
+  bankAccount: string
+  ifscCode: string
+  preferredMandi: string
+  vehicleNumber?: string
+  profilePhoto?: string
 }
 
 export default function FarmerProfilePage() {
@@ -182,26 +91,34 @@ export default function FarmerProfilePage() {
   const [consentLand, setConsentLand] = useState(true)
   const [consentBank, setConsentBank] = useState(true)
   const [isSyncing, setIsSyncing] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // Editable Profile State
+  // Editable Profile State loaded directly from user session
   const [profileData, setProfileData] = useState<FarmerData>({
     name: farmer.name || 'Ramesh Kumar Singh',
-    phone: farmer.mobile ? `+91 ${farmer.mobile}` : '+91 92143 34494',
-    email: 'rameshkumar@email.com',
-    dob: '15 March 1988',
-    gender: 'Male',
-    maritalStatus: 'Married',
+    phone: farmer.mobile ? (farmer.mobile.startsWith('+91') ? farmer.mobile : `+91 ${farmer.mobile}`) : '+91 92143 34494',
+    email: farmer.email || 'rameshkumar@email.com',
+    dob: farmer.dob || '15 March 1988',
+    gender: farmer.gender || 'Male',
+    maritalStatus: farmer.maritalStatus || 'Married',
     farmerId: farmer.farmerId || 'KS-FARM-2026-8942',
     village: farmer.village || 'Village Chiraigaon',
-    postOffice: 'Chiraigaon Post',
-    tehsil: 'Chiraigaon',
+    postOffice: farmer.postOffice || 'Chiraigaon Post',
+    tehsil: farmer.tehsil || 'Chiraigaon',
     district: farmer.district || 'Varanasi',
     state: farmer.state || 'Uttar Pradesh',
-    pincode: '221112',
-    primaryProduce: 'Wheat (गेहूं) & Mustard (सरसों)',
-    landHolding: '3.5 Acre',
-    experience: '12 Years',
-    farmerType: 'Small Farmer (Marginal)',
+    pincode: farmer.pincode || '221112',
+    primaryProduce: farmer.primaryProduce || 'Wheat (गेहूं) & Mustard (सरसों)',
+    landHolding: farmer.landHolding || '3.50 Acres',
+    khasraNo: farmer.khasraNo || '142/3 & 143/1',
+    experience: farmer.experience || '12 Years',
+    farmerType: farmer.farmerType || 'Small Farmer (Marginal)',
+    bankName: farmer.bankName || 'State Bank of India',
+    bankAccount: farmer.bankAccount || 'XXXX-XXXX-4321',
+    ifscCode: farmer.ifscCode || 'SBIN0001234',
+    preferredMandi: farmer.preferredMandi || 'Chiraigaon 1st at Gaurakala (FCS)',
+    vehicleNumber: farmer.vehicleNumber || 'UP-65-TC-8942',
+    profilePhoto: farmer.profilePhoto,
   })
 
   // Edit Form Temp State
@@ -217,6 +134,41 @@ export default function FarmerProfilePage() {
   }, [])
 
   useEffect(() => {
+    const handleProfileUpdate = () => {
+      const updated = getFarmerProfile()
+      setProfileData({
+        name: updated.name || 'Ramesh Kumar Singh',
+        phone: updated.mobile ? (updated.mobile.startsWith('+91') ? updated.mobile : `+91 ${updated.mobile}`) : '+91 92143 34494',
+        email: updated.email || 'rameshkumar@email.com',
+        dob: updated.dob || '15 March 1988',
+        gender: updated.gender || 'Male',
+        maritalStatus: updated.maritalStatus || 'Married',
+        farmerId: updated.farmerId || 'KS-FARM-2026-8942',
+        village: updated.village || 'Village Chiraigaon',
+        postOffice: updated.postOffice || 'Chiraigaon Post',
+        tehsil: updated.tehsil || 'Chiraigaon',
+        district: updated.district || 'Varanasi',
+        state: updated.state || 'Uttar Pradesh',
+        pincode: updated.pincode || '221112',
+        primaryProduce: updated.primaryProduce || 'Wheat (गेहूं) & Mustard (सरसों)',
+        landHolding: updated.landHolding || '3.50 Acres',
+        khasraNo: updated.khasraNo || '142/3 & 143/1',
+        experience: updated.experience || '12 Years',
+        farmerType: updated.farmerType || 'Small Farmer (Marginal)',
+        bankName: updated.bankName || 'State Bank of India',
+        bankAccount: updated.bankAccount || 'XXXX-XXXX-4321',
+        ifscCode: updated.ifscCode || 'SBIN0001234',
+        preferredMandi: updated.preferredMandi || 'Chiraigaon 1st at Gaurakala (FCS)',
+        vehicleNumber: updated.vehicleNumber || 'UP-65-TC-8942',
+        profilePhoto: updated.profilePhoto,
+      })
+    }
+
+    window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+    return () => window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+  }, [])
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setLangMenuOpen(false)
@@ -226,6 +178,61 @@ export default function FarmerProfilePage() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  // Photo Upload Handler with Automatic Canvas Compression
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (file.size > 8 * 1024 * 1024) {
+      alert('Photo is larger than 8MB. Please choose a smaller photo.')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const result = event.target?.result as string
+      if (result) {
+        const img = new Image()
+        img.src = result
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          const maxDim = 320
+          let width = img.width
+          let height = img.height
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width)
+              width = maxDim
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height)
+              height = maxDim
+            }
+          }
+          canvas.width = width
+          canvas.height = height
+          const ctx = canvas.getContext('2d')
+          ctx?.drawImage(img, 0, 0, width, height)
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.88)
+
+          setProfileData((prev) => ({ ...prev, profilePhoto: compressedDataUrl }))
+          setFormState((prev) => ({ ...prev, profilePhoto: compressedDataUrl }))
+          updateFarmerProfile({ profilePhoto: compressedDataUrl })
+          alert('Profile photo uploaded and updated across your dashboard successfully!')
+        }
+      }
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleRemovePhoto = () => {
+    if (confirm('Remove current profile photo?')) {
+      setProfileData((prev) => ({ ...prev, profilePhoto: undefined }))
+      setFormState((prev) => ({ ...prev, profilePhoto: undefined }))
+      updateFarmerProfile({ profilePhoto: undefined })
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
+
   const handleOpenEdit = () => {
     setFormState(profileData)
     setEditModalOpen(true)
@@ -234,6 +241,31 @@ export default function FarmerProfilePage() {
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault()
     setProfileData(formState)
+    updateFarmerProfile({
+      name: formState.name,
+      mobile: formState.phone.replace('+91', '').trim(),
+      email: formState.email,
+      dob: formState.dob,
+      gender: formState.gender,
+      maritalStatus: formState.maritalStatus,
+      village: formState.village,
+      postOffice: formState.postOffice,
+      tehsil: formState.tehsil,
+      district: formState.district,
+      state: formState.state,
+      pincode: formState.pincode,
+      primaryProduce: formState.primaryProduce,
+      landHolding: formState.landHolding,
+      khasraNo: formState.khasraNo,
+      experience: formState.experience,
+      farmerType: formState.farmerType,
+      bankName: formState.bankName,
+      bankAccount: formState.bankAccount,
+      ifscCode: formState.ifscCode,
+      preferredMandi: formState.preferredMandi,
+      vehicleNumber: formState.vehicleNumber,
+      profilePhoto: formState.profilePhoto,
+    })
     setEditModalOpen(false)
     alert('Farmer profile information updated successfully!')
   }
@@ -247,8 +279,109 @@ export default function FarmerProfilePage() {
     }, 900)
   }
 
+  // Dynamic DigiLocker Documents populated with real farmer profile data
+  const dynamicDigiDocs: Record<string, DigiDocument> = {
+    aadhaar: {
+      id: 'doc-aadhaar',
+      title: 'Aadhaar Card (UIDAI Verified)',
+      issuer: 'Unique Identification Authority of India (UIDAI)',
+      category: 'aadhaar',
+      docNumber: `XXXX-XXXX-${farmer.farmerId?.slice(-4) || '8942'}`,
+      verifiedDate: '12 Aug 2025, 11:30 AM',
+      uri: `in.gov.uidai.aadhaar-${farmer.farmerId?.slice(-4) || '8942'}`,
+      fields: [
+        { label: 'Cardholder Name', value: profileData.name },
+        { label: 'Aadhaar Number', value: `XXXX-XXXX-${farmer.farmerId?.slice(-4) || '8942'}` },
+        { label: 'Date of Birth', value: profileData.dob },
+        { label: 'Gender', value: profileData.gender },
+        { label: 'Registered Mobile', value: profileData.phone },
+        { label: 'Permanent Address', value: `${profileData.village}, Tehsil ${profileData.tehsil}, ${profileData.district}, ${profileData.state} - ${profileData.pincode}` },
+        { label: 'Authentication Mode', value: 'Biometric & Aadhaar OTP KYC' },
+        { label: 'Verification Status', value: 'Digitally Signed & Valid' },
+      ],
+      signatory: 'Digitally Signed by UIDAI Sub-CA Certificate Server',
+    },
+    land: {
+      id: 'doc-land',
+      title: 'Land Record - Khasra & RoR Certificate',
+      issuer: `Department of Revenue, Govt. of ${profileData.state} (Bhulekh)`,
+      category: 'land',
+      docNumber: `UP-VNS-KH-${farmer.farmerId?.slice(-4) || '142'}`,
+      verifiedDate: '15 Aug 2025, 02:45 PM',
+      uri: 'in.gov.up.revenue.ror-142-3',
+      fields: [
+        { label: 'Landowner Name', value: `${profileData.name} s/o Ram Singh` },
+        { label: 'Khasra / Survey No', value: `${profileData.khasraNo || '142/3'} (${profileData.landHolding})` },
+        { label: 'Total Landholding', value: `${profileData.landHolding} (Irrigated Agricultural)` },
+        { label: 'Land Classification', value: 'Chahi / Barani (Irrigated Agricultural)' },
+        { label: 'Tehsil & District', value: `Tehsil ${profileData.tehsil}, District ${profileData.district}` },
+        { label: 'Patwar Circle', value: `${profileData.village} Circle No. 04` },
+        { label: 'Approved Crops', value: profileData.primaryProduce },
+        { label: 'Soil Health Score', value: 'Optimal (Organic Carbon 0.68%)' },
+      ],
+      signatory: `Digitally Certified by Tehsildar & Revenue Officer, ${profileData.district} Division`,
+    },
+    bank: {
+      id: 'doc-bank',
+      title: 'Bank Account & PFMS DBT Verification',
+      issuer: 'Public Financial Management System (PFMS) & NPCI',
+      category: 'bank',
+      docNumber: `PFMS-VAL-${farmer.farmerId?.slice(-4) || '9832'}`,
+      verifiedDate: '18 Aug 2025, 04:10 PM',
+      uri: 'in.gov.pfms.dbt-sbi-4321',
+      fields: [
+        { label: 'Account Holder Name', value: profileData.name },
+        { label: 'Bank Name', value: profileData.bankName },
+        { label: 'Account Number', value: profileData.bankAccount },
+        { label: 'IFSC Code', value: `${profileData.ifscCode} (${profileData.district} Branch)` },
+        { label: 'Aadhaar Seeding Status', value: 'Seeded & Active on NPCI Mapper' },
+        { label: 'DBT Scheme Mapping', value: 'PM-KISAN & APMC MSP Direct Transfer' },
+        { label: 'PFMS Validation Code', value: 'VALIDATED_OK_01' },
+        { label: 'Transfer Assurance', value: 'Instant Direct Credit Enabled' },
+      ],
+      signatory: 'PFMS Central Clearing & NPCI e-Mandate Verification Authority',
+    },
+    passbook: {
+      id: 'doc-passbook',
+      title: 'Official Bank Passbook Document',
+      issuer: `${profileData.bankName} (Digital Records)`,
+      category: 'passbook',
+      docNumber: `PB-${farmer.farmerId?.slice(-4) || '4321'}`,
+      verifiedDate: '18 Aug 2025, 04:15 PM',
+      uri: 'in.bank.sbi.passbook-4321',
+      fields: [
+        { label: 'Customer Name', value: profileData.name },
+        { label: 'CIF Number', value: `89421${farmer.farmerId?.slice(-4) || '098234'}` },
+        { label: 'Branch Name', value: `${profileData.preferredMandi || profileData.district} Mandi Complex` },
+        { label: 'Account Type', value: 'Regular Savings Bank (Agri DBT)' },
+        { label: 'Account Number', value: profileData.bankAccount },
+        { label: 'MICR Code', value: `${profileData.pincode?.slice(0, 6) || '221002'}005` },
+        { label: 'Status', value: 'KYC Compliant & Active' },
+      ],
+      signatory: 'Bank Electronic Vault Authentication Server',
+    },
+    farmer_id: {
+      id: 'doc-farmer_id',
+      title: 'PM-KISAN & Farmer Registry Certificate',
+      issuer: 'Ministry of Agriculture & Farmers Welfare, Govt. of India',
+      category: 'farmer_id',
+      docNumber: profileData.farmerId,
+      verifiedDate: '10 Aug 2025, 09:00 AM',
+      uri: `in.gov.agricoop.farmer-${profileData.farmerId}`,
+      fields: [
+        { label: 'Farmer Registration ID', value: profileData.farmerId },
+        { label: 'PM-KISAN Beneficiary ID', value: `PMK-UP-${profileData.district.slice(0, 3).toUpperCase()}-${farmer.farmerId?.slice(-4) || '9842'}` },
+        { label: 'Farmer Category', value: profileData.farmerType },
+        { label: 'State & District', value: `${profileData.state}, ${profileData.district}` },
+        { label: 'Preferred Procurement Mandi', value: profileData.preferredMandi },
+        { label: 'Aadhaar e-KYC', value: 'Completed & Verified' },
+        { label: 'Validity Period', value: '2025 - 2030 (Rabi/Kharif Active)' },
+      ],
+      signatory: 'Ministry of Agriculture & Farmers Welfare Electronic Verification Desk',
+    },
+  }
   const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-  const currentDoc = selectedDocKey ? DIGILOCKER_DOCS[selectedDocKey] : null
+  const currentDoc = selectedDocKey ? dynamicDigiDocs[selectedDocKey] : null
 
   return (
     <div className="profile-layout">
@@ -278,7 +411,7 @@ export default function FarmerProfilePage() {
               </button>
               <h1>My Farmer Profile</h1>
             </div>
-            <p>View and manage verified DigiLocker credentials, land records, and direct benefit settings.</p>
+            <p>Verified DigiLocker credentials, revenue land survey, and direct PFMS bank benefit settings.</p>
           </div>
 
           <div className="fd-topbar-actions">
@@ -330,8 +463,16 @@ export default function FarmerProfilePage() {
               tabIndex={0}
               title="Farmer Profile (Active)"
             >
-              <div className="fd-avatar-circle">
-                {profileData.name ? profileData.name.substring(0, 2).toUpperCase() : 'RK'}
+              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
+                {profileData.profilePhoto ? (
+                  <img
+                    src={profileData.profilePhoto}
+                    alt={profileData.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  profileData.name ? profileData.name.substring(0, 2).toUpperCase() : 'RK'
+                )}
               </div>
               <span className="fd-avatar-name">{profileData.name.split(' ')[0] || 'Farmer'}</span>
             </div>
@@ -344,24 +485,69 @@ export default function FarmerProfilePage() {
               Column 1: Avatar Card & Security
               ==================================================================== */}
           <div>
-            {/* User Avatar Card */}
+            {/* User Avatar Card with Photo Upload */}
             <div className="pf-card pf-avatar-card">
-              <div className="pf-avatar-wrapper">
-                <div className="pf-avatar-lg">
-                  {profileData.name.substring(0, 2).toUpperCase()}
-                </div>
-                <button
+              <div className="pf-avatar-wrapper" style={{ position: 'relative' }}>
+                {profileData.profilePhoto ? (
+                  <img
+                    src={profileData.profilePhoto}
+                    alt={profileData.name}
+                    style={{
+                      width: '92px',
+                      height: '92px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '3px solid #16a34a',
+                      boxShadow: '0 4px 14px rgba(22, 163, 74, 0.25)',
+                    }}
+                  />
+                ) : (
+                  <div className="pf-avatar-lg">
+                    {profileData.name.substring(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <label
                   className="pf-avatar-edit"
-                  onClick={handleOpenEdit}
-                  title="Edit Avatar & Profile"
+                  title="Upload / Change Profile Photo"
+                  style={{ cursor: 'pointer' }}
                 >
-                  <Edit2 size={14} />
-                </button>
+                  <Camera size={14} />
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    style={{ display: 'none' }}
+                  />
+                </label>
+              </div>
+
+              {/* Upload & Remove Photo Actions */}
+              <div className="pf-photo-actions">
+                <label className="pf-photo-upload-btn">
+                  <Upload size={12} /> {profileData.profilePhoto ? 'Change Photo' : 'Upload Photo'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    style={{ display: 'none' }}
+                  />
+                </label>
+                {profileData.profilePhoto && (
+                  <button
+                    type="button"
+                    className="pf-photo-remove-btn"
+                    onClick={handleRemovePhoto}
+                    title="Remove Profile Photo"
+                  >
+                    <Trash2 size={12} /> Remove
+                  </button>
+                )}
               </div>
 
               <h2>{profileData.name}</h2>
               <div className="pf-verified-badge">
-                <BadgeCheck size={14} /> Verified Farmer
+                <BadgeCheck size={14} /> Verified Farmer • ID: {profileData.farmerId}
               </div>
 
               <div className="pf-contact-list">
@@ -399,12 +585,12 @@ export default function FarmerProfilePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12.5px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '10px', borderBottom: '1px solid #f1f5f2' }}>
                   <div>
-                    <strong style={{ display: 'block', color: '#0f172a' }}>Password</strong>
-                    <small style={{ color: '#64748b' }}>Updated 15 July 2025</small>
+                    <strong style={{ display: 'block', color: '#0f172a' }}>Access PIN / Password</strong>
+                    <small style={{ color: '#64748b' }}>6-Digit PIN Configured</small>
                   </div>
                   <button
                     style={{ background: 'none', border: '1px solid #cbd5e1', borderRadius: '99px', padding: '4px 10px', fontSize: '11px', fontWeight: 700, color: '#0d631b', cursor: 'pointer' }}
-                    onClick={() => alert('Password reset link sent to your registered mobile.')}
+                    onClick={() => alert('Password / PIN reset link sent to your registered mobile.')}
                   >
                     Change
                   </button>
@@ -419,8 +605,8 @@ export default function FarmerProfilePage() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <strong style={{ display: 'block', color: '#0f172a' }}>Aadhaar Link Status</strong>
-                    <small style={{ color: '#16a34a', fontWeight: 700 }}>✓ Verified with UIDAI</small>
+                    <strong style={{ display: 'block', color: '#0f172a' }}>Aadhaar e-KYC</strong>
+                    <small style={{ color: '#16a34a', fontWeight: 700 }}>✓ Digitally Verified via UIDAI</small>
                   </div>
                 </div>
               </div>
@@ -428,7 +614,7 @@ export default function FarmerProfilePage() {
           </div>
 
           {/* ====================================================================
-              Column 2: Profile Details & Farming Information
+              Column 2: Profile Details, Farming & Bank Information
               ==================================================================== */}
           <div>
             <div className="pf-card">
@@ -527,12 +713,49 @@ export default function FarmerProfilePage() {
                   <strong>{profileData.landHolding}</strong>
                 </div>
                 <div className="pf-farming-box">
-                  <span>Experience</span>
-                  <strong>{profileData.experience}</strong>
+                  <span>Khasra / Survey No</span>
+                  <strong>{profileData.khasraNo}</strong>
                 </div>
                 <div className="pf-farming-box">
                   <span>Farmer Category</span>
                   <strong>{profileData.farmerType}</strong>
+                </div>
+              </div>
+
+              <div style={{ height: '1px', background: '#e2e8f0', margin: '20px 0' }} />
+
+              {/* Bank Account & Direct Benefit Transfer */}
+              <div className="pf-section-header">
+                <div className="pf-section-title">
+                  <Building size={18} color="#0d631b" />
+                  <h3>Bank Account &amp; PFMS DBT Direct Settlement</h3>
+                </div>
+              </div>
+
+              <div className="pf-fields-grid">
+                <div className="pf-field-item">
+                  <label>Bank Name</label>
+                  <div className="pf-field-val">{profileData.bankName}</div>
+                </div>
+                <div className="pf-field-item">
+                  <label>Account Number</label>
+                  <div className="pf-field-val">{profileData.bankAccount}</div>
+                </div>
+                <div className="pf-field-item">
+                  <label>IFSC Code</label>
+                  <div className="pf-field-val">{profileData.ifscCode}</div>
+                </div>
+                <div className="pf-field-item">
+                  <label>Preferred Procurement Mandi</label>
+                  <div className="pf-field-val">{profileData.preferredMandi}</div>
+                </div>
+                <div className="pf-field-item">
+                  <label>Transport Vehicle Number</label>
+                  <div className="pf-field-val">{profileData.vehicleNumber || 'Not Registered'}</div>
+                </div>
+                <div className="pf-field-item">
+                  <label>Aadhaar Seeding Status</label>
+                  <div className="pf-field-val" style={{ color: '#16a34a', fontWeight: 800 }}>✓ Seeded on NPCI Mapper</div>
                 </div>
               </div>
             </div>
@@ -588,7 +811,7 @@ export default function FarmerProfilePage() {
                     <KeyRound size={16} color="#0d631b" />
                     <div className="pf-doc-info-text">
                       <strong>Aadhaar Card</strong>
-                      <small>UIDAI • XXXX-8942</small>
+                      <small>UIDAI • XXXX-{farmer.farmerId?.slice(-4) || '8942'}</small>
                     </div>
                   </div>
                   <span className="pf-doc-badge">
@@ -602,7 +825,7 @@ export default function FarmerProfilePage() {
                     <FileText size={16} color="#0d631b" />
                     <div className="pf-doc-info-text">
                       <strong>Land Khasra Proof</strong>
-                      <small>Bhulekh • Khasra 142/3</small>
+                      <small>Bhulekh • {profileData.khasraNo}</small>
                     </div>
                   </div>
                   <span className="pf-doc-badge">
@@ -616,7 +839,7 @@ export default function FarmerProfilePage() {
                     <Building size={16} color="#0d631b" />
                     <div className="pf-doc-info-text">
                       <strong>Bank Details (PFMS)</strong>
-                      <small>SBI • XXXX-4321</small>
+                      <small>{profileData.bankName.slice(0, 8)} • {profileData.bankAccount.slice(-4)}</small>
                     </div>
                   </div>
                   <span className="pf-doc-badge">
@@ -644,7 +867,7 @@ export default function FarmerProfilePage() {
                     <Sprout size={16} color="#0d631b" />
                     <div className="pf-doc-info-text">
                       <strong>Farmer Registry ID</strong>
-                      <small>PM-KISAN • KS-8942</small>
+                      <small>PM-KISAN • {profileData.farmerId}</small>
                     </div>
                   </div>
                   <span className="pf-doc-badge">
@@ -739,7 +962,7 @@ export default function FarmerProfilePage() {
                   <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: '#0d631b', color: '#ffffff', display: 'grid', placeItems: 'center' }}>
                     <BadgeCheck size={24} />
                   </div>
-                  <div className="pf-cert-emblem-text">
+                  <div>
                     <h4>{currentDoc.title}</h4>
                     <p>{currentDoc.issuer}</p>
                   </div>
@@ -753,17 +976,17 @@ export default function FarmerProfilePage() {
                 </div>
               </div>
 
-              {/* Certificate Fields Grid */}
+              {/* Document Fields Grid */}
               <div className="pf-cert-body-grid">
                 {currentDoc.fields.map((f, idx) => (
-                  <div key={idx}>
-                    <div className="pf-cert-field-label">{f.label}</div>
-                    <div className="pf-cert-field-value">{f.value}</div>
+                  <div key={idx} className="pf-cert-field">
+                    <span className="pf-cert-label">{f.label}</span>
+                    <strong className="pf-cert-val">{f.value}</strong>
                   </div>
                 ))}
               </div>
 
-              {/* Signature Footer */}
+              {/* Verification Stamp Footer */}
               <div className="pf-cert-footer">
                 <div className="pf-cert-signature">
                   <CheckCircle2 size={15} color="#166534" />
@@ -887,7 +1110,7 @@ export default function FarmerProfilePage() {
           ========================================================================== */}
       {editModalOpen && (
         <div className="fd-modal-overlay">
-          <div className="fd-modal-card" style={{ maxWidth: '600px' }}>
+          <div className="fd-modal-card" style={{ maxWidth: '640px' }}>
             <div className="fd-modal-header">
               <h2>Edit Farmer Profile</h2>
               <button
@@ -901,7 +1124,7 @@ export default function FarmerProfilePage() {
 
             <form onSubmit={handleSaveProfile} className="fd-modal-form">
               <div className="fd-modal-field">
-                <label>Full Name *</label>
+                <label>Full Legal Name *</label>
                 <input
                   type="text"
                   required
@@ -974,7 +1197,7 @@ export default function FarmerProfilePage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div className="fd-modal-field">
-                  <label>Land Holding *</label>
+                  <label>Total Land Holding *</label>
                   <input
                     type="text"
                     required
@@ -983,12 +1206,74 @@ export default function FarmerProfilePage() {
                   />
                 </div>
                 <div className="fd-modal-field">
+                  <label>Khasra / Survey Number *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.khasraNo}
+                    onChange={(e) => setFormState({ ...formState, khasraNo: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div className="fd-modal-field">
                   <label>Primary Produce *</label>
                   <input
                     type="text"
                     required
                     value={formState.primaryProduce}
                     onChange={(e) => setFormState({ ...formState, primaryProduce: e.target.value })}
+                  />
+                </div>
+                <div className="fd-modal-field">
+                  <label>Farmer Category *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.farmerType}
+                    onChange={(e) => setFormState({ ...formState, farmerType: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div className="fd-modal-field">
+                  <label>Bank Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.bankName}
+                    onChange={(e) => setFormState({ ...formState, bankName: e.target.value })}
+                  />
+                </div>
+                <div className="fd-modal-field">
+                  <label>Bank Account Number *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.bankAccount}
+                    onChange={(e) => setFormState({ ...formState, bankAccount: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div className="fd-modal-field">
+                  <label>Bank IFSC Code *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.ifscCode}
+                    onChange={(e) => setFormState({ ...formState, ifscCode: e.target.value.toUpperCase() })}
+                  />
+                </div>
+                <div className="fd-modal-field">
+                  <label>Transport Vehicle Number</label>
+                  <input
+                    type="text"
+                    value={formState.vehicleNumber || ''}
+                    onChange={(e) => setFormState({ ...formState, vehicleNumber: e.target.value.toUpperCase() })}
                   />
                 </div>
               </div>

@@ -3,26 +3,54 @@
 export interface FarmerProfile {
   name: string
   mobile: string
+  email?: string
+  dob?: string
+  gender?: string
+  maritalStatus?: string
   farmerId: string
   state: string
   district: string
   village: string
+  postOffice?: string
+  tehsil?: string
+  pincode?: string
   preferredMandi: string
+  primaryProduce?: string
+  landHolding?: string
+  khasraNo?: string
+  experience?: string
+  farmerType?: string
   bankAccount: string
   bankName: string
+  ifscCode?: string
   vehicleNumber?: string
+  profilePhoto?: string
 }
 
 const DEFAULT_FARMER: FarmerProfile = {
   name: 'Ramesh Kumar Singh',
   mobile: '9214334494',
+  email: 'rameshkumar@email.com',
+  dob: '15 March 1988',
+  gender: 'Male',
+  maritalStatus: 'Married',
   farmerId: 'KS-FARM-2026-8942',
   state: 'Uttar Pradesh',
   district: 'Varanasi',
-  village: 'Chiraigaon Tehsil',
+  village: 'Village Chiraigaon',
+  postOffice: 'Chiraigaon Post',
+  tehsil: 'Chiraigaon',
+  pincode: '221112',
   preferredMandi: 'Chiraigaon 1st at Gaurakala (FCS)',
+  primaryProduce: 'Wheat (गेहूं) & Mustard (सरसों)',
+  landHolding: '3.5 Acre',
+  khasraNo: '142/3 & 143/1',
+  experience: '12 Years',
+  farmerType: 'Small Farmer (Marginal)',
   bankAccount: 'XXXX-XXXX-4321',
   bankName: 'State Bank of India',
+  ifscCode: 'SBIN0001234',
+  vehicleNumber: 'UP-65-TC-8942',
 }
 
 const AUTH_STORAGE_KEY = 'kisan_setu_farmer_auth'
@@ -37,6 +65,15 @@ export function loginFarmer(profile?: Partial<FarmerProfile>): void {
   localStorage.setItem(AUTH_STORAGE_KEY, 'true')
   const mergedProfile = { ...DEFAULT_FARMER, ...(profile || {}) }
   localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(mergedProfile))
+  window.dispatchEvent(new CustomEvent('kisan_setu_profile_updated', { detail: mergedProfile }))
+}
+
+export function updateFarmerProfile(updates: Partial<FarmerProfile>): FarmerProfile {
+  const current = getFarmerProfile()
+  const merged = { ...current, ...updates }
+  localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(merged))
+  window.dispatchEvent(new CustomEvent('kisan_setu_profile_updated', { detail: merged }))
+  return merged
 }
 
 export function logoutFarmer(): void {

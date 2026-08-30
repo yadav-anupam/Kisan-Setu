@@ -5,15 +5,11 @@ import {
   BadgeCheck,
   CheckCircle2,
   ChevronDown,
-  CreditCard,
   Eye,
   EyeOff,
-  FileText,
   Globe2,
-  KeyRound,
   Lock,
   ShieldCheck,
-  Upload,
   UserCheck,
   X,
 } from 'lucide-react'
@@ -48,34 +44,33 @@ export default function FarmerRegisterPage() {
   const [consentLand, setConsentLand] = useState(true)
   const [consentBank, setConsentBank] = useState(true)
 
-  // Document Upload State
-  const [uploadedDocs, setUploadedDocs] = useState<{
-    aadhaar: boolean
-    land: boolean
-    passbook: boolean
-  }>({
-    aadhaar: false,
-    land: false,
-    passbook: false,
-  })
-
   // Form Fields State
   const [formData, setFormData] = useState({
     fullName: '',
     mobile: '',
+    email: '',
+    dob: '1988-03-15',
+    gender: 'Male',
+    maritalStatus: 'Married',
     aadhaarLast4: '',
     state: 'Uttar Pradesh',
     district: 'Varanasi',
+    tehsil: 'Chiraigaon',
     village: '',
+    postOffice: '',
+    pincode: '221112',
     landCategory: 'Small (1 - 2 Hectares)',
+    landHolding: '3.50 Acres',
     khasraNo: '',
+    experience: '12 Years',
     crop: 'Wheat (गेहूं)',
     quantity: '50',
     preferredMandi: ALL_PROCUREMENT_CENTRES[0].centreName,
+    bankName: 'State Bank of India',
     accountNumber: '',
     confirmAccount: '',
     ifsc: '',
-    bankName: 'State Bank of India',
+    vehicleNumber: '',
     pin: '',
     confirmPin: '',
   })
@@ -104,23 +99,32 @@ export default function FarmerRegisterPage() {
     setTimeout(() => {
       setIsDigiSyncing(false)
       setIsDigiVerified(true)
-      setUploadedDocs({ aadhaar: true, land: true, passbook: true })
       setFormData({
         fullName: 'Ramesh Kumar Singh',
         mobile: '9214334494',
+        email: 'ramesh.singh@email.com',
+        dob: '1988-03-15',
+        gender: 'Male',
+        maritalStatus: 'Married',
         aadhaarLast4: '8942',
         state: 'Uttar Pradesh',
         district: 'Varanasi',
-        village: 'Chiraigaon Tehsil',
+        tehsil: 'Chiraigaon',
+        village: 'Village Chiraigaon',
+        postOffice: 'Chiraigaon Post',
+        pincode: '221112',
         landCategory: 'Small (1 - 2 Hectares)',
-        khasraNo: '142/3 & 143/1 (3.50 Acres)',
+        landHolding: '3.50 Acres (1.41 Hectares)',
+        khasraNo: '142/3 & 143/1',
+        experience: '12 Years',
         crop: 'Wheat (गेहूं)',
         quantity: '65',
         preferredMandi: 'Chiraigaon 1st at Gaurakala (FCS)',
+        bankName: 'State Bank of India',
         accountNumber: '392847291048',
         confirmAccount: '392847291048',
         ifsc: 'SBIN0001234',
-        bankName: 'State Bank of India (PFMS DBT Verified)',
+        vehicleNumber: 'UP-65-TC-8942',
         pin: '123456',
         confirmPin: '123456',
       })
@@ -138,14 +142,18 @@ export default function FarmerRegisterPage() {
       }
       setStep(2)
     } else if (step === 2) {
-      if (!formData.crop || !formData.quantity) {
-        alert('Please select your crop and estimated quantity')
+      if (!formData.village || !formData.khasraNo) {
+        alert('Please fill in your village and land khasra survey number')
         return
       }
       setStep(3)
     } else if (step === 3) {
       if (!formData.accountNumber || !formData.ifsc || !formData.pin) {
         alert('Please fill in bank account and create a 6-digit PIN')
+        return
+      }
+      if (formData.pin !== formData.confirmPin) {
+        alert('6-digit PIN and confirmation PIN do not match')
         return
       }
       setIsSubmitting(true)
@@ -155,12 +163,27 @@ export default function FarmerRegisterPage() {
         loginFarmer({
           name: formData.fullName || 'Ramesh Kumar Singh',
           mobile: formData.mobile || '9214334494',
+          email: formData.email || `${formData.fullName.toLowerCase().replace(/\s+/g, '')}@email.com`,
+          dob: formData.dob || '15 March 1988',
+          gender: formData.gender || 'Male',
+          maritalStatus: formData.maritalStatus || 'Married',
           farmerId: generatedId,
           state: formData.state,
           district: formData.district,
-          village: formData.village,
+          tehsil: formData.tehsil || 'Chiraigaon',
+          village: formData.village || 'Village Chiraigaon',
+          postOffice: formData.postOffice || 'Chiraigaon Post',
+          pincode: formData.pincode || '221112',
           preferredMandi: formData.preferredMandi,
+          primaryProduce: formData.crop,
+          landHolding: formData.landHolding || '3.5 Acre',
+          khasraNo: formData.khasraNo || '142/3',
+          experience: formData.experience || '12 Years',
+          farmerType: formData.landCategory || 'Small Farmer (Marginal)',
           bankAccount: formData.accountNumber || 'XXXX-XXXX-4321',
+          bankName: formData.bankName || 'State Bank of India',
+          ifscCode: formData.ifsc || 'SBIN0001234',
+          vehicleNumber: formData.vehicleNumber || 'UP-65-TC-8942',
         })
         setIsSubmitting(false)
         setStep(4)
@@ -340,7 +363,7 @@ export default function FarmerRegisterPage() {
           {step === 1 && (
             <form onSubmit={handleNext}>
               <h3 className="fr-form-title">{fr.step1Title}</h3>
-              <p className="fr-form-sub">{fr.subtitle}</p>
+              <p className="fr-form-sub">Enter your legal personal details as verified on government identification records.</p>
 
               <div className="fr-field-group">
                 <label>{fr.fullNameLabel} *</label>
@@ -366,6 +389,52 @@ export default function FarmerRegisterPage() {
                   />
                 </div>
                 <div className="fr-field-group">
+                  <label>Email Address</label>
+                  <input
+                    type="email"
+                    placeholder="e.g. ramesh@email.com"
+                    value={formData.email}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>Date of Birth *</label>
+                  <input
+                    type="date"
+                    required
+                    value={formData.dob}
+                    onChange={(e) => handleChange('dob', e.target.value)}
+                  />
+                </div>
+                <div className="fr-field-group">
+                  <label>Gender *</label>
+                  <select
+                    value={formData.gender}
+                    onChange={(e) => handleChange('gender', e.target.value)}
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>Marital Status</label>
+                  <select
+                    value={formData.maritalStatus}
+                    onChange={(e) => handleChange('maritalStatus', e.target.value)}
+                  >
+                    <option value="Married">Married</option>
+                    <option value="Unmarried">Unmarried</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div className="fr-field-group">
                   <label>{fr.aadhaarLabel} *</label>
                   <input
                     type="text"
@@ -378,6 +447,20 @@ export default function FarmerRegisterPage() {
                 </div>
               </div>
 
+              <button type="submit" className="fr-btn-submit">
+                {fr.nextStepBtn} <ArrowRight size={16} />
+              </button>
+            </form>
+          )}
+
+          {/* ====================================================================
+              Step 2: Residential Address & Landholdings
+              ==================================================================== */}
+          {step === 2 && (
+            <form onSubmit={handleNext}>
+              <h3 className="fr-form-title">Address &amp; Landholdings</h3>
+              <p className="fr-form-sub">Provide your registered village, revenue circle, and land survey credentials.</p>
+
               <div className="fr-field-row">
                 <div className="fr-field-group">
                   <label>{fr.stateLabel} *</label>
@@ -385,32 +468,121 @@ export default function FarmerRegisterPage() {
                     value={formData.state}
                     onChange={(e) => handleChange('state', e.target.value)}
                   >
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
                     <option value="Rajasthan">Rajasthan</option>
                     <option value="Haryana">Haryana</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
                   </select>
                 </div>
                 <div className="fr-field-group">
                   <label>{fr.districtLabel} *</label>
+                  <select
+                    value={formData.district}
+                    onChange={(e) => handleChange('district', e.target.value)}
+                  >
+                    <option value="Varanasi">Varanasi</option>
+                    <option value="Chandauli">Chandauli</option>
+                    <option value="Ghazipur">Ghazipur</option>
+                    <option value="Jaunpur">Jaunpur</option>
+                    <option value="Mirzapur">Mirzapur</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>Tehsil / Sub-District *</label>
                   <input
                     type="text"
                     required
-                    value={formData.district}
-                    onChange={(e) => handleChange('district', e.target.value)}
+                    placeholder="e.g. Chiraigaon / Pindra / Sadar"
+                    value={formData.tehsil}
+                    onChange={(e) => handleChange('tehsil', e.target.value)}
+                  />
+                </div>
+                <div className="fr-field-group">
+                  <label>{fr.villageLabel} *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Village Gaurakala"
+                    value={formData.village}
+                    onChange={(e) => handleChange('village', e.target.value)}
                   />
                 </div>
               </div>
 
-              <div className="fr-field-group">
-                <label>{fr.villageLabel}</label>
-                <input
-                  type="text"
-                  placeholder="Village & Tehsil"
-                  value={formData.village}
-                  onChange={(e) => handleChange('village', e.target.value)}
-                />
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>Post Office</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Chiraigaon Post"
+                    value={formData.postOffice}
+                    onChange={(e) => handleChange('postOffice', e.target.value)}
+                  />
+                </div>
+                <div className="fr-field-group">
+                  <label>PIN Code *</label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={6}
+                    placeholder="6-digit PIN"
+                    value={formData.pincode}
+                    onChange={(e) => handleChange('pincode', e.target.value.replace(/\D/g, ''))}
+                  />
+                </div>
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.landCategoryLabel} *</label>
+                  <select
+                    value={formData.landCategory}
+                    onChange={(e) => handleChange('landCategory', e.target.value)}
+                  >
+                    <option value="Marginal (< 1 Hectare)">Marginal (&lt; 1 Hectare)</option>
+                    <option value="Small (1 - 2 Hectares)">Small (1 - 2 Hectares)</option>
+                    <option value="Semi-Medium (2 - 4 Hectares)">Semi-Medium (2 - 4 Hectares)</option>
+                    <option value="Medium (4 - 10 Hectares)">Medium (4 - 10 Hectares)</option>
+                    <option value="Large (> 10 Hectares)">Large (&gt; 10 Hectares)</option>
+                  </select>
+                </div>
+                <div className="fr-field-group">
+                  <label>Total Landholding (Acres) *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 3.50 Acres"
+                    value={formData.landHolding}
+                    onChange={(e) => handleChange('landHolding', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>{fr.khasraLabel} *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 142/3 & 143/1"
+                    value={formData.khasraNo}
+                    onChange={(e) => handleChange('khasraNo', e.target.value)}
+                  />
+                </div>
+                <div className="fr-field-group">
+                  <label>Farming Experience *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 12 Years"
+                    value={formData.experience}
+                    onChange={(e) => handleChange('experience', e.target.value)}
+                  />
+                </div>
               </div>
 
               <button type="submit" className="fr-btn-submit">
@@ -420,37 +592,12 @@ export default function FarmerRegisterPage() {
           )}
 
           {/* ====================================================================
-              Step 2: Land & Crop Details
+              Step 3: Mandi, Bank Details & Document Verification
               ==================================================================== */}
-          {step === 2 && (
+          {step === 3 && (
             <form onSubmit={handleNext}>
-              <h3 className="fr-form-title">{fr.step2Title}</h3>
-              <p className="fr-form-sub">{fr.subtitle}</p>
-
-              <div className="fr-field-group">
-                <label>{fr.landCategoryLabel} *</label>
-                <select
-                  value={formData.landCategory}
-                  onChange={(e) => handleChange('landCategory', e.target.value)}
-                >
-                  <option value="Marginal (< 1 Hectare)">Marginal (&lt; 1 Hectare)</option>
-                  <option value="Small (1 - 2 Hectares)">Small (1 - 2 Hectares)</option>
-                  <option value="Semi-Medium (2 - 4 Hectares)">Semi-Medium (2 - 4 Hectares)</option>
-                  <option value="Medium (4 - 10 Hectares)">Medium (4 - 10 Hectares)</option>
-                  <option value="Large (> 10 Hectares)">Large (&gt; 10 Hectares)</option>
-                </select>
-              </div>
-
-              <div className="fr-field-group">
-                <label>{fr.khasraLabel} *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. KHA-104/89 (or 142/3)"
-                  value={formData.khasraNo}
-                  onChange={(e) => handleChange('khasraNo', e.target.value)}
-                />
-              </div>
+              <h3 className="fr-form-title">{fr.step3Title}</h3>
+              <p className="fr-form-sub">Select your preferred procurement centre and link your Aadhaar-seeded bank account for instant DBT credit.</p>
 
               <div className="fr-field-row">
                 <div className="fr-field-group">
@@ -464,7 +611,6 @@ export default function FarmerRegisterPage() {
                     <option value="Gram (चना)">Gram (चना)</option>
                     <option value="Paddy (धान)">Paddy (धान)</option>
                     <option value="Barley (जौ)">Barley (जौ)</option>
-                    <option value="Cotton (कपास)">Cotton (कपास)</option>
                   </select>
                 </div>
                 <div className="fr-field-group">
@@ -516,32 +662,21 @@ export default function FarmerRegisterPage() {
                 </select>
               </div>
 
-              <button type="submit" className="fr-btn-submit">
-                {fr.nextStepBtn} <ArrowRight size={16} />
-              </button>
-            </form>
-          )}
-
-          {/* ====================================================================
-              Step 3: Bank Details & Document Proof Uploads
-              ==================================================================== */}
-          {step === 3 && (
-            <form onSubmit={handleNext}>
-              <h3 className="fr-form-title">{fr.step3Title}</h3>
-              <p className="fr-form-sub">{fr.subtitle}</p>
-
-              <div className="fr-field-group">
-                <label>{fr.bankAccountLabel} *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter Bank Account Number"
-                  value={formData.accountNumber}
-                  onChange={(e) => handleChange('accountNumber', e.target.value)}
-                />
-              </div>
-
               <div className="fr-field-row">
+                <div className="fr-field-group">
+                  <label>Bank Name *</label>
+                  <select
+                    value={formData.bankName}
+                    onChange={(e) => handleChange('bankName', e.target.value)}
+                  >
+                    <option value="State Bank of India">State Bank of India</option>
+                    <option value="Baroda UP Bank">Baroda UP Bank</option>
+                    <option value="Punjab National Bank">Punjab National Bank</option>
+                    <option value="Union Bank of India">Union Bank of India</option>
+                    <option value="Bank of Baroda">Bank of Baroda</option>
+                    <option value="HDFC Bank">HDFC Bank</option>
+                  </select>
+                </div>
                 <div className="fr-field-group">
                   <label>{fr.ifscLabel} *</label>
                   <input
@@ -552,96 +687,39 @@ export default function FarmerRegisterPage() {
                     onChange={(e) => handleChange('ifsc', e.target.value.toUpperCase())}
                   />
                 </div>
+              </div>
+
+              <div className="fr-field-row">
                 <div className="fr-field-group">
-                  <label>Bank Name</label>
+                  <label>{fr.bankAccountLabel} *</label>
                   <input
                     type="text"
-                    readOnly
-                    value={formData.bankName}
-                    style={{ background: '#e2ebe4', cursor: 'not-allowed' }}
+                    required
+                    placeholder="Enter Account Number"
+                    value={formData.accountNumber}
+                    onChange={(e) => handleChange('accountNumber', e.target.value)}
+                  />
+                </div>
+                <div className="fr-field-group">
+                  <label>Confirm Account Number *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Re-enter Account Number"
+                    value={formData.confirmAccount}
+                    onChange={(e) => handleChange('confirmAccount', e.target.value)}
                   />
                 </div>
               </div>
 
-              {/* Upload Document Proof Checklist */}
               <div className="fr-field-group">
-                <label>Document Proof &amp; DigiLocker Verification *</label>
-                <div className="fr-docs-upload-grid">
-                  {/* 1. Aadhaar */}
-                  <div className="fr-doc-upload-item">
-                    <div className="fr-doc-upload-left">
-                      <KeyRound size={16} color="#0d631b" />
-                      <div>
-                        <strong>Aadhaar Card (UIDAI)</strong>
-                        <small>{uploadedDocs.aadhaar ? 'Verified via DigiLocker (XXXX-8942)' : 'Upload PDF/Image or Fetch via DigiLocker'}</small>
-                      </div>
-                    </div>
-                    {uploadedDocs.aadhaar ? (
-                      <span className="pf-doc-badge">
-                        <CheckCircle2 size={10} /> Verified
-                      </span>
-                    ) : (
-                      <button
-                        type="button"
-                        className="pf-edit-btn"
-                        style={{ padding: '3px 8px', fontSize: '10.5px' }}
-                        onClick={() => setUploadedDocs((prev) => ({ ...prev, aadhaar: true }))}
-                      >
-                        <Upload size={11} /> Upload
-                      </button>
-                    )}
-                  </div>
-
-                  {/* 2. Land Khasra */}
-                  <div className="fr-doc-upload-item">
-                    <div className="fr-doc-upload-left">
-                      <FileText size={16} color="#0d631b" />
-                      <div>
-                        <strong>Land Khasra (Bhulekh RoR)</strong>
-                        <small>{uploadedDocs.land ? 'Verified via DigiLocker (Khasra 142/3)' : 'Upload 7/12 or Khasra certificate'}</small>
-                      </div>
-                    </div>
-                    {uploadedDocs.land ? (
-                      <span className="pf-doc-badge">
-                        <CheckCircle2 size={10} /> Verified
-                      </span>
-                    ) : (
-                      <button
-                        type="button"
-                        className="pf-edit-btn"
-                        style={{ padding: '3px 8px', fontSize: '10.5px' }}
-                        onClick={() => setUploadedDocs((prev) => ({ ...prev, land: true }))}
-                      >
-                        <Upload size={11} /> Upload
-                      </button>
-                    )}
-                  </div>
-
-                  {/* 3. Passbook */}
-                  <div className="fr-doc-upload-item">
-                    <div className="fr-doc-upload-left">
-                      <CreditCard size={16} color="#0d631b" />
-                      <div>
-                        <strong>Bank Passbook / Cheque</strong>
-                        <small>{uploadedDocs.passbook ? 'Verified via DigiLocker (SBI-4321)' : 'Upload Passbook front page copy'}</small>
-                      </div>
-                    </div>
-                    {uploadedDocs.passbook ? (
-                      <span className="pf-doc-badge">
-                        <CheckCircle2 size={10} /> Verified
-                      </span>
-                    ) : (
-                      <button
-                        type="button"
-                        className="pf-edit-btn"
-                        style={{ padding: '3px 8px', fontSize: '10.5px' }}
-                        onClick={() => setUploadedDocs((prev) => ({ ...prev, passbook: true }))}
-                      >
-                        <Upload size={11} /> Upload
-                      </button>
-                    )}
-                  </div>
-                </div>
+                <label>Transport Vehicle / Tractor Number (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. UP-65-TC-8942"
+                  value={formData.vehicleNumber}
+                  onChange={(e) => handleChange('vehicleNumber', e.target.value.toUpperCase())}
+                />
               </div>
 
               {/* Create PIN */}
@@ -659,10 +737,11 @@ export default function FarmerRegisterPage() {
                     />
                     <button
                       type="button"
+                      className="fr-pin-toggle"
                       onClick={() => setShowPin(!showPin)}
-                      style={{ position: 'absolute', right: '10px', top: '10px', background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                      aria-label="Toggle PIN Visibility"
                     >
-                      {showPin ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showPin ? <EyeOff size={15} /> : <Eye size={15} />}
                     </button>
                   </div>
                 </div>
@@ -672,15 +751,28 @@ export default function FarmerRegisterPage() {
                     type={showPin ? 'text' : 'password'}
                     required
                     maxLength={6}
-                    placeholder="Re-enter PIN"
+                    placeholder="Re-enter 6-digit PIN"
                     value={formData.confirmPin}
                     onChange={(e) => handleChange('confirmPin', e.target.value.replace(/\D/g, ''))}
                   />
                 </div>
               </div>
 
-              <button type="submit" className="fr-btn-submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Verifying & Registering...' : 'Complete DigiLocker Registration & Access Dashboard →'}
+              <button
+                type="submit"
+                className="fr-btn-submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    <ShieldCheck size={18} className="animate-spin" />
+                    Generating Verified Farmer ID...
+                  </span>
+                ) : (
+                  <>
+                    Complete Registration &amp; Issue Farmer ID <CheckCircle2 size={16} />
+                  </>
+                )}
               </button>
             </form>
           )}

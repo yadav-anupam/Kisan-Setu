@@ -413,6 +413,55 @@
   gap: 6px;
 }
 
+/* Photo Upload Controls */
+.pf-photo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 14px;
+  width: 100%;
+}
+
+.pf-photo-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pf-photo-upload-btn:hover {
+  background: #dcfce7;
+  border-color: #16a34a;
+}
+
+.pf-photo-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pf-photo-remove-btn:hover {
+  background: #fee2e2;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .pf-grid {
@@ -427,6 +476,22 @@
 }
 
 @media (max-width: 860px) {
+  .profile-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    height: 100vh !important;
+  }
+
+  .pf-main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px 12px 30px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
   .pf-grid {
     grid-template-columns: 1fr;
   }
