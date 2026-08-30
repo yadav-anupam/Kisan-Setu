@@ -26,6 +26,7 @@ import StaffVerificationHistoryPage from './components/staff/StaffVerificationHi
 import StaffReportsPage from './components/staff/StaffReportsPage'
 import StaffProfilePage from './components/staff/StaffProfilePage'
 import StaffSettingsPage from './components/staff/StaffSettingsPage'
+import StaffManagementPage from './components/staff/StaffManagementPage'
 import PWAInstallPrompt from './components/common/PWAInstallPrompt'
 import { isFarmerLoggedIn, setRedirectAfterLogin, isFarmerDashboardPath } from './auth'
 import { useRouter } from './router'
@@ -72,6 +73,15 @@ export default function App() {
 
     if (path === '/staff/farmers' || path === '/staff-farmers') {
       return <StaffFarmersPage />
+    }
+
+    if (
+      path === '/staff/management' ||
+      path === '/staff-management' ||
+      path === '/staff/team' ||
+      path === '/staff/officers'
+    ) {
+      return <StaffManagementPage />
     }
 
     if (path === '/staff/verification-history' || path === '/staff-history') {

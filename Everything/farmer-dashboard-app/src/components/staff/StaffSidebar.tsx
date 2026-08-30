@@ -24,6 +24,7 @@ export type StaffNavTab =
   | 'queue'
   | 'slots'
   | 'farmers'
+  | 'management'
   | 'history'
   | 'reports'
   | 'profile'
@@ -263,6 +264,28 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
           >
             <Users size={17} />
             <span>Farmers Directory</span>
+          </button>
+
+          <button
+            type="button"
+            className={`fd-nav-item ${activeTab === 'management' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/management')}
+          >
+            <ShieldCheck size={17} />
+            <span>Staff &amp; Officers</span>
+            <span
+              style={{
+                background: '#dbeafe',
+                color: '#1e40af',
+                fontSize: '9px',
+                fontWeight: 800,
+                padding: '1px 5px',
+                borderRadius: '4px',
+                marginLeft: 'auto',
+              }}
+            >
+              ADMIN
+            </span>
           </button>
 
           <button

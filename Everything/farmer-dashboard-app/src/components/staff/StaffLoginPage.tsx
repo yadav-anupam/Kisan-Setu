@@ -21,7 +21,7 @@ import {
 import './StaffQRScannerPage.css'
 
 export default function StaffLoginPage() {
-  const [staffId, setStaffId] = useState('ST-102')
+  const [emailOrId, setEmailOrId] = useState('rajesh.kumar@fcs.up.gov.in')
   const [password, setPassword] = useState('123456')
   const [showPassword, setShowPassword] = useState(false)
   const [selectedMandi, setSelectedMandi] = useState('Chiraigaon 1st at Gaurakala (FCS)')
@@ -34,13 +34,13 @@ export default function StaffLoginPage() {
     setIsLoading(true)
 
     try {
-      if (!staffId.trim()) {
-        setErrorMsg('Please enter your Staff / Operator ID.')
+      if (!emailOrId.trim()) {
+        setErrorMsg('Please enter your Official Government Email or Staff ID.')
         setIsLoading(false)
         return
       }
 
-      const res = await authenticateStaffWithBackend(staffId, password, selectedMandi)
+      const res = await authenticateStaffWithBackend(emailOrId, password, selectedMandi)
       if (res.success && res.profile) {
         const target = sessionStorage.getItem('kisan_setu_staff_redirect') || '/staff/dashboard'
         sessionStorage.removeItem('kisan_setu_staff_redirect')
@@ -185,13 +185,13 @@ export default function StaffLoginPage() {
               </div>
 
               <div className="fl-field-group" style={{ marginTop: '14px' }}>
-                <label>Staff / Operator ID *</label>
+                <label>Official Government Email or Staff ID *</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. ST-102 or OP-401"
-                  value={staffId}
-                  onChange={(e) => setStaffId(e.target.value)}
+                  placeholder="e.g. rajesh.kumar@fcs.up.gov.in or ST-102"
+                  value={emailOrId}
+                  onChange={(e) => setEmailOrId(e.target.value)}
                   style={{
                     width: '100%',
                     height: '46px',
@@ -264,51 +264,54 @@ export default function StaffLoginPage() {
                 }}
               >
                 <Lock size={16} />
-                {isLoading ? 'Verifying Credentials...' : 'Sign In to Desk'}
+                {isLoading ? 'Verifying Credentials with Backend...' : 'Sign In to Desk'}
               </button>
             </form>
 
             <div style={{ marginTop: '20px', padding: '12px 14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', fontSize: '11.5px', color: '#64748b' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontWeight: 700 }}>
-                <span>Quick Fill Official Staff Accounts:</span>
+                <span>Official Appointed Accounts:</span>
                 <span style={{ color: '#0d631b' }}>Pass: 123456</span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px' }}>
                 <button
                   type="button"
                   onClick={() => {
-                    setStaffId('ST-102')
+                    setEmailOrId('rajesh.kumar@fcs.up.gov.in')
                     setPassword('123456')
                     setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
                     setErrorMsg('')
                   }}
+                  title="Rajesh Kumar (rajesh.kumar@fcs.up.gov.in / ST-102)"
                   style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534', cursor: 'pointer' }}
                 >
-                  🛡️ ST-102 (Gate)
+                  🛡️ Gate Officer
                 </button>
                 <button
                   type="button"
                   onClick={() => {
-                    setStaffId('OP-401')
+                    setEmailOrId('suresh.meena@fcs.up.gov.in')
                     setPassword('123456')
                     setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
                     setErrorMsg('')
                   }}
+                  title="Suresh Meena (suresh.meena@fcs.up.gov.in / OP-401)"
                   style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bfdbfe', background: '#eff6ff', color: '#1e40af', cursor: 'pointer' }}
                 >
-                  📋 OP-401 (Inspector)
+                  📋 Mandi Inspector
                 </button>
                 <button
                   type="button"
                   onClick={() => {
-                    setStaffId('AD-001')
+                    setEmailOrId('vikram.singh@fcs.up.gov.in')
                     setPassword('123456')
                     setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
                     setErrorMsg('')
                   }}
+                  title="Vikram Singh (vikram.singh@fcs.up.gov.in / AD-001)"
                   style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #fbcfe8', background: '#fdf2f8', color: '#9d174d', cursor: 'pointer' }}
                 >
-                  🏢 AD-001 (Admin)
+                  🏢 Mandi Admin
                 </button>
               </div>
             </div>
