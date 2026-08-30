@@ -35,8 +35,17 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
   const profileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const handleUpdate = () => {
+      setStaff(getStaffAuthSession())
+    }
+    window.addEventListener('kisan_setu_staff_profile_updated', handleUpdate)
+
     setStaff(getStaffAuthSession())
     fetchStaffNotifications(staff.staff_id).then(setNotifications).catch(() => {})
+
+    return () => {
+      window.removeEventListener('kisan_setu_staff_profile_updated', handleUpdate)
+    }
   }, [staff.staff_id])
 
   useEffect(() => {

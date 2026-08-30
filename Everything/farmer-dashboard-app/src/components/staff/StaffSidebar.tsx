@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   BarChart3,
   Calendar,
@@ -14,7 +15,7 @@ import {
 } from 'lucide-react'
 import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
-import { logoutStaffUser, getStaffAuthSession } from '../../services/staffDataService'
+import { logoutStaffUser, getStaffAuthSession, type StaffProfile } from '../../services/staffDataService'
 
 export type StaffNavTab =
   | 'dashboard'
@@ -35,7 +36,15 @@ interface StaffSidebarProps {
 }
 
 export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSidebarProps) {
-  const staff = getStaffAuthSession()
+  const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setStaff(getStaffAuthSession())
+    }
+    window.addEventListener('kisan_setu_staff_profile_updated', handleUpdate)
+    return () => window.removeEventListener('kisan_setu_staff_profile_updated', handleUpdate)
+  }, [])
 
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to sign out from the Staff Portal?')) {

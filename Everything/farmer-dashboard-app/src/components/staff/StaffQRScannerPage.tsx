@@ -14,6 +14,7 @@ import {
   X,
   XCircle,
 } from 'lucide-react'
+import { navigate } from '../../router'
 import {
   validateQRToken,
   confirmBookingVerification,
@@ -23,30 +24,50 @@ import {
   type StaffUser,
   type VerificationAuditLog,
 } from '../../services/qrBookingService'
+import {
+  getStaffAuthSession,
+  isStaffAuthenticated,
+} from '../../services/staffDataService'
 import StaffSidebar from './StaffSidebar'
 import StaffHeader from './StaffHeader'
 import '../farmer/FarmerDashboard.css'
 import './StaffQRScannerPage.css'
 
+const mapStaffRole = (r: string): 'staff' | 'centre_operator' | 'admin' => {
+  const low = (r || '').toLowerCase()
+  if (low.includes('admin')) return 'admin'
+  if (low.includes('operator')) return 'centre_operator'
+  return 'staff'
+}
+
 export default function StaffQRScannerPage() {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [activeStaff] = useState<StaffUser>(() => {
-    const saved = localStorage.getItem('kisan_setu_staff_auth')
-    if (saved) {
-      try {
-        return JSON.parse(saved)
-      } catch {
-        // fallback
-      }
-    }
+  const [activeStaff, setActiveStaff] = useState<StaffUser>(() => {
+    const s = getStaffAuthSession()
     return {
-      id: 'ST-102',
-      name: 'Rajesh Kumar',
-      role: 'staff',
-      centre_id: 'centre-up-vns-01',
-      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+      id: s.staff_id,
+      name: s.full_name,
+      role: mapStaffRole(s.role),
+      centre_id: s.centre_id,
+      centre_name: s.centre_name,
     }
   })
+
+  useEffect(() => {
+    if (!isStaffAuthenticated()) {
+      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/scanner')
+      navigate('/staff/login')
+      return
+    }
+    const s = getStaffAuthSession()
+    setActiveStaff({
+      id: s.staff_id,
+      name: s.full_name,
+      role: mapStaffRole(s.role),
+      centre_id: s.centre_id,
+      centre_name: s.centre_name,
+    })
+  }, [])
 
   // Scanner states
   const [isScanning, setIsScanning] = useState(false)

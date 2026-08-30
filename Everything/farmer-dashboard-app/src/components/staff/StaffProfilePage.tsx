@@ -7,6 +7,8 @@ import { navigate } from '../../router'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
+  updateStaffProfile,
+  updateStaffPassword,
   type StaffProfile,
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
@@ -20,6 +22,13 @@ export default function StaffProfilePage() {
   const [email, setEmail] = useState('')
   const [isSaved, setIsSaved] = useState(false)
 
+  // Password state
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [pwdMsg, setPwdMsg] = useState<{ text: string; isError: boolean } | null>(null)
+  const [isPwdSubmitting, setIsPwdSubmitting] = useState(false)
+
   useEffect(() => {
     if (!isStaffAuthenticated()) {
       sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/profile')
@@ -32,13 +41,43 @@ export default function StaffProfilePage() {
     setEmail(currentStaff.email || '')
   }, [])
 
-  const handleSaveContact = (e: React.FormEvent) => {
+  const handleSaveContact = async (e: React.FormEvent) => {
     e.preventDefault()
-    const updated = { ...staff, mobile, email }
-    localStorage.setItem('kisan_setu_staff_auth', JSON.stringify(updated))
-    setStaff(updated)
+    await updateStaffProfile({ mobile, email })
+    setStaff((prev) => ({ ...prev, mobile, email }))
     setIsSaved(true)
     setTimeout(() => setIsSaved(false), 3000)
+  }
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setPwdMsg(null)
+
+    if (newPassword !== confirmPassword) {
+      setPwdMsg({ text: 'New password and confirm password do not match.', isError: true })
+      return
+    }
+    if (newPassword.length < 4) {
+      setPwdMsg({ text: 'New password must be at least 4 characters.', isError: true })
+      return
+    }
+
+    setIsPwdSubmitting(true)
+    try {
+      const res = await updateStaffPassword(staff.staff_id, oldPassword, newPassword)
+      setIsPwdSubmitting(false)
+      if (res.success) {
+        setPwdMsg({ text: res.message, isError: false })
+        setOldPassword('')
+        setNewPassword('')
+        setConfirmPassword('')
+      } else {
+        setPwdMsg({ text: res.message, isError: true })
+      }
+    } catch (err: any) {
+      setIsPwdSubmitting(false)
+      setPwdMsg({ text: err?.message || 'Error updating password.', isError: true })
+    }
   }
 
   return (
@@ -323,6 +362,141 @@ export default function StaffProfilePage() {
                   }}
                 >
                   Save Profile Changes
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Security & Password Change Card */}
+          <div
+            style={{
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              marginTop: '24px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+            }}
+          >
+            <div style={{ padding: '18px 24px', borderBottom: '1px solid #e2e8f0', background: '#fafafa' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                Security &amp; Password Management
+              </h2>
+              <p style={{ fontSize: '12px', color: '#64748b', margin: '2px 0 0' }}>
+                Update your security password for official terminal authorization
+              </p>
+            </div>
+
+            <div style={{ padding: '24px' }}>
+              {pwdMsg && (
+                <div
+                  style={{
+                    background: pwdMsg.isError ? '#fef2f2' : '#f0fdf4',
+                    border: `1px solid ${pwdMsg.isError ? '#fecaca' : '#bbf7d0'}`,
+                    borderRadius: '10px',
+                    padding: '10px 14px',
+                    marginBottom: '16px',
+                    color: pwdMsg.isError ? '#b91c1c' : '#166534',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                  }}
+                >
+                  {pwdMsg.isError ? '⚠️ ' : '✅ '}
+                  {pwdMsg.text}
+                </div>
+              )}
+
+              <form onSubmit={handleChangePassword}>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                    gap: '16px',
+                    marginBottom: '20px',
+                  }}
+                >
+                  <div>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', display: 'block', marginBottom: '6px' }}>
+                      Current Password *
+                    </label>
+                    <input
+                      type="password"
+                      required
+                      placeholder="Enter current password"
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                      style={{
+                        width: '100%',
+                        height: '42px',
+                        padding: '0 12px',
+                        borderRadius: '8px',
+                        border: '1.5px solid #cbd5e1',
+                        fontSize: '13px',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', display: 'block', marginBottom: '6px' }}>
+                      New Password *
+                    </label>
+                    <input
+                      type="password"
+                      required
+                      placeholder="Min 4 characters"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      style={{
+                        width: '100%',
+                        height: '42px',
+                        padding: '0 12px',
+                        borderRadius: '8px',
+                        border: '1.5px solid #cbd5e1',
+                        fontSize: '13px',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', display: 'block', marginBottom: '6px' }}>
+                      Confirm New Password *
+                    </label>
+                    <input
+                      type="password"
+                      required
+                      placeholder="Re-enter new password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      style={{
+                        width: '100%',
+                        height: '42px',
+                        padding: '0 12px',
+                        borderRadius: '8px',
+                        border: '1.5px solid #cbd5e1',
+                        fontSize: '13px',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isPwdSubmitting}
+                  style={{
+                    background: '#1e293b',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '12px 24px',
+                    fontWeight: 700,
+                    fontSize: '13.5px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {isPwdSubmitting ? 'Updating Password...' : 'Update Password'}
                 </button>
               </form>
             </div>

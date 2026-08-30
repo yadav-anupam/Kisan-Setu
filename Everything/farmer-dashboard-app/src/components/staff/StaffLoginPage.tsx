@@ -11,7 +11,7 @@ import {
 import logoImg from '../../assets/logo.png'
 import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
-import { loginStaffUser } from '../../services/staffDataService'
+import { authenticateStaffWithBackend } from '../../services/staffDataService'
 import {
   VARANASI_PROCUREMENT_CENTRES,
   CHANDAULI_PROCUREMENT_CENTRES,
@@ -40,12 +40,16 @@ export default function StaffLoginPage() {
         return
       }
 
-      await loginStaffUser(staffId, password, selectedMandi)
-      const target = sessionStorage.getItem('kisan_setu_staff_redirect') || '/staff/dashboard'
-      sessionStorage.removeItem('kisan_setu_staff_redirect')
-      navigate(target)
-    } catch {
-      setErrorMsg('Authentication failed. Please check your credentials.')
+      const res = await authenticateStaffWithBackend(staffId, password, selectedMandi)
+      if (res.success && res.profile) {
+        const target = sessionStorage.getItem('kisan_setu_staff_redirect') || '/staff/dashboard'
+        sessionStorage.removeItem('kisan_setu_staff_redirect')
+        navigate(target)
+      } else {
+        setErrorMsg(res.message || 'Authentication failed. Please check your credentials.')
+      }
+    } catch (err: any) {
+      setErrorMsg(err?.message || 'Authentication failed. Please check your credentials.')
     } finally {
       setIsLoading(false)
     }
@@ -264,12 +268,48 @@ export default function StaffLoginPage() {
               </button>
             </form>
 
-            <div style={{ marginTop: '24px', padding: '12px', background: '#f8fafc', borderRadius: '10px', fontSize: '11.5px', color: '#64748b' }}>
-              <strong>Demo Staff IDs:</strong>
-              <div style={{ marginTop: '4px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                <span onClick={() => setStaffId('ST-102')} style={{ cursor: 'pointer', color: '#0d631b', fontWeight: 700 }}>ST-102 (Staff)</span> • 
-                <span onClick={() => setStaffId('OP-401')} style={{ cursor: 'pointer', color: '#0d631b', fontWeight: 700 }}>OP-401 (Operator)</span> • 
-                <span onClick={() => setStaffId('AD-001')} style={{ cursor: 'pointer', color: '#0d631b', fontWeight: 700 }}>AD-001 (Admin)</span>
+            <div style={{ marginTop: '20px', padding: '12px 14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', fontSize: '11.5px', color: '#64748b' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontWeight: 700 }}>
+                <span>Quick Fill Official Staff Accounts:</span>
+                <span style={{ color: '#0d631b' }}>Pass: 123456</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStaffId('ST-102')
+                    setPassword('123456')
+                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
+                    setErrorMsg('')
+                  }}
+                  style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534', cursor: 'pointer' }}
+                >
+                  🛡️ ST-102 (Gate)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStaffId('OP-401')
+                    setPassword('123456')
+                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
+                    setErrorMsg('')
+                  }}
+                  style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bfdbfe', background: '#eff6ff', color: '#1e40af', cursor: 'pointer' }}
+                >
+                  📋 OP-401 (Inspector)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStaffId('AD-001')
+                    setPassword('123456')
+                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
+                    setErrorMsg('')
+                  }}
+                  style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #fbcfe8', background: '#fdf2f8', color: '#9d174d', cursor: 'pointer' }}
+                >
+                  🏢 AD-001 (Admin)
+                </button>
               </div>
             </div>
 

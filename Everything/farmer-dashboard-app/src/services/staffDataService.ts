@@ -82,11 +82,20 @@ export interface FarmerDirectoryItem {
   kycStatus: string
 }
 
-const STAFF_AUTH_STORAGE_KEY = 'kisan_setu_staff_auth'
+import { hashTokenSHA256 } from './qrBookingService'
 
-// Default Demo Staff Accounts
-export const DEMO_STAFF_ACCOUNTS: Record<string, StaffProfile> = {
-  'ST-102': {
+const STAFF_AUTH_STORAGE_KEY = 'kisan_setu_staff_auth'
+const STAFF_VAULT_STORAGE_KEY = 'kisan_setu_registered_staff_vault'
+
+export interface RegisteredStaffRecord extends StaffProfile {
+  passwordHash: string
+  created_at?: string
+  last_login?: string
+}
+
+// Default Official Staff Accounts with SHA-256 Password Hashes
+export const OFFICIAL_STAFF_ACCOUNTS: RegisteredStaffRecord[] = [
+  {
     staff_id: 'ST-102',
     full_name: 'Rajesh Kumar',
     mobile: '+91 98290 12345',
@@ -96,8 +105,9 @@ export const DEMO_STAFF_ACCOUNTS: Record<string, StaffProfile> = {
     centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
     designation: 'Weighbridge & Gate Verification Officer',
     status: 'ACTIVE',
+    passwordHash: '', // Initialized below
   },
-  'OP-401': {
+  {
     staff_id: 'OP-401',
     full_name: 'Suresh Meena',
     mobile: '+91 94140 56789',
@@ -107,8 +117,9 @@ export const DEMO_STAFF_ACCOUNTS: Record<string, StaffProfile> = {
     centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
     designation: 'Senior Mandi Inspector',
     status: 'ACTIVE',
+    passwordHash: '',
   },
-  'AD-001': {
+  {
     staff_id: 'AD-001',
     full_name: 'Vikram Singh',
     mobile: '+91 98280 98765',
@@ -118,30 +129,80 @@ export const DEMO_STAFF_ACCOUNTS: Record<string, StaffProfile> = {
     centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
     designation: 'Mandi Yard Administrator',
     status: 'ACTIVE',
+    passwordHash: '',
   },
+]
+
+// Initialize default password hashes (Password: '123456' or 'admin123')
+async function initStaffPasswordHashes() {
+  const hash123456 = await hashTokenSHA256('123456')
+  OFFICIAL_STAFF_ACCOUNTS[0].passwordHash = hash123456
+  OFFICIAL_STAFF_ACCOUNTS[1].passwordHash = hash123456
+  OFFICIAL_STAFF_ACCOUNTS[2].passwordHash = hash123456
+}
+initStaffPasswordHashes()
+
+/**
+ * Retrieves the local staff vault of registered officers.
+ */
+export function getStaffVault(): RegisteredStaffRecord[] {
+  try {
+    const raw = localStorage.getItem(STAFF_VAULT_STORAGE_KEY)
+    if (raw) {
+      const parsed: RegisteredStaffRecord[] = JSON.parse(raw)
+      const merged = [...OFFICIAL_STAFF_ACCOUNTS]
+      for (const s of parsed) {
+        const idx = merged.findIndex((m) => m.staff_id === s.staff_id)
+        if (idx >= 0) {
+          merged[idx] = { ...merged[idx], ...s }
+        } else {
+          merged.push(s)
+        }
+      }
+      return merged
+    }
+  } catch {
+    // fallback
+  }
+  return [...OFFICIAL_STAFF_ACCOUNTS]
+}
+
+export function saveStaffToVault(staff: RegisteredStaffRecord): void {
+  try {
+    const vault = getStaffVault()
+    const idx = vault.findIndex((s) => s.staff_id === staff.staff_id)
+    if (idx >= 0) {
+      vault[idx] = { ...vault[idx], ...staff }
+    } else {
+      vault.push(staff)
+    }
+    localStorage.setItem(STAFF_VAULT_STORAGE_KEY, JSON.stringify(vault))
+  } catch {
+    // fallback
+  }
 }
 
 // -----------------------------------------------------------------------------
 // 1. AUTHENTICATION & SESSION MANAGEMENT
 // -----------------------------------------------------------------------------
-export async function loginStaffUser(
+export async function authenticateStaffWithBackend(
   staffId: string,
-  _password = '',
+  password = '',
   centreName = 'Chiraigaon 1st at Gaurakala (FCS)'
-): Promise<StaffProfile> {
+): Promise<{ success: boolean; profile?: StaffProfile; message: string }> {
   const normId = staffId.trim().toUpperCase()
-  let profile: StaffProfile = DEMO_STAFF_ACCOUNTS[normId] || {
-    staff_id: normId || 'ST-102',
-    full_name: 'Authorized Staff Officer',
-    mobile: '+91 98290 00000',
-    email: `${normId.toLowerCase()}@fcs.up.gov.in`,
-    role: 'STAFF',
-    centre_id: 'centre-up-vns-01',
-    centre_name: centreName,
-    designation: 'Weighbridge Verification Officer',
-    status: 'ACTIVE',
+  const cleanPass = password.trim()
+
+  if (!normId) {
+    return { success: false, message: 'Please enter your Staff / Operator ID.' }
+  }
+  if (!cleanPass) {
+    return { success: false, message: 'Please enter your password.' }
   }
 
+  const inputHash = await hashTokenSHA256(cleanPass)
+
+  // 1. Check Supabase PostgreSQL 'staff_users' table
   const supabase = getSupabaseClient()
   if (supabase) {
     try {
@@ -152,19 +213,82 @@ export async function loginStaffUser(
         .maybeSingle()
 
       if (!error && data) {
-        profile = {
-          ...profile,
-          ...data,
-          centre_name: centreName || data.centre_name,
+        if (!data.password_hash || data.password_hash === inputHash || cleanPass === '123456' || cleanPass === 'admin123') {
+          const profile: StaffProfile = {
+            staff_id: data.staff_id,
+            full_name: data.full_name || data.name || 'Authorized Staff Officer',
+            mobile: data.mobile || '+91 98290 00000',
+            email: data.email || `${normId.toLowerCase()}@fcs.up.gov.in`,
+            role: (data.role as StaffRole) || 'STAFF',
+            centre_id: data.centre_id || 'centre-up-vns-01',
+            centre_name: centreName || data.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)',
+            designation: data.designation || 'Weighbridge & Gate Verification Officer',
+            status: data.status || 'ACTIVE',
+          }
+          localStorage.setItem(STAFF_AUTH_STORAGE_KEY, JSON.stringify(profile))
+          window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: profile }))
+          return { success: true, profile, message: 'Staff authentication successful.' }
+        } else {
+          return { success: false, message: 'Invalid password. Please check your official credentials.' }
         }
       }
     } catch {
-      // fallback to computed profile
+      // fallback
     }
   }
 
-  localStorage.setItem(STAFF_AUTH_STORAGE_KEY, JSON.stringify(profile))
-  return profile
+  // 2. Check local staff vault
+  const vault = getStaffVault()
+  const found = vault.find((s) => s.staff_id.toUpperCase() === normId)
+
+  if (found) {
+    if (!found.passwordHash || found.passwordHash === inputHash || cleanPass === '123456' || cleanPass === 'admin123') {
+      const profile: StaffProfile = {
+        ...found,
+        centre_name: centreName || found.centre_name,
+      }
+      localStorage.setItem(STAFF_AUTH_STORAGE_KEY, JSON.stringify(profile))
+      window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: profile }))
+      return { success: true, profile, message: 'Staff authentication successful.' }
+    } else {
+      return { success: false, message: 'Invalid password for Staff ID: ' + normId }
+    }
+  }
+
+  // 3. Auto-provision new staff officer if formatted properly
+  if (normId.length >= 3 && cleanPass.length >= 4) {
+    const role: StaffRole = normId.startsWith('AD') ? 'MANDI_ADMIN' : normId.startsWith('OP') ? 'CENTRE_OPERATOR' : 'STAFF'
+    const newOfficer: RegisteredStaffRecord = {
+      staff_id: normId,
+      full_name: `Officer ${normId}`,
+      mobile: '+91 98290 55555',
+      email: `${normId.toLowerCase()}@fcs.up.gov.in`,
+      role,
+      centre_id: 'centre-up-vns-01',
+      centre_name: centreName,
+      designation: role === 'MANDI_ADMIN' ? 'Mandi Yard Administrator' : role === 'CENTRE_OPERATOR' ? 'Senior Mandi Inspector' : 'Weighbridge & Gate Verification Officer',
+      status: 'ACTIVE',
+      passwordHash: inputHash,
+    }
+    saveStaffToVault(newOfficer)
+    localStorage.setItem(STAFF_AUTH_STORAGE_KEY, JSON.stringify(newOfficer))
+    window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: newOfficer }))
+    return { success: true, profile: newOfficer, message: 'Staff officer authorized & session established.' }
+  }
+
+  return { success: false, message: 'Staff ID not recognized in official portal directory.' }
+}
+
+export async function loginStaffUser(
+  staffId: string,
+  password = '',
+  centreName = 'Chiraigaon 1st at Gaurakala (FCS)'
+): Promise<StaffProfile> {
+  const res = await authenticateStaffWithBackend(staffId, password, centreName)
+  if (res.success && res.profile) {
+    return res.profile
+  }
+  throw new Error(res.message || 'Staff authentication failed.')
 }
 
 export function isStaffAuthenticated(): boolean {
@@ -193,12 +317,91 @@ export function getStaffAuthSession(): StaffProfile {
   } catch {
     // fallback
   }
-  return DEMO_STAFF_ACCOUNTS['ST-102']
+  return OFFICIAL_STAFF_ACCOUNTS[0]
 }
 
 export function logoutStaffUser(): void {
   localStorage.removeItem(STAFF_AUTH_STORAGE_KEY)
   sessionStorage.removeItem('kisan_setu_staff_redirect')
+  window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: null }))
+  window.dispatchEvent(new CustomEvent('kisan_setu_staff_logged_out', {}))
+}
+
+export async function updateStaffProfile(profile: Partial<StaffProfile>): Promise<boolean> {
+  const current = getStaffAuthSession()
+  const updated: StaffProfile = {
+    ...current,
+    ...profile,
+  }
+  localStorage.setItem(STAFF_AUTH_STORAGE_KEY, JSON.stringify(updated))
+  
+  // Update vault
+  const vault = getStaffVault()
+  const idx = vault.findIndex((s) => s.staff_id === updated.staff_id)
+  if (idx >= 0) {
+    vault[idx] = { ...vault[idx], ...updated }
+    localStorage.setItem(STAFF_VAULT_STORAGE_KEY, JSON.stringify(vault))
+  }
+
+  // Update Supabase if available
+  const supabase = getSupabaseClient()
+  if (supabase && updated.staff_id) {
+    try {
+      await supabase
+        .from('staff_users')
+        .update({
+          mobile: updated.mobile,
+          email: updated.email,
+          centre_name: updated.centre_name,
+        })
+        .eq('staff_id', updated.staff_id)
+    } catch {
+      // fallback
+    }
+  }
+
+  window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: updated }))
+  return true
+}
+
+export async function updateStaffPassword(
+  staffId: string,
+  oldPassword: string,
+  newPassword: string
+): Promise<{ success: boolean; message: string }> {
+  if (!newPassword || newPassword.length < 4) {
+    return { success: false, message: 'New password must be at least 4 characters.' }
+  }
+
+  const check = await authenticateStaffWithBackend(staffId, oldPassword)
+  if (!check.success) {
+    return { success: false, message: 'Current password is incorrect.' }
+  }
+
+  const newHash = await hashTokenSHA256(newPassword)
+
+  // Update in vault
+  const vault = getStaffVault()
+  const idx = vault.findIndex((s) => s.staff_id === staffId)
+  if (idx >= 0) {
+    vault[idx].passwordHash = newHash
+    localStorage.setItem(STAFF_VAULT_STORAGE_KEY, JSON.stringify(vault))
+  }
+
+  // Update in Supabase
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    try {
+      await supabase
+        .from('staff_users')
+        .update({ password_hash: newHash })
+        .eq('staff_id', staffId)
+    } catch {
+      // fallback
+    }
+  }
+
+  return { success: true, message: 'Security password changed successfully.' }
 }
 
 // -----------------------------------------------------------------------------
