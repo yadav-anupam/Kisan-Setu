@@ -1,15 +1,12 @@
-import { useState } from 'react'
 import {
   CalendarCheck,
   Check,
-  ChevronLeft,
-  ChevronRight,
+  CheckCircle2,
   CircleDollarSign,
   Clock3,
-  FileText,
   LogIn,
   Navigation,
-  PlayCircle,
+  QrCode,
   Search,
   ShieldCheck,
   Sprout,
@@ -24,37 +21,10 @@ import { useLanguage } from './useLanguage'
 import './HomePage.css'
 
 const benefitIcons = [Clock3, Navigation, Check, WalletCards]
-const featureConfig = [
-  { icon: CalendarCheck, tone: 'green' },
-  { icon: Users, tone: 'blue' },
-  { icon: FileText, tone: 'violet' },
-  { icon: WalletCards, tone: 'orange' },
-  { icon: FileText, tone: 'teal' },
-]
 const trustIcons = [Clock3, Search, Search, ShieldCheck]
 
 export default function HomePage() {
   const { t } = useLanguage()
-  const [carouselIndex, setCarouselIndex] = useState(0)
-
-  const featureItems = t.home.features.map((f, i) => ({
-    ...f,
-    icon: featureConfig[i % featureConfig.length].icon,
-    tone: featureConfig[i % featureConfig.length].tone,
-  }))
-
-  const handlePrev = () => {
-    setCarouselIndex((prev) => (prev === 0 ? featureItems.length - 1 : prev - 1))
-  }
-
-  const handleNext = () => {
-    setCarouselIndex((prev) => (prev === featureItems.length - 1 ? 0 : prev + 1))
-  }
-
-  const visibleFeatures = [
-    ...featureItems.slice(carouselIndex),
-    ...featureItems.slice(0, carouselIndex),
-  ]
 
   const impactStats = [
     { value: '48,562+', label: t.home.impactLabels.farmers, icon: Users },
@@ -79,7 +49,8 @@ export default function HomePage() {
                 <em>{t.home.heroTitle2}</em>
               </h1>
               <p>{t.home.heroDesc}</p>
-              <div className="hero-buttons">
+
+              <div className="hero-buttons" style={{ maxWidth: '480px' }}>
                 <a
                   className="hero-primary"
                   href="/login"
@@ -88,19 +59,21 @@ export default function HomePage() {
                     navigate('/login')
                   }}
                 >
-                  <LogIn size={16} /> {t.home.bookSlotBtn}
+                  <LogIn size={16} /> Login Farmer
                 </a>
                 <a
                   className="hero-secondary"
-                  href="/how-it-works"
+                  href="/verify"
                   onClick={(e) => {
                     e.preventDefault()
-                    navigate('/how-it-works')
+                    navigate('/verify')
                   }}
+                  style={{ background: '#f0fdf4', borderColor: '#86efac', color: '#166534' }}
                 >
-                  <PlayCircle size={16} /> {t.home.howItWorksBtn}
+                  <QrCode size={16} /> Verify Token / Gate Pass
                 </a>
               </div>
+
               <div className="mini-benefits" id="for-farmers">
                 {t.home.benefits.map(({ title, text }, index) => {
                   const BenefitIcon = benefitIcons[index % benefitIcons.length]
@@ -137,30 +110,56 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* Capabilities Showcase */}
-        <section className="capabilities" id="features">
-          <h2>{t.home.featuresHeading}</h2>
-          <div className="feature-row">
-            <button className="carousel-arrow" onClick={handlePrev} aria-label="Previous">
-              <ChevronLeft size={16} />
-            </button>
-
-            {visibleFeatures.slice(0, 5).map((feature) => {
-              const Icon = feature.icon
-              return (
-                <div className="feature-card" key={feature.title}>
-                  <div className={`feature-icon ${feature.tone}`}>
-                    <Icon size={20} />
-                  </div>
-                  <h3>{feature.title}</h3>
-                  <p>{feature.text}</p>
+        {/* Verification & Gate Pass Section */}
+        <section className="verify-banner-section" id="verify">
+          <div className="verify-banner-container">
+            <div className="verify-banner-left">
+              <div className="verify-badge">
+                <ShieldCheck size={15} /> APMC Mandi Gate &amp; Token Verification
+              </div>
+              <h2>Verify Gate Pass, Weighment Slips &amp; Farmer Tokens</h2>
+              <p>
+                Staff officers and gate operators can scan QR codes or enter token numbers for instant gate clearance, moisture check logging, and weighment authentication.
+              </p>
+              <div className="verify-features-list">
+                <div className="verify-feat-item">
+                  <CheckCircle2 size={16} color="#16a34a" /> Instant QR Code Gate Scanner
                 </div>
-              )
-            })}
+                <div className="verify-feat-item">
+                  <CheckCircle2 size={16} color="#16a34a" /> Real-Time Gate Entry Clearance
+                </div>
+                <div className="verify-feat-item">
+                  <CheckCircle2 size={16} color="#16a34a" /> Automated Electronic Weight &amp; Moisture Slip
+                </div>
+              </div>
+            </div>
 
-            <button className="carousel-arrow" onClick={handleNext} aria-label="Next">
-              <ChevronRight size={16} />
-            </button>
+            <div className="verify-banner-right">
+              <div className="verify-cta-card">
+                <div className="verify-card-header">
+                  <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#dcfce7', color: '#16a34a', display: 'grid', placeItems: 'center' }}>
+                    <QrCode size={20} />
+                  </div>
+                  <div>
+                    <strong>Mandi Gate Officer Desk</strong>
+                    <small>Real-Time APMC Verification</small>
+                  </div>
+                </div>
+                <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 16px', lineHeight: 1.5 }}>
+                  Verify incoming tractor trolleys, issue digital weighbridge tokens, and authenticate farmer quota.
+                </p>
+                <a
+                  className="verify-main-btn"
+                  href="/verify"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    navigate('/verify')
+                  }}
+                >
+                  <QrCode size={16} /> Open Verification Scanner →
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 

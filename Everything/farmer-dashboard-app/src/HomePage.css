@@ -423,6 +423,129 @@
 }
 
 /* ==========================================================================
+   Verification Banner Section
+   ========================================================================== */
+.verify-banner-section {
+  max-width: 1320px;
+  width: calc(100% - 32px);
+  margin: 0 auto 36px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.verify-banner-container {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f0fdf4 100%);
+  border: 1.5px solid #86efac;
+  border-radius: 20px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(13, 99, 27, 0.06);
+}
+
+.verify-banner-left h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 8px 0 10px;
+  line-height: 1.25;
+}
+
+.verify-banner-left p {
+  color: var(--ks-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.verify-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.verify-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verify-feat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.verify-cta-card {
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+
+.verify-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f2;
+}
+
+.verify-card-header strong {
+  display: block;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.verify-card-header small {
+  display: block;
+  font-size: 11.5px;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.verify-main-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0d631b 0%, #15803d 100%);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(13, 99, 27, 0.2);
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.verify-main-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(13, 99, 27, 0.28);
+}
+
+/* ==========================================================================
    Responsive Breakpoints - Tablet & Mobile
    ========================================================================== */
 @media (max-width: 990px) {
@@ -442,12 +565,10 @@
   .impact-bar > div:nth-child(3) {
     border-right: none;
   }
-  .feature-row {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  .carousel-arrow {
-    display: none;
+  .verify-banner-container {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 20px;
   }
   .trust-grid {
     grid-template-columns: 1fr 1fr;
