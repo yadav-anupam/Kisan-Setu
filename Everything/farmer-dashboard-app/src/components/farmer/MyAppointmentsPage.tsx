@@ -56,7 +56,7 @@ interface Appointment {
 
 export default function MyAppointmentsPage() {
   const { currentLang, setLanguage, languages } = useLanguage()
-  const farmer = getFarmerProfile()
+  const [farmer, setFarmer] = useState(getFarmerProfile())
 
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming')
   const [upcomingList, setUpcomingList] = useState<Appointment[]>([])
@@ -92,7 +92,7 @@ export default function MyAppointmentsPage() {
 
   const refreshAppointments = useCallback(async () => {
     try {
-      const records = await getFarmerBookings(farmer.farmerId || 'KS-FARM-2026-8942')
+      const records = await getFarmerBookings(farmer.farmerId, farmer.mobile)
       if (records && records.length > 0) {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         const transformed: Appointment[] = records.map((r) => {
@@ -124,7 +124,7 @@ export default function MyAppointmentsPage() {
     } catch {
       // ignore
     }
-  }, [farmer.farmerId])
+  }, [farmer.farmerId, farmer.mobile])
 
   useEffect(() => {
     let isMounted = true
@@ -134,7 +134,14 @@ export default function MyAppointmentsPage() {
       return
     }
 
-    getFarmerBookings(farmer.farmerId || 'KS-FARM-2026-8942').then((records) => {
+    const handleProfileUpdate = () => {
+      const updated = getFarmerProfile()
+      setFarmer(updated)
+    }
+
+    window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+
+    getFarmerBookings(farmer.farmerId, farmer.mobile).then((records) => {
       if (!isMounted) return
       if (records && records.length > 0) {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -168,8 +175,9 @@ export default function MyAppointmentsPage() {
 
     return () => {
       isMounted = false
+      window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
     }
-  }, [farmer.farmerId])
+  }, [farmer.farmerId, farmer.mobile])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

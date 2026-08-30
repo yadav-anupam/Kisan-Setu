@@ -18,6 +18,7 @@ import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
 import { useLanguage } from '../../useLanguage'
 import { loginFarmer, getAndClearRedirectAfterLogin } from '../../auth'
+import { registerFarmerAccount } from '../../services/farmerAuthService'
 import {
   ALL_PROCUREMENT_CENTRES,
   VARANASI_PROCUREMENT_CENTRES,
@@ -157,37 +158,45 @@ export default function FarmerRegisterPage() {
         return
       }
       setIsSubmitting(true)
-      setTimeout(() => {
-        const generatedId = `KS-FARM-2026-${Math.floor(1000 + Math.random() * 9000)}`
-        setFarmerId(generatedId)
-        loginFarmer({
-          name: formData.fullName || 'Ramesh Kumar Singh',
-          mobile: formData.mobile || '9214334494',
-          email: formData.email || `${formData.fullName.toLowerCase().replace(/\s+/g, '')}@email.com`,
-          dob: formData.dob || '15 March 1988',
-          gender: formData.gender || 'Male',
-          maritalStatus: formData.maritalStatus || 'Married',
-          farmerId: generatedId,
-          state: formData.state,
-          district: formData.district,
-          tehsil: formData.tehsil || 'Chiraigaon',
-          village: formData.village || 'Village Chiraigaon',
-          postOffice: formData.postOffice || 'Chiraigaon Post',
-          pincode: formData.pincode || '221112',
-          preferredMandi: formData.preferredMandi,
-          primaryProduce: formData.crop,
-          landHolding: formData.landHolding || '3.5 Acre',
-          khasraNo: formData.khasraNo || '142/3',
-          experience: formData.experience || '12 Years',
-          farmerType: formData.landCategory || 'Small Farmer (Marginal)',
-          bankAccount: formData.accountNumber || 'XXXX-XXXX-4321',
-          bankName: formData.bankName || 'State Bank of India',
-          ifscCode: formData.ifsc || 'SBIN0001234',
-          vehicleNumber: formData.vehicleNumber || 'UP-65-TC-8942',
-        })
+      
+      const payload = {
+        name: formData.fullName || 'Registered Farmer',
+        mobile: formData.mobile,
+        email: formData.email || `${(formData.fullName || 'farmer').toLowerCase().replace(/\s+/g, '')}@email.com`,
+        dob: formData.dob || '15 March 1988',
+        gender: formData.gender || 'Male',
+        maritalStatus: formData.maritalStatus || 'Married',
+        state: formData.state,
+        district: formData.district,
+        tehsil: formData.tehsil || 'Chiraigaon',
+        village: formData.village || 'Village Chiraigaon',
+        postOffice: formData.postOffice || 'Chiraigaon Post',
+        pincode: formData.pincode || '221112',
+        preferredMandi: formData.preferredMandi,
+        primaryProduce: formData.crop,
+        landHolding: formData.landHolding || '3.50 Acre',
+        khasraNo: formData.khasraNo || '142/3',
+        experience: formData.experience || '12 Years',
+        farmerType: formData.landCategory || 'Small Farmer (Marginal)',
+        bankAccount: formData.accountNumber || 'XXXX-XXXX-4321',
+        bankName: formData.bankName || 'State Bank of India',
+        ifscCode: formData.ifsc || 'SBIN0001234',
+        vehicleNumber: formData.vehicleNumber || 'UP-65-TC-8942',
+      }
+
+      registerFarmerAccount(payload, formData.pin).then((res) => {
         setIsSubmitting(false)
-        setStep(4)
-      }, 900)
+        if (res.success && res.farmer) {
+          setFarmerId(res.farmer.farmerId)
+          loginFarmer(res.farmer)
+          setStep(4)
+        } else {
+          alert(res.message || 'Registration error. Please check your details.')
+        }
+      }).catch((err) => {
+        setIsSubmitting(false)
+        alert(err?.message || 'Registration failed. Please try again.')
+      })
     }
   }
 

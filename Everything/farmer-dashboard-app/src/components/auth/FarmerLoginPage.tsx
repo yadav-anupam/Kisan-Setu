@@ -23,6 +23,10 @@ import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
 import { useLanguage } from '../../useLanguage'
 import { loginFarmer, getAndClearRedirectAfterLogin, hasPendingRedirect } from '../../auth'
+import {
+  authenticateFarmerWithBackend,
+  authenticateFarmerWithOtp,
+} from '../../services/farmerAuthService'
 import './FarmerLoginPage.css'
 
 export default function FarmerLoginPage() {
@@ -34,6 +38,7 @@ export default function FarmerLoginPage() {
   const [mobile, setMobile] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   // OTP State
   const [otpSent, setOtpSent] = useState(false)
@@ -86,33 +91,67 @@ export default function FarmerLoginPage() {
 
   const handleSendOtp = () => {
     if (!mobile || mobile.length < 10) {
-      alert('Please enter a valid 10-digit mobile number')
+      setErrorMessage('Please enter a valid 10-digit mobile number')
       return
     }
+    setErrorMessage('')
     setIsSubmitting(true)
     setTimeout(() => {
       setOtpSent(true)
       setTimer(30)
-      setOtpDigits(['1', '2', '3', '4', '5', '6']) // Pre-fill mock OTP for easy testing
+      setOtpDigits(['1', '2', '3', '4', '5', '6']) // Pre-fill OTP
       setIsSubmitting(false)
-    }, 600)
+    }, 500)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrorMessage('')
     setIsSubmitting(true)
 
-    setTimeout(() => {
-      loginFarmer({ mobile: mobile || '9214334494', name: 'Ramesh Kumar Singh' })
+    try {
+      if (mode === 'password') {
+        const res = await authenticateFarmerWithBackend(mobile, password)
+        setIsSubmitting(false)
+        if (res.success && res.farmer) {
+          loginFarmer(res.farmer)
+          const targetUrl = getAndClearRedirectAfterLogin()
+          navigate(targetUrl)
+        } else {
+          setErrorMessage(res.message || 'Invalid mobile number or 6-digit PIN.')
+        }
+      } else {
+        const otpStr = otpDigits.join('')
+        const res = await authenticateFarmerWithOtp(mobile, otpStr)
+        setIsSubmitting(false)
+        if (res.success && res.farmer) {
+          loginFarmer(res.farmer)
+          const targetUrl = getAndClearRedirectAfterLogin()
+          navigate(targetUrl)
+        } else {
+          setErrorMessage(res.message || 'OTP verification failed.')
+        }
+      }
+    } catch (err: any) {
       setIsSubmitting(false)
-      const targetUrl = getAndClearRedirectAfterLogin()
-      navigate(targetUrl)
-    }, 600)
+      setErrorMessage(err?.message || 'Login failed. Please check your network and credentials.')
+    }
   }
 
-  const handleQuickFillDemo = () => {
+  const handleQuickFillFarmerA = () => {
     setMobile('9214334494')
     setPassword('123456')
+    setErrorMessage('')
+    if (mode === 'otp') {
+      setOtpSent(true)
+      setOtpDigits(['1', '2', '3', '4', '5', '6'])
+    }
+  }
+
+  const handleQuickFillFarmerB = () => {
+    setMobile('9876543210')
+    setPassword('123456')
+    setErrorMessage('')
     if (mode === 'otp') {
       setOtpSent(true)
       setOtpDigits(['1', '2', '3', '4', '5', '6'])
@@ -291,6 +330,12 @@ export default function FarmerLoginPage() {
 
             {/* Login Forms */}
             <form onSubmit={handleSubmit} className="fl-form">
+              {errorMessage && (
+                <div style={{ background: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', borderRadius: '10px', padding: '10px 12px', fontSize: '12.5px', marginBottom: '12px', lineHeight: 1.4 }}>
+                  ⚠️ {errorMessage}
+                </div>
+              )}
+
               {/* Mobile Number Field */}
               <div className="fl-field">
                 <label>{fl.mobileLabel} *</label>
@@ -419,15 +464,31 @@ export default function FarmerLoginPage() {
             </form>
 
             {/* Quick Demo Pre-fill Box */}
-            <div className="fl-demo-box">
-              <span>{fl.demoFarmer}</span>
-              <button
-                type="button"
-                className="fl-demo-fill-btn"
-                onClick={handleQuickFillDemo}
-              >
-                {fl.quickFill}
-              </button>
+            <div className="fl-demo-box" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>{fl.demoFarmer}</span>
+                <span style={{ fontSize: '11px', color: '#64748b' }}>PIN: 123456</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                <button
+                  type="button"
+                  className="fl-demo-fill-btn"
+                  onClick={handleQuickFillFarmerA}
+                  title="Farmer A: Ramesh Kumar Singh (9214334494)"
+                  style={{ textAlign: 'center', padding: '6px 8px' }}
+                >
+                  🌾 Farmer A (Ramesh)
+                </button>
+                <button
+                  type="button"
+                  className="fl-demo-fill-btn"
+                  onClick={handleQuickFillFarmerB}
+                  title="Farmer B: Suresh Patel (9876543210)"
+                  style={{ textAlign: 'center', padding: '6px 8px', background: '#eff6ff', borderColor: '#bfdbfe', color: '#1d4ed8' }}
+                >
+                  🚜 Farmer B (Suresh)
+                </button>
+              </div>
             </div>
 
             {/* Bottom Links */}

@@ -63,9 +63,9 @@ export function isFarmerLoggedIn(): boolean {
 
 export function loginFarmer(profile?: Partial<FarmerProfile>): void {
   localStorage.setItem(AUTH_STORAGE_KEY, 'true')
-  const mergedProfile = { ...DEFAULT_FARMER, ...(profile || {}) }
-  localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(mergedProfile))
-  window.dispatchEvent(new CustomEvent('kisan_setu_profile_updated', { detail: mergedProfile }))
+  const baseProfile = profile?.name ? profile as FarmerProfile : { ...DEFAULT_FARMER, ...(profile || {}) }
+  localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(baseProfile))
+  window.dispatchEvent(new CustomEvent('kisan_setu_profile_updated', { detail: baseProfile }))
 }
 
 export function updateFarmerProfile(updates: Partial<FarmerProfile>): FarmerProfile {
@@ -80,6 +80,8 @@ export function logoutFarmer(): void {
   localStorage.removeItem(AUTH_STORAGE_KEY)
   localStorage.removeItem(PROFILE_STORAGE_KEY)
   sessionStorage.removeItem(REDIRECT_STORAGE_KEY)
+  window.dispatchEvent(new CustomEvent('kisan_setu_profile_updated', { detail: null }))
+  window.dispatchEvent(new CustomEvent('kisan_setu_farmer_logged_out', {}))
 }
 
 export function getFarmerProfile(): FarmerProfile {

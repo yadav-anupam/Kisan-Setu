@@ -226,19 +226,35 @@ export async function createSlotBooking(params: {
 
 /**
  * 2. BACKEND -> FRONTEND:
- * Fetches farmer bookings directly from live Supabase.
+ * Fetches farmer bookings directly from live Supabase strictly for the specified farmer.
  */
-export async function getFarmerBookings(farmerId: string): Promise<BookingRecord[]> {
+export async function getFarmerBookings(farmerId: string, farmerPhone?: string): Promise<BookingRecord[]> {
+  if (!farmerId && !farmerPhone) {
+    return []
+  }
+
   const supabase = getSupabaseClient()
   if (supabase) {
     try {
-      const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .order('created_at', { ascending: false })
+      let query = supabase.from('bookings').select('*')
+      if (farmerId && farmerPhone) {
+        query = query.or(`farmer_id.eq.${farmerId},farmer_phone.eq.${farmerPhone}`)
+      } else if (farmerId) {
+        query = query.eq('farmer_id', farmerId)
+      } else if (farmerPhone) {
+        query = query.eq('farmer_phone', farmerPhone)
+      }
 
-      if (!error && data && data.length > 0) {
-        saveLocalBookingsCache(data as BookingRecord[])
+      const { data, error } = await query.order('created_at', { ascending: false })
+
+      if (!error && data) {
+        // Merge into local cache without overwriting other farmers' local records
+        const local = getLocalBookingsCache()
+        const otherFarmers = local.filter(
+          (b) => b.farmer_id !== farmerId && (!farmerPhone || b.farmer_phone !== farmerPhone)
+        )
+        const updatedCache = [...(data as BookingRecord[]), ...otherFarmers]
+        saveLocalBookingsCache(updatedCache)
         return data as BookingRecord[]
       }
     } catch {
@@ -246,9 +262,12 @@ export async function getFarmerBookings(farmerId: string): Promise<BookingRecord
     }
   }
 
-  return getLocalBookingsCache().filter(
-    (b) => b.farmer_id === farmerId || b.farmer_name.toLowerCase().includes('ramesh')
-  )
+  // Strict local cache filtering
+  return getLocalBookingsCache().filter((b) => {
+    if (farmerId && b.farmer_id === farmerId) return true
+    if (farmerPhone && b.farmer_phone && b.farmer_phone === farmerPhone) return true
+    return false
+  })
 }
 
 /**

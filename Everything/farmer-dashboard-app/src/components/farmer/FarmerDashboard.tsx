@@ -64,13 +64,19 @@ import './FarmerDashboard.css'
 
 export default function FarmerDashboard() {
   const { currentLang, setLanguage, languages } = useLanguage()
-  const farmer = getFarmerProfile()
+  const [farmer, setFarmer] = useState(getFarmerProfile())
 
   useEffect(() => {
     if (!isFarmerLoggedIn()) {
       setRedirectAfterLogin('/farmer-dashboard')
       navigate('/login')
     }
+
+    const handleProfileUpdate = () => {
+      setFarmer(getFarmerProfile())
+    }
+    window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+    return () => window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
   }, [])
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
@@ -165,13 +171,14 @@ export default function FarmerDashboard() {
   }
 
   const loadAllDashboardData = useCallback(() => {
-    const fId = farmer.farmerId || 'KS-FARM-2026-8942'
+    const fId = farmer.farmerId
+    const phone = farmer.mobile
     Promise.all([
-      fetchDashboardMetrics(fId),
+      fetchDashboardMetrics(fId, phone),
       fetchProcurementsFromDB(fId),
       fetchDbtPaymentsFromDB(fId),
       fetchNotificationsFromDB(fId),
-      getFarmerBookings(fId),
+      getFarmerBookings(fId, phone),
     ]).then(async ([m, p, pay, notif, books]) => {
       setMetrics(m)
       setProcurements(p)
@@ -198,11 +205,12 @@ export default function FarmerDashboard() {
         setMandiStatus(status)
       }
     }).catch(() => {})
-  }, [farmer.farmerId, farmer.preferredMandi])
+  }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi])
 
   useEffect(() => {
     let isMounted = true
-    const fId = farmer.farmerId || 'KS-FARM-2026-8942'
+    const fId = farmer.farmerId
+    const phone = farmer.mobile
 
     // Automatically load real weather (GPS first, fallback to district)
     getAutoLiveWeather(farmer.district || 'Varanasi', (fresh) => {
@@ -212,44 +220,51 @@ export default function FarmerDashboard() {
     }).catch(() => {})
 
     Promise.all([
-      fetchDashboardMetrics(fId),
+      fetchDashboardMetrics(fId, phone),
       fetchProcurementsFromDB(fId),
       fetchDbtPaymentsFromDB(fId),
       fetchNotificationsFromDB(fId),
-      getFarmerBookings(fId),
+      getFarmerBookings(fId, phone),
     ]).then(async ([m, p, pay, notif, books]) => {
-      if (isMounted) {
-        setMetrics(m)
-        setProcurements(p)
-        setPayments(pay)
-        setNotifications(notif)
-        
-        const active = books?.find((b) => b.status === 'CONFIRMED' && b.verification_status !== 'VERIFIED')
-        if (active) {
-          setAppointment({
-            id: active.id,
-            date: active.booking_date,
-            time: active.start_time,
-            centre: active.centre_name,
-            crop: active.commodity,
-            quantity: active.quantity.toString(),
-            token: active.token_number,
-            status: 'Upcoming',
-          })
-          const status = await fetchMandiLiveStatusFromDB(active.centre_name, active.booking_date, active.token_number)
-          if (isMounted) setMandiStatus(status)
-        } else {
-          setAppointment(null)
-          const status = await fetchMandiLiveStatusFromDB(farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
-          if (isMounted) setMandiStatus(status)
-        }
+      if (!isMounted) return
+      setMetrics(m)
+      setProcurements(p)
+      setPayments(pay)
+      setNotifications(notif)
+
+      const active = books?.find((b) => b.status === 'CONFIRMED' && b.verification_status !== 'VERIFIED')
+      if (active) {
+        setAppointment({
+          id: active.id,
+          date: active.booking_date,
+          time: active.start_time,
+          centre: active.centre_name,
+          crop: active.commodity,
+          quantity: active.quantity.toString(),
+          token: active.token_number,
+          status: 'Upcoming',
+        })
+        const status = await fetchMandiLiveStatusFromDB(active.centre_name, active.booking_date, active.token_number)
+        if (isMounted) setMandiStatus(status)
+      } else {
+        setAppointment(null)
+        const status = await fetchMandiLiveStatusFromDB(farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
+        if (isMounted) setMandiStatus(status)
       }
     }).catch(() => {})
 
+    const handleBookingUpdate = () => {
+      loadAllDashboardData()
+    }
+    window.addEventListener('kisan_setu_booking_updated', handleBookingUpdate)
+    window.addEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
+
     return () => {
       isMounted = false
+      window.removeEventListener('kisan_setu_booking_updated', handleBookingUpdate)
+      window.removeEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
     }
-  }, [farmer.farmerId, farmer.district, farmer.preferredMandi])
+  }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi, farmer.district, loadAllDashboardData])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

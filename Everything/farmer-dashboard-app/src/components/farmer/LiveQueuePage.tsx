@@ -46,24 +46,23 @@ interface MandiBay {
 
 export default function LiveQueuePage() {
   const { currentLang, setLanguage, languages } = useLanguage()
-  const farmer = getFarmerProfile()
+  const [farmer, setFarmer] = useState(getFarmerProfile())
 
+  const [activeBooking, setActiveBooking] = useState<BookingRecord | null>(null)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [passModalOpen, setPassModalOpen] = useState(false)
   const [mapModalOpen, setMapModalOpen] = useState(false)
-  const [smsNotify, setSmsNotify] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const [smsNotify, setSmsNotify] = useState(true)
   const [mlData, setMlData] = useState<AIAnalysisResponse | null>(null)
-  const [activeBooking, setActiveBooking] = useState<BookingRecord | null>(null)
 
   const [mandiStatus, setMandiStatus] = useState<DbMandiLiveStatus>({
-    id: ALL_PROCUREMENT_CENTRES[0].id,
     mandi_id: ALL_PROCUREMENT_CENTRES[0].id,
-    mandi_name: farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName,
+    mandi_name: ALL_PROCUREMENT_CENTRES[0].centreName,
     current_serving_token: 'Yard Clear',
-    active_counters: 4,
     queue_length: 0,
+    active_counters: 4,
     avg_service_time_mins: 5.5,
     congestion_level: 'LOW',
     updated_at: new Date().toISOString(),
@@ -72,9 +71,10 @@ export default function LiveQueuePage() {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const loadData = useCallback(async () => {
-    const fId = farmer.farmerId || 'KS-FARM-2026-8942'
+    const fId = farmer.farmerId
+    const phone = farmer.mobile
     try {
-      const bookings = await getFarmerBookings(fId)
+      const bookings = await getFarmerBookings(fId, phone)
       const active = bookings?.find((b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED') || null
       setActiveBooking(active)
 
@@ -93,7 +93,7 @@ export default function LiveQueuePage() {
     } catch {
       // ignore
     }
-  }, [farmer.farmerId, farmer.preferredMandi])
+  }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi])
 
   useEffect(() => {
     let isMounted = true
@@ -102,9 +102,16 @@ export default function LiveQueuePage() {
       navigate('/login')
       return
     }
-    const fId = farmer.farmerId || 'KS-FARM-2026-8942'
 
-    getFarmerBookings(fId).then(async (bookings) => {
+    const handleProfileUpdate = () => {
+      setFarmer(getFarmerProfile())
+    }
+    window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+
+    const fId = farmer.farmerId
+    const phone = farmer.mobile
+
+    getFarmerBookings(fId, phone).then(async (bookings) => {
       if (!isMounted) return
       const active = bookings?.find((b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED') || null
       setActiveBooking(active)
@@ -127,10 +134,19 @@ export default function LiveQueuePage() {
       }
     }).catch(() => {})
 
+    const handleBookingUpdate = () => {
+      loadData()
+    }
+    window.addEventListener('kisan_setu_booking_updated', handleBookingUpdate)
+    window.addEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
+
     return () => {
       isMounted = false
+      window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+      window.removeEventListener('kisan_setu_booking_updated', handleBookingUpdate)
+      window.removeEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
     }
-  }, [farmer.farmerId, farmer.preferredMandi])
+  }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi, loadData])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

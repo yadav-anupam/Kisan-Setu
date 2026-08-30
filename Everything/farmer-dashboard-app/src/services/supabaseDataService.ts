@@ -395,11 +395,11 @@ export async function markNotificationAsReadInDB(notificationId: string): Promis
 // -----------------------------------------------------------------------------
 // 6. DASHBOARD AGGREGATED METRICS (Calculated live from DB rows)
 // -----------------------------------------------------------------------------
-export async function fetchDashboardMetrics(farmerId: string): Promise<DashboardAggregatedMetrics> {
+export async function fetchDashboardMetrics(farmerId: string, farmerPhone?: string): Promise<DashboardAggregatedMetrics> {
   const [procurements, dbtPayments, bookings] = await Promise.all([
     fetchProcurementsFromDB(farmerId),
     fetchDbtPaymentsFromDB(farmerId),
-    getFarmerBookings(farmerId),
+    getFarmerBookings(farmerId, farmerPhone),
   ])
 
   const totalProcuredQtl = procurements.reduce((sum, p) => sum + (Number(p.net_weight_qtl) || 0), 0)
