@@ -14,8 +14,22 @@
     <meta name="apple-mobile-web-app-title" content="Kisan Setu" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     
+    <!-- Single Page Apps Route Restoration for GitHub Pages / Static Hosting -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+
     <title>Kisan Setu - Agri-Trust Procurement Platform</title>
-    <script type="module" crossorigin src="./assets/index-DopCmntN.js"></script>
+    <script type="module" crossorigin src="./assets/index-CPPUjYfV.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-C-0sZgX5.css">
   </head>
   <body>
