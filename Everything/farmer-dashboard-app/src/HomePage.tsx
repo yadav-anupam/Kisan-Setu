@@ -1,7 +1,6 @@
 import {
   CalendarCheck,
   Check,
-  CheckCircle2,
   CircleDollarSign,
   Clock3,
   LogIn,
@@ -108,59 +107,6 @@ export default function HomePage() {
               <small>{label}</small>
             </div>
           ))}
-        </section>
-
-        {/* Verification & Gate Pass Section */}
-        <section className="verify-banner-section" id="verify">
-          <div className="verify-banner-container">
-            <div className="verify-banner-left">
-              <div className="verify-badge">
-                <ShieldCheck size={15} /> APMC Mandi Gate &amp; Token Verification
-              </div>
-              <h2>Verify Gate Pass, Weighment Slips &amp; Farmer Tokens</h2>
-              <p>
-                Staff officers and gate operators can scan QR codes or enter token numbers for instant gate clearance, moisture check logging, and weighment authentication.
-              </p>
-              <div className="verify-features-list">
-                <div className="verify-feat-item">
-                  <CheckCircle2 size={16} color="#16a34a" /> Instant QR Code Gate Scanner
-                </div>
-                <div className="verify-feat-item">
-                  <CheckCircle2 size={16} color="#16a34a" /> Real-Time Gate Entry Clearance
-                </div>
-                <div className="verify-feat-item">
-                  <CheckCircle2 size={16} color="#16a34a" /> Automated Electronic Weight &amp; Moisture Slip
-                </div>
-              </div>
-            </div>
-
-            <div className="verify-banner-right">
-              <div className="verify-cta-card">
-                <div className="verify-card-header">
-                  <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#dcfce7', color: '#16a34a', display: 'grid', placeItems: 'center' }}>
-                    <QrCode size={20} />
-                  </div>
-                  <div>
-                    <strong>Mandi Gate Officer Desk</strong>
-                    <small>Real-Time APMC Verification</small>
-                  </div>
-                </div>
-                <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 16px', lineHeight: 1.5 }}>
-                  Verify incoming tractor trolleys, issue digital weighbridge tokens, and authenticate farmer quota.
-                </p>
-                <a
-                  className="verify-main-btn"
-                  href="/verify"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    navigate('/verify')
-                  }}
-                >
-                  <QrCode size={16} /> Open Verification Scanner →
-                </a>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* Trust & Transparency */}
