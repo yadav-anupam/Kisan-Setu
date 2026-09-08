@@ -840,7 +840,7 @@ export async function updateStaffPassword(
 // -----------------------------------------------------------------------------
 // 2. DASHBOARD KPI METRICS
 // -----------------------------------------------------------------------------
-export async function fetchStaffDashboardKPIs(_centreId = 'centre-up-vns-01'): Promise<StaffDashboardKPIs> {
+export async function fetchStaffDashboardKPIs(_centreId = 'centre-up-vns-01', centreName?: string): Promise<StaffDashboardKPIs> {
   const supabase = getSupabaseClient()
   let bookings: any[] = []
 
@@ -866,6 +866,18 @@ export async function fetchStaffDashboardKPIs(_centreId = 'centre-up-vns-01'): P
     }
   }
 
+  const staff = getStaffAuthSession()
+  const filterMandi = centreName || (staff.role !== 'ADMIN' ? staff.centre_name : undefined)
+  if (filterMandi && filterMandi !== 'ALL') {
+    const lower = filterMandi.toLowerCase()
+    bookings = bookings.filter(
+      (b) =>
+        !b.centre_name ||
+        b.centre_name.toLowerCase().includes(lower) ||
+        lower.includes(b.centre_name.toLowerCase())
+    )
+  }
+
   const todayBookings = bookings.length
   const todayVerified = bookings.filter((b) => b.verification_status === 'VERIFIED').length
   const pendingVerification = bookings.filter((b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED').length
@@ -884,7 +896,7 @@ export async function fetchStaffDashboardKPIs(_centreId = 'centre-up-vns-01'): P
 // -----------------------------------------------------------------------------
 // 3. CENTRE SLOTS TIMETABLE
 // -----------------------------------------------------------------------------
-export async function fetchCentreSlots(centreId = 'centre-up-vns-01', _date?: string): Promise<CentreSlot[]> {
+export async function fetchCentreSlots(centreId = 'centre-up-vns-01', _date?: string, centreName?: string): Promise<CentreSlot[]> {
   const supabase = getSupabaseClient()
   let bookings: any[] = []
 
@@ -914,7 +926,17 @@ export async function fetchCentreSlots(centreId = 'centre-up-vns-01', _date?: st
 
   const today = _date || new Date().toISOString().split('T')[0]
   const staff = getStaffAuthSession()
-  const centreName = staff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)'
+  const activeCentreName = centreName || staff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)'
+
+  if (activeCentreName && activeCentreName !== 'ALL') {
+    const lower = activeCentreName.toLowerCase()
+    bookings = bookings.filter(
+      (b) =>
+        !b.centre_name ||
+        b.centre_name.toLowerCase().includes(lower) ||
+        lower.includes(b.centre_name.toLowerCase())
+    )
+  }
 
   const timeSlots = [
     { start: '08:00 AM', end: '09:00 AM', capacity: 40 },
@@ -933,7 +955,7 @@ export async function fetchCentreSlots(centreId = 'centre-up-vns-01', _date?: st
     return {
       id: `slot-${idx + 1}`,
       centre_id: centreId,
-      centre_name: centreName,
+      centre_name: activeCentreName,
       slot_date: today,
       start_time: ts.start,
       end_time: ts.end,
@@ -948,7 +970,7 @@ export async function fetchCentreSlots(centreId = 'centre-up-vns-01', _date?: st
 // -----------------------------------------------------------------------------
 // 4. QUEUE MANAGEMENT
 // -----------------------------------------------------------------------------
-export async function fetchCentreQueue(centreId = 'centre-up-vns-01'): Promise<QueueItem[]> {
+export async function fetchCentreQueue(centreId = 'centre-up-vns-01', centreName?: string): Promise<QueueItem[]> {
   const supabase = getSupabaseClient()
   if (supabase) {
     try {
@@ -971,6 +993,19 @@ export async function fetchCentreQueue(centreId = 'centre-up-vns-01'): Promise<Q
     bookings = (await getFarmerBookings('')) as any[]
   } catch {
     // ignore
+  }
+
+  const staff = getStaffAuthSession()
+  const activeCentreName = centreName || (staff.role !== 'ADMIN' ? staff.centre_name : undefined)
+
+  if (activeCentreName && activeCentreName !== 'ALL') {
+    const lower = activeCentreName.toLowerCase()
+    bookings = bookings.filter(
+      (b) =>
+        !b.centre_name ||
+        b.centre_name.toLowerCase().includes(lower) ||
+        lower.includes(b.centre_name.toLowerCase())
+    )
   }
 
   const activeBookings = bookings.filter((b) => b.status !== 'CANCELLED')
@@ -1023,6 +1058,7 @@ export interface StaffBookingFilter {
   verificationFilter?: string
   commodityFilter?: string
   searchQuery?: string
+  centreName?: string
 }
 
 export async function fetchCentreBookings(_centreId = 'centre-up-vns-01', filters?: StaffBookingFilter) {
@@ -1055,6 +1091,18 @@ export async function fetchCentreBookings(_centreId = 'centre-up-vns-01', filter
     }
   }
 
+  const staff = getStaffAuthSession()
+  const filterMandi = filters?.centreName || (staff.role !== 'ADMIN' ? staff.centre_name : undefined)
+  if (filterMandi && filterMandi !== 'ALL') {
+    const lower = filterMandi.toLowerCase()
+    bookings = bookings.filter(
+      (b) =>
+        !b.centre_name ||
+        b.centre_name.toLowerCase().includes(lower) ||
+        lower.includes(b.centre_name.toLowerCase())
+    )
+  }
+
   // Filter pipeline
   if (filters) {
     if (filters.statusFilter && filters.statusFilter !== 'all') {
@@ -1083,7 +1131,8 @@ export async function fetchCentreBookings(_centreId = 'centre-up-vns-01', filter
 // -----------------------------------------------------------------------------
 export async function fetchFarmersDirectory(
   _centreId = 'centre-up-vns-01',
-  searchQuery = ''
+  searchQuery = '',
+  centreName?: string
 ): Promise<FarmerDirectoryItem[]> {
   const supabase = getSupabaseClient()
   let farmersList: FarmerDirectoryItem[] = []
@@ -1134,6 +1183,13 @@ export async function fetchFarmersDirectory(
     } catch {
       // ignore
     }
+  }
+
+  const staff = getStaffAuthSession()
+  const filterMandi = centreName || (staff.role !== 'ADMIN' ? staff.centre_name : undefined)
+  if (filterMandi && filterMandi !== 'ALL') {
+    // Keep farmers for this mandi
+    farmersList = farmersList.filter((f) => f.village?.toLowerCase().includes('chiraigaon') || f.district === 'Varanasi')
   }
 
   if (searchQuery.trim()) {
@@ -1521,14 +1577,29 @@ export interface ProcurementBatchItem {
 
 const PROCUREMENT_BATCHES_STORAGE_KEY = 'kisan_setu_procurement_batches_vault'
 
-export function getProcurementBatches(): ProcurementBatchItem[] {
+export function getProcurementBatches(centreName?: string): ProcurementBatchItem[] {
+  let list: ProcurementBatchItem[] = []
   try {
     const raw = localStorage.getItem(PROCUREMENT_BATCHES_STORAGE_KEY)
-    if (raw) return JSON.parse(raw)
+    if (raw) list = JSON.parse(raw)
   } catch {
     // ignore
   }
-  return []
+
+  const staff = getStaffAuthSession()
+  const filterMandi = centreName || (staff.role !== 'ADMIN' ? staff.centre_name : undefined)
+
+  if (filterMandi && filterMandi !== 'ALL') {
+    const lower = filterMandi.toLowerCase()
+    return list.filter(
+      (b) =>
+        !b.centre_name ||
+        b.centre_name.toLowerCase().includes(lower) ||
+        lower.includes(b.centre_name.toLowerCase())
+    )
+  }
+
+  return list
 }
 
 export async function fetchProcurementBatchesFromDB(): Promise<ProcurementBatchItem[]> {

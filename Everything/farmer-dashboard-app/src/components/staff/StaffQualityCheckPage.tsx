@@ -45,7 +45,7 @@ export default function StaffQualityCheckPage() {
   const loadData = useCallback(() => {
     const s = getStaffAuthSession()
     setStaff(s)
-    const list = getProcurementBatches()
+    const list = getProcurementBatches(s.centre_name)
     setBatches(list)
     if (list.length > 0 && !selectedBatch) {
       setSelectedBatch(list[0])

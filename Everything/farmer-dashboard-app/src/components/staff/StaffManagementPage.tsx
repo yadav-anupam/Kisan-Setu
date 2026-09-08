@@ -202,13 +202,21 @@ export default function StaffManagementPage() {
     }
   }
 
+  const isSuperAdmin = (currentStaff.role === 'ADMIN' && isAdmin)
+  const currentMandiName = currentStaff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)'
+
   const handleAppointSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setFormError('')
     setIsSubmitting(true)
 
+    const targetCentreName = isSuperAdmin ? formMandi : currentMandiName
     const matchedCentre =
-      ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === formMandi) || ALL_PROCUREMENT_CENTRES[0]
+      ALL_PROCUREMENT_CENTRES.find((c) => c.centreName.toLowerCase() === targetCentreName.toLowerCase()) ||
+      ALL_PROCUREMENT_CENTRES[0]
+
+    const centreIdToUse = isSuperAdmin ? matchedCentre.id : (currentStaff.centre_id || matchedCentre.id)
+    const centreNameToUse = isSuperAdmin ? matchedCentre.centreName : currentMandiName
 
     try {
       const res = await appointStaffOfficer({
@@ -216,8 +224,8 @@ export default function StaffManagementPage() {
         email,
         mobile,
         role,
-        centre_id: matchedCentre.id,
-        centre_name: matchedCentre.centreName,
+        centre_id: centreIdToUse,
+        centre_name: centreNameToUse,
         designation,
         section: formSection,
         shift,
@@ -229,7 +237,7 @@ export default function StaffManagementPage() {
       setIsSubmitting(false)
       if (res.success && res.staff) {
         setSuccessMsg(
-          `Staff Officer ${res.staff.full_name} (${res.staff.staff_id}) successfully appointed in ${formSection.replace('_', ' ')} at ${matchedCentre.centreName}.`
+          `Staff Officer ${res.staff.full_name} (${res.staff.staff_id}) successfully appointed in ${formSection.replace('_', ' ')} at ${centreNameToUse}.`
         )
         setFullName('')
         setEmail('')
@@ -262,8 +270,19 @@ export default function StaffManagementPage() {
     }
   }
 
-  // Filtered List
-  const filteredStaff = staffList.filter((s) => {
+  // Scoped Staff List (Strict Mandi Isolation for Centre Admin)
+  const scopedStaffList = isSuperAdmin
+    ? (selectedMandiFilter === 'ALL'
+        ? staffList
+        : staffList.filter((s) => s.centre_name.toLowerCase() === selectedMandiFilter.toLowerCase()))
+    : staffList.filter(
+        (s) =>
+          s.centre_name.toLowerCase().includes(currentMandiName.toLowerCase()) ||
+          currentMandiName.toLowerCase().includes(s.centre_name.toLowerCase())
+      )
+
+  // Filtered List by Search & Section
+  const filteredStaff = scopedStaffList.filter((s) => {
     const q = searchQuery.toLowerCase().trim()
     const matchesSearch =
       !q ||
@@ -273,13 +292,10 @@ export default function StaffManagementPage() {
       s.centre_name.toLowerCase().includes(q) ||
       s.designation.toLowerCase().includes(q)
 
-    const matchesMandi =
-      selectedMandiFilter === 'ALL' || s.centre_name.toLowerCase() === selectedMandiFilter.toLowerCase()
-
     const matchesSection =
       selectedSectionFilter === 'ALL' || s.section === selectedSectionFilter
 
-    return matchesSearch && matchesMandi && matchesSection
+    return matchesSearch && matchesSection
   })
 
   // Group by Section
@@ -421,38 +437,52 @@ export default function StaffManagementPage() {
               boxShadow: '0 2px 6px rgba(0, 0, 0, 0.02)',
             }}
           >
-            {/* Left Filter: Mandi Selector */}
+            {/* Left Filter: Mandi Selector (Statewide Super Admin) or Locked Mandi Badge (Centre Admin) */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1', minWidth: '300px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '13px', whiteSpace: 'nowrap' }}>
-                <Building2 size={16} color="#15803d" /> Registered Mandi:
-              </div>
-              <select
-                value={selectedMandiFilter}
-                onChange={(e) => setSelectedMandiFilter(e.target.value)}
-                style={{
-                  height: '38px',
-                  padding: '0 12px',
-                  borderRadius: '8px',
-                  border: '1.5px solid #cbd5e1',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#0f172a',
-                  background: '#f8fafc',
-                  outline: 'none',
-                  flex: 1,
-                  maxWidth: '420px',
-                }}
-              >
-                <option value="ALL">All Registered Mandis ({staffList.length} Officers)</option>
-                {availableMandisInRoster.map((mandi) => {
-                  const count = staffList.filter((s) => s.centre_name === mandi).length
-                  return (
-                    <option key={mandi} value={mandi}>
-                      {mandi} ({count} Staff)
-                    </option>
-                  )
-                })}
-              </select>
+              {isSuperAdmin ? (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '13px', whiteSpace: 'nowrap' }}>
+                    <Building2 size={16} color="#15803d" /> Registered Mandi:
+                  </div>
+                  <select
+                    value={selectedMandiFilter}
+                    onChange={(e) => setSelectedMandiFilter(e.target.value)}
+                    style={{
+                      height: '38px',
+                      padding: '0 12px',
+                      borderRadius: '8px',
+                      border: '1.5px solid #cbd5e1',
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      color: '#0f172a',
+                      background: '#f8fafc',
+                      outline: 'none',
+                      flex: 1,
+                      maxWidth: '420px',
+                    }}
+                  >
+                    <option value="ALL">All Registered Mandis ({staffList.length} Officers)</option>
+                    {availableMandisInRoster.map((mandi) => {
+                      const count = staffList.filter((s) => s.centre_name === mandi).length
+                      return (
+                        <option key={mandi} value={mandi}>
+                          {mandi} ({count} Staff)
+                        </option>
+                      )
+                    })}
+                  </select>
+                </>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f0fdf4', border: '1.5px solid #bbf7d0', padding: '6px 14px', borderRadius: '10px', flexWrap: 'wrap' }}>
+                  <Building2 size={16} color="#15803d" />
+                  <span style={{ fontSize: '13px', fontWeight: 800, color: '#166534' }}>
+                    {currentMandiName}
+                  </span>
+                  <span style={{ fontSize: '11px', background: '#dcfce7', color: '#14532d', padding: '2px 8px', borderRadius: '99px', fontWeight: 700 }}>
+                    🔒 Assigned Mandi ({scopedStaffList.length} Officers)
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Middle Search Input */}
@@ -598,12 +628,12 @@ export default function StaffManagementPage() {
                   fontWeight: 700,
                 }}
               >
-                {staffList.length}
+                {scopedStaffList.length}
               </span>
             </button>
 
             {MANDI_SECTIONS.map((sec) => {
-              const count = staffList.filter((s) => (s.section || 'GATE_INTAKE') === sec.id).length
+              const count = scopedStaffList.filter((s) => (s.section || 'GATE_INTAKE') === sec.id).length
               const isSelected = selectedSectionFilter === sec.id
               const IconComp = sec.icon
 
@@ -1148,42 +1178,74 @@ export default function StaffManagementPage() {
               {/* 1. Mandi Selection */}
               <div style={{ marginBottom: '14px' }}>
                 <label style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', display: 'block', marginBottom: '6px' }}>
-                  Registered APMC Procurement Mandi *
+                  Registered APMC Procurement Mandi {isSuperAdmin ? '*' : '(Assigned Centre)'}
                 </label>
-                <select
-                  value={formMandi}
-                  onChange={(e) => setFormMandi(e.target.value)}
-                  style={{ width: '100%', height: '40px', padding: '0 12px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '13px', background: '#ffffff', boxSizing: 'border-box' }}
-                >
-                  <optgroup label="Varanasi District (43 Centres)">
-                    {VARANASI_PROCUREMENT_CENTRES.map((c) => (
-                      <option key={c.id} value={c.centreName}>
-                        {c.centreName} — {c.blockTehsil} ({c.agency})
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Chandauli District (5 Centres)">
-                    {CHANDAULI_PROCUREMENT_CENTRES.map((c) => (
-                      <option key={c.id} value={c.centreName}>
-                        {c.centreName} — {c.blockTehsil} ({c.agency})
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Ghazipur District (5 Centres)">
-                    {GHAZIPUR_PROCUREMENT_CENTRES.map((c) => (
-                      <option key={c.id} value={c.centreName}>
-                        {c.centreName} — {c.blockTehsil} ({c.agency})
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Jaunpur District (5 Centres)">
-                    {JAUNPUR_PROCUREMENT_CENTRES.map((c) => (
-                      <option key={c.id} value={c.centreName}>
-                        {c.centreName} — {c.blockTehsil} ({c.agency})
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
+                {isSuperAdmin ? (
+                  <select
+                    value={formMandi}
+                    onChange={(e) => setFormMandi(e.target.value)}
+                    style={{ width: '100%', height: '40px', padding: '0 12px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '13px', background: '#ffffff', boxSizing: 'border-box' }}
+                  >
+                    <optgroup label="Varanasi District (43 Centres)">
+                      {VARANASI_PROCUREMENT_CENTRES.map((c) => (
+                        <option key={c.id} value={c.centreName}>
+                          {c.centreName} — {c.blockTehsil} ({c.agency})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Chandauli District (5 Centres)">
+                      {CHANDAULI_PROCUREMENT_CENTRES.map((c) => (
+                        <option key={c.id} value={c.centreName}>
+                          {c.centreName} — {c.blockTehsil} ({c.agency})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Ghazipur District (5 Centres)">
+                      {GHAZIPUR_PROCUREMENT_CENTRES.map((c) => (
+                        <option key={c.id} value={c.centreName}>
+                          {c.centreName} — {c.blockTehsil} ({c.agency})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Jaunpur District (5 Centres)">
+                      {JAUNPUR_PROCUREMENT_CENTRES.map((c) => (
+                        <option key={c.id} value={c.centreName}>
+                          {c.centreName} — {c.blockTehsil} ({c.agency})
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                ) : (
+                  <div>
+                    <div
+                      style={{
+                        width: '100%',
+                        padding: '10px 14px',
+                        borderRadius: '8px',
+                        border: '1.5px solid #bbf7d0',
+                        background: '#f0fdf4',
+                        fontSize: '13px',
+                        fontWeight: 800,
+                        color: '#166534',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        boxSizing: 'border-box',
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Building2 size={15} color="#15803d" />
+                        {currentMandiName}
+                      </span>
+                      <span style={{ fontSize: '11px', background: '#dcfce7', color: '#14532d', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                        🔒 Locked to Your Mandi
+                      </span>
+                    </div>
+                    <small style={{ color: '#64748b', fontSize: '11.5px', marginTop: '4px', display: 'block' }}>
+                      As Mandi Superintendent / Centre Admin, you can only appoint officers to your authorized procurement depot.
+                    </small>
+                  </div>
+                )}
               </div>
 
               {/* 2. Section Selection */}

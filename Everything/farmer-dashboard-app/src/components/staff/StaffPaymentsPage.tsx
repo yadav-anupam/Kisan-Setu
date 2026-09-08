@@ -32,9 +32,11 @@ export default function StaffPaymentsPage() {
   const [isProcessing, setIsProcessing] = useState<string | null>(null)
 
   const loadData = useCallback(() => {
-    setStaff(getStaffAuthSession())
-    setBatches(getProcurementBatches())
-  }, [])
+    const s = getStaffAuthSession()
+    setStaff(s)
+    const isSuperAdmin = s.role === 'ADMIN' && isAdmin
+    setBatches(getProcurementBatches(isSuperAdmin ? undefined : s.centre_name))
+  }, [isAdmin])
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {

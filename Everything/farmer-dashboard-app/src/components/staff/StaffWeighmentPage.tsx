@@ -43,7 +43,7 @@ export default function StaffWeighmentPage() {
   const loadData = useCallback(async () => {
     const s = getStaffAuthSession()
     try {
-      const q = await fetchCentreQueue(s.centre_id)
+      const q = await fetchCentreQueue(s.centre_id, s.centre_name)
       setQueue(q)
       if (q.length > 0 && !selectedToken) {
         // Pick serving or first waiting token
@@ -53,7 +53,7 @@ export default function StaffWeighmentPage() {
     } catch {
       // ignore
     }
-    setBatches(getProcurementBatches())
+    setBatches(getProcurementBatches(s.centre_name))
   }, [selectedToken])
 
   useEffect(() => {
