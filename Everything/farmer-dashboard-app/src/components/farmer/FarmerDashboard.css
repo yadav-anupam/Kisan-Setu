@@ -268,105 +268,224 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--fd-card);
-  border: 1px solid var(--fd-border);
-  border-radius: 16px;
-  padding: 14px 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 18px;
+  padding: 16px 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 20px -2px rgba(13, 99, 27, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  gap: 16px;
+  transition: all 0.2s ease;
 }
 
-.fd-greeting h1 {
+.fd-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.fd-greeting-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fd-topbar-title {
   font-family: 'Manrope', sans-serif;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
-  color: var(--fd-ink);
+  color: #0f172a;
   margin: 0;
   letter-spacing: -0.4px;
+  line-height: 1.2;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.fd-greeting p {
-  font-size: 12.5px;
-  color: var(--fd-muted);
-  margin: 3px 0 0;
+.fd-namaste-text {
+  font-weight: 600;
+  color: #15803d;
+}
+
+.fd-farmer-name {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.fd-greeting-badges {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.fd-badge-location,
+.fd-badge-id,
+.fd-badge-mandi {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.fd-badge-id {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: -0.1px;
+}
+
+.fd-badge-mandi {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.fd-badge-divider {
+  color: #cbd5e1;
+  font-size: 10px;
 }
 
 .fd-topbar-actions {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
+}
+
+.ks-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 99px;
+  color: #334155;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.ks-lang-btn:hover {
+  border-color: #86efac;
+  color: #15803d;
+  background: #f0fdf4;
+  transform: translateY(-1px);
+}
+
+.ks-lang-btn.open {
+  border-color: #16a34a;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
 }
 
 .fd-icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  border: 1px solid var(--fd-border);
-  background: #f1f5f2;
-  color: var(--fd-muted);
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
   display: grid;
   place-items: center;
   cursor: pointer;
   position: relative;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .fd-icon-btn:hover {
-  background: #e2ebe4;
-  color: var(--fd-green);
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(13, 99, 27, 0.1);
 }
 
 .fd-notif-dot {
   position: absolute;
   top: 7px;
   right: 7px;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #ef4444;
-  border: 1px solid #ffffff;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
 }
 
 .fd-avatar-pill {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  gap: 10px;
+  background: #ffffff;
+  border: 1.5px solid #dcfce7;
   border-radius: 99px;
-  padding: 4px 10px 4px 5px;
+  padding: 4px 14px 4px 4px;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
   user-select: none;
+  box-shadow: 0 2px 6px rgba(13, 99, 27, 0.05);
 }
 
 .fd-avatar-pill:hover {
-  background: #dcfce7;
+  background: #f0fdf4;
   border-color: #86efac;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(13, 99, 27, 0.12);
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.12);
 }
 
 .fd-avatar-circle {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: var(--fd-green);
+  background: linear-gradient(135deg, #0d631b 0%, #16a34a 100%);
   color: #ffffff;
   display: grid;
   place-items: center;
   font-family: 'Manrope', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
+  box-shadow: 0 2px 6px rgba(13, 99, 27, 0.25);
+  flex-shrink: 0;
+}
+
+.fd-avatar-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
 }
 
 .fd-avatar-name {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  color: #166534;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+}
+
+.fd-avatar-role {
+  font-size: 10px;
+  font-weight: 600;
+  color: #16a34a;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 /* ==========================================================================
@@ -1108,17 +1227,39 @@
   }
 
   .fd-topbar {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 10px !important;
     padding: 12px 14px !important;
-    margin-bottom: 14px !important;
-    border-radius: 12px !important;
+    margin-bottom: 16px !important;
+    border-radius: 14px !important;
   }
 
-  .fd-greeting h1 {
+  .fd-greeting-title-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .fd-topbar-title {
     font-size: 16px !important;
   }
 
-  .fd-greeting p {
+  .fd-greeting-badges {
     font-size: 11px !important;
+    gap: 4px !important;
+  }
+
+  .fd-topbar-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    border-top: none !important;
+    padding-top: 0 !important;
+    width: auto !important;
   }
 
   .fd-top-cards-grid {

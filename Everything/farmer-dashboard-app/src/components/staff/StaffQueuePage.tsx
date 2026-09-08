@@ -18,10 +18,15 @@ import {
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffQueuePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [queue, setQueue] = useState<QueueItem[]>([])
   const [selectedBay, setSelectedBay] = useState('Bay 2')
@@ -36,12 +41,18 @@ export default function StaffQueuePage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/queue')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || '/staff/queue')
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     loadQueue()
-  }, [loadQueue])
+  }, [loadQueue, pathname, isCentreAdmin, isAdmin])
 
   const waitingCount = queue.filter((q) => q.status === 'WAITING').length
   const servingCount = queue.filter((q) => q.status === 'SERVING' || q.status === 'PROCESSING').length
@@ -66,11 +77,25 @@ export default function StaffQueuePage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="queue"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="live-queue"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="centres"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="queue"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

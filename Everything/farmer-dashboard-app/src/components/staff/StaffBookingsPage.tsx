@@ -18,10 +18,15 @@ import {
 import { confirmBookingVerification } from '../../services/qrBookingService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffBookingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [bookings, setBookings] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -55,12 +60,18 @@ export default function StaffBookingsPage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/bookings')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || '/staff/bookings')
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     loadBookings()
-  }, [loadBookings])
+  }, [loadBookings, pathname, isCentreAdmin, isAdmin])
 
   const handleQuickVerify = async (booking: any) => {
     if (!window.confirm(`Verify gate pass for Booking ${booking.booking_number} (${booking.farmer_name})?`)) {
@@ -95,11 +106,25 @@ export default function StaffBookingsPage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="bookings"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="appointments"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="centres"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="bookings"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

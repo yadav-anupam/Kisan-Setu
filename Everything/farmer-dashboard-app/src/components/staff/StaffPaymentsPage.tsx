@@ -15,9 +15,14 @@ import {
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffPaymentsPage() {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [batches, setBatches] = useState<ProcurementBatchItem[]>([])
@@ -33,12 +38,18 @@ export default function StaffPaymentsPage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/payments')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || (isAdmin ? '/admin/payments' : '/staff/payments'))
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     loadData()
-  }, [loadData])
+  }, [loadData, pathname, isCentreAdmin, isAdmin])
 
   const handleApproveDBT = async (batchNumber: string) => {
     if (!window.confirm(`Approve Direct Benefit Transfer (DBT) release for batch ${batchNumber}?`)) {
@@ -59,9 +70,10 @@ export default function StaffPaymentsPage() {
   const filteredBatches = batches.filter((b) => {
     const matchStatus = statusFilter === 'ALL' || b.payment_status === statusFilter
     const matchSearch =
-      b.farmer_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       b.batch_number.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      b.commodity.toLowerCase().includes(searchQuery.toLowerCase())
+      b.farmer_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      b.farmer_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (b.commodity && b.commodity.toLowerCase().includes(searchQuery.toLowerCase()))
     return matchStatus && matchSearch
   })
 
@@ -74,11 +86,25 @@ export default function StaffPaymentsPage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="scanner"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="procurement"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="payments"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="payments"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader
@@ -208,7 +234,22 @@ export default function StaffPaymentsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredBatches.map((b) => {
+                  {filteredBatches.length === 0 ? (
+                    <tr>
+                      <td colSpan={9} style={{ textAlign: 'center', padding: '48px 24px', color: '#64748b' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                          <CheckCircle2 size={32} style={{ color: '#10b981' }} />
+                          <p style={{ margin: 0, fontWeight: 700, fontSize: '15px', color: '#1e293b' }}>No Direct Benefit Transfer (DBT) Records Found</p>
+                          <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+                            {searchQuery || statusFilter !== 'ALL'
+                              ? 'No records match your selected filter criteria.'
+                              : 'Batches will automatically appear here for PFMS DBT approval once weighment and assaying are completed.'}
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredBatches.map((b) => {
                     const isPending = b.payment_status === 'PENDING_APPROVAL'
                     return (
                       <tr key={b.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
@@ -286,7 +327,7 @@ export default function StaffPaymentsPage() {
                         </td>
                       </tr>
                     )
-                  })}
+                  }))}
                 </tbody>
               </table>
             </div>

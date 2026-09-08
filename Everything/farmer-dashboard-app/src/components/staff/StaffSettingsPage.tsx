@@ -13,9 +13,14 @@ import {
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffSettingsPage() {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
 
@@ -28,12 +33,18 @@ export default function StaffSettingsPage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/settings')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || (isAdmin ? '/admin/settings' : isCentreAdmin ? '/centre-admin/settings' : '/staff/settings'))
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     setStaff(getStaffAuthSession())
-  }, [])
+  }, [pathname, isCentreAdmin, isAdmin])
 
   const handleSaveSettings = () => {
     setSavedMsg(true)
@@ -42,11 +53,25 @@ export default function StaffSettingsPage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="settings"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="settings"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="settings"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="settings"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

@@ -1,18 +1,13 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
   BadgeCheck,
-  Bell,
   CheckCircle2,
-  ChevronDown,
   Cpu,
   Download,
-  Globe2,
   Headphones,
-  Menu,
   Navigation,
   Printer,
   QrCode,
-  RefreshCw,
   Scale,
   Smartphone,
   Sparkles,
@@ -21,7 +16,6 @@ import {
   Truck,
   X,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
 import { fetchAIQueueAnalysis, type AIAnalysisResponse } from '../../services/mlService'
@@ -32,6 +26,7 @@ import {
 } from '../../data/procurementCentresData'
 import { GoogleMapsModal } from '../common/GoogleMapsModal'
 import FarmerSidebar from './FarmerSidebar'
+import FarmerHeader from './FarmerHeader'
 import './FarmerDashboard.css'
 import './LiveQueuePage.css'
 
@@ -45,15 +40,12 @@ interface MandiBay {
 }
 
 export default function LiveQueuePage() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const [farmer, setFarmer] = useState(getFarmerProfile())
 
   const [activeBooking, setActiveBooking] = useState<BookingRecord | null>(null)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [passModalOpen, setPassModalOpen] = useState(false)
   const [mapModalOpen, setMapModalOpen] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false)
   const [smsNotify, setSmsNotify] = useState(true)
   const [mlData, setMlData] = useState<AIAnalysisResponse | null>(null)
 
@@ -67,8 +59,6 @@ export default function LiveQueuePage() {
     congestion_level: 'LOW',
     updated_at: new Date().toISOString(),
   })
-
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const loadData = useCallback(async () => {
     const fId = farmer.farmerId
@@ -148,23 +138,6 @@ export default function LiveQueuePage() {
     }
   }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi, loadData])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  // Manual Refresh querying real backend
-  const handleManualRefresh = async () => {
-    setIsRefreshing(true)
-    await loadData()
-    setTimeout(() => setIsRefreshing(false), 400)
-  }
-
   const estimatedMins = activeBooking
     ? (mlData?.waiting_time.minutes ?? Math.round(mandiStatus.queue_length * 5))
     : 0
@@ -204,8 +177,6 @@ export default function LiveQueuePage() {
     },
   ]
 
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-
   return (
     <div className="queue-layout">
       {/* ==========================================================================
@@ -221,97 +192,10 @@ export default function LiveQueuePage() {
           Main Content Area
           ========================================================================== */}
       <main className="lq-main-content">
-        {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>Live Mandi Queue &amp; Bay Tracker</h1>
-            </div>
-            <p>{mandiStatus.mandi_name} • Real-time weighbridge status for Rabi procurement cycle.</p>
-          </div>
-
-          <div className="fd-topbar-actions">
-            {/* Manual Refresh CTA */}
-            <button
-              className="fd-icon-btn"
-              onClick={handleManualRefresh}
-              title="Refresh Live Token Status"
-              style={{ color: isRefreshing ? '#16a34a' : 'inherit' }}
-            >
-              <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
-            </button>
-
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
-
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={() => navigate('/notifications')}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-              <span className="fd-notif-dot" />
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Open Farmer Profile"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {farmer.profilePhoto ? (
-                  <img
-                    src={farmer.profilePhoto}
-                    alt={farmer.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
-              </div>
-              <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
-            </div>
-          </div>
-        </header>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          pageTitle="Live Mandi Queue & Bay Tracker"
+        />
 
         {/* Main 2-Column Grid */}
         <div className="lq-grid">

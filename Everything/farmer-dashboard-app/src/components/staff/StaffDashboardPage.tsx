@@ -8,6 +8,9 @@ import {
   Layers,
   QrCode,
   Truck,
+  Megaphone,
+  Sparkles,
+  ArrowUpRight,
 } from 'lucide-react'
 import { navigate } from '../../router'
 import {
@@ -16,10 +19,12 @@ import {
   fetchStaffDashboardKPIs,
   fetchCentreSlots,
   fetchCentreQueue,
+  getOfficialPriceAnnouncements,
   type StaffProfile,
   type StaffDashboardKPIs,
   type CentreSlot,
   type QueueItem,
+  type PriceAnnouncementRecord,
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
@@ -38,6 +43,7 @@ export default function StaffDashboardPage() {
   })
   const [slots, setSlots] = useState<CentreSlot[]>([])
   const [queue, setQueue] = useState<QueueItem[]>([])
+  const [priceAnnouncements, setPriceAnnouncements] = useState<PriceAnnouncementRecord[]>(getOfficialPriceAnnouncements)
 
   useEffect(() => {
     let isMounted = true
@@ -62,8 +68,21 @@ export default function StaffDashboardPage() {
       })
       .catch(() => {})
 
+    const handlePriceUpdate = () => {
+      if (isMounted) {
+        setPriceAnnouncements(getOfficialPriceAnnouncements())
+      }
+    }
+
+    window.addEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
+    window.addEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+    window.addEventListener('storage', handlePriceUpdate)
+
     return () => {
       isMounted = false
+      window.removeEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
+      window.removeEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+      window.removeEventListener('storage', handlePriceUpdate)
     }
   }, [])
 
@@ -82,6 +101,90 @@ export default function StaffDashboardPage() {
         />
 
         <main style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+          {/* Official Gazette MSP Announcement Banner */}
+          {priceAnnouncements.length > 0 && (() => {
+            const latest = priceAnnouncements[0]
+            return (
+              <div
+                style={{
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  padding: '16px 20px',
+                  marginBottom: '20px',
+                  border: latest.isPriceRaised ? '1.5px solid #86efac' : '1px solid #e2e8f0',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '14px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
+                      background: latest.isPriceRaised ? '#16a34a' : '#0284c7',
+                      color: '#ffffff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {latest.isPriceRaised ? <Sparkles size={20} /> : <Megaphone size={20} />}
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          padding: '2px 8px',
+                          borderRadius: '12px',
+                          background: latest.isPriceRaised ? '#dcfce7' : '#e0f2fe',
+                          color: latest.isPriceRaised ? '#166534' : '#0369a1',
+                        }}
+                      >
+                        {latest.isPriceRaised ? '🔥 Active Government MSP Hike' : '📢 Official MSP Price Notice'}
+                      </span>
+                      {latest.circularRef && (
+                        <span style={{ fontSize: '11px', color: '#64748b' }}>
+                          Gazette: {latest.circularRef}
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>
+                        {latest.cropName} {latest.hindiName ? `(${latest.hindiName})` : ''}:
+                      </span>
+                      <span style={{ fontWeight: 800, color: '#16a34a', fontSize: '15px' }}>
+                        ₹{latest.newPrice}/Qtl
+                      </span>
+                      {latest.bonusPerQtl > 0 && (
+                        <span style={{ fontSize: '11px', color: '#166534', background: '#bbf7d0', padding: '1px 6px', borderRadius: '6px', fontWeight: 700 }}>
+                          +₹{latest.bonusPerQtl} State Bonus
+                        </span>
+                      )}
+                      {latest.isPriceRaised && latest.percentageIncrease > 0 && (
+                        <span style={{ fontSize: '11px', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center' }}>
+                          <ArrowUpRight size={13} /> +₹{latest.newPrice - latest.oldPrice}/Qtl (+{latest.percentageIncrease}%)
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: '12px', color: '#64748b' }}>
+                  Season: <strong style={{ color: '#0f172a' }}>{latest.effectiveSeason}</strong>
+                </div>
+              </div>
+            )
+          })()}
+
           {/* Welcome Banner */}
           <div
             style={{
@@ -460,11 +563,20 @@ export default function StaffDashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {queue.map((item) => (
-                      <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                        <td style={{ padding: '10px 8px', fontWeight: 800, color: '#0d631b' }}>
-                          {item.token_number}
+                    {queue.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} style={{ padding: '28px 8px', textAlign: 'center', color: '#64748b' }}>
+                          <Truck size={24} color="#94a3b8" style={{ margin: '0 auto 6px', display: 'block', opacity: 0.6 }} />
+                          <strong style={{ fontSize: '12.5px', color: '#334155' }}>Yard Queue is Clear</strong>
+                          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>Verified gate arrivals will automatically enter the weighbridge queue sequence.</div>
                         </td>
+                      </tr>
+                    ) : (
+                      queue.map((item) => (
+                        <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                          <td style={{ padding: '10px 8px', fontWeight: 800, color: '#0d631b' }}>
+                            {item.token_number}
+                          </td>
                         <td style={{ padding: '10px 8px', fontWeight: 600, color: '#0f172a' }}>
                           {item.farmer_name}
                         </td>
@@ -501,7 +613,8 @@ export default function StaffDashboardPage() {
                           </span>
                         </td>
                       </tr>
-                    ))}
+                    ))
+                  )}
                   </tbody>
                 </table>
               </div>

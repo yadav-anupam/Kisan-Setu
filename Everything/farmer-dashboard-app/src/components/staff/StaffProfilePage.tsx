@@ -13,9 +13,14 @@ import {
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffProfilePage() {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [mobile, setMobile] = useState('')
@@ -31,15 +36,21 @@ export default function StaffProfilePage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/profile')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || (isAdmin ? '/admin/profile' : isCentreAdmin ? '/centre-admin/dashboard' : '/staff/profile'))
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     const currentStaff = getStaffAuthSession()
     setStaff(currentStaff)
     setMobile(currentStaff.mobile || '')
     setEmail(currentStaff.email || '')
-  }, [])
+  }, [pathname, isCentreAdmin, isAdmin])
 
   const handleSaveContact = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -82,11 +93,25 @@ export default function StaffProfilePage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="profile"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="dashboard"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="profile"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="profile"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

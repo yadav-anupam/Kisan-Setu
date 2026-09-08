@@ -53,12 +53,26 @@ const DEFAULT_FARMER: FarmerProfile = {
   vehicleNumber: 'UP-65-TC-8942',
 }
 
+import type { AuthIdentity } from './services/rbacService'
+
 const AUTH_STORAGE_KEY = 'kisan_setu_farmer_auth'
 const PROFILE_STORAGE_KEY = 'kisan_setu_farmer_profile'
 const REDIRECT_STORAGE_KEY = 'kisan_setu_redirect_after_login'
 
 export function isFarmerLoggedIn(): boolean {
   return localStorage.getItem(AUTH_STORAGE_KEY) === 'true'
+}
+
+export function getFarmerAuthIdentity(): AuthIdentity | null {
+  if (!isFarmerLoggedIn()) return null
+  const p = getFarmerProfile()
+  return {
+    id: p.farmerId,
+    name: p.name,
+    role: 'FARMER',
+    mobile: p.mobile,
+    centre_name: p.preferredMandi,
+  }
 }
 
 export function loginFarmer(profile?: Partial<FarmerProfile>): void {
@@ -113,6 +127,9 @@ export function setRedirectAfterLogin(path: string): void {
 export function getAndClearRedirectAfterLogin(): string {
   const target = sessionStorage.getItem(REDIRECT_STORAGE_KEY) || '/farmer-dashboard'
   sessionStorage.removeItem(REDIRECT_STORAGE_KEY)
+  if (target.startsWith('/staff') || target.startsWith('/admin') || target.startsWith('/centre-admin')) {
+    return '/farmer-dashboard'
+  }
   return target
 }
 

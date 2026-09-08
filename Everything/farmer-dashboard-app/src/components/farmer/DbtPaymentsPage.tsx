@@ -1,16 +1,12 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
-  Bell,
   Building,
   CheckCircle2,
-  ChevronDown,
   Clock,
   Download,
   FileSpreadsheet,
-  Globe2,
   Info,
   LifeBuoy,
-  Menu,
   PlusCircle,
   Printer,
   RefreshCw,
@@ -21,11 +17,11 @@ import {
   Wallet,
   X,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
 import { fetchDbtPaymentsFromDB, type DbDbtPayment } from '../../services/supabaseDataService'
 import FarmerSidebar from './FarmerSidebar'
+import FarmerHeader from './FarmerHeader'
 import './FarmerDashboard.css'
 import './DbtPaymentsPage.css'
 
@@ -47,12 +43,10 @@ export interface DbtTransaction {
 }
 
 export default function DbtPaymentsPage() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const farmer = getFarmerProfile()
 
   const [transactions, setTransactions] = useState<DbtTransaction[]>([])
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [filterTab, setFilterTab] = useState<'all' | 'paid' | 'pending' | 'failed'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTx, setSelectedTx] = useState<DbtTransaction | null>(null)
@@ -62,8 +56,6 @@ export default function DbtPaymentsPage() {
   const [newAccNo, setNewAccNo] = useState('')
   const [newIfsc, setNewIfsc] = useState('SBIN0001234')
   const [newBankName, setNewBankName] = useState('State Bank of India')
-
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isFarmerLoggedIn()) {
@@ -103,16 +95,6 @@ export default function DbtPaymentsPage() {
     }
   }, [farmer.farmerId])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
   const filteredTransactions = transactions.filter((tx) => {
     if (filterTab === 'paid' && tx.status !== 'Paid') return false
     if (filterTab === 'pending' && tx.status !== 'Pending') return false
@@ -134,8 +116,6 @@ export default function DbtPaymentsPage() {
     alert(`Bank Account ${newAccNo} (${newBankName}) linked & verified for DBT transfers!`)
   }
 
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-
   return (
     <div className="dbt-payments-layout">
       {/* ==========================================================================
@@ -152,86 +132,10 @@ export default function DbtPaymentsPage() {
           ========================================================================== */}
       <main className="pm-main-content">
         {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>DBT &amp; Bank Payments</h1>
-            </div>
-            <p>Direct government MSP transfers linked with your PFMS &amp; Aadhaar bank account.</p>
-          </div>
-
-          <div className="fd-topbar-actions">
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
-
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={() => alert('Payment alerts are active. Next settlement expected in 24h.')}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-              <span className="fd-notif-dot" />
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Open Farmer Profile"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {farmer.profilePhoto ? (
-                  <img
-                    src={farmer.profilePhoto}
-                    alt={farmer.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
-              </div>
-              <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
-            </div>
-          </div>
-        </header>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          pageTitle="DBT & Bank Payments"
+        />
 
         {/* 4 KPI Top Cards */}
         <section className="pm-kpi-grid">
@@ -326,14 +230,23 @@ export default function DbtPaymentsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredTransactions.map((tx) => (
-                    <tr key={tx.id}>
-                      <td style={{ whiteSpace: 'nowrap' }}>
-                        <div style={{ fontFamily: 'Manrope', fontSize: '16px', fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>
-                          {tx.day}
-                        </div>
-                        <small style={{ color: '#64748b' }}>{tx.month} {tx.year}</small>
+                  {filteredTransactions.length === 0 ? (
+                    <tr>
+                      <td colSpan={8} style={{ textAlign: 'center', padding: '36px 16px', color: '#64748b' }}>
+                        <Wallet size={30} color="#94a3b8" style={{ margin: '0 auto 8px', display: 'block', opacity: 0.6 }} />
+                        <strong style={{ display: 'block', fontSize: '13.5px', color: '#334155', marginBottom: '4px' }}>No DBT Payment Records Found</strong>
+                        <span style={{ fontSize: '12px', color: '#64748b' }}>When your produce intake is weighed and approved at the Mandi, direct DBT transfer receipts will appear here automatically.</span>
                       </td>
+                    </tr>
+                  ) : (
+                    filteredTransactions.map((tx) => (
+                      <tr key={tx.id}>
+                        <td style={{ whiteSpace: 'nowrap' }}>
+                          <div style={{ fontFamily: 'Manrope', fontSize: '16px', fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>
+                            {tx.day}
+                          </div>
+                          <small style={{ color: '#64748b' }}>{tx.month} {tx.year}</small>
+                        </td>
 
                       <td>
                         <div style={{ fontWeight: 700, color: '#0d631b' }}>{tx.centre}</div>
@@ -418,7 +331,8 @@ export default function DbtPaymentsPage() {
                         )}
                       </td>
                     </tr>
-                  ))}
+                  ))
+                )}
                 </tbody>
               </table>
             </div>

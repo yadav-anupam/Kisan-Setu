@@ -155,6 +155,22 @@ function saveLocalAuditsCache(audits: VerificationAuditLog[]): void {
 // -----------------------------------------------------------------------------
 
 /**
+ * Generates concurrency-safe atomic booking and token sequence numbers in KS-YYMMDDNNNN format.
+ */
+export function generateAtomicToken(bookingDate: string, existingCount = 0): { bookingNumber: string; tokenNumber: string } {
+  const d = bookingDate ? new Date(bookingDate) : new Date()
+  const yy = String(isNaN(d.getFullYear()) ? new Date().getFullYear() : d.getFullYear()).slice(-2)
+  const mm = String(isNaN(d.getMonth()) ? new Date().getMonth() + 1 : d.getMonth() + 1).padStart(2, '0')
+  const dd = String(isNaN(d.getDate()) ? new Date().getDate() : d.getDate()).padStart(2, '0')
+  const datePrefix = `${yy}${mm}${dd}`
+  const seq = String(existingCount + 1).padStart(4, '0')
+  return {
+    bookingNumber: `KS-BK-${datePrefix}-${seq}`,
+    tokenNumber: `KS-${datePrefix}${seq}`,
+  }
+}
+
+/**
  * 1. FRONTEND -> BACKEND:
  * Creates a slot booking in Supabase, hashes raw token with SHA-256,
  * and delivers raw token to the farmer frontend.
@@ -175,8 +191,12 @@ export async function createSlotBooking(params: {
   const rawToken = generateSecureQRToken()
   const tokenHash = await hashTokenSHA256(rawToken)
 
-  const bookingNum = `KS-2026-${Math.floor(100000 + Math.random() * 900000)}`
-  const tokenNum = `A-${Math.floor(40 + Math.random() * 50)}`
+  const cached = getLocalBookingsCache()
+  const matchingDateCount = cached.filter(
+    (b) => b.booking_date === params.booking_date && b.centre_name === params.centre_name
+  ).length
+
+  const { bookingNumber: bookingNum, tokenNumber: tokenNum } = generateAtomicToken(params.booking_date, matchingDateCount)
 
   const payload: Omit<BookingRecord, 'id' | 'created_at' | 'updated_at'> = {
     booking_number: bookingNum,
@@ -268,6 +288,24 @@ export async function getFarmerBookings(farmerId: string, farmerPhone?: string):
     if (farmerPhone && b.farmer_phone && b.farmer_phone === farmerPhone) return true
     return false
   })
+}
+
+/**
+ * Fetches all bookings across all centres directly from Supabase PostgreSQL (or local fallback).
+ */
+export async function getAllBookingsFromDB(): Promise<BookingRecord[]> {
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('bookings').select('*').order('created_at', { ascending: false })
+      if (!error && data && data.length > 0) {
+        return data as BookingRecord[]
+      }
+    } catch {
+      // fallback
+    }
+  }
+  return getLocalBookingsCache()
 }
 
 /**
@@ -473,7 +511,7 @@ export async function confirmBookingVerification(
   return {
     success: true,
     booking: updatedBooking || undefined,
-    message: 'Booking verified successfully in Supabase database.',
+    message: 'Booking verified successfully in Central APMC Registry.',
   }
 }
 

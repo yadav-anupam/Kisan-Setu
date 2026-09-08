@@ -8,8 +8,8 @@ import {
   Search,
   MessageSquare,
 } from 'lucide-react'
-import { navigate } from '../../router'
-import { getFarmerProfile } from '../../auth'
+import { useRouter } from '../../router'
+import { getFarmerProfile, isFarmerLoggedIn } from '../../auth'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
@@ -18,22 +18,43 @@ import {
   type GrievanceTicket,
 } from '../../services/staffDataService'
 import FarmerSidebar from '../farmer/FarmerSidebar'
+import FarmerHeader from '../farmer/FarmerHeader'
 import StaffSidebar from '../staff/StaffSidebar'
+import CentreAdminSidebar from '../staff/CentreAdminSidebar'
+import AdminSidebar from '../staff/AdminSidebar'
 import StaffHeader from '../staff/StaffHeader'
 import '../farmer/FarmerDashboard.css'
 
 export default function HelpSupportPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const isStaff = isStaffAuthenticated()
-  const activeFarmer = getFarmerProfile()
+  const { path } = useRouter()
+
+  const isStaffAuth = isStaffAuthenticated()
   const activeStaff = getStaffAuthSession()
+  const isFarmerAuth = isFarmerLoggedIn()
+  const activeFarmer = getFarmerProfile()
+
+  const isCentreAdmin =
+    path.startsWith('/centre-admin') ||
+    (!path.startsWith('/admin') && !path.startsWith('/staff') && isStaffAuth && (activeStaff.role === 'CENTRE_OPERATOR' || (activeStaff as any).role === 'CENTRE_ADMIN'))
+
+  const isAdmin =
+    path.startsWith('/admin') ||
+    (!path.startsWith('/centre-admin') && !path.startsWith('/staff') && isStaffAuth && (activeStaff.role === 'MANDI_ADMIN' || (activeStaff as any).role === 'ADMIN'))
+
+  const isStaff =
+    path.startsWith('/staff') ||
+    path.startsWith('/operator') ||
+    (!path.startsWith('/admin') && !path.startsWith('/centre-admin') && isStaffAuth && !isFarmerAuth)
+
+  const isStaffRole = isCentreAdmin || isAdmin || isStaff
 
   const [tickets, setTickets] = useState<GrievanceTicket[]>([])
   const [category, setCategory] = useState<any>('PAYMENT_DELAY')
   const [subject, setSubject] = useState('')
   const [description, setDescription] = useState('')
   const [refToken, setRefToken] = useState('')
-  const mandiCentre = isStaff ? activeStaff.centre_name : activeFarmer?.preferredMandi || 'Chiraigaon 1st at Gaurakala (FCS)'
+  const mandiCentre = isStaffRole ? activeStaff.centre_name : activeFarmer?.preferredMandi || 'Chiraigaon 1st at Gaurakala (FCS)'
   const [successTicket, setSuccessTicket] = useState<GrievanceTicket | null>(null)
   const [searchFaq, setSearchFaq] = useState('')
 
@@ -46,10 +67,10 @@ export default function HelpSupportPage() {
     if (!subject.trim() || !description.trim()) return
 
     const newTicket = submitGrievanceTicket({
-      user_id: isStaff ? activeStaff.staff_id : activeFarmer?.farmerId || 'FARMER-GUEST',
-      user_name: isStaff ? activeStaff.full_name : activeFarmer?.name || 'Farmer Ramesh Kumar',
-      user_role: isStaff ? 'STAFF' : 'FARMER',
-      mobile: isStaff ? activeStaff.mobile : activeFarmer?.mobile || '9214334494',
+      user_id: isStaffRole ? activeStaff.staff_id : activeFarmer?.farmerId || 'FARMER-GUEST',
+      user_name: isStaffRole ? activeStaff.full_name : activeFarmer?.name || 'Farmer Ramesh Kumar',
+      user_role: isStaffRole ? 'STAFF' : 'FARMER',
+      mobile: isStaffRole ? activeStaff.mobile : activeFarmer?.mobile || '9214334494',
       category,
       reference_token: refToken.trim(),
       subject: subject.trim(),
@@ -92,9 +113,21 @@ export default function HelpSupportPage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      {isStaff ? (
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="support"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="support"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isStaff ? (
         <StaffSidebar
-          activeTab="settings"
+          activeTab="support"
           isOpen={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
         />
@@ -107,37 +140,21 @@ export default function HelpSupportPage() {
       )}
 
       <div className="fd-main-content">
-        {isStaff ? (
+        {isStaffRole ? (
           <StaffHeader
             onToggleSidebar={() => setSidebarOpen(true)}
-            pageTitle="Grievance Redressal &amp; Help Desk"
+            pageTitle="Grievance Redressal & Help Desk"
           />
         ) : (
-          <header className="fd-top-navbar" style={{ background: '#ffffff', padding: '16px 24px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <button
-                type="button"
-                className="fd-mobile-toggle"
-                onClick={() => setSidebarOpen(true)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-              >
-                ☰
-              </button>
-              <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                Help &amp; Grievance Redressal Support
-              </h2>
-            </div>
-            <button
-              type="button"
-              onClick={() => navigate('/farmer-dashboard')}
-              style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 14px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}
-            >
-              ← Dashboard
-            </button>
-          </header>
+          <div style={{ padding: '0 24px', paddingTop: '20px', maxWidth: '1400px', margin: '0 auto' }}>
+            <FarmerHeader
+              onToggleSidebar={() => setSidebarOpen(true)}
+              pageTitle="Help & Grievance Redressal"
+            />
+          </div>
         )}
 
-        <main style={{ padding: '24px', maxWidth: '1280px', margin: '0 auto' }}>
+        <main style={{ padding: isStaffRole ? '24px' : '0 24px 24px', maxWidth: '1400px', margin: '0 auto' }}>
           {/* Header Bar */}
           <div style={{ marginBottom: '24px' }}>
             <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>

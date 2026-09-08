@@ -1,17 +1,14 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ArrowUpRight,
-  Bell,
   Calendar,
   ChevronDown,
   Clock,
   CreditCard,
   Download,
   FileSpreadsheet,
-  Globe2,
   Headphones,
   Info,
-  Menu,
   Printer,
   Search,
   Sprout,
@@ -19,7 +16,6 @@ import {
   Wallet,
   X,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
 import {
@@ -30,6 +26,7 @@ import {
 } from '../../services/supabaseDataService'
 import { getFarmerBookings, type BookingRecord } from '../../services/qrBookingService'
 import FarmerSidebar from './FarmerSidebar'
+import FarmerHeader from './FarmerHeader'
 import './FarmerDashboard.css'
 import './FarmerHistoryPage.css'
 
@@ -51,17 +48,13 @@ interface HistoryRecord {
 }
 
 export default function FarmerHistoryPage() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const farmer = getFarmerProfile()
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [filterTab, setFilterTab] = useState<'all' | 'procurements' | 'payments' | 'cancelled'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedRecord, setSelectedRecord] = useState<HistoryRecord | null>(null)
   const [historyRecords, setHistoryRecords] = useState<HistoryRecord[]>([])
-
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isFarmerLoggedIn()) {
@@ -151,16 +144,6 @@ export default function FarmerHistoryPage() {
     }
   }, [farmer.farmerId])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
   const filteredRecords = historyRecords.filter((rec) => {
     if (filterTab === 'procurements' && rec.type !== 'procurement') return false
     if (filterTab === 'payments' && rec.type !== 'payment') return false
@@ -177,8 +160,6 @@ export default function FarmerHistoryPage() {
     return true
   })
 
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-
   return (
     <div className="history-layout">
       {/* ==========================================================================
@@ -194,87 +175,10 @@ export default function FarmerHistoryPage() {
           Main Content Area
           ========================================================================== */}
       <main className="hs-main-content">
-        {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>History &amp; Audit Log</h1>
-            </div>
-            <p>View complete records of your past appointments, procurements and DBT settlements.</p>
-          </div>
-
-          <div className="fd-topbar-actions">
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
-
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={() => alert('All past records are cryptographically verified and immutable.')}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-              <span className="fd-notif-dot" />
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Open Farmer Profile"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {farmer.profilePhoto ? (
-                  <img
-                    src={farmer.profilePhoto}
-                    alt={farmer.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
-              </div>
-              <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
-            </div>
-          </div>
-        </header>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          pageTitle="History & Audit Log"
+        />
 
         {/* Title Bar & Date Range Selector */}
         <div className="hs-title-bar">

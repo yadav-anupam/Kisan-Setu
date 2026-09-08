@@ -1,14 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
-  Bell,
   CalendarDays,
   CheckCircle2,
-  ChevronDown,
   Clock,
   Download,
-  Globe2,
   MapPin,
-  Menu,
   PlusCircle,
   QrCode,
   RotateCcw,
@@ -17,7 +13,6 @@ import {
   Trash2,
   X,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
 import BookingQR from '../common/BookingQR'
@@ -29,6 +24,7 @@ import {
   cancelBookingInDB,
 } from '../../services/qrBookingService'
 import FarmerSidebar from './FarmerSidebar'
+import FarmerHeader from './FarmerHeader'
 import {
   ALL_PROCUREMENT_CENTRES,
   VARANASI_PROCUREMENT_CENTRES,
@@ -55,7 +51,6 @@ interface Appointment {
 }
 
 export default function MyAppointmentsPage() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const [farmer, setFarmer] = useState(getFarmerProfile())
 
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming')
@@ -63,7 +58,6 @@ export default function MyAppointmentsPage() {
   const [pastList, setPastList] = useState<Appointment[]>([])
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [bookingModalOpen, setBookingModalOpen] = useState(false)
   const [selectedPass, setSelectedPass] = useState<Appointment | null>(null)
   const [rescheduleItem, setRescheduleItem] = useState<Appointment | null>(null)
@@ -88,7 +82,6 @@ export default function MyAppointmentsPage() {
   const [selectedCentre, setSelectedCentre] = useState<string>(
     farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName
   )
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const refreshAppointments = useCallback(async () => {
     try {
@@ -179,16 +172,6 @@ export default function MyAppointmentsPage() {
     }
   }, [farmer.farmerId, farmer.mobile])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
   const handleBookSlot = async (e: React.FormEvent) => {
     e.preventDefault()
     const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === selectedCentre) || ALL_PROCUREMENT_CENTRES[0]
@@ -267,8 +250,6 @@ export default function MyAppointmentsPage() {
     }
   }
 
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-
   return (
     <div className="appointments-layout">
       {/* ==========================================================================
@@ -286,86 +267,10 @@ export default function MyAppointmentsPage() {
           ========================================================================== */}
       <main className="ap-main-content">
         {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>My Appointments</h1>
-            </div>
-            <p>Manage your upcoming and past government procurement bookings.</p>
-          </div>
-
-          <div className="fd-topbar-actions">
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
-
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={() => alert('Appointment reminders are active.')}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-              <span className="fd-notif-dot" />
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Open Farmer Profile"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {farmer.profilePhoto ? (
-                  <img
-                    src={farmer.profilePhoto}
-                    alt={farmer.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
-              </div>
-              <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
-            </div>
-          </div>
-        </header>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          pageTitle="My Appointments"
+        />
 
         {/* Controls & Tab Bar */}
         <section className="ap-controls-bar">

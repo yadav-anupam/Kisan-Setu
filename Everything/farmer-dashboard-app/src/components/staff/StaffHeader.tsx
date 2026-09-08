@@ -8,8 +8,10 @@ import {
   Search,
   ShieldCheck,
   User,
+  Building2,
 } from 'lucide-react'
-import { navigate } from '../../router'
+import { navigate, useRouter } from '../../router'
+import './StaffHeader.css'
 import {
   getStaffAuthSession,
   logoutStaffUser,
@@ -24,7 +26,8 @@ interface StaffHeaderProps {
   pageTitle?: string
 }
 
-export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operations' }: StaffHeaderProps) {
+export default function StaffHeader({ onToggleSidebar, pageTitle = 'Operations Desk' }: StaffHeaderProps) {
+  const { path } = useRouter()
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [notifications, setNotifications] = useState<StaffNotification[]>([])
   const [notifOpen, setNotifOpen] = useState(false)
@@ -33,6 +36,10 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
 
   const notifRef = useRef<HTMLDivElement>(null)
   const profileRef = useRef<HTMLDivElement>(null)
+
+  const isAdminPortal = path.startsWith('/admin')
+  const isCentreAdminPortal = path.startsWith('/centre-admin')
+  const isStaffPortal = !isAdminPortal && !isCentreAdminPortal
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -70,174 +77,140 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
 
   const handleLogout = () => {
     logoutStaffUser()
-    navigate('/staff/login')
+    if (isAdminPortal) navigate('/admin/login')
+    else if (isCentreAdminPortal) navigate('/centre-admin/login')
+    else navigate('/staff/login')
   }
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      navigate(`/staff/bookings?q=${encodeURIComponent(searchQuery.trim())}`)
+      if (isAdminPortal) {
+        navigate(`/admin/centres?q=${encodeURIComponent(searchQuery.trim())}`)
+      } else if (isCentreAdminPortal) {
+        navigate(`/centre-admin/token-management?q=${encodeURIComponent(searchQuery.trim())}`)
+      } else {
+        navigate(`/staff/bookings?q=${encodeURIComponent(searchQuery.trim())}`)
+      }
     }
   }
 
   const todayFormatted = new Date().toLocaleDateString('en-IN', {
-    weekday: 'long',
+    weekday: 'short',
     day: 'numeric',
     month: 'short',
     year: 'numeric',
   })
 
+  // Theme Config
+  const badgeBg = isAdminPortal ? '#e0e7ff' : isCentreAdminPortal ? '#d1fae5' : '#dcfce7'
+  const badgeColor = isAdminPortal ? '#3730a3' : isCentreAdminPortal ? '#065f46' : '#166534'
+  const primaryTitleColor = isAdminPortal ? '#1e1b4b' : isCentreAdminPortal ? '#064e3b' : '#075a27'
+  const badgeLabel = isAdminPortal ? 'STATEWIDE APMC COMMAND' : isCentreAdminPortal ? 'MANDI SUPERINTENDENT' : 'GATE 2 DESK'
+
   return (
-    <header className="fd-header" style={{ background: '#ffffff', borderBottom: '1px solid #e2e8f0', position: 'relative', zIndex: 100, overflow: 'visible' }}>
-      <div className="fd-header-left" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+    <header className="staff-topbar">
+      <div className="staff-topbar-left">
         {onToggleSidebar && (
           <button
             type="button"
-            className="fd-sidebar-toggle-btn"
+            className="staff-mobile-toggle-btn"
             onClick={onToggleSidebar}
             aria-label="Toggle Navigation"
-            style={{
-              background: '#f1f5f9',
-              border: 'none',
-              borderRadius: '8px',
-              width: '36px',
-              height: '36px',
-              display: 'grid',
-              placeItems: 'center',
-              cursor: 'pointer',
-            }}
           >
-            <Menu size={18} color="#0f172a" />
+            <Menu size={17} />
           </button>
         )}
 
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '15px', fontWeight: 800, color: '#0d631b' }}>
-              {staff.centre_name}
+        <div className="staff-title-group">
+          <div className="staff-title-row">
+            <span className="staff-title-text" style={{ color: primaryTitleColor }}>
+              {isAdminPortal ? 'Uttar Pradesh APMC Governance' : staff.centre_name || 'Chiraigaon Mandi Centre'}
             </span>
             <span
+              className="staff-role-badge"
               style={{
-                fontSize: '10px',
-                fontWeight: 700,
-                background: '#dcfce7',
-                color: '#166534',
-                padding: '2px 6px',
-                borderRadius: '4px',
+                background: badgeBg,
+                color: badgeColor,
               }}
             >
-              GATE 2 DESK
+              {badgeLabel}
             </span>
           </div>
-          <p style={{ fontSize: '11px', color: '#64748b', margin: '2px 0 0' }}>
-            {todayFormatted} • <strong style={{ color: '#0f172a' }}>{pageTitle}</strong>
+          <p className="staff-subtitle">
+            <span>{todayFormatted}</span>
+            <span>•</span>
+            <strong style={{ color: '#0f172a' }}>{pageTitle}</strong>
           </p>
         </div>
       </div>
 
       {/* Center Search Bar */}
-      <form
-        onSubmit={handleSearchSubmit}
-        style={{
-          flex: 1,
-          maxWidth: '380px',
-          margin: '0 20px',
-          display: 'none',
-        }}
-        className="staff-search-desktop"
-      >
-        <style>{`
-          @media (min-width: 900px) {
-            .staff-search-desktop { display: block !important; }
-          }
-        `}</style>
-        <div style={{ position: 'relative', width: '100%' }}>
+      <form onSubmit={handleSearchSubmit} className="staff-search-form">
+        <div className="staff-search-input-wrap">
           <Search
-            size={15}
+            size={14}
             color="#94a3b8"
-            style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }}
+            style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
           />
           <input
             type="text"
-            placeholder="Search booking #, farmer or vehicle..."
+            className="staff-search-input"
+            placeholder={
+              isAdminPortal
+                ? 'Search mandis, officers, or DBT...'
+                : isCentreAdminPortal
+                ? 'Search tokens, farmers, vouchers...'
+                : 'Search gate pass QR, booking, vehicle...'
+            }
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              width: '100%',
-              height: '38px',
-              padding: '0 12px 0 36px',
-              borderRadius: '20px',
-              border: '1px solid #cbd5e1',
-              fontSize: '12px',
-              background: '#f8fafc',
-              outline: 'none',
-            }}
           />
         </div>
       </form>
 
       {/* Header Right Actions */}
-      <div className="fd-header-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {/* Quick QR Scanner Shortcut */}
-        <button
-          type="button"
-          onClick={() => navigate('/staff/qr-verification')}
-          style={{
-            background: '#0d631b',
-            color: '#ffffff',
-            border: 'none',
-            borderRadius: '20px',
-            padding: '7px 14px',
-            fontSize: '12px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            boxShadow: '0 2px 6px rgba(13,99,27,0.2)',
-          }}
-        >
-          <QrCode size={14} /> Scan QR
-        </button>
+      <div className="staff-topbar-right">
+        {/* Action Shortcuts based on Portal */}
+        {isStaffPortal && (
+          <button
+            type="button"
+            className="staff-action-btn"
+            onClick={() => navigate('/staff/qr-verification')}
+            style={{
+              background: '#0d631b',
+              color: '#ffffff',
+            }}
+          >
+            <QrCode size={13} /> Scan QR
+          </button>
+        )}
+
+        {isAdminPortal && (
+          <button
+            type="button"
+            className="staff-action-btn"
+            onClick={() => navigate('/admin/centres/add')}
+            style={{
+              background: '#1e3a8a',
+              color: '#ffffff',
+            }}
+          >
+            <Building2 size={13} /> + Add Mandi
+          </button>
+        )}
 
         {/* Notifications Button & Dropdown */}
         <div style={{ position: 'relative' }} ref={notifRef}>
           <button
             type="button"
-            className="fd-icon-btn"
+            className="staff-notif-btn"
             onClick={() => setNotifOpen(!notifOpen)}
-            style={{
-              position: 'relative',
-              background: '#f1f5f9',
-              border: 'none',
-              borderRadius: '50%',
-              width: '38px',
-              height: '38px',
-              display: 'grid',
-              placeItems: 'center',
-              cursor: 'pointer',
-            }}
             aria-label="Staff Notifications"
           >
-            <Bell size={17} color="#334155" />
+            <Bell size={16} color="#334155" />
             {unreadCount > 0 && (
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '2px',
-                  right: '2px',
-                  background: '#ef4444',
-                  color: '#ffffff',
-                  fontSize: '10px',
-                  fontWeight: 800,
-                  width: '17px',
-                  height: '17px',
-                  borderRadius: '50%',
-                  display: 'grid',
-                  placeItems: 'center',
-                  border: '2px solid #ffffff',
-                }}
-              >
+              <span className="staff-notif-badge">
                 {unreadCount}
               </span>
             )}
@@ -390,43 +363,19 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
         <div style={{ position: 'relative' }} ref={profileRef}>
           <button
             type="button"
-            className="fd-avatar-pill"
+            className="staff-avatar-pill"
             onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#f1f5f9',
-              border: '1px solid #e2e8f0',
-              borderRadius: '24px',
-              padding: '4px 10px 4px 5px',
-              cursor: 'pointer',
-            }}
           >
             <div
-              style={{
-                width: '28px',
-                height: '28px',
-                borderRadius: '50%',
-                background: '#0d631b',
-                color: '#ffffff',
-                display: 'grid',
-                placeItems: 'center',
-                fontSize: '12px',
-                fontWeight: 800,
-              }}
+              className="staff-avatar-circle"
+              style={{ background: primaryTitleColor }}
             >
               {staff.full_name?.charAt(0) || 'S'}
             </div>
-            <div style={{ textAlign: 'left', lineHeight: 1.1 }}>
-              <strong style={{ fontSize: '12px', color: '#0f172a', display: 'block' }}>
-                {staff.full_name || 'Staff Officer'}
-              </strong>
-              <small style={{ fontSize: '10px', color: '#64748b', fontWeight: 600 }}>
-                {staff.staff_id} • {staff.role}
-              </small>
-            </div>
-            <ChevronDown size={14} color="#64748b" />
+            <span className="staff-avatar-name">
+              {staff.full_name || 'Staff Officer'}
+            </span>
+            <ChevronDown size={13} className="staff-avatar-chevron" />
           </button>
 
           {profileMenuOpen && (
@@ -435,22 +384,31 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
                 position: 'absolute',
                 top: '46px',
                 right: 0,
-                width: '200px',
+                width: '240px',
                 background: '#ffffff',
                 border: '1px solid #e2e8f0',
                 borderRadius: '12px',
-                boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
                 zIndex: 1000,
                 padding: '6px 0',
               }}
             >
+              <div style={{ padding: '8px 16px', borderBottom: '1px solid #f1f5f9' }}>
+                <strong style={{ fontSize: '13px', color: '#0f172a', display: 'block' }}>
+                  {staff.full_name || 'Staff User'}
+                </strong>
+                <span style={{ fontSize: '11px', color: '#64748b' }}>
+                  {staff.staff_id} • {staff.role}
+                </span>
+              </div>
+
               <button
                 type="button"
                 onClick={() => { setProfileMenuOpen(false); navigate('/staff/profile') }}
                 style={{
                   width: '100%',
                   textAlign: 'left',
-                  padding: '9px 16px',
+                  padding: '8px 16px',
                   background: 'none',
                   border: 'none',
                   fontSize: '12.5px',
@@ -461,7 +419,7 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
                   cursor: 'pointer',
                 }}
               >
-                <User size={15} color="#64748b" /> Staff Profile
+                <User size={14} color="#64748b" /> Staff Profile
               </button>
 
               <button
@@ -470,7 +428,7 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
                 style={{
                   width: '100%',
                   textAlign: 'left',
-                  padding: '9px 16px',
+                  padding: '8px 16px',
                   background: 'none',
                   border: 'none',
                   fontSize: '12.5px',
@@ -481,7 +439,7 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
                   cursor: 'pointer',
                 }}
               >
-                <ShieldCheck size={15} color="#64748b" /> Terminal Settings
+                <ShieldCheck size={14} color="#64748b" /> Terminal Settings
               </button>
 
               <div style={{ height: '1px', background: '#f1f5f9', margin: '4px 0' }} />
@@ -492,7 +450,7 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
                 style={{
                   width: '100%',
                   textAlign: 'left',
-                  padding: '9px 16px',
+                  padding: '8px 16px',
                   background: 'none',
                   border: 'none',
                   fontSize: '12.5px',
@@ -504,7 +462,7 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Staff Operat
                   fontWeight: 600,
                 }}
               >
-                <LogOut size={15} color="#dc2626" /> Staff Sign Out
+                <LogOut size={14} color="#dc2626" /> Sign Out
               </button>
             </div>
           )}

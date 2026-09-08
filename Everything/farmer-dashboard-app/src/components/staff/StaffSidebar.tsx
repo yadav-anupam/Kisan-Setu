@@ -1,22 +1,19 @@
 import { useState, useEffect } from 'react'
 import {
-  BarChart3,
   Calendar,
   Clock,
-  History,
   LayoutDashboard,
   LogOut,
   QrCode,
   Settings,
   ShieldCheck,
   User,
-  Users,
   X,
   Scale,
-  Building2,
-  IndianRupee,
   Sparkles,
   LifeBuoy,
+  Megaphone,
+  IndianRupee,
 } from 'lucide-react'
 import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
@@ -28,12 +25,21 @@ export type StaffNavTab =
   | 'bookings'
   | 'queue'
   | 'slots'
+  | 'weighment'
+  | 'quality'
+  | 'payments'
+  | 'announcements'
   | 'farmers'
-  | 'management'
   | 'history'
   | 'reports'
+  | 'management'
+  | 'prices'
+  | 'centres'
   | 'profile'
   | 'settings'
+  | 'support'
+  | 'help'
+  | 'grievance'
 
 interface StaffSidebarProps {
   activeTab: StaffNavTab
@@ -103,35 +109,45 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               <div style={{ minWidth: 0 }}>
                 <h1
                   style={{
-                    fontFamily: 'Manrope, sans-serif',
-                    fontSize: '16px',
+                    fontSize: '15px',
                     fontWeight: 800,
-                    margin: 0,
                     color: '#ffffff',
-                    lineHeight: 1.15,
+                    lineHeight: '1.2',
+                    margin: 0,
                     letterSpacing: '-0.2px',
                   }}
                 >
                   Kisan Setu
                 </h1>
-                <p style={{ fontSize: '10.5px', color: '#bbf7d0', margin: '2px 0 0', fontWeight: 600 }}>
-                  Staff Operations Portal
-                </p>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    color: '#86efac',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.6px',
+                    display: 'block',
+                    marginTop: '2px',
+                  }}
+                >
+                  MANDI FIELD OPERATIONS
+                </span>
               </div>
             </a>
 
             {isOpen && (
               <button
                 type="button"
-                className="fd-sidebar-close-btn"
+                className="fd-sidebar-close"
                 onClick={onClose}
                 aria-label="Close sidebar"
                 style={{
-                  display: 'grid',
-                  placeItems: 'center',
-                  background: 'rgba(255,255,255,0.2)',
+                  background: 'rgba(255, 255, 255, 0.2)',
                   border: 'none',
                   borderRadius: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   width: '28px',
                   height: '28px',
                   color: '#ffffff',
@@ -176,7 +192,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
 
         {/* Navigation List */}
         <nav className="fd-nav-list" style={{ overflowY: 'auto', flex: 1, paddingBottom: '16px' }}>
-          {/* Section: Operations */}
+          {/* Section: Gate Operations (Available to Gate Staff & Operators) */}
           <div
             style={{
               fontSize: '10px',
@@ -187,7 +203,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               padding: '12px 16px 4px',
             }}
           >
-            Operations &amp; Gate
+            Gate &amp; Operations
           </div>
 
           <button
@@ -205,7 +221,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             onClick={() => handleNav('/staff/qr-verification')}
           >
             <QrCode size={17} />
-            <span>QR Verification</span>
+            <span>QR Gate Verification</span>
             <span
               style={{
                 background: '#22c55e',
@@ -227,48 +243,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             onClick={() => handleNav('/staff/queue')}
           >
             <Clock size={17} />
-            <span>Queue Management</span>
-          </button>
-
-          {/* Section: Workstations */}
-          <div
-            style={{
-              fontSize: '10px',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.6px',
-              color: '#94a3b8',
-              padding: '16px 16px 4px',
-            }}
-          >
-            Intake Workstations
-          </div>
-
-          <button
-            type="button"
-            className="fd-nav-item"
-            onClick={() => handleNav('/staff/weighment')}
-          >
-            <Scale size={17} />
-            <span>Weighbridge Scale</span>
-          </button>
-
-          <button
-            type="button"
-            className="fd-nav-item"
-            onClick={() => handleNav('/staff/quality-check')}
-          >
-            <Sparkles size={17} />
-            <span>Moisture &amp; Quality</span>
-          </button>
-
-          <button
-            type="button"
-            className="fd-nav-item"
-            onClick={() => handleNav('/staff/payments')}
-          >
-            <IndianRupee size={17} />
-            <span>DBT Payments</span>
+            <span>Yard Queue Callboard</span>
           </button>
 
           <button
@@ -277,7 +252,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             onClick={() => handleNav('/staff/bookings')}
           >
             <Calendar size={17} />
-            <span>Centre Bookings</span>
+            <span>Today's Bookings</span>
           </button>
 
           <button
@@ -289,7 +264,52 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             <span>Slot Timetable</span>
           </button>
 
-          {/* Section: Governance & Master */}
+          {/* Section: Intake Workstations (Operator / Admin Level Authority Only) */}
+          {(staff.role === 'CENTRE_OPERATOR' || staff.role === 'MANDI_ADMIN' || (staff as any).role === 'CENTRE_ADMIN' || (staff as any).role === 'ADMIN') && (
+            <>
+              <div
+                style={{
+                  fontSize: '10px',
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.6px',
+                  color: '#94a3b8',
+                  padding: '16px 16px 4px',
+                }}
+              >
+                Intake Workstations (Operator)
+              </div>
+
+              <button
+                type="button"
+                className={`fd-nav-item ${activeTab === 'weighment' ? 'active' : ''}`}
+                onClick={() => handleNav('/staff/weighment')}
+              >
+                <Scale size={17} />
+                <span>Weighbridge Gross &amp; Tare</span>
+              </button>
+
+              <button
+                type="button"
+                className={`fd-nav-item ${activeTab === 'quality' ? 'active' : ''}`}
+                onClick={() => handleNav('/staff/quality-check')}
+              >
+                <Sparkles size={17} />
+                <span>Grain Moisture &amp; Quality</span>
+              </button>
+
+              <button
+                type="button"
+                className={`fd-nav-item ${activeTab === 'payments' ? 'active' : ''}`}
+                onClick={() => handleNav('/staff/payments')}
+              >
+                <IndianRupee size={17} />
+                <span>DBT Payment Vouchers</span>
+              </button>
+            </>
+          )}
+
+          {/* Section: Broadcast & Support */}
           <div
             style={{
               fontSize: '10px',
@@ -300,107 +320,22 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               padding: '16px 16px 4px',
             }}
           >
-            Governance &amp; Master
+            Communication &amp; Support
           </div>
 
           <button
             type="button"
-            className="fd-nav-item"
-            onClick={() => handleNav('/staff/prices')}
+            className={`fd-nav-item ${activeTab === 'announcements' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/announcements')}
           >
-            <IndianRupee size={17} />
-            <span>MSP Price Master</span>
-            <span
-              style={{
-                background: '#dbeafe',
-                color: '#1e40af',
-                fontSize: '9px',
-                fontWeight: 800,
-                padding: '1px 5px',
-                borderRadius: '4px',
-                marginLeft: 'auto',
-              }}
-            >
-              ADMIN
-            </span>
+            <Megaphone size={17} />
+            <span>Yard Announcements</span>
           </button>
 
           <button
             type="button"
-            className="fd-nav-item"
-            onClick={() => handleNav('/staff/centres')}
-          >
-            <Building2 size={17} />
-            <span>Mandi Centres</span>
-          </button>
-
-          <button
-            type="button"
-            className={`fd-nav-item ${activeTab === 'management' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/management')}
-          >
-            <ShieldCheck size={17} />
-            <span>Staff &amp; Officers</span>
-            <span
-              style={{
-                background: '#dbeafe',
-                color: '#1e40af',
-                fontSize: '9px',
-                fontWeight: 800,
-                padding: '1px 5px',
-                borderRadius: '4px',
-                marginLeft: 'auto',
-              }}
-            >
-              ADMIN
-            </span>
-          </button>
-
-          <button
-            type="button"
-            className={`fd-nav-item ${activeTab === 'farmers' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/farmers')}
-          >
-            <Users size={17} />
-            <span>Farmers Directory</span>
-          </button>
-
-          <button
-            type="button"
-            className={`fd-nav-item ${activeTab === 'history' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/verification-history')}
-          >
-            <History size={17} />
-            <span>Verification Audit</span>
-          </button>
-
-          <button
-            type="button"
-            className={`fd-nav-item ${activeTab === 'reports' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/reports')}
-          >
-            <BarChart3 size={17} />
-            <span>Operational Reports</span>
-          </button>
-
-          {/* Section: Support & Settings */}
-          <div
-            style={{
-              fontSize: '10px',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.6px',
-              color: '#94a3b8',
-              padding: '16px 16px 4px',
-            }}
-          >
-            Support &amp; Settings
-          </div>
-
-          <button
-            type="button"
-            className="fd-nav-item"
-            onClick={() => handleNav('/help-support')}
+            className={`fd-nav-item ${activeTab === 'support' || activeTab === 'help' || activeTab === 'grievance' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/help-support')}
           >
             <LifeBuoy size={17} />
             <span>Grievance Helpdesk</span>
@@ -415,27 +350,72 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             <span>Staff Profile</span>
           </button>
 
-          <button
-            type="button"
-            className={`fd-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/settings')}
-          >
-            <Settings size={17} />
-            <span>Terminal Settings</span>
-          </button>
+          {(staff.role === 'CENTRE_OPERATOR' || staff.role === 'MANDI_ADMIN' || (staff as any).role === 'CENTRE_ADMIN' || (staff as any).role === 'ADMIN') && (
+            <button
+              type="button"
+              className={`fd-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
+              onClick={() => handleNav('/staff/settings')}
+            >
+              <Settings size={17} />
+              <span>Terminal Settings</span>
+            </button>
+          )}
         </nav>
 
-        {/* Footer Logout Button */}
+        {/* Footer User Info & Logout */}
         <div
           style={{
             marginTop: 'auto',
             flexShrink: 0,
-            background: '#ffffff',
+            background: '#f8fafc',
             borderTop: '1px solid #e2e8f0',
             padding: '12px 14px',
             zIndex: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
           }}
         >
+          {/* Staff Profile Card */}
+          <div
+            style={{
+              padding: '8px 10px',
+              borderRadius: '10px',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+            }}
+          >
+            <div
+              style={{
+                width: '34px',
+                height: '34px',
+                borderRadius: '8px',
+                background: '#0d631b',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '13px',
+                fontWeight: 800,
+                flexShrink: 0,
+              }}
+            >
+              {staff.full_name?.charAt(0) || 'S'}
+            </div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {staff.full_name || 'Staff Officer'}
+              </div>
+              <div style={{ fontSize: '10.5px', color: '#16a34a', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
+                {staff.designation?.split('&')[0] || staff.role} • {staff.staff_id}
+              </div>
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={handleLogout}
@@ -445,27 +425,19 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              padding: '10px 14px',
-              borderRadius: '10px',
+              padding: '9px 14px',
+              borderRadius: '8px',
               background: '#fef2f2',
               color: '#dc2626',
               border: '1px solid #fecaca',
               fontWeight: 700,
-              fontSize: '13.5px',
+              fontSize: '12.5px',
               cursor: 'pointer',
               boxShadow: '0 1px 3px rgba(220, 38, 38, 0.08)',
               transition: 'all 0.15s ease',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#fee2e2'
-              e.currentTarget.style.borderColor = '#fca5a5'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#fef2f2'
-              e.currentTarget.style.borderColor = '#fecaca'
-            }}
           >
-            <LogOut size={16} color="#dc2626" />
+            <LogOut size={14} color="#dc2626" />
             <span>Sign Out Desk</span>
           </button>
         </div>

@@ -19,16 +19,21 @@ import {
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffWeighmentPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [queue, setQueue] = useState<QueueItem[]>([])
   const [selectedToken, setSelectedToken] = useState<QueueItem | null>(null)
 
   // Weighment form state
-  const [grossWeight, setGrossWeight] = useState<number | ''>(62.5)
-  const [tareWeight, setTareWeight] = useState<number | ''>(17.5)
+  const [grossWeight, setGrossWeight] = useState<number | ''>('')
+  const [tareWeight, setTareWeight] = useState<number | ''>('')
   const [selectedBay, setSelectedBay] = useState('Bay 2 - Heavy Weighbridge')
   const [batches, setBatches] = useState<ProcurementBatchItem[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -53,12 +58,18 @@ export default function StaffWeighmentPage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/weighment')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || '/staff/weighment')
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     loadData()
-  }, [loadData])
+  }, [loadData, pathname, isCentreAdmin, isAdmin])
 
   const netWeight =
     typeof grossWeight === 'number' && typeof tareWeight === 'number'
@@ -68,16 +79,22 @@ export default function StaffWeighmentPage() {
   const handleRecordWeighment = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!selectedToken) {
-      setErrorMsg('Please select an active vehicle token from the queue.')
-      return
-    }
-    if (typeof grossWeight !== 'number' || typeof tareWeight !== 'number' || netWeight <= 0) {
-      setErrorMsg('Gross weight must be strictly greater than tare weight.')
+      setErrorMsg('Please select an active token from the queue on the left.')
       return
     }
 
-    setErrorMsg('')
+    if (typeof grossWeight !== 'number' || typeof tareWeight !== 'number') {
+      setErrorMsg('Please enter valid numerical gross and tare weights.')
+      return
+    }
+
+    if (grossWeight <= tareWeight) {
+      setErrorMsg('Gross weight must be greater than Tare weight.')
+      return
+    }
+
     setIsSubmitting(true)
+    setErrorMsg('')
 
     const res = await saveWeighmentBatch({
       token_number: selectedToken.token_number,
@@ -105,11 +122,25 @@ export default function StaffWeighmentPage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="scanner"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="weighment"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="centres"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="weighment"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

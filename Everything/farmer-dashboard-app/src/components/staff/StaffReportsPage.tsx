@@ -13,9 +13,14 @@ import {
 import { fetchAIQueueAnalysis } from '../../services/mlService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffReportsPage() {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [kpis, setKpis] = useState<StaffDashboardKPIs>({
@@ -30,8 +35,14 @@ export default function StaffReportsPage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/reports')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || (isAdmin ? '/admin/reports' : isCentreAdmin ? '/centre-admin/reports' : '/staff/reports'))
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     const currentStaff = getStaffAuthSession()
@@ -49,17 +60,31 @@ export default function StaffReportsPage() {
           .catch(() => {})
       })
       .catch(() => {})
-  }, [])
+  }, [pathname, isCentreAdmin, isAdmin])
 
   const clearanceRate = Math.round((kpis.todayVerified / (kpis.todayBookings || 1)) * 100)
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="reports"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="reports"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="reports"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="reports"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

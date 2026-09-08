@@ -183,8 +183,14 @@ export default function FarmerSidebar({
         </div>
 
         {/* Navigation List */}
-        <nav className="fd-nav-list">
+        <nav className="fd-nav-list" style={{ overflowY: 'auto', flex: 1, padding: '4px 10px 16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+          {/* Section: Overview */}
+          <div style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#94a3b8', padding: '10px 10px 4px' }}>
+            Main Menu
+          </div>
+
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'dashboard' ? 'active' : ''}`}
             onClick={() => handleItemClick('dashboard')}
           >
@@ -193,6 +199,7 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'appointments' ? 'active' : ''}`}
             onClick={() => handleItemClick('appointments')}
           >
@@ -202,6 +209,7 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'book-slot' ? 'active' : ''}`}
             onClick={() => handleItemClick('book-slot')}
           >
@@ -210,14 +218,21 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'queue' ? 'active' : ''}`}
             onClick={() => handleItemClick('queue')}
           >
             <Users size={18} />
-            <span>Live Queue</span>
+            <span>Live Yard Queue</span>
           </button>
 
+          {/* Section: Procurement & DBT */}
+          <div style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#94a3b8', padding: '14px 10px 4px' }}>
+            Procurement &amp; DBT
+          </div>
+
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'procurement' ? 'active' : ''}`}
             onClick={() => handleItemClick('procurement')}
           >
@@ -226,6 +241,7 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'payments' ? 'active' : ''}`}
             onClick={() => handleItemClick('payments')}
           >
@@ -234,16 +250,21 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'history' ? 'active' : ''}`}
             onClick={() => handleItemClick('history')}
           >
             <History size={18} />
-            <span>History</span>
+            <span>Procurement History</span>
           </button>
 
-          <div className="fd-nav-divider" />
+          {/* Section: Preferences & Support */}
+          <div style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#94a3b8', padding: '14px 10px 4px' }}>
+            Account &amp; Support
+          </div>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'notifications' ? 'active' : ''}`}
             onClick={() => handleItemClick('notifications')}
           >
@@ -253,6 +274,7 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'profile' ? 'active' : ''}`}
             onClick={() => handleItemClick('profile')}
           >
@@ -261,31 +283,93 @@ export default function FarmerSidebar({
           </button>
 
           <button
+            type="button"
             className={`fd-nav-item ${activePage === 'help' ? 'active' : ''}`}
             onClick={() => handleItemClick('help')}
           >
             <HelpCircle size={18} />
-            <span>Help & Support</span>
+            <span>Help &amp; Support</span>
           </button>
         </nav>
 
-        {/* Smart Procurement Box */}
-        <div className="fd-sidebar-smart-box">
-          <strong>Smart Procurement</strong>
-          <p>Direct DBT credit on every batch with automated digital scales.</p>
-          <button
-            className="fd-smart-action"
-            onClick={() => handleItemClick('book-slot')}
+        {/* Farmer Profile Footer */}
+        <div
+          style={{
+            marginTop: 'auto',
+            flexShrink: 0,
+            background: '#f8fafc',
+            borderTop: '1px solid #e2e8f0',
+            padding: '12px 14px',
+            zIndex: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+          }}
+        >
+          <div
+            style={{
+              padding: '8px 10px',
+              borderRadius: '10px',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+            }}
           >
-            Book Next Slot →
+            <div
+              style={{
+                width: '34px',
+                height: '34px',
+                borderRadius: '8px',
+                background: '#0d631b',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '13px',
+                fontWeight: 800,
+                flexShrink: 0,
+              }}
+            >
+              {getFarmerProfile().name?.charAt(0) || 'K'}
+            </div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {getFarmerProfile().name || 'Farmer Portal'}
+              </div>
+              <div style={{ fontSize: '10.5px', color: '#16a34a', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
+                {getFarmerProfile().farmerId || 'KS-FARM-8942'}
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="fd-logout-btn"
+            onClick={handleLogout}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              padding: '9px 14px',
+              borderRadius: '8px',
+              background: '#fef2f2',
+              color: '#dc2626',
+              border: '1px solid #fecaca',
+              fontWeight: 700,
+              fontSize: '12.5px',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <LogOut size={14} color="#dc2626" />
+            <span>Sign Out Farmer</span>
           </button>
         </div>
-
-        {/* Logout Action */}
-        <button className="fd-logout-btn" onClick={handleLogout}>
-          <LogOut size={16} />
-          <span>Logout Portal</span>
-        </button>
       </aside>
     </>
   )

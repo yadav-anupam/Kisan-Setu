@@ -31,107 +31,53 @@ import StaffWeighmentPage from './components/staff/StaffWeighmentPage'
 import StaffQualityCheckPage from './components/staff/StaffQualityCheckPage'
 import AdminPriceManagementPage from './components/staff/AdminPriceManagementPage'
 import AdminCentresPage from './components/staff/AdminCentresPage'
+import AdminAddCentrePage from './components/staff/AdminAddCentrePage'
+import AdminCentreVerificationPage from './components/staff/AdminCentreVerificationPage'
+import AdminCentreCategoriesPage from './components/staff/AdminCentreCategoriesPage'
+import AdminUserRolesPage from './components/staff/AdminUserRolesPage'
+import AdminDepartmentsPage from './components/staff/AdminDepartmentsPage'
+import AdminSystemSettingsPage from './components/staff/AdminSystemSettingsPage'
+import AdminLoginPage from './components/staff/AdminLoginPage'
+import CentreAdminDashboardPage from './components/staff/CentreAdminDashboardPage'
+import CentreAdminTokensPage from './components/staff/CentreAdminTokensPage'
 import StaffPaymentsPage from './components/staff/StaffPaymentsPage'
+import StaffAnnouncementsPage from './components/staff/StaffAnnouncementsPage'
+import AdminDashboardPage from './components/staff/AdminDashboardPage'
+import StaffGrievancePage from './components/staff/StaffGrievancePage'
 import HelpSupportPage from './components/common/HelpSupportPage'
 import PWAInstallPrompt from './components/common/PWAInstallPrompt'
-import { isFarmerLoggedIn, setRedirectAfterLogin, isFarmerDashboardPath } from './auth'
+import RouteGuard from './components/common/RouteGuard'
 import { useRouter } from './router'
 
 export default function App() {
   const { path } = useRouter()
 
   const renderContent = () => {
-    // 1. Staff & Operator Portal Routes
-    if (path === '/staff/login' || path === '/staff-login' || path === '/operator-login') {
+    // =========================================================================
+    // 1. PUBLIC AUTHENTICATION & INSTITUTIONAL PORTAL PAGES (UNPROTECTED)
+    // =========================================================================
+    if (path === '/admin/login' || path === '/admin-login' || path === '/administration/login') {
+      return <AdminLoginPage />
+    }
+
+    if (
+      path === '/centre-admin/login' ||
+      path === '/centre-admin-login' ||
+      path === '/staff/login' ||
+      path === '/staff-login' ||
+      path === '/operator-login'
+    ) {
       return <StaffLoginPage />
     }
 
-    if (
-      path === '/staff/dashboard' ||
-      path === '/staff-dashboard' ||
-      path === '/operator-dashboard' ||
-      path === '/staff'
-    ) {
-      return <StaffDashboardPage />
+    if (path === '/login' || path === '/farmer-login') {
+      return <FarmerLoginPage />
     }
 
-    if (
-      path === '/staff/qr-verification' ||
-      path === '/staff/scanner' ||
-      path === '/staff-verify' ||
-      path === '/staff-scanner' ||
-      path === '/staff-check-in'
-    ) {
-      return <StaffQRScannerPage />
+    if (path === '/register' || path === '/farmer-register') {
+      return <FarmerRegisterPage />
     }
 
-    if (path === '/staff/weighment' || path === '/staff-weighment' || path === '/weighment') {
-      return <StaffWeighmentPage />
-    }
-
-    if (path === '/staff/quality-check' || path === '/staff-quality' || path === '/quality-check') {
-      return <StaffQualityCheckPage />
-    }
-
-    if (path === '/staff/payments' || path === '/staff-payments' || path === '/staff/dbt-approvals') {
-      return <StaffPaymentsPage />
-    }
-
-    if (path === '/staff/prices' || path === '/staff-prices' || path === '/staff/price-management' || path === '/admin/prices') {
-      return <AdminPriceManagementPage />
-    }
-
-    if (path === '/staff/centres' || path === '/staff-centres' || path === '/admin/centres') {
-      return <AdminCentresPage />
-    }
-
-    if (path === '/staff/bookings' || path === '/staff-bookings') {
-      return <StaffBookingsPage />
-    }
-
-    if (path === '/staff/queue' || path === '/staff-queue') {
-      return <StaffQueuePage />
-    }
-
-    if (path === '/staff/slots' || path === '/staff-slots') {
-      return <StaffSlotsPage />
-    }
-
-    if (path === '/staff/farmers' || path === '/staff-farmers') {
-      return <StaffFarmersPage />
-    }
-
-    if (
-      path === '/staff/management' ||
-      path === '/staff-management' ||
-      path === '/staff/team' ||
-      path === '/staff/officers'
-    ) {
-      return <StaffManagementPage />
-    }
-
-    if (path === '/staff/verification-history' || path === '/staff-history') {
-      return <StaffVerificationHistoryPage />
-    }
-
-    if (path === '/staff/reports' || path === '/staff-reports') {
-      return <StaffReportsPage />
-    }
-
-    if (path === '/staff/profile' || path === '/staff-profile') {
-      return <StaffProfilePage />
-    }
-
-    if (path === '/staff/settings' || path === '/staff-settings') {
-      return <StaffSettingsPage />
-    }
-
-    // Help & Support (Dual-Role)
-    if (path === '/help-support' || path === '/support' || path === '/help' || path === '/farmer-support') {
-      return <HelpSupportPage />
-    }
-
-    // 2. Public Institutional Pages
     if (path === '/about') {
       return <AboutPage />
     }
@@ -156,49 +102,423 @@ export default function App() {
       return <ContactPage />
     }
 
-    if (path === '/login' || path === '/farmer-login') {
-      return <FarmerLoginPage />
+    // Help & Support (Dual-Role / Publicly accessible with adaptive features)
+    if (path === '/help-support' || path === '/support' || path === '/help' || path === '/farmer-support') {
+      return <HelpSupportPage />
     }
 
-    if (path === '/register' || path === '/farmer-register') {
-      return <FarmerRegisterPage />
+    // =========================================================================
+    // 2. CENTRE ADMIN PORTAL ROUTES (CENTRE_ADMIN & ADMIN ROLES)
+    // =========================================================================
+    if (path === '/centre-admin/dashboard' || path === '/centre-admin' || path === '/centre-admin-dashboard') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <CentreAdminDashboardPage />
+        </RouteGuard>
+      )
     }
 
-    // 3. Strict Universal Guard for ALL Farmer Dashboard Routes & Services
-    if (isFarmerDashboardPath(path)) {
-      if (!isFarmerLoggedIn()) {
-        setRedirectAfterLogin(path)
-        return <FarmerLoginPage />
-      }
+    if (path === '/centre-admin/token-management' || path === '/centre-admin/tokens') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <CentreAdminTokensPage />
+        </RouteGuard>
+      )
     }
 
-    // 4. Authenticated Farmer Routes
+    if (path === '/centre-admin/appointments' || path === '/centre-admin/bookings') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffBookingsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/live-queue' || path === '/centre-admin/queue') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffQueuePage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/weighment') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffWeighmentPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/quality-check') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffQualityCheckPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/procurement' || path === '/centre-admin/payments') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffPaymentsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/price-management' || path === '/centre-admin/prices') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <AdminPriceManagementPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/farmers') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffFarmersPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/staff') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffManagementPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/reports') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffReportsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/audit-logs') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffVerificationHistoryPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/settings') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffSettingsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/centre-admin/help-support' || path === '/centre-admin/support') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffGrievancePage />
+        </RouteGuard>
+      )
+    }
+
+    // =========================================================================
+    // 3. PLATFORM ADMINISTRATIVE GOVERNANCE ROUTES (ADMIN ONLY)
+    // =========================================================================
+    if (path === '/admin/centres/add' || path === '/admin/add-centre') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminAddCentrePage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/admin/centres/verification' || path === '/admin/centre-verification') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminCentreVerificationPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/admin/centres/categories' || path === '/admin/centre-categories') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminCentreCategoriesPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/admin/users-roles' || path === '/admin/permissions') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminUserRolesPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/admin/staff/departments' || path === '/admin/departments') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminDepartmentsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/admin/system-settings' || path === '/admin/global-settings') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminSystemSettingsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (
+      path === '/admin/dashboard' ||
+      path === '/admin' ||
+      path === '/admin-dashboard' ||
+      path === '/staff/admin-dashboard'
+    ) {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <AdminDashboardPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/admin/help-support' || path === '/admin/support' || path === '/admin/grievance') {
+      return (
+        <RouteGuard portal="ADMIN" allowedRoles={['ADMIN']}>
+          <StaffGrievancePage />
+        </RouteGuard>
+      )
+    }
+
+    // =========================================================================
+    // 4. FIELD STAFF & OPERATIONS ROUTES
+    // =========================================================================
+    // Gate Pass Operations (Accessible by Gate Staff, Centre Operator & Admin)
+    if (
+      path === '/staff/dashboard' ||
+      path === '/staff-dashboard' ||
+      path === '/operator-dashboard' ||
+      path === '/staff'
+    ) {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffDashboardPage />
+        </RouteGuard>
+      )
+    }
+
+    if (
+      path === '/staff/qr-verification' ||
+      path === '/staff/scanner' ||
+      path === '/staff-verify' ||
+      path === '/staff-scanner' ||
+      path === '/staff-check-in'
+    ) {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffQRScannerPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/bookings' || path === '/staff-bookings') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffBookingsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/queue' || path === '/staff-queue') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffQueuePage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/slots' || path === '/staff-slots') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffSlotsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/farmers' || path === '/staff-farmers' || path === '/admin/farmers') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffFarmersPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/announcements' || path === '/staff-announcements' || path === '/announcements' || path === '/admin/announcements') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffAnnouncementsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/profile' || path === '/staff-profile' || path === '/admin/profile') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffProfilePage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/help-support' || path === '/staff/support' || path === '/staff/grievance' || path === '/staff/help') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['STAFF', 'CENTRE_ADMIN', 'ADMIN']}>
+          <StaffGrievancePage />
+        </RouteGuard>
+      )
+    }
+
+    // Workstation & Operator/Admin-Only Authorized Features (Restricted from Gate Staff)
+    if (path === '/staff/weighment' || path === '/staff-weighment' || path === '/weighment') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffWeighmentPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/quality-check' || path === '/staff-quality' || path === '/quality-check') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffQualityCheckPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/payments' || path === '/staff-payments' || path === '/staff/dbt-approvals' || path === '/admin/payments') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffPaymentsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/prices' || path === '/staff-prices' || path === '/staff/price-management' || path === '/admin/prices') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <AdminPriceManagementPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/centres' || path === '/staff-centres' || path === '/admin/centres') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <AdminCentresPage />
+        </RouteGuard>
+      )
+    }
+
+    if (
+      path === '/staff/management' ||
+      path === '/staff-management' ||
+      path === '/staff/team' ||
+      path === '/staff/officers' ||
+      path === '/admin/management' ||
+      path === '/admin/staff' ||
+      path === '/admin/users'
+    ) {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffManagementPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/verification-history' || path === '/staff-history' || path === '/admin/verification-history' || path === '/admin/audit-logs') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffVerificationHistoryPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/reports' || path === '/staff-reports' || path === '/admin/reports') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffReportsPage />
+        </RouteGuard>
+      )
+    }
+
+    if (path === '/staff/settings' || path === '/staff-settings' || path === '/admin/settings') {
+      return (
+        <RouteGuard portal="STAFF" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
+          <StaffSettingsPage />
+        </RouteGuard>
+      )
+    }
+
+    // =========================================================================
+    // 5. AUTHENTICATED FARMER PORTAL ROUTES (FARMER ROLE)
+    // =========================================================================
     if (path === '/my-appointments' || path === '/farmer-appointments' || path === '/appointments') {
-      return <MyAppointmentsPage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <MyAppointmentsPage />
+        </RouteGuard>
+      )
     }
 
     if (path === '/procurement' || path === '/my-procurement' || path === '/farmer-procurement') {
-      return <MyProcurementPage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <MyProcurementPage />
+        </RouteGuard>
+      )
     }
 
     if (path === '/payments' || path === '/dbt-payments' || path === '/farmer-payments') {
-      return <DbtPaymentsPage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <DbtPaymentsPage />
+        </RouteGuard>
+      )
     }
 
     if (path === '/history' || path === '/farmer-history') {
-      return <FarmerHistoryPage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <FarmerHistoryPage />
+        </RouteGuard>
+      )
     }
 
     if (path === '/notifications' || path === '/farmer-notifications') {
-      return <FarmerNotificationsPage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <FarmerNotificationsPage />
+        </RouteGuard>
+      )
     }
 
     if (path === '/profile' || path === '/farmer-profile' || path === '/my-profile') {
-      return <FarmerProfilePage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <FarmerProfilePage />
+        </RouteGuard>
+      )
     }
 
     if (path === '/queue' || path === '/live-queue' || path === '/farmer-queue') {
-      return <LiveQueuePage />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <LiveQueuePage />
+        </RouteGuard>
+      )
     }
 
     if (
@@ -208,10 +528,14 @@ export default function App() {
       path === '/slot-booking' ||
       path === '/farmer-booking'
     ) {
-      return <FarmerDashboard />
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <FarmerDashboard />
+        </RouteGuard>
+      )
     }
 
-    // Fallback to Home
+    // Default Fallback
     return <HomePage />
   }
 

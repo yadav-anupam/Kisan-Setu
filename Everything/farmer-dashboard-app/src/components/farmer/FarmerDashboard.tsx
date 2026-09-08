@@ -1,17 +1,13 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
-  Bell,
   CalendarCheck,
   CheckCircle2,
-  ChevronDown,
   Clock,
   CreditCard,
   Download,
   Eye,
-  Globe2,
   Info,
   MapPin,
-  Menu,
   Navigation,
   PlusCircle,
   QrCode,
@@ -22,10 +18,13 @@ import {
   Wallet,
   Wind,
   X,
+  Megaphone,
+  ArrowUpRight,
+  Sparkles,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
+import FarmerHeader from './FarmerHeader'
 import BookingQR from '../common/BookingQR'
 import { GoogleMapsModal } from '../common/GoogleMapsModal'
 import {
@@ -52,6 +51,10 @@ import {
   fetchLiveWeatherByCoords,
   type RealWeatherReport,
 } from '../../services/weatherService'
+import {
+  getOfficialPriceAnnouncements,
+  type PriceAnnouncementRecord,
+} from '../../services/staffDataService'
 import FarmerSidebar from './FarmerSidebar'
 import {
   ALL_PROCUREMENT_CENTRES,
@@ -63,8 +66,8 @@ import {
 import './FarmerDashboard.css'
 
 export default function FarmerDashboard() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const [farmer, setFarmer] = useState(getFarmerProfile())
+  const [priceAnnouncements, setPriceAnnouncements] = useState<PriceAnnouncementRecord[]>(getOfficialPriceAnnouncements)
 
   useEffect(() => {
     if (!isFarmerLoggedIn()) {
@@ -75,12 +78,24 @@ export default function FarmerDashboard() {
     const handleProfileUpdate = () => {
       setFarmer(getFarmerProfile())
     }
+    const handlePriceUpdate = () => {
+      setPriceAnnouncements(getOfficialPriceAnnouncements())
+    }
+
     window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
-    return () => window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+    window.addEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
+    window.addEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+    window.addEventListener('storage', handlePriceUpdate)
+
+    return () => {
+      window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
+      window.removeEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
+      window.removeEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+      window.removeEventListener('storage', handlePriceUpdate)
+    }
   }, [])
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [bookingModalOpen, setBookingModalOpen] = useState(false)
   const [queueModalOpen, setQueueModalOpen] = useState(false)
   const [confirmedModalOpen, setConfirmedModalOpen] = useState(false)
@@ -110,8 +125,6 @@ export default function FarmerDashboard() {
   const [selectedCentre, setSelectedCentre] = useState<string>(
     farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName
   )
-
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Live Database States
   const [metrics, setMetrics] = useState<DashboardAggregatedMetrics>({
@@ -266,16 +279,6 @@ export default function FarmerDashboard() {
     }
   }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi, farmer.district, loadAllDashboardData])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
   const handleBookSlot = async (e: React.FormEvent) => {
     e.preventDefault()
     const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === selectedCentre) || ALL_PROCUREMENT_CENTRES[0]
@@ -310,8 +313,6 @@ export default function FarmerDashboard() {
     loadAllDashboardData()
   }
 
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-
   return (
     <div className="farmer-dashboard-layout">
       {/* ==========================================================================
@@ -330,88 +331,170 @@ export default function FarmerDashboard() {
           ========================================================================== */}
       <main className="fd-main-content">
         {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>Namaste, {farmer.name || 'Ramesh Kumar'}</h1>
-            </div>
-            <p>
-              <MapPin size={13} color="#16a34a" /> {farmer.district}, {farmer.state} • ID: {farmer.farmerId}
-            </p>
-          </div>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          showNamaste
+          showBadges
+        />
 
-          <div className="fd-topbar-actions">
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
+        {/* ==========================================================================
+            Official MSP Price Announcement & Hike Alert Banner
+            ========================================================================== */}
+        {priceAnnouncements.length > 0 && (() => {
+          const latest = priceAnnouncements[0]
+          return (
+            <div
+              style={{
+                marginBottom: '16px',
+                borderRadius: '16px',
+                background: latest.isPriceRaised
+                  ? 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 60%, #fef9c3 100%)'
+                  : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+                border: latest.isPriceRaised ? '1.5px solid #86efac' : '1px solid #e2e8f0',
+                padding: '16px 20px',
+                boxShadow: latest.isPriceRaised ? '0 4px 16px rgba(22,163,74,0.12)' : '0 2px 8px rgba(0,0,0,0.04)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '16px',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', flex: '1 1 500px' }}>
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    background: latest.isPriceRaised ? '#16a34a' : '#0284c7',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
+                  }}
+                >
+                  {latest.isPriceRaised ? <Sparkles size={22} /> : <Megaphone size={22} />}
+                </div>
 
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 800,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        padding: '2px 8px',
+                        borderRadius: '20px',
+                        background: latest.isPriceRaised ? '#166534' : '#0369a1',
+                        color: '#ffffff',
                       }}
                     >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
+                      {latest.isPriceRaised ? '🔥 Official Government MSP Hike Notice' : '📢 Official MSP Price Notice'}
+                    </span>
+                    {latest.effectiveSeason && (
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          padding: '2px 8px',
+                          borderRadius: '20px',
+                          background: '#e2e8f0',
+                          color: '#334155',
+                        }}
+                      >
+                        {latest.effectiveSeason}
+                      </span>
+                    )}
+                    {latest.circularRef && (
+                      <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 500 }}>
+                        Ref: {latest.circularRef}
+                      </span>
+                    )}
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                    <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>
+                      {latest.cropName} {latest.hindiName ? `(${latest.hindiName})` : ''}
+                    </h3>
+                    <span style={{ fontSize: '18px', fontWeight: 900, color: '#15803d' }}>
+                      ₹{latest.newPrice} <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b' }}>/ Quintal</span>
+                    </span>
+                    {latest.bonusPerQtl > 0 && (
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          color: '#166534',
+                          background: '#bbf7d0',
+                          padding: '2px 8px',
+                          borderRadius: '12px',
+                        }}
+                      >
+                        +₹{latest.bonusPerQtl}/Qtl State Bonus Included
+                      </span>
+                    )}
+                    {latest.isPriceRaised && latest.percentageIncrease > 0 && (
+                      <span
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: 800,
+                          color: '#166534',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '2px',
+                        }}
+                      >
+                        <ArrowUpRight size={14} /> +₹{latest.newPrice - latest.oldPrice}/Qtl (+{latest.percentageIncrease}%)
+                      </span>
+                    )}
+                  </div>
+
+                  {latest.notes && (
+                    <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#334155', lineHeight: 1.4 }}>
+                      {latest.notes}
+                    </p>
+                  )}
                 </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={() => alert('You have 2 new Mandi queue notifications.')}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-              <span className="fd-notif-dot" />
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Open Farmer Profile"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {farmer.profilePhoto ? (
-                  <img
-                    src={farmer.profilePhoto}
-                    alt={farmer.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
               </div>
-              <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (latest.cropName) {
+                      setNewCrop(latest.cropName)
+                    }
+                    setBookingModalOpen(true)
+                  }}
+                  style={{
+                    background: '#16a34a',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '9px 16px',
+                    fontWeight: 700,
+                    fontSize: '13px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    boxShadow: '0 2px 8px rgba(22,163,74,0.3)',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.background = '#15803d')}
+                  onMouseOut={(e) => (e.currentTarget.style.background = '#16a34a')}
+                >
+                  <PlusCircle size={15} /> Book Slot at New MSP
+                </button>
+              </div>
             </div>
-          </div>
-        </header>
+          )
+        })()}
 
         {/* ==========================================================================
             Top 3 Cards: Appointment, Live Queue, Quick Actions

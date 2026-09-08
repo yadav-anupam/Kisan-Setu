@@ -18,18 +18,23 @@ import {
 } from '../../services/staffDataService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
+import CentreAdminSidebar from './CentreAdminSidebar'
+import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
 
 export default function StaffQualityCheckPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isCentreAdmin = pathname.startsWith('/centre-admin')
+  const isAdmin = pathname.startsWith('/admin')
   const [, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [batches, setBatches] = useState<ProcurementBatchItem[]>([])
   const [selectedBatch, setSelectedBatch] = useState<ProcurementBatchItem | null>(null)
 
   // Quality check form state
-  const [moisture, setMoisture] = useState<number | ''>(11.4)
-  const [foreignMatter, setForeignMatter] = useState<number | ''>(0.4)
-  const [damagedGrain, setDamagedGrain] = useState<number | ''>(0.2)
+  const [moisture, setMoisture] = useState<number | ''>('')
+  const [foreignMatter, setForeignMatter] = useState<number | ''>('')
+  const [damagedGrain, setDamagedGrain] = useState<number | ''>('')
   const [qualityGrade, setQualityGrade] = useState('Grade A (FAQ Standard)')
   const [deductionPercent, setDeductionPercent] = useState<number>(0)
   const [remarks, setRemarks] = useState('')
@@ -52,12 +57,18 @@ export default function StaffQualityCheckPage() {
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
-      sessionStorage.setItem('kisan_setu_staff_redirect', '/staff/quality-check')
-      navigate('/staff/login')
+      sessionStorage.setItem('kisan_setu_staff_redirect', pathname || '/staff/quality-check')
+      if (isCentreAdmin) {
+        navigate('/centre-admin/login')
+      } else if (isAdmin) {
+        navigate('/admin/login')
+      } else {
+        navigate('/staff/login')
+      }
       return
     }
     loadData()
-  }, [loadData])
+  }, [loadData, pathname, isCentreAdmin, isAdmin])
 
   const prices = getCommodityPrices()
   const currentCropPrice = selectedBatch
@@ -112,11 +123,25 @@ export default function StaffQualityCheckPage() {
 
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
-      <StaffSidebar
-        activeTab="scanner"
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      {isCentreAdmin ? (
+        <CentreAdminSidebar
+          activeTab="quality-check"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : isAdmin ? (
+        <AdminSidebar
+          activeTab="centres"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      ) : (
+        <StaffSidebar
+          activeTab="quality"
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="fd-main-content">
         <StaffHeader

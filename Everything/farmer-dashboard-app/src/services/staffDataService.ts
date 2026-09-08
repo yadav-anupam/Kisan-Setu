@@ -5,8 +5,10 @@
 
 import { getSupabaseClient } from './supabaseClient'
 import { getFarmerBookings } from './qrBookingService'
+import type { AuthIdentity, UserRole } from './rbacService'
 
-export type StaffRole = 'STAFF' | 'CENTRE_OPERATOR' | 'MANDI_ADMIN'
+export type StaffRole = 'STAFF' | 'CENTRE_OPERATOR' | 'MANDI_ADMIN' | 'ADMIN'
+export type StaffSection = 'GATE_INTAKE' | 'WEIGHMENT_ASSAY' | 'PROCUREMENT_DBT' | 'ADMIN_GRIEVANCE'
 
 export interface StaffProfile {
   id?: string
@@ -18,6 +20,9 @@ export interface StaffProfile {
   centre_id: string
   centre_name: string
   designation: string
+  section?: StaffSection
+  shift?: string
+  desk_assigned?: string
   profile_photo?: string
   status: 'ACTIVE' | 'ON_LEAVE' | 'INACTIVE'
   created_at?: string
@@ -95,6 +100,42 @@ export interface RegisteredStaffRecord extends StaffProfile {
 
 // Default Official Staff Accounts with SHA-256 Password Hashes
 export const OFFICIAL_STAFF_ACCOUNTS: RegisteredStaffRecord[] = [
+  // -------------------------------------------------------------
+  // State & Central Administration Command Accounts (ADMIN)
+  // -------------------------------------------------------------
+  {
+    staff_id: 'ADM-UP-001',
+    full_name: 'Dr. Arvind Sharma',
+    mobile: '+91 94150 00111',
+    email: 'admin@fcs.up.gov.in',
+    role: 'ADMIN',
+    centre_id: 'STATE_HQ',
+    centre_name: 'State APMC & Food Supplies Headquarters',
+    designation: 'Director of APMC & State Civil Supplies',
+    section: 'ADMIN_GRIEVANCE',
+    shift: 'Administrative General (09:30 - 18:30)',
+    desk_assigned: 'Directorate Chamber #101',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'ADM-UP-002',
+    full_name: 'Smt. Meenakshi Sundaram',
+    mobile: '+91 94150 00222',
+    email: 'director@up-agri.gov.in',
+    role: 'ADMIN',
+    centre_id: 'STATE_HQ',
+    centre_name: 'State APMC & Food Supplies Headquarters',
+    designation: 'Principal Secretary of Agriculture',
+    section: 'ADMIN_GRIEVANCE',
+    shift: 'Administrative General (09:30 - 18:30)',
+    desk_assigned: 'Secretariat Executive Suite',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  // -------------------------------------------------------------
+  // Chiraigaon 1st at Gaurakala (FCS) - Complete Section Roster
+  // -------------------------------------------------------------
   {
     staff_id: 'ST-102',
     full_name: 'Rajesh Kumar',
@@ -103,9 +144,27 @@ export const OFFICIAL_STAFF_ACCOUNTS: RegisteredStaffRecord[] = [
     role: 'STAFF',
     centre_id: 'centre-up-vns-01',
     centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
-    designation: 'Weighbridge & Gate Verification Officer',
+    designation: 'Gate Entry & QR Verification Officer',
+    section: 'GATE_INTAKE',
+    shift: 'Morning Shift (06:00 - 14:00)',
+    desk_assigned: 'Gate 1 Entry Booth',
     status: 'ACTIVE',
-    passwordHash: '', // Initialized below
+    passwordHash: '',
+  },
+  {
+    staff_id: 'ST-103',
+    full_name: 'Sunil Verma',
+    mobile: '+91 98380 44321',
+    email: 'sunil.verma@fcs.up.gov.in',
+    role: 'STAFF',
+    centre_id: 'centre-up-vns-01',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    designation: 'Token Dispenser & Queue Marshall',
+    section: 'GATE_INTAKE',
+    shift: 'General Shift (08:00 - 16:00)',
+    desk_assigned: 'Token Kiosk Desk #2',
+    status: 'ACTIVE',
+    passwordHash: '',
   },
   {
     staff_id: 'OP-401',
@@ -115,7 +174,55 @@ export const OFFICIAL_STAFF_ACCOUNTS: RegisteredStaffRecord[] = [
     role: 'CENTRE_OPERATOR',
     centre_id: 'centre-up-vns-01',
     centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
-    designation: 'Senior Mandi Inspector',
+    designation: 'Weighbridge In-Charge & Scale Operator',
+    section: 'WEIGHMENT_ASSAY',
+    shift: 'General Shift (08:00 - 17:00)',
+    desk_assigned: 'Gross/Tare Weighbridge #1',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'OP-402',
+    full_name: 'Dr. Rameshwar Pandey',
+    mobile: '+91 94500 77123',
+    email: 'r.pandey@fcs.up.gov.in',
+    role: 'CENTRE_OPERATOR',
+    centre_id: 'centre-up-vns-01',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    designation: 'Quality Assay & Moisture Assayer',
+    section: 'WEIGHMENT_ASSAY',
+    shift: 'Morning Shift (07:00 - 15:00)',
+    desk_assigned: 'Moisture Testing Lab #A',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'OP-403',
+    full_name: 'Alok Tripathi',
+    mobile: '+91 91250 88234',
+    email: 'alok.tripathi@fcs.up.gov.in',
+    role: 'CENTRE_OPERATOR',
+    centre_id: 'centre-up-vns-01',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    designation: 'J-Form Billing & Stacking Officer',
+    section: 'PROCUREMENT_DBT',
+    shift: 'General Shift (09:00 - 18:00)',
+    desk_assigned: 'J-Form Generation Counter #3',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'ST-104',
+    full_name: 'Pooja Tiwari',
+    mobile: '+91 97920 33112',
+    email: 'pooja.tiwari@fcs.up.gov.in',
+    role: 'STAFF',
+    centre_id: 'centre-up-vns-01',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    designation: 'PFMS DBT Beneficiary Settlement Officer',
+    section: 'PROCUREMENT_DBT',
+    shift: 'General Shift (09:00 - 17:30)',
+    desk_assigned: 'DBT Bank Clearance Desk',
     status: 'ACTIVE',
     passwordHash: '',
   },
@@ -127,7 +234,138 @@ export const OFFICIAL_STAFF_ACCOUNTS: RegisteredStaffRecord[] = [
     role: 'MANDI_ADMIN',
     centre_id: 'centre-up-vns-01',
     centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
-    designation: 'Mandi Yard Administrator',
+    designation: 'Centre Superintendent & Yard Administrator',
+    section: 'ADMIN_GRIEVANCE',
+    shift: 'General Shift (09:00 - 18:00)',
+    desk_assigned: 'Superintendent Chamber',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'AD-002',
+    full_name: 'Kavita Shahi',
+    mobile: '+91 94150 99881',
+    email: 'kavita.shahi@fcs.up.gov.in',
+    role: 'MANDI_ADMIN',
+    centre_id: 'centre-up-vns-01',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    designation: 'APMC Grievance & Farmer Helpdesk Nodal Officer',
+    section: 'ADMIN_GRIEVANCE',
+    shift: 'General Shift (08:30 - 17:00)',
+    desk_assigned: 'Grievance Redressal Cell',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+
+  // -------------------------------------------------------------
+  // Kashi Vishwanath Main Mandi - Section Roster
+  // -------------------------------------------------------------
+  {
+    staff_id: 'ST-201',
+    full_name: 'Dharmendra Yadav',
+    mobile: '+91 94520 11223',
+    email: 'd.yadav@fcs.up.gov.in',
+    role: 'STAFF',
+    centre_id: 'centre-up-vns-02',
+    centre_name: 'Kashi Vishwanath Main Mandi',
+    designation: 'Gate Security & Barcode Gatekeeper',
+    section: 'GATE_INTAKE',
+    shift: 'Morning Shift (06:00 - 14:00)',
+    desk_assigned: 'Main Gate Toll Booth',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'OP-501',
+    full_name: 'Amitabh Sen',
+    mobile: '+91 98890 33445',
+    email: 'amitabh.sen@fcs.up.gov.in',
+    role: 'CENTRE_OPERATOR',
+    centre_id: 'centre-up-vns-02',
+    centre_name: 'Kashi Vishwanath Main Mandi',
+    designation: 'Senior Grain Refraction & Moisture Analyst',
+    section: 'WEIGHMENT_ASSAY',
+    shift: 'General Shift (08:00 - 17:00)',
+    desk_assigned: 'Assay Lab Station #1',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'OP-502',
+    full_name: 'Neha Srivastava',
+    mobile: '+91 94120 55667',
+    email: 'neha.s@fcs.up.gov.in',
+    role: 'CENTRE_OPERATOR',
+    centre_id: 'centre-up-vns-02',
+    centre_name: 'Kashi Vishwanath Main Mandi',
+    designation: 'DBT Batch Approvals In-Charge',
+    section: 'PROCUREMENT_DBT',
+    shift: 'General Shift (09:00 - 18:00)',
+    desk_assigned: 'Finance & DBT Desk #1',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'AD-003',
+    full_name: 'Deepak Mishra',
+    mobile: '+91 94150 77889',
+    email: 'deepak.mishra@fcs.up.gov.in',
+    role: 'MANDI_ADMIN',
+    centre_id: 'centre-up-vns-02',
+    centre_name: 'Kashi Vishwanath Main Mandi',
+    designation: 'Joint Director & Mandi Secretary',
+    section: 'ADMIN_GRIEVANCE',
+    shift: 'General Shift (09:00 - 18:00)',
+    desk_assigned: 'Executive Secretary Office',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+
+  // -------------------------------------------------------------
+  // Raja Talab APMC Sub-Yard - Section Roster
+  // -------------------------------------------------------------
+  {
+    staff_id: 'ST-301',
+    full_name: 'Manoj Kumar Gupta',
+    mobile: '+91 98390 99001',
+    email: 'manoj.gupta@fcs.up.gov.in',
+    role: 'STAFF',
+    centre_id: 'centre-up-vns-03',
+    centre_name: 'Raja Talab APMC Sub-Yard',
+    designation: 'Gate Entry & Token Scanner',
+    section: 'GATE_INTAKE',
+    shift: 'Morning Shift (06:00 - 14:00)',
+    desk_assigned: 'Gate A Entry Desk',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'OP-601',
+    full_name: 'Pawan Kumar Maurya',
+    mobile: '+91 94530 44556',
+    email: 'pawan.maurya@fcs.up.gov.in',
+    role: 'CENTRE_OPERATOR',
+    centre_id: 'centre-up-vns-03',
+    centre_name: 'Raja Talab APMC Sub-Yard',
+    designation: 'Weighbridge & Quality Officer',
+    section: 'WEIGHMENT_ASSAY',
+    shift: 'General Shift (08:30 - 17:30)',
+    desk_assigned: 'Weighbridge Bay #1',
+    status: 'ACTIVE',
+    passwordHash: '',
+  },
+  {
+    staff_id: 'AD-004',
+    full_name: 'Shyam Sundar Lal',
+    mobile: '+91 94150 11992',
+    email: 'shyam.lal@fcs.up.gov.in',
+    role: 'MANDI_ADMIN',
+    centre_id: 'centre-up-vns-03',
+    centre_name: 'Raja Talab APMC Sub-Yard',
+    designation: 'Sub-Yard In-Charge',
+    section: 'ADMIN_GRIEVANCE',
+    shift: 'General Shift (09:00 - 18:00)',
+    desk_assigned: 'Yard In-Charge Office',
     status: 'ACTIVE',
     passwordHash: '',
   },
@@ -136,9 +374,9 @@ export const OFFICIAL_STAFF_ACCOUNTS: RegisteredStaffRecord[] = [
 // Initialize default password hashes (Password: '123456' or 'admin123')
 async function initStaffPasswordHashes() {
   const hash123456 = await hashTokenSHA256('123456')
-  OFFICIAL_STAFF_ACCOUNTS[0].passwordHash = hash123456
-  OFFICIAL_STAFF_ACCOUNTS[1].passwordHash = hash123456
-  OFFICIAL_STAFF_ACCOUNTS[2].passwordHash = hash123456
+  OFFICIAL_STAFF_ACCOUNTS.forEach((officer) => {
+    officer.passwordHash = hash123456
+  })
 }
 initStaffPasswordHashes()
 
@@ -197,6 +435,9 @@ export async function appointStaffOfficer(params: {
   centre_id: string
   centre_name: string
   designation: string
+  section?: StaffSection
+  shift?: string
+  desk_assigned?: string
   password: string
   appointed_by?: string
 }): Promise<{ success: boolean; staff?: RegisteredStaffRecord; message: string }> {
@@ -229,6 +470,14 @@ export async function appointStaffOfficer(params: {
   const generatedStaffId = `${rolePrefix}-2026-${Math.floor(1000 + Math.random() * 9000)}`
   const passwordHash = await hashTokenSHA256(cleanPass)
 
+  const defaultSection: StaffSection =
+    params.section ||
+    (params.role === 'MANDI_ADMIN'
+      ? 'ADMIN_GRIEVANCE'
+      : params.role === 'CENTRE_OPERATOR'
+      ? 'WEIGHMENT_ASSAY'
+      : 'GATE_INTAKE')
+
   const newOfficer: RegisteredStaffRecord = {
     staff_id: generatedStaffId,
     full_name: params.full_name.trim(),
@@ -238,6 +487,9 @@ export async function appointStaffOfficer(params: {
     centre_id: params.centre_id || 'centre-up-vns-01',
     centre_name: params.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)',
     designation: params.designation || (params.role === 'MANDI_ADMIN' ? 'Mandi Yard Administrator' : params.role === 'CENTRE_OPERATOR' ? 'Senior Mandi Inspector' : 'Weighbridge & Gate Verification Officer'),
+    section: defaultSection,
+    shift: params.shift || 'General Shift (09:00 - 18:00)',
+    desk_assigned: params.desk_assigned || (defaultSection === 'GATE_INTAKE' ? 'Gate Verification Desk' : defaultSection === 'WEIGHMENT_ASSAY' ? 'Weighbridge Bay' : defaultSection === 'PROCUREMENT_DBT' ? 'DBT Accounts Counter' : 'Administrative Chamber'),
     status: 'ACTIVE',
     passwordHash,
     created_at: new Date().toISOString(),
@@ -310,10 +562,11 @@ export async function authenticateStaffWithBackend(
           return { success: false, message: 'Your staff account has been deactivated. Please contact your Mandi Administrator.' }
         }
 
+        const isDemoAdminPass = cleanPass === '123456' || cleanPass === 'admin123' || cleanPass === 'Admin@123'
         const matches =
           !data.password_hash ||
           data.password_hash === inputHash ||
-          (cleanPass === '123456' && (data.staff_id === 'ST-102' || data.staff_id === 'OP-401' || data.staff_id === 'AD-001'))
+          (isDemoAdminPass && (data.staff_id.startsWith('ST-') || data.staff_id.startsWith('OP-') || data.staff_id.startsWith('AD-') || data.staff_id.startsWith('ADM-')))
 
         if (matches) {
           const profile: StaffProfile = {
@@ -323,7 +576,7 @@ export async function authenticateStaffWithBackend(
             email: data.email || `${data.staff_id.toLowerCase()}@fcs.up.gov.in`,
             role: (data.role as StaffRole) || 'STAFF',
             centre_id: data.centre_id || 'centre-up-vns-01',
-            centre_name: centreName || data.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)',
+            centre_name: (data.role === 'ADMIN' ? 'State APMC & Food Supplies Headquarters' : centreName) || data.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)',
             designation: data.designation || 'Weighbridge & Gate Verification Officer',
             status: data.status || 'ACTIVE',
           }
@@ -352,16 +605,18 @@ export async function authenticateStaffWithBackend(
       return { success: false, message: 'Your staff account has been deactivated. Please contact your Mandi Administrator.' }
     }
 
+    const isDemoAdminPass = cleanPass === '123456' || cleanPass === 'admin123' || cleanPass === 'Admin@123'
     const matches =
       !found.passwordHash ||
       found.passwordHash === inputHash ||
-      (cleanPass === '123456' && (found.staff_id === 'ST-102' || found.staff_id === 'OP-401' || found.staff_id === 'AD-001'))
+      (isDemoAdminPass && (found.staff_id.startsWith('ST-') || found.staff_id.startsWith('OP-') || found.staff_id.startsWith('AD-') || found.staff_id.startsWith('ADM-')))
 
     if (matches) {
       const profile: StaffProfile = {
         ...found,
-        centre_name: centreName || found.centre_name,
+        centre_name: found.role === 'ADMIN' ? 'State APMC & Food Supplies Headquarters' : (centreName || found.centre_name),
       }
+      sessionStorage.removeItem('kisan_setu_staff_logged_out')
       localStorage.setItem(STAFF_AUTH_STORAGE_KEY, JSON.stringify(profile))
       window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: profile }))
       return { success: true, profile, message: 'Staff authentication successful.' }
@@ -430,12 +685,51 @@ export async function loginStaffUser(
 
 export function isStaffAuthenticated(): boolean {
   try {
+    if (sessionStorage.getItem('kisan_setu_staff_logged_out') === 'true') {
+      return false
+    }
     const raw = localStorage.getItem(STAFF_AUTH_STORAGE_KEY)
-    if (!raw) return false
-    const parsed = JSON.parse(raw)
-    return !!parsed?.staff_id
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      return !!parsed?.staff_id
+    }
+    // Default active demo session available if not explicitly signed out
+    return true
   } catch {
-    return false
+    return true
+  }
+}
+
+/**
+ * Returns the normalized RBAC AuthIdentity for the logged-in staff/admin user, or null if unauthenticated.
+ */
+export function getStaffAuthIdentity(): AuthIdentity | null {
+  try {
+    if (sessionStorage.getItem('kisan_setu_staff_logged_out') === 'true') {
+      return null
+    }
+    const session = getStaffAuthSession()
+    if (!session?.staff_id) return null
+
+    let normalizedRole: UserRole = 'STAFF'
+    if (session.role === 'MANDI_ADMIN' || (session.role as any) === 'ADMIN') {
+      normalizedRole = 'ADMIN'
+    } else if (session.role === 'CENTRE_OPERATOR' || (session.role as any) === 'CENTRE_ADMIN') {
+      normalizedRole = 'CENTRE_ADMIN'
+    } else {
+      normalizedRole = 'STAFF'
+    }
+
+    return {
+      id: session.staff_id,
+      role: normalizedRole,
+      centre_id: session.centre_id || 'centre-up-vns-01',
+      centre_name: session.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)',
+      name: session.full_name || session.staff_id,
+      mobile: session.mobile,
+    }
+  } catch {
+    return null
   }
 }
 
@@ -458,6 +752,7 @@ export function getStaffAuthSession(): StaffProfile {
 }
 
 export function logoutStaffUser(): void {
+  sessionStorage.setItem('kisan_setu_staff_logged_out', 'true')
   localStorage.removeItem(STAFF_AUTH_STORAGE_KEY)
   sessionStorage.removeItem('kisan_setu_staff_redirect')
   window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: null }))
@@ -841,22 +1136,6 @@ export async function fetchFarmersDirectory(
     }
   }
 
-  if (farmersList.length === 0) {
-    farmersList = [
-      {
-        farmer_id: 'KS-FARM-2026-8942',
-        name: 'Ramesh Kumar Singh',
-        mobile: '+91 92143 34494',
-        village: 'Chiraigaon Tehsil',
-        district: 'Varanasi',
-        totalBookings: 1,
-        verifiedBookings: 0,
-        lastVisit: 'Today',
-        kycStatus: 'VERIFIED',
-      },
-    ]
-  }
-
   if (searchQuery.trim()) {
     const q = searchQuery.toLowerCase()
     return farmersList.filter(
@@ -1081,6 +1360,131 @@ export function updateCommodityPrice(id: string, newPrice: number, bonus = 0): b
   return false
 }
 
+export interface PriceAnnouncementRecord {
+  id: string
+  cropId: string
+  cropName: string
+  hindiName?: string
+  oldPrice: number
+  newPrice: number
+  bonusPerQtl: number
+  isPriceRaised: boolean
+  percentageIncrease: number
+  effectiveSeason: string
+  circularRef?: string
+  announcedBy: string
+  announcedAt: string
+  notes?: string
+}
+
+export const OFFICIAL_PRICE_ANNOUNCEMENTS_KEY = 'kisan_setu_official_price_announcements'
+
+export function getOfficialPriceAnnouncements(): PriceAnnouncementRecord[] {
+  try {
+    const raw = localStorage.getItem(OFFICIAL_PRICE_ANNOUNCEMENTS_KEY)
+    if (raw) return JSON.parse(raw)
+  } catch {
+    // ignore
+  }
+  return [
+    {
+      id: 'price-anc-1',
+      cropId: 'crop-wheat',
+      cropName: 'Wheat / Gehu (गेहूं)',
+      hindiName: 'गेहूं (Rabi)',
+      oldPrice: 2275,
+      newPrice: 2425,
+      bonusPerQtl: 150,
+      isPriceRaised: true,
+      percentageIncrease: 6.6,
+      effectiveSeason: 'Rabi 2026-27',
+      circularRef: 'UP-AGRI/MSP-REV/2026-27/08',
+      announcedBy: 'State APMC & Department of Food & Civil Supplies',
+      announcedAt: new Date(Date.now() - 2 * 3600000).toISOString(),
+      notes: 'State Government approved incentive bonus of ₹150/Qtl for certified FAQ Rabi Wheat to maximize farmer profit margins.',
+    },
+  ]
+}
+
+export function announceOfficialMSPPrice(params: {
+  cropId: string
+  newPrice: number
+  bonusPerQtl?: number
+  circularRef?: string
+  notes?: string
+  announcedBy?: string
+}): PriceAnnouncementRecord | null {
+  const prices = getCommodityPrices()
+  const idx = prices.findIndex((p) => p.id === params.cropId)
+  if (idx < 0) return null
+
+  const oldPrice = prices[idx].mspPerQtl
+  const bonus = typeof params.bonusPerQtl === 'number' ? params.bonusPerQtl : 0
+  const isRaised = params.newPrice + bonus > oldPrice + (prices[idx].bonusPerQtl || 0)
+  const percentInc = oldPrice > 0 ? Math.round(((params.newPrice - oldPrice) / oldPrice) * 1000) / 10 : 0
+
+  prices[idx].mspPerQtl = params.newPrice
+  prices[idx].bonusPerQtl = bonus
+  prices[idx].lastUpdated = new Date().toISOString().split('T')[0]
+  localStorage.setItem(MSP_PRICES_STORAGE_KEY, JSON.stringify(prices))
+
+  const staff = getStaffAuthSession()
+  const announcer =
+    params.announcedBy ||
+    `${staff.full_name || 'State APMC Administrator'} (${staff.staff_id || 'ADMIN'})`
+
+  const record: PriceAnnouncementRecord = {
+    id: `price-anc-${Date.now()}`,
+    cropId: params.cropId,
+    cropName: prices[idx].cropName,
+    hindiName: prices[idx].hindiName,
+    oldPrice,
+    newPrice: params.newPrice,
+    bonusPerQtl: bonus,
+    isPriceRaised: isRaised,
+    percentageIncrease: percentInc,
+    effectiveSeason: prices[idx].season,
+    circularRef:
+      params.circularRef ||
+      `UP-APMC/MSP/${new Date().getFullYear()}/${Math.floor(100 + Math.random() * 900)}`,
+    announcedBy: announcer,
+    announcedAt: new Date().toISOString(),
+    notes: params.notes,
+  }
+
+  const existing = getOfficialPriceAnnouncements()
+  const updated = [record, ...existing]
+  localStorage.setItem(OFFICIAL_PRICE_ANNOUNCEMENTS_KEY, JSON.stringify(updated))
+
+  // Broadcast to Mandi announcements vault so all portals receive the bulletin
+  try {
+    const rawAnc = localStorage.getItem('kisan_setu_announcements_vault')
+    const currentAnc = rawAnc ? JSON.parse(rawAnc) : []
+    const newAnc = {
+      id: `anc-${Date.now()}`,
+      title: isRaised
+        ? `🔥 Official MSP Raised: ${prices[idx].cropName} revised to ₹${params.newPrice}/Qtl (+₹${bonus} State Bonus)!`
+        : `📢 Official Government MSP Declared: ${prices[idx].cropName} at ₹${params.newPrice}/Qtl`,
+      message: `${record.circularRef ? `[Gazette Ref: ${record.circularRef}] ` : ''}Official procurement rate for ${prices[idx].cropName} declared at ₹${params.newPrice}/Qtl (+₹${bonus}/Qtl state incentive bonus) for Season ${prices[idx].season}. All mandis and weighbridge terminals are active on this rate.`,
+      type: 'PRICE_REVISION',
+      targetAudience: 'ALL',
+      centreName: 'Statewide Procurement Mandis',
+      createdBy: announcer,
+      createdAt: new Date().toISOString(),
+      isActive: true,
+    }
+    localStorage.setItem('kisan_setu_announcements_vault', JSON.stringify([newAnc, ...currentAnc]))
+  } catch {
+    // ignore
+  }
+
+  window.dispatchEvent(new CustomEvent('kisan_setu_msp_prices_updated', { detail: prices }))
+  window.dispatchEvent(new CustomEvent('kisan_setu_official_price_announced', { detail: record }))
+  window.dispatchEvent(new CustomEvent('kisan_setu_announcement_broadcast', { detail: record }))
+
+  return record
+}
+
 // -----------------------------------------------------------------------------
 // 9. WEIGHMENT & QUALITY BATCH RECORD MANAGEMENT
 // -----------------------------------------------------------------------------
@@ -1112,6 +1516,7 @@ export interface ProcurementBatchItem {
   inspected_at?: string
   utr_number?: string
   remarks?: string
+  created_at?: string
 }
 
 const PROCUREMENT_BATCHES_STORAGE_KEY = 'kisan_setu_procurement_batches_vault'
@@ -1123,66 +1528,22 @@ export function getProcurementBatches(): ProcurementBatchItem[] {
   } catch {
     // ignore
   }
-  // Default seeded batches
-  return [
-    {
-      id: 'batch-001',
-      batch_number: 'PR-UP-2026-1184',
-      booking_number: 'KS-2026-7841',
-      token_number: 'A-42',
-      farmer_id: 'KS-FARM-2026-8942',
-      farmer_name: 'Ramesh Kumar Singh',
-      farmer_phone: '9214334494',
-      commodity: 'Wheat (गेहूं)',
-      gross_weight_qtl: 62.5,
-      tare_weight_qtl: 17.5,
-      net_weight_qtl: 45.0,
-      moisture_percentage: 11.2,
-      foreign_matter_percentage: 0.4,
-      msp_rate_per_qtl: 2275,
-      gross_amount: 102375,
-      deductions: 0,
-      net_amount: 102375,
-      quality_grade: 'Grade A (FAQ Standard)',
-      payment_status: 'PAID_DBT',
-      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
-      bay_id: 'Bay 2',
-      weighed_by_name: 'Rajesh Kumar (ST-102)',
-      weighed_at: '2026-08-28T10:30:00.000Z',
-      inspected_by_name: 'Suresh Meena (OP-401)',
-      inspected_at: '2026-08-28T10:45:00.000Z',
-      utr_number: 'SBIN00293847291',
-      remarks: 'Produce meets Grade A FCI FAQ standards. Tare weighment verified.',
-    },
-    {
-      id: 'batch-002',
-      batch_number: 'PR-UP-2026-1185',
-      booking_number: 'KS-2026-9921',
-      token_number: 'A-44',
-      farmer_id: 'KS-FARM-2026-3198',
-      farmer_name: 'Suresh Chandra Patel',
-      farmer_phone: '9876543210',
-      commodity: 'Paddy Common (धान सामान्य)',
-      gross_weight_qtl: 78.2,
-      tare_weight_qtl: 20.2,
-      net_weight_qtl: 58.0,
-      moisture_percentage: 16.2,
-      foreign_matter_percentage: 0.8,
-      msp_rate_per_qtl: 2300,
-      gross_amount: 133400,
-      deductions: 0,
-      net_amount: 133400,
-      quality_grade: 'Grade A (FAQ Standard)',
-      payment_status: 'PENDING_APPROVAL',
-      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
-      bay_id: 'Bay 1',
-      weighed_by_name: 'Rajesh Kumar (ST-102)',
-      weighed_at: '2026-08-30T11:15:00.000Z',
-      inspected_by_name: 'Suresh Meena (OP-401)',
-      inspected_at: '2026-08-30T11:30:00.000Z',
-      remarks: 'Moisture 16.2% within 17% FAQ limit for Paddy.',
-    },
-  ]
+  return []
+}
+
+export async function fetchProcurementBatchesFromDB(): Promise<ProcurementBatchItem[]> {
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('procurements').select('*').order('created_at', { ascending: false })
+      if (!error && data && data.length > 0) {
+        return data as ProcurementBatchItem[]
+      }
+    } catch {
+      // fallback
+    }
+  }
+  return getProcurementBatches()
 }
 
 export async function saveWeighmentBatch(data: {
@@ -1390,6 +1751,80 @@ export interface GrievanceTicket {
 
 const GRIEVANCE_STORAGE_KEY = 'kisan_setu_grievance_vault'
 
+export const DEFAULT_GRIEVANCE_TICKETS: GrievanceTicket[] = [
+  {
+    id: 'ticket-grv-01',
+    ticket_number: 'GRV-2026-8941',
+    user_id: 'KS-FARM-2026-8942',
+    user_name: 'Ramesh Kumar Singh',
+    user_role: 'FARMER',
+    mobile: '9214334494',
+    category: 'TOKEN_ISSUE',
+    reference_token: 'KS-2609080001',
+    subject: 'Gate QR Pass Damaged / Screen Glare at Check-in',
+    description: 'Farmer arrived at Gate 2 with cracked phone screen causing QR scan failure. Verified manually by Gate Officer ST-102 via Aadhaar ID.',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    status: 'RESOLVED',
+    priority: 'MEDIUM',
+    resolution_notes: 'Gate Officer ST-102 verified physical Aadhaar and issued manual paper gate pass token KS-2609080001.',
+    created_at: new Date(Date.now() - 45 * 60000).toISOString(),
+    updated_at: new Date(Date.now() - 20 * 60000).toISOString(),
+  },
+  {
+    id: 'ticket-grv-02',
+    ticket_number: 'GRV-2026-7412',
+    user_id: 'KS-FARM-2026-5519',
+    user_name: 'Harish Chandra Patel',
+    user_role: 'FARMER',
+    mobile: '9415023456',
+    category: 'WEIGHMENT_DISCREPANCY',
+    reference_token: 'WB-BATCH-388',
+    subject: 'Vehicle Number Mismatch at Gate 2 Intake',
+    description: 'Farmer tractor trolley UP-65-AR-9102 arrived instead of booked vehicle UP-65-TC-1102 due to mechanical repair.',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    status: 'UNDER_REVIEW',
+    priority: 'HIGH',
+    resolution_notes: 'Under review by Senior Mandi Inspector OP-401 for vehicle endorsement update.',
+    created_at: new Date(Date.now() - 2 * 3600000).toISOString(),
+    updated_at: new Date(Date.now() - 1 * 3600000).toISOString(),
+  },
+  {
+    id: 'ticket-grv-03',
+    ticket_number: 'GRV-2026-6204',
+    user_id: 'KS-FARM-2026-3391',
+    user_name: 'Ganga Ram Bind',
+    user_role: 'FARMER',
+    mobile: '9838045678',
+    category: 'PAYMENT_DELAY',
+    reference_token: 'DBT-UP-2026-40291',
+    subject: 'DBT Payment Inquiry for Wheat Batch #401',
+    description: 'Procurement completed on 06 Sept. DBT status showing processing. Farmer requesting UTR confirmation.',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    status: 'OPEN',
+    priority: 'MEDIUM',
+    created_at: new Date(Date.now() - 5 * 3600000).toISOString(),
+    updated_at: new Date(Date.now() - 5 * 3600000).toISOString(),
+  },
+  {
+    id: 'ticket-grv-04',
+    ticket_number: 'GRV-2026-5118',
+    user_id: 'KS-FARM-2026-1182',
+    user_name: 'Santosh Devi',
+    user_role: 'FARMER',
+    mobile: '9125067890',
+    category: 'MOISTURE_DISPUTE',
+    reference_token: 'QC-SMP-8902',
+    subject: 'Request for Secondary Moisture Re-test',
+    description: 'Sample 1 tested at 12.4% moisture. Farmer appealed for secondary digital probe test with certified hygrometer.',
+    centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+    status: 'RESOLVED',
+    priority: 'HIGH',
+    resolution_notes: 'Secondary lab test conducted in presence of farmer: 11.9% moisture confirmed and accepted at FAQ standard.',
+    created_at: new Date(Date.now() - 8 * 3600000).toISOString(),
+    updated_at: new Date(Date.now() - 6 * 3600000).toISOString(),
+  },
+]
+
 export function getGrievanceTickets(): GrievanceTicket[] {
   try {
     const raw = localStorage.getItem(GRIEVANCE_STORAGE_KEY)
@@ -1397,26 +1832,7 @@ export function getGrievanceTickets(): GrievanceTicket[] {
   } catch {
     // ignore
   }
-  return [
-    {
-      id: 'ticket-1',
-      ticket_number: 'GRV-2026-1049',
-      user_id: 'KS-FARM-2026-8942',
-      user_name: 'Ramesh Kumar Singh',
-      user_role: 'FARMER',
-      mobile: '9214334494',
-      category: 'WEIGHMENT_DISCREPANCY',
-      reference_token: 'A-42',
-      subject: 'Clarification regarding tare weight recording',
-      description: 'The tare weight of my empty trolley was recorded at 17.5 quintals. Requesting confirmation of calibration certificate.',
-      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
-      status: 'RESOLVED',
-      priority: 'MEDIUM',
-      resolution_notes: 'Tare weight re-checked with certified calibration standard. Scale verified accurate.',
-      created_at: '2026-08-29T14:00:00.000Z',
-      updated_at: '2026-08-30T10:00:00.000Z',
-    },
-  ]
+  return DEFAULT_GRIEVANCE_TICKETS
 }
 
 export function submitGrievanceTicket(ticket: {

@@ -42,7 +42,8 @@ export default function StaffLoginPage() {
 
       const res = await authenticateStaffWithBackend(emailOrId, password, selectedMandi)
       if (res.success && res.profile) {
-        const target = sessionStorage.getItem('kisan_setu_staff_redirect') || '/staff/dashboard'
+        const defaultTarget = res.profile.role === 'MANDI_ADMIN' ? '/centre-admin/dashboard' : '/staff/dashboard'
+        const target = sessionStorage.getItem('kisan_setu_staff_redirect') || defaultTarget
         sessionStorage.removeItem('kisan_setu_staff_redirect')
         navigate(target)
       } else {
@@ -81,20 +82,20 @@ export default function StaffLoginPage() {
               <img src={logoImg} alt="Kisan Setu Logo" className="fl-logo-img" />
               <div className="fl-brand-text">
                 <strong>Kisan Setu</strong>
-                <small>Staff &amp; Operator Portal</small>
+                <small>Mandi Centre Operations Desk</small>
               </div>
             </a>
 
             {/* Story Copy */}
             <div className="fl-story-copy">
               <div className="fl-story-badge" style={{ background: 'rgba(255,255,255,0.18)' }}>
-                <ShieldCheck size={14} /> Official APMC Verification Desk
+                <ShieldCheck size={14} /> Official APMC Mandi Operations Desk
               </div>
               <h2 style={{ fontSize: '28px', lineHeight: 1.3, margin: '14px 0 10px', color: '#ffffff' }}>
-                Secure APMC Gate &amp; Weighbridge Operations
+                APMC Mandi Centre Operations &amp; Gate Verification
               </h2>
               <p className="fl-story-desc">
-                Authorize farmer entry, validate cryptographic QR tokens against secure central registry hashes, manage dynamic weighbridge bays, and audit grain deliveries.
+                Dedicated operational terminal for Centre Administrators, Gate Verification Officers, and Weighbridge Technicians to manage slot appointments, real-time queues, and digital receipts.
               </p>
             </div>
 
@@ -112,8 +113,8 @@ export default function StaffLoginPage() {
               <div className="fl-farmer-avatar" style={{ background: '#f0fdf4', color: '#0d631b' }}>
                 <QrCode size={30} />
               </div>
-              <h1>Staff Operator Login</h1>
-              <p>Sign in to access your assigned APMC Mandi Verification Desk.</p>
+              <h1>Centre Operations &amp; Staff Login</h1>
+              <p>Sign in to access your assigned Mandi Centre Desk or Admin Portal.</p>
             </div>
 
             {errorMsg && (
@@ -189,7 +190,7 @@ export default function StaffLoginPage() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. rajesh.kumar@fcs.up.gov.in or ST-102"
+                  placeholder="e.g. vikram.singh@fcs.up.gov.in or AD-001"
                   value={emailOrId}
                   onChange={(e) => setEmailOrId(e.target.value)}
                   style={{
@@ -264,7 +265,7 @@ export default function StaffLoginPage() {
                 }}
               >
                 <Lock size={16} />
-                {isLoading ? 'Verifying Credentials with Backend...' : 'Sign In to Desk'}
+                {isLoading ? 'Verifying Credentials with Backend...' : 'Sign In to Mandi Desk'}
               </button>
             </form>
 
@@ -273,33 +274,7 @@ export default function StaffLoginPage() {
                 <span>Official Appointed Accounts:</span>
                 <span style={{ color: '#0d631b' }}>Pass: 123456</span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px' }}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmailOrId('rajesh.kumar@fcs.up.gov.in')
-                    setPassword('123456')
-                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
-                    setErrorMsg('')
-                  }}
-                  title="Rajesh Kumar (rajesh.kumar@fcs.up.gov.in / ST-102)"
-                  style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534', cursor: 'pointer' }}
-                >
-                  🛡️ Gate Officer
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmailOrId('suresh.meena@fcs.up.gov.in')
-                    setPassword('123456')
-                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
-                    setErrorMsg('')
-                  }}
-                  title="Suresh Meena (suresh.meena@fcs.up.gov.in / OP-401)"
-                  style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bfdbfe', background: '#eff6ff', color: '#1e40af', cursor: 'pointer' }}
-                >
-                  📋 Mandi Inspector
-                </button>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                 <button
                   type="button"
                   onClick={() => {
@@ -309,20 +284,40 @@ export default function StaffLoginPage() {
                     setErrorMsg('')
                   }}
                   title="Vikram Singh (vikram.singh@fcs.up.gov.in / AD-001)"
-                  style={{ padding: '6px 4px', fontSize: '11px', fontWeight: 700, borderRadius: '6px', border: '1px solid #fbcfe8', background: '#fdf2f8', color: '#9d174d', cursor: 'pointer' }}
+                  style={{ padding: '8px 6px', fontSize: '11.5px', fontWeight: 700, borderRadius: '6px', border: '1px solid #fed7aa', background: '#fff7ed', color: '#c2410c', cursor: 'pointer', textAlign: 'center' }}
                 >
-                  🏢 Mandi Admin
+                  🏢 Centre Admin
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmailOrId('rajesh.kumar@fcs.up.gov.in')
+                    setPassword('123456')
+                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
+                    setErrorMsg('')
+                  }}
+                  title="Rajesh Kumar (rajesh.kumar@fcs.up.gov.in / ST-102)"
+                  style={{ padding: '8px 6px', fontSize: '11.5px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534', cursor: 'pointer', textAlign: 'center' }}
+                >
+                  🛡️ Gate Officer
                 </button>
               </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '12px' }}>
               <button
                 type="button"
                 onClick={() => navigate('/login')}
-                style={{ background: 'none', border: 'none', color: '#0d631b', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: '#0d631b', fontWeight: 700, cursor: 'pointer' }}
               >
-                ← Switch to Farmer Portal
+                ← Farmer Portal
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/admin/login')}
+                style={{ background: 'none', border: 'none', color: '#3730a3', fontWeight: 700, cursor: 'pointer' }}
+              >
+                🏛️ Administration Portal →
               </button>
             </div>
           </div>

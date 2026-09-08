@@ -1,20 +1,15 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
-  Bell,
   CalendarCheck,
   CheckCircle2,
-  ChevronDown,
   CreditCard,
-  Globe2,
   Headphones,
   Info,
-  Menu,
   ShieldCheck,
   Sprout,
   Users,
   X,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
 import {
@@ -22,7 +17,9 @@ import {
   markNotificationAsReadInDB,
   type DbFarmerNotification,
 } from '../../services/supabaseDataService'
+import { getOfficialPriceAnnouncements } from '../../services/staffDataService'
 import FarmerSidebar from './FarmerSidebar'
+import FarmerHeader from './FarmerHeader'
 import './FarmerDashboard.css'
 import './FarmerNotificationsPage.css'
 
@@ -39,11 +36,9 @@ export interface NotificationItem {
 }
 
 export default function FarmerNotificationsPage() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const farmer = getFarmerProfile()
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [notifications, setNotifications] = useState<NotificationItem[]>([])
   const [filterTab, setFilterTab] = useState<
     'all' | 'unread' | 'appointments' | 'payments' | 'procurement' | 'system'
@@ -55,7 +50,37 @@ export default function FarmerNotificationsPage() {
   const [smsEnabled, setSmsEnabled] = useState(true)
   const [emailEnabled, setEmailEnabled] = useState(false)
 
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const loadNotifications = () => {
+    fetchNotificationsFromDB(farmer.farmerId || 'KS-FARM-2026-8942').then((records: DbFarmerNotification[]) => {
+      const dbNotifs: NotificationItem[] = (records || []).map((r) => ({
+        id: r.id,
+        title: r.title,
+        desc: r.message,
+        category: r.category === 'PAYMENT' ? 'payments' : r.category === 'SLOT' ? 'appointments' : r.category === 'QUEUE' ? 'queue' : 'system',
+        time: new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        isUnread: !r.is_read,
+        isNew: !r.is_read,
+        linkText: r.category === 'PAYMENT' ? 'View DBT Ledger' : 'View Mandi Pass',
+        linkTarget: r.category === 'PAYMENT' ? '/dbt-payments' : '/my-appointments',
+      }))
+
+      const priceNotifs: NotificationItem[] = getOfficialPriceAnnouncements().map((p) => ({
+        id: p.id,
+        title: p.isPriceRaised
+          ? `🔥 MSP Rate Hike: ${p.cropName} @ ₹${p.newPrice}/Qtl (+₹${p.newPrice - p.oldPrice})`
+          : `📢 Official MSP Price Notice: ${p.cropName} @ ₹${p.newPrice}/Qtl`,
+        desc: `${p.notes || ''} Official Order Ref: ${p.circularRef || 'Government APMC Gazette'}. Effective: ${p.effectiveSeason}.`,
+        category: 'procurement',
+        time: new Date(p.announcedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        isUnread: true,
+        isNew: true,
+        linkText: 'Book Slot at New MSP',
+        linkTarget: '/dashboard',
+      }))
+
+      setNotifications([...priceNotifs, ...dbNotifs])
+    }).catch(() => {})
+  }
 
   useEffect(() => {
     if (!isFarmerLoggedIn()) {
@@ -63,38 +88,19 @@ export default function FarmerNotificationsPage() {
       navigate('/login')
       return
     }
-    let isMounted = true
-    fetchNotificationsFromDB(farmer.farmerId || 'KS-FARM-2026-8942').then((records: DbFarmerNotification[]) => {
-      if (isMounted && records) {
-        const transformed: NotificationItem[] = records.map((r) => ({
-          id: r.id,
-          title: r.title,
-          desc: r.message,
-          category: r.category === 'PAYMENT' ? 'payments' : r.category === 'SLOT' ? 'appointments' : r.category === 'QUEUE' ? 'queue' : 'system',
-          time: new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          isUnread: !r.is_read,
-          isNew: !r.is_read,
-          linkText: r.category === 'PAYMENT' ? 'View DBT Ledger' : 'View Mandi Pass',
-          linkTarget: r.category === 'PAYMENT' ? '/dbt-payments' : '/my-appointments',
-        }))
-        setNotifications(transformed)
-      }
-    }).catch(() => {})
+    loadNotifications()
+
+    const handlePriceUpdate = () => loadNotifications()
+    window.addEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
+    window.addEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+    window.addEventListener('storage', handlePriceUpdate)
 
     return () => {
-      isMounted = false
+      window.removeEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
+      window.removeEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+      window.removeEventListener('storage', handlePriceUpdate)
     }
   }, [farmer.farmerId])
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
 
   const unreadCount = notifications.filter((n) => n.isUnread).length
 
@@ -158,8 +164,6 @@ export default function FarmerNotificationsPage() {
     )
   }
 
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
-
   return (
     <div className="notifications-layout">
       {/* ==========================================================================
@@ -176,86 +180,10 @@ export default function FarmerNotificationsPage() {
           ========================================================================== */}
       <main className="nt-main-content">
         {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>Notifications &amp; Alerts</h1>
-            </div>
-            <p>Stay updated with gate entry passes, queue updates, DBT payment credits and Mandi alerts.</p>
-          </div>
-
-          <div className="fd-topbar-actions">
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
-
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={handleMarkAllRead}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-              {unreadCount > 0 && <span className="fd-notif-dot" />}
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Open Farmer Profile"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {farmer.profilePhoto ? (
-                  <img
-                    src={farmer.profilePhoto}
-                    alt={farmer.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  farmer.name ? farmer.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
-              </div>
-              <span className="fd-avatar-name">{farmer.name.split(' ')[0] || 'Farmer'}</span>
-            </div>
-          </div>
-        </header>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          pageTitle="Notifications & Alerts"
+        />
 
         {/* 2-Column Content Grid: Feed (1fr), Right Widgets (320px) */}
         <section className="nt-content-grid">

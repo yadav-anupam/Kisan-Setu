@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import {
   BadgeCheck,
-  Bell,
   Building,
   Calendar,
   Camera,
   CheckCircle2,
-  ChevronDown,
   CreditCard,
   Download,
   Edit2,
@@ -18,7 +16,6 @@ import {
   Lock,
   Mail,
   MapPin,
-  Menu,
   Phone,
   Printer,
   QrCode,
@@ -32,10 +29,10 @@ import {
   User,
   X,
 } from 'lucide-react'
-import { useLanguage } from '../../useLanguage'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin, updateFarmerProfile } from '../../auth'
 import { navigate } from '../../router'
 import FarmerSidebar from './FarmerSidebar'
+import FarmerHeader from './FarmerHeader'
 import './FarmerDashboard.css'
 import './FarmerProfilePage.css'
 
@@ -79,11 +76,9 @@ interface FarmerData {
 }
 
 export default function FarmerProfilePage() {
-  const { currentLang, setLanguage, languages } = useLanguage()
   const farmer = getFarmerProfile()
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [selectedDocKey, setSelectedDocKey] = useState<string | null>(null)
   const [digiConsentModalOpen, setDigiConsentModalOpen] = useState(false)
@@ -123,8 +118,6 @@ export default function FarmerProfilePage() {
 
   // Edit Form Temp State
   const [formState, setFormState] = useState<FarmerData>(profileData)
-
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isFarmerLoggedIn()) {
@@ -166,16 +159,6 @@ export default function FarmerProfilePage() {
 
     window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
     return () => window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
-  }, [])
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   // Photo Upload Handler with Automatic Canvas Compression
@@ -380,7 +363,6 @@ export default function FarmerProfilePage() {
       signatory: 'Ministry of Agriculture & Farmers Welfare Electronic Verification Desk',
     },
   }
-  const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
   const currentDoc = selectedDocKey ? dynamicDigiDocs[selectedDocKey] : null
 
   return (
@@ -398,86 +380,10 @@ export default function FarmerProfilePage() {
           Main Content Area
           ========================================================================== */}
       <main className="pf-main-content">
-        {/* Top Header Bar */}
-        <header className="fd-topbar">
-          <div className="fd-greeting">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                className="fd-icon-btn fd-mobile-toggle"
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                aria-label="Toggle Menu"
-              >
-                <Menu size={20} />
-              </button>
-              <h1>My Farmer Profile</h1>
-            </div>
-            <p>Verified DigiLocker credentials, revenue land survey, and direct PFMS bank benefit settings.</p>
-          </div>
-
-          <div className="fd-topbar-actions">
-            {/* Language Selector Dropdown */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
-              <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                aria-label="Change Language"
-              >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
-              </button>
-
-              {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button
-              className="fd-icon-btn"
-              onClick={() => alert('Profile KYC status: 100% Verified by APMC Nodal Authority & DigiLocker.')}
-              aria-label="Notifications"
-            >
-              <Bell size={17} />
-            </button>
-
-            {/* Farmer Avatar Pill */}
-            <div
-              className="fd-avatar-pill"
-              onClick={() => navigate('/profile')}
-              role="button"
-              tabIndex={0}
-              title="Farmer Profile (Active)"
-            >
-              <div className="fd-avatar-circle" style={{ overflow: 'hidden', padding: 0 }}>
-                {profileData.profilePhoto ? (
-                  <img
-                    src={profileData.profilePhoto}
-                    alt={profileData.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  profileData.name ? profileData.name.substring(0, 2).toUpperCase() : 'RK'
-                )}
-              </div>
-              <span className="fd-avatar-name">{profileData.name.split(' ')[0] || 'Farmer'}</span>
-            </div>
-          </div>
-        </header>
+        <FarmerHeader
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          pageTitle="My Farmer Profile"
+        />
 
         {/* 3-Column Profile Grid */}
         <div className="pf-grid">
@@ -897,7 +803,7 @@ export default function FarmerProfilePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12.5px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px', borderBottom: '1px solid #f1f5f2' }}>
                   <span style={{ color: '#475569' }}>Language</span>
-                  <strong style={{ color: '#0d631b' }}>{activeLangObj.name}</strong>
+                  <strong style={{ color: '#0d631b' }}>English / Regional</strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px', borderBottom: '1px solid #f1f5f2' }}>
                   <span style={{ color: '#475569' }}>Mandi Units</span>
