@@ -27,6 +27,12 @@ import StaffReportsPage from './components/staff/StaffReportsPage'
 import StaffProfilePage from './components/staff/StaffProfilePage'
 import StaffSettingsPage from './components/staff/StaffSettingsPage'
 import StaffManagementPage from './components/staff/StaffManagementPage'
+import StaffWeighmentPage from './components/staff/StaffWeighmentPage'
+import StaffQualityCheckPage from './components/staff/StaffQualityCheckPage'
+import AdminPriceManagementPage from './components/staff/AdminPriceManagementPage'
+import AdminCentresPage from './components/staff/AdminCentresPage'
+import StaffPaymentsPage from './components/staff/StaffPaymentsPage'
+import HelpSupportPage from './components/common/HelpSupportPage'
 import PWAInstallPrompt from './components/common/PWAInstallPrompt'
 import { isFarmerLoggedIn, setRedirectAfterLogin, isFarmerDashboardPath } from './auth'
 import { useRouter } from './router'
@@ -57,6 +63,26 @@ export default function App() {
       path === '/staff-check-in'
     ) {
       return <StaffQRScannerPage />
+    }
+
+    if (path === '/staff/weighment' || path === '/staff-weighment' || path === '/weighment') {
+      return <StaffWeighmentPage />
+    }
+
+    if (path === '/staff/quality-check' || path === '/staff-quality' || path === '/quality-check') {
+      return <StaffQualityCheckPage />
+    }
+
+    if (path === '/staff/payments' || path === '/staff-payments' || path === '/staff/dbt-approvals') {
+      return <StaffPaymentsPage />
+    }
+
+    if (path === '/staff/prices' || path === '/staff-prices' || path === '/staff/price-management' || path === '/admin/prices') {
+      return <AdminPriceManagementPage />
+    }
+
+    if (path === '/staff/centres' || path === '/staff-centres' || path === '/admin/centres') {
+      return <AdminCentresPage />
     }
 
     if (path === '/staff/bookings' || path === '/staff-bookings') {
@@ -98,6 +124,11 @@ export default function App() {
 
     if (path === '/staff/settings' || path === '/staff-settings') {
       return <StaffSettingsPage />
+    }
+
+    // Help & Support (Dual-Role)
+    if (path === '/help-support' || path === '/support' || path === '/help' || path === '/farmer-support') {
+      return <HelpSupportPage />
     }
 
     // 2. Public Institutional Pages

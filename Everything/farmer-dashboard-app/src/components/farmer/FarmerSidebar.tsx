@@ -20,7 +20,7 @@ import { getFarmerBookings } from '../../services/qrBookingService'
 import { fetchNotificationsFromDB } from '../../services/supabaseDataService'
 
 interface FarmerSidebarProps {
-  activePage:
+  activePage?:
     | 'dashboard'
     | 'appointments'
     | 'book-slot'
@@ -30,6 +30,7 @@ interface FarmerSidebarProps {
     | 'history'
     | 'notifications'
     | 'profile'
+    | 'help'
   isOpen: boolean
   onClose: () => void
   onOpenBookingModal?: () => void
@@ -135,7 +136,7 @@ export default function FarmerSidebar({
     } else if (page === 'profile') {
       navigate('/profile')
     } else if (page === 'help') {
-      window.open('https://wa.me/919214334494', '_blank')
+      navigate('/help-support')
     }
   }
 
@@ -260,7 +261,7 @@ export default function FarmerSidebar({
           </button>
 
           <button
-            className="fd-nav-item"
+            className={`fd-nav-item ${activePage === 'help' ? 'active' : ''}`}
             onClick={() => handleItemClick('help')}
           >
             <HelpCircle size={18} />

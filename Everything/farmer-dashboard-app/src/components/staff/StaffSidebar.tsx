@@ -12,6 +12,11 @@ import {
   User,
   Users,
   X,
+  Scale,
+  Building2,
+  IndianRupee,
+  Sparkles,
+  LifeBuoy,
 } from 'lucide-react'
 import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
@@ -182,7 +187,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               padding: '12px 16px 4px',
             }}
           >
-            Operations
+            Operations &amp; Gate
           </div>
 
           <button
@@ -218,15 +223,6 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'bookings' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/bookings')}
-          >
-            <Calendar size={17} />
-            <span>Centre Bookings</span>
-          </button>
-
-          <button
-            type="button"
             className={`fd-nav-item ${activeTab === 'queue' ? 'active' : ''}`}
             onClick={() => handleNav('/staff/queue')}
           >
@@ -234,16 +230,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             <span>Queue Management</span>
           </button>
 
-          <button
-            type="button"
-            className={`fd-nav-item ${activeTab === 'slots' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/slots')}
-          >
-            <Clock size={17} />
-            <span>Slot Management</span>
-          </button>
-
-          {/* Section: Management */}
+          {/* Section: Workstations */}
           <div
             style={{
               fontSize: '10px',
@@ -254,16 +241,97 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               padding: '16px 16px 4px',
             }}
           >
-            Management
+            Intake Workstations
           </div>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'farmers' ? 'active' : ''}`}
-            onClick={() => handleNav('/staff/farmers')}
+            className="fd-nav-item"
+            onClick={() => handleNav('/staff/weighment')}
           >
-            <Users size={17} />
-            <span>Farmers Directory</span>
+            <Scale size={17} />
+            <span>Weighbridge Scale</span>
+          </button>
+
+          <button
+            type="button"
+            className="fd-nav-item"
+            onClick={() => handleNav('/staff/quality-check')}
+          >
+            <Sparkles size={17} />
+            <span>Moisture &amp; Quality</span>
+          </button>
+
+          <button
+            type="button"
+            className="fd-nav-item"
+            onClick={() => handleNav('/staff/payments')}
+          >
+            <IndianRupee size={17} />
+            <span>DBT Payments</span>
+          </button>
+
+          <button
+            type="button"
+            className={`fd-nav-item ${activeTab === 'bookings' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/bookings')}
+          >
+            <Calendar size={17} />
+            <span>Centre Bookings</span>
+          </button>
+
+          <button
+            type="button"
+            className={`fd-nav-item ${activeTab === 'slots' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/slots')}
+          >
+            <Clock size={17} />
+            <span>Slot Timetable</span>
+          </button>
+
+          {/* Section: Governance & Master */}
+          <div
+            style={{
+              fontSize: '10px',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              letterSpacing: '0.6px',
+              color: '#94a3b8',
+              padding: '16px 16px 4px',
+            }}
+          >
+            Governance &amp; Master
+          </div>
+
+          <button
+            type="button"
+            className="fd-nav-item"
+            onClick={() => handleNav('/staff/prices')}
+          >
+            <IndianRupee size={17} />
+            <span>MSP Price Master</span>
+            <span
+              style={{
+                background: '#dbeafe',
+                color: '#1e40af',
+                fontSize: '9px',
+                fontWeight: 800,
+                padding: '1px 5px',
+                borderRadius: '4px',
+                marginLeft: 'auto',
+              }}
+            >
+              ADMIN
+            </span>
+          </button>
+
+          <button
+            type="button"
+            className="fd-nav-item"
+            onClick={() => handleNav('/staff/centres')}
+          >
+            <Building2 size={17} />
+            <span>Mandi Centres</span>
           </button>
 
           <button
@@ -290,6 +358,15 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
 
           <button
             type="button"
+            className={`fd-nav-item ${activeTab === 'farmers' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/farmers')}
+          >
+            <Users size={17} />
+            <span>Farmers Directory</span>
+          </button>
+
+          <button
+            type="button"
             className={`fd-nav-item ${activeTab === 'history' ? 'active' : ''}`}
             onClick={() => handleNav('/staff/verification-history')}
           >
@@ -306,7 +383,7 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
             <span>Operational Reports</span>
           </button>
 
-          {/* Section: Account & Settings */}
+          {/* Section: Support & Settings */}
           <div
             style={{
               fontSize: '10px',
@@ -317,8 +394,17 @@ export default function StaffSidebar({ activeTab, isOpen, onClose }: StaffSideba
               padding: '16px 16px 4px',
             }}
           >
-            Account
+            Support &amp; Settings
           </div>
+
+          <button
+            type="button"
+            className="fd-nav-item"
+            onClick={() => handleNav('/help-support')}
+          >
+            <LifeBuoy size={17} />
+            <span>Grievance Helpdesk</span>
+          </button>
 
           <button
             type="button"

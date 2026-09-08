@@ -946,3 +946,574 @@ export async function markStaffNotificationRead(notifId: string): Promise<void> 
     }
   }
 }
+
+// -----------------------------------------------------------------------------
+// 8. GOVERNMENT MSP COMMODITY PRICE MASTER
+// -----------------------------------------------------------------------------
+export interface CommodityPriceItem {
+  id: string
+  cropName: string
+  hindiName: string
+  season: string
+  mspPerQtl: number
+  lastUpdated: string
+  bonusPerQtl?: number
+  faqMoistureLimit: number
+  status: 'ACTIVE' | 'UPCOMING'
+}
+
+const MSP_PRICES_STORAGE_KEY = 'kisan_setu_msp_prices_vault'
+
+export const DEFAULT_MSP_PRICES: CommodityPriceItem[] = [
+  {
+    id: 'crop-wheat',
+    cropName: 'Wheat (गेहूं)',
+    hindiName: 'गेहूं (Rabi)',
+    season: 'Rabi 2026-27',
+    mspPerQtl: 2275,
+    lastUpdated: '2026-08-01',
+    bonusPerQtl: 125,
+    faqMoistureLimit: 12.0,
+    status: 'ACTIVE',
+  },
+  {
+    id: 'crop-paddy-common',
+    cropName: 'Paddy Common (धान सामान्य)',
+    hindiName: 'धान सामान्य (Kharif)',
+    season: 'Kharif 2026-27',
+    mspPerQtl: 2300,
+    lastUpdated: '2026-08-15',
+    bonusPerQtl: 0,
+    faqMoistureLimit: 17.0,
+    status: 'ACTIVE',
+  },
+  {
+    id: 'crop-paddy-grade-a',
+    cropName: 'Paddy Grade A (धान ग्रेड-ए)',
+    hindiName: 'धान ग्रेड-ए (Kharif)',
+    season: 'Kharif 2026-27',
+    mspPerQtl: 2320,
+    lastUpdated: '2026-08-15',
+    bonusPerQtl: 0,
+    faqMoistureLimit: 17.0,
+    status: 'ACTIVE',
+  },
+  {
+    id: 'crop-mustard',
+    cropName: 'Mustard / Rapeseed (सरसों)',
+    hindiName: 'सरसों / राई',
+    season: 'Rabi 2026-27',
+    mspPerQtl: 5650,
+    lastUpdated: '2026-08-01',
+    bonusPerQtl: 0,
+    faqMoistureLimit: 8.0,
+    status: 'ACTIVE',
+  },
+  {
+    id: 'crop-bajra',
+    cropName: 'Bajra / Pearl Millet (बाजरा)',
+    hindiName: 'बाजरा',
+    season: 'Kharif 2026-27',
+    mspPerQtl: 2625,
+    lastUpdated: '2026-08-10',
+    bonusPerQtl: 0,
+    faqMoistureLimit: 14.0,
+    status: 'ACTIVE',
+  },
+  {
+    id: 'crop-maize',
+    cropName: 'Maize / Corn (मक्का)',
+    hindiName: 'मक्का',
+    season: 'Kharif 2026-27',
+    mspPerQtl: 2090,
+    lastUpdated: '2026-08-10',
+    bonusPerQtl: 0,
+    faqMoistureLimit: 14.0,
+    status: 'ACTIVE',
+  },
+  {
+    id: 'crop-gram',
+    cropName: 'Gram / Chana (चना)',
+    hindiName: 'चना (देसी)',
+    season: 'Rabi 2026-27',
+    mspPerQtl: 5440,
+    lastUpdated: '2026-08-01',
+    bonusPerQtl: 0,
+    faqMoistureLimit: 10.0,
+    status: 'ACTIVE',
+  },
+]
+
+export function getCommodityPrices(): CommodityPriceItem[] {
+  try {
+    const raw = localStorage.getItem(MSP_PRICES_STORAGE_KEY)
+    if (raw) {
+      const parsed: CommodityPriceItem[] = JSON.parse(raw)
+      const merged = [...DEFAULT_MSP_PRICES]
+      for (const p of parsed) {
+        const idx = merged.findIndex((m) => m.id === p.id)
+        if (idx >= 0) merged[idx] = { ...merged[idx], ...p }
+        else merged.push(p)
+      }
+      return merged
+    }
+  } catch {
+    // fallback
+  }
+  return [...DEFAULT_MSP_PRICES]
+}
+
+export function updateCommodityPrice(id: string, newPrice: number, bonus = 0): boolean {
+  try {
+    const list = getCommodityPrices()
+    const idx = list.findIndex((c) => c.id === id)
+    if (idx >= 0) {
+      list[idx].mspPerQtl = newPrice
+      list[idx].bonusPerQtl = bonus
+      list[idx].lastUpdated = new Date().toISOString().split('T')[0]
+      localStorage.setItem(MSP_PRICES_STORAGE_KEY, JSON.stringify(list))
+      window.dispatchEvent(new CustomEvent('kisan_setu_msp_prices_updated', { detail: list }))
+      return true
+    }
+  } catch {
+    // ignore
+  }
+  return false
+}
+
+// -----------------------------------------------------------------------------
+// 9. WEIGHMENT & QUALITY BATCH RECORD MANAGEMENT
+// -----------------------------------------------------------------------------
+export interface ProcurementBatchItem {
+  id: string
+  batch_number: string
+  booking_number: string
+  token_number: string
+  farmer_id: string
+  farmer_name: string
+  farmer_phone?: string
+  commodity: string
+  gross_weight_qtl: number
+  tare_weight_qtl: number
+  net_weight_qtl: number
+  moisture_percentage: number
+  foreign_matter_percentage: number
+  msp_rate_per_qtl: number
+  gross_amount: number
+  deductions: number
+  net_amount: number
+  quality_grade: string
+  payment_status: 'PAID_DBT' | 'PENDING_APPROVAL' | 'PROCESSING' | 'REJECTED'
+  centre_name: string
+  bay_id: string
+  weighed_by_name: string
+  weighed_at: string
+  inspected_by_name?: string
+  inspected_at?: string
+  utr_number?: string
+  remarks?: string
+}
+
+const PROCUREMENT_BATCHES_STORAGE_KEY = 'kisan_setu_procurement_batches_vault'
+
+export function getProcurementBatches(): ProcurementBatchItem[] {
+  try {
+    const raw = localStorage.getItem(PROCUREMENT_BATCHES_STORAGE_KEY)
+    if (raw) return JSON.parse(raw)
+  } catch {
+    // ignore
+  }
+  // Default seeded batches
+  return [
+    {
+      id: 'batch-001',
+      batch_number: 'PR-UP-2026-1184',
+      booking_number: 'KS-2026-7841',
+      token_number: 'A-42',
+      farmer_id: 'KS-FARM-2026-8942',
+      farmer_name: 'Ramesh Kumar Singh',
+      farmer_phone: '9214334494',
+      commodity: 'Wheat (गेहूं)',
+      gross_weight_qtl: 62.5,
+      tare_weight_qtl: 17.5,
+      net_weight_qtl: 45.0,
+      moisture_percentage: 11.2,
+      foreign_matter_percentage: 0.4,
+      msp_rate_per_qtl: 2275,
+      gross_amount: 102375,
+      deductions: 0,
+      net_amount: 102375,
+      quality_grade: 'Grade A (FAQ Standard)',
+      payment_status: 'PAID_DBT',
+      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+      bay_id: 'Bay 2',
+      weighed_by_name: 'Rajesh Kumar (ST-102)',
+      weighed_at: '2026-08-28T10:30:00.000Z',
+      inspected_by_name: 'Suresh Meena (OP-401)',
+      inspected_at: '2026-08-28T10:45:00.000Z',
+      utr_number: 'SBIN00293847291',
+      remarks: 'Produce meets Grade A FCI FAQ standards. Tare weighment verified.',
+    },
+    {
+      id: 'batch-002',
+      batch_number: 'PR-UP-2026-1185',
+      booking_number: 'KS-2026-9921',
+      token_number: 'A-44',
+      farmer_id: 'KS-FARM-2026-3198',
+      farmer_name: 'Suresh Chandra Patel',
+      farmer_phone: '9876543210',
+      commodity: 'Paddy Common (धान सामान्य)',
+      gross_weight_qtl: 78.2,
+      tare_weight_qtl: 20.2,
+      net_weight_qtl: 58.0,
+      moisture_percentage: 16.2,
+      foreign_matter_percentage: 0.8,
+      msp_rate_per_qtl: 2300,
+      gross_amount: 133400,
+      deductions: 0,
+      net_amount: 133400,
+      quality_grade: 'Grade A (FAQ Standard)',
+      payment_status: 'PENDING_APPROVAL',
+      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+      bay_id: 'Bay 1',
+      weighed_by_name: 'Rajesh Kumar (ST-102)',
+      weighed_at: '2026-08-30T11:15:00.000Z',
+      inspected_by_name: 'Suresh Meena (OP-401)',
+      inspected_at: '2026-08-30T11:30:00.000Z',
+      remarks: 'Moisture 16.2% within 17% FAQ limit for Paddy.',
+    },
+  ]
+}
+
+export async function saveWeighmentBatch(data: {
+  token_number: string
+  booking_number: string
+  farmer_id: string
+  farmer_name: string
+  farmer_phone?: string
+  commodity: string
+  gross_weight_qtl: number
+  tare_weight_qtl: number
+  bay_id: string
+}): Promise<{ success: boolean; batch?: ProcurementBatchItem; message: string }> {
+  const netWeight = Math.max(0, Math.round((data.gross_weight_qtl - data.tare_weight_qtl) * 100) / 100)
+  if (netWeight <= 0) {
+    return { success: false, message: 'Gross weight must be greater than tare weight.' }
+  }
+
+  const staff = getStaffAuthSession()
+  const prices = getCommodityPrices()
+  const matchPrice = prices.find((p) => p.cropName.toLowerCase().includes(data.commodity.toLowerCase().split(' ')[0])) || prices[0]
+  const mspRate = matchPrice.mspPerQtl + (matchPrice.bonusPerQtl || 0)
+  const grossAmount = Math.round(netWeight * mspRate)
+
+  const batchNumber = `PR-UP-2026-${Math.floor(1000 + Math.random() * 9000)}`
+  const newBatch: ProcurementBatchItem = {
+    id: `batch-${Date.now()}`,
+    batch_number: batchNumber,
+    booking_number: data.booking_number,
+    token_number: data.token_number,
+    farmer_id: data.farmer_id,
+    farmer_name: data.farmer_name,
+    farmer_phone: data.farmer_phone,
+    commodity: data.commodity,
+    gross_weight_qtl: data.gross_weight_qtl,
+    tare_weight_qtl: data.tare_weight_qtl,
+    net_weight_qtl: netWeight,
+    moisture_percentage: 11.5,
+    foreign_matter_percentage: 0.5,
+    msp_rate_per_qtl: mspRate,
+    gross_amount: grossAmount,
+    deductions: 0,
+    net_amount: grossAmount,
+    quality_grade: 'Grade A (FAQ Standard)',
+    payment_status: 'PENDING_APPROVAL',
+    centre_name: staff.centre_name,
+    bay_id: data.bay_id,
+    weighed_by_name: `${staff.full_name} (${staff.staff_id})`,
+    weighed_at: new Date().toISOString(),
+  }
+
+  const batches = getProcurementBatches()
+  batches.unshift(newBatch)
+  localStorage.setItem(PROCUREMENT_BATCHES_STORAGE_KEY, JSON.stringify(batches))
+
+  // Update Supabase if available
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    try {
+      await supabase.from('procurements').insert({
+        batch_number: newBatch.batch_number,
+        farmer_id: newBatch.farmer_id,
+        farmer_name: newBatch.farmer_name,
+        commodity: newBatch.commodity,
+        gross_weight_qtl: newBatch.gross_weight_qtl,
+        tare_weight_qtl: newBatch.tare_weight_qtl,
+        net_weight_qtl: newBatch.net_weight_qtl,
+        moisture_percentage: newBatch.moisture_percentage,
+        foreign_matter_percentage: newBatch.foreign_matter_percentage,
+        msp_rate_per_qtl: newBatch.msp_rate_per_qtl,
+        gross_amount: newBatch.gross_amount,
+        deductions: newBatch.deductions,
+        net_amount: newBatch.net_amount,
+        quality_grade: newBatch.quality_grade,
+        payment_status: newBatch.payment_status,
+        centre_name: newBatch.centre_name,
+      })
+    } catch {
+      // fallback
+    }
+  }
+
+  window.dispatchEvent(new CustomEvent('kisan_setu_procurement_updated', { detail: newBatch }))
+  return { success: true, batch: newBatch, message: `Weighment Slip ${batchNumber} created for Net Weight ${netWeight} Qtl.` }
+}
+
+export async function saveQualityCheckBatch(data: {
+  batch_number: string
+  moisture_percentage: number
+  foreign_matter_percentage: number
+  quality_grade: string
+  deductions_percent?: number
+  remarks?: string
+}): Promise<{ success: boolean; message: string }> {
+  const batches = getProcurementBatches()
+  const idx = batches.findIndex((b) => b.batch_number === data.batch_number)
+  if (idx < 0) {
+    return { success: false, message: 'Procurement batch not found.' }
+  }
+
+  const staff = getStaffAuthSession()
+  const batch = batches[idx]
+  const dedRate = (data.deductions_percent || 0) / 100
+  const deductionsAmount = Math.round(batch.gross_amount * dedRate)
+  const netPayable = Math.max(0, batch.gross_amount - deductionsAmount)
+
+  batch.moisture_percentage = data.moisture_percentage
+  batch.foreign_matter_percentage = data.foreign_matter_percentage
+  batch.quality_grade = data.quality_grade
+  batch.deductions = deductionsAmount
+  batch.net_amount = netPayable
+  batch.inspected_by_name = `${staff.full_name} (${staff.staff_id})`
+  batch.inspected_at = new Date().toISOString()
+  if (data.remarks) batch.remarks = data.remarks
+
+  if (data.quality_grade.toLowerCase().includes('reject')) {
+    batch.payment_status = 'REJECTED'
+  }
+
+  batches[idx] = batch
+  localStorage.setItem(PROCUREMENT_BATCHES_STORAGE_KEY, JSON.stringify(batches))
+
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    try {
+      await supabase
+        .from('procurements')
+        .update({
+          moisture_percentage: batch.moisture_percentage,
+          foreign_matter_percentage: batch.foreign_matter_percentage,
+          quality_grade: batch.quality_grade,
+          deductions: batch.deductions,
+          net_amount: batch.net_amount,
+          payment_status: batch.payment_status,
+        })
+        .eq('batch_number', data.batch_number)
+    } catch {
+      // ignore
+    }
+  }
+
+  window.dispatchEvent(new CustomEvent('kisan_setu_procurement_updated', { detail: batch }))
+  return { success: true, message: `Quality analysis recorded for batch ${data.batch_number}. Quality Grade: ${data.quality_grade}.` }
+}
+
+export async function approveProcurementForDBT(batchNumber: string): Promise<{ success: boolean; utr?: string; message: string }> {
+  const batches = getProcurementBatches()
+  const idx = batches.findIndex((b) => b.batch_number === batchNumber)
+  if (idx < 0) {
+    return { success: false, message: 'Batch record not found.' }
+  }
+
+  const generatedUtr = `SBIN${Math.floor(10000000000 + Math.random() * 90000000000)}`
+  batches[idx].payment_status = 'PAID_DBT'
+  batches[idx].utr_number = generatedUtr
+  localStorage.setItem(PROCUREMENT_BATCHES_STORAGE_KEY, JSON.stringify(batches))
+
+  // Dispatch DBT payment entry
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    try {
+      await supabase.from('procurements').update({ payment_status: 'PAID_DBT' }).eq('batch_number', batchNumber)
+      await supabase.from('dbt_payments').insert({
+        payment_ref: `DBT-2026-${Math.floor(10000 + Math.random() * 90000)}`,
+        farmer_id: batches[idx].farmer_id,
+        procurement_batch_number: batchNumber,
+        commodity: batches[idx].commodity,
+        amount: batches[idx].net_amount,
+        utr_number: generatedUtr,
+        status: 'COMPLETED',
+        bank_name: 'State Bank of India',
+        account_suffix: '4589',
+        ifsc_code: 'SBIN0001234',
+      })
+    } catch {
+      // ignore
+    }
+  }
+
+  window.dispatchEvent(new CustomEvent('kisan_setu_procurement_updated', { detail: batches[idx] }))
+  return { success: true, utr: generatedUtr, message: `DBT Payment approved & released! UTR Ref: ${generatedUtr}` }
+}
+
+// -----------------------------------------------------------------------------
+// 10. GRIEVANCE REDRESSAL & HELP SUPPORT SYSTEM
+// -----------------------------------------------------------------------------
+export interface GrievanceTicket {
+  id: string
+  ticket_number: string
+  user_id: string
+  user_name: string
+  user_role: 'FARMER' | 'STAFF' | 'CENTRE_OPERATOR'
+  mobile: string
+  category: 'PAYMENT_DELAY' | 'TOKEN_ISSUE' | 'MOISTURE_DISPUTE' | 'WEIGHMENT_DISCREPANCY' | 'GENERAL_SUPPORT'
+  reference_token?: string
+  subject: string
+  description: string
+  centre_name: string
+  status: 'OPEN' | 'UNDER_REVIEW' | 'RESOLVED'
+  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+  resolution_notes?: string
+  created_at: string
+  updated_at: string
+}
+
+const GRIEVANCE_STORAGE_KEY = 'kisan_setu_grievance_vault'
+
+export function getGrievanceTickets(): GrievanceTicket[] {
+  try {
+    const raw = localStorage.getItem(GRIEVANCE_STORAGE_KEY)
+    if (raw) return JSON.parse(raw)
+  } catch {
+    // ignore
+  }
+  return [
+    {
+      id: 'ticket-1',
+      ticket_number: 'GRV-2026-1049',
+      user_id: 'KS-FARM-2026-8942',
+      user_name: 'Ramesh Kumar Singh',
+      user_role: 'FARMER',
+      mobile: '9214334494',
+      category: 'WEIGHMENT_DISCREPANCY',
+      reference_token: 'A-42',
+      subject: 'Clarification regarding tare weight recording',
+      description: 'The tare weight of my empty trolley was recorded at 17.5 quintals. Requesting confirmation of calibration certificate.',
+      centre_name: 'Chiraigaon 1st at Gaurakala (FCS)',
+      status: 'RESOLVED',
+      priority: 'MEDIUM',
+      resolution_notes: 'Tare weight re-checked with certified calibration standard. Scale verified accurate.',
+      created_at: '2026-08-29T14:00:00.000Z',
+      updated_at: '2026-08-30T10:00:00.000Z',
+    },
+  ]
+}
+
+export function submitGrievanceTicket(ticket: {
+  user_id: string
+  user_name: string
+  user_role: 'FARMER' | 'STAFF' | 'CENTRE_OPERATOR'
+  mobile: string
+  category: 'PAYMENT_DELAY' | 'TOKEN_ISSUE' | 'MOISTURE_DISPUTE' | 'WEIGHMENT_DISCREPANCY' | 'GENERAL_SUPPORT'
+  reference_token?: string
+  subject: string
+  description: string
+  centre_name: string
+  priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+}): GrievanceTicket {
+  const ticketNumber = `GRV-2026-${Math.floor(1000 + Math.random() * 9000)}`
+  const newTicket: GrievanceTicket = {
+    id: `ticket-${Date.now()}`,
+    ticket_number: ticketNumber,
+    user_id: ticket.user_id,
+    user_name: ticket.user_name,
+    user_role: ticket.user_role,
+    mobile: ticket.mobile,
+    category: ticket.category,
+    reference_token: ticket.reference_token,
+    subject: ticket.subject,
+    description: ticket.description,
+    centre_name: ticket.centre_name,
+    status: 'OPEN',
+    priority: ticket.priority || 'MEDIUM',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  }
+
+  const list = getGrievanceTickets()
+  list.unshift(newTicket)
+  localStorage.setItem(GRIEVANCE_STORAGE_KEY, JSON.stringify(list))
+  window.dispatchEvent(new CustomEvent('kisan_setu_grievance_updated', { detail: newTicket }))
+  return newTicket
+}
+
+export function updateGrievanceStatus(
+  ticketId: string,
+  newStatus: 'OPEN' | 'UNDER_REVIEW' | 'RESOLVED',
+  notes = ''
+): boolean {
+  const list = getGrievanceTickets()
+  const idx = list.findIndex((t) => t.id === ticketId || t.ticket_number === ticketId)
+  if (idx >= 0) {
+    list[idx].status = newStatus
+    list[idx].updated_at = new Date().toISOString()
+    if (notes) list[idx].resolution_notes = notes
+    localStorage.setItem(GRIEVANCE_STORAGE_KEY, JSON.stringify(list))
+    window.dispatchEvent(new CustomEvent('kisan_setu_grievance_updated', { detail: list[idx] }))
+    return true
+  }
+  return false
+}
+
+// -----------------------------------------------------------------------------
+// 11. CUSTOM PROCUREMENT CENTRE MANAGEMENT
+// -----------------------------------------------------------------------------
+import { ALL_PROCUREMENT_CENTRES, type ProcurementCentreItem } from '../data/procurementCentresData'
+
+const CUSTOM_CENTRES_STORAGE_KEY = 'kisan_setu_custom_centres_vault'
+
+export function getAllProcurementCentresList(): ProcurementCentreItem[] {
+  try {
+    const raw = localStorage.getItem(CUSTOM_CENTRES_STORAGE_KEY)
+    if (raw) {
+      const custom: ProcurementCentreItem[] = JSON.parse(raw)
+      return [...custom, ...ALL_PROCUREMENT_CENTRES]
+    }
+  } catch {
+    // ignore
+  }
+  return ALL_PROCUREMENT_CENTRES
+}
+
+export function addNewProcurementCentre(centre: Omit<ProcurementCentreItem, 'id' | 'sNo'>): ProcurementCentreItem {
+  const newId = `custom-centre-${Date.now()}`
+  const all = getAllProcurementCentresList()
+  const newCentre: ProcurementCentreItem = {
+    ...centre,
+    id: newId,
+    sNo: all.length + 1,
+  }
+
+  const customOnly: ProcurementCentreItem[] = []
+  try {
+    const raw = localStorage.getItem(CUSTOM_CENTRES_STORAGE_KEY)
+    if (raw) customOnly.push(...JSON.parse(raw))
+  } catch {
+    // ignore
+  }
+  customOnly.unshift(newCentre)
+  localStorage.setItem(CUSTOM_CENTRES_STORAGE_KEY, JSON.stringify(customOnly))
+  window.dispatchEvent(new CustomEvent('kisan_setu_centres_updated', { detail: newCentre }))
+  return newCentre
+}
+
