@@ -787,7 +787,7 @@ export default function StaffManagementPage() {
                         <div
                           style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
                             gap: '16px',
                           }}
                         >
@@ -856,6 +856,8 @@ export default function StaffManagementPage() {
                                         fontWeight: 800,
                                         padding: '2px 8px',
                                         borderRadius: '99px',
+                                        flexShrink: 0,
+                                        whiteSpace: 'nowrap',
                                       }}
                                     >
                                       {officer.status === 'ACTIVE' ? '● Active' : '○ Suspended'}
@@ -932,6 +934,8 @@ export default function StaffManagementPage() {
                                         fontSize: '11px',
                                         fontWeight: 700,
                                         cursor: 'pointer',
+                                        whiteSpace: 'nowrap',
+                                        flexShrink: 0,
                                       }}
                                     >
                                       {officer.status === 'ACTIVE' ? 'Suspend Access' : 'Activate Access'}

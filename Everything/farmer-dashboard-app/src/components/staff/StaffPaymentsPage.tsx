@@ -220,19 +220,19 @@ export default function StaffPaymentsPage() {
               boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
             }}
           >
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+              <table style={{ width: '100%', minWidth: '920px', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#64748b', fontWeight: 700, fontSize: '11.5px', textTransform: 'uppercase' }}>
-                    <th style={{ padding: '14px 18px' }}>Batch Details</th>
-                    <th style={{ padding: '14px 18px' }}>Farmer &amp; Contact</th>
-                    <th style={{ padding: '14px 18px' }}>Net Quantity</th>
-                    <th style={{ padding: '14px 18px' }}>MSP Rate</th>
-                    <th style={{ padding: '14px 18px' }}>Gross Value</th>
-                    <th style={{ padding: '14px 18px' }}>Deductions</th>
-                    <th style={{ padding: '14px 18px' }}>Net Payable DBT</th>
-                    <th style={{ padding: '14px 18px' }}>Status</th>
-                    <th style={{ padding: '14px 18px', textAlign: 'right' }}>Action</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Batch Details</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Farmer &amp; Contact</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Net Quantity</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>MSP Rate</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Gross Value</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Deductions</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Net Payable DBT</th>
+                    <th style={{ padding: '14px 18px', whiteSpace: 'nowrap' }}>Status</th>
+                    <th style={{ padding: '14px 18px', textAlign: 'right', whiteSpace: 'nowrap' }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>

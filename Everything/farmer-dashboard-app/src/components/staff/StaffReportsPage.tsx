@@ -106,7 +106,7 @@ export default function StaffReportsPage() {
           <section
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr)))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '16px',
               marginBottom: '24px',
             }}
@@ -145,7 +145,7 @@ export default function StaffReportsPage() {
           </section>
 
           {/* Detailed Reports Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {/* Commodity Distribution Breakdown */}
             <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '20px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px' }}>
@@ -154,9 +154,9 @@ export default function StaffReportsPage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}>
-                    <span style={{ fontWeight: 600 }}>Wheat (गेहूं - FAQ Standard)</span>
-                    <strong>3,140 Qtl (65%)</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px', marginBottom: '4px', gap: '8px', minWidth: 0 }}>
+                    <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0, flex: 1 }}>Wheat (गेहूं - FAQ)</span>
+                    <strong style={{ whiteSpace: 'nowrap', flexShrink: 0 }}>3,140 Qtl (65%)</strong>
                   </div>
                   <div style={{ height: '8px', background: '#f1f5f9', borderRadius: '4px', overflow: 'hidden' }}>
                     <div style={{ width: '65%', height: '100%', background: '#0d631b' }} />
@@ -164,9 +164,9 @@ export default function StaffReportsPage() {
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}>
-                    <span style={{ fontWeight: 600 }}>Mustard (सरसों - High Oil)</span>
-                    <strong>1,210 Qtl (25%)</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px', marginBottom: '4px', gap: '8px', minWidth: 0 }}>
+                    <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0, flex: 1 }}>Mustard (सरसों)</span>
+                    <strong style={{ whiteSpace: 'nowrap', flexShrink: 0 }}>1,210 Qtl (25%)</strong>
                   </div>
                   <div style={{ height: '8px', background: '#f1f5f9', borderRadius: '4px', overflow: 'hidden' }}>
                     <div style={{ width: '25%', height: '100%', background: '#ca8a04' }} />
@@ -174,9 +174,9 @@ export default function StaffReportsPage() {
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}>
-                    <span style={{ fontWeight: 600 }}>Gram (चना / Pulses)</span>
-                    <strong>470 Qtl (10%)</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px', marginBottom: '4px', gap: '8px', minWidth: 0 }}>
+                    <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0, flex: 1 }}>Gram (चना / Pulses)</span>
+                    <strong style={{ whiteSpace: 'nowrap', flexShrink: 0 }}>470 Qtl (10%)</strong>
                   </div>
                   <div style={{ height: '8px', background: '#f1f5f9', borderRadius: '4px', overflow: 'hidden' }}>
                     <div style={{ width: '10%', height: '100%', background: '#2563eb' }} />

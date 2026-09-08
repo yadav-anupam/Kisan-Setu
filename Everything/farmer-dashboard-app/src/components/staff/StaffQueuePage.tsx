@@ -125,16 +125,16 @@ export default function StaffQueuePage() {
             </div>
 
             {/* Operator Bay Selector & Call Next */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <select
                 value={selectedBay}
                 onChange={(e) => setSelectedBay(e.target.value)}
                 style={{
-                  height: '42px',
+                  height: '38px',
                   padding: '0 12px',
-                  borderRadius: '10px',
+                  borderRadius: '8px',
                   border: '1.5px solid #cbd5e1',
-                  fontSize: '13px',
+                  fontSize: '12.5px',
                   fontWeight: 700,
                   background: '#ffffff',
                 }}
@@ -152,18 +152,20 @@ export default function StaffQueuePage() {
                   background: '#0d631b',
                   color: '#ffffff',
                   border: 'none',
-                  borderRadius: '10px',
-                  padding: '10px 18px',
+                  borderRadius: '8px',
+                  padding: '9px 16px',
                   fontWeight: 800,
-                  fontSize: '13.5px',
+                  fontSize: '13px',
                   cursor: 'pointer',
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '6px',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
                   boxShadow: '0 4px 12px rgba(13,99,27,0.25)',
                 }}
               >
-                <Volume2 size={17} /> Call Next Token
+                <Volume2 size={16} /> Call Next Token
               </button>
             </div>
           </div>
@@ -198,53 +200,53 @@ export default function StaffQueuePage() {
             </div>
           )}
 
-          {/* Queue Statistics Cards */}
+          {/* Queue Statistics Cards: Symmetrical 2x2 on mobile, 4-across on desktop */}
           <section
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '16px',
-              marginBottom: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+              gap: '12px',
+              marginBottom: '20px',
             }}
           >
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748b', fontWeight: 700 }}>
-                <Truck size={15} color="#2563eb" /> Current Queue
+            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#64748b', fontWeight: 700 }}>
+                <Truck size={14} color="#2563eb" /> Current Queue
               </div>
-              <strong style={{ display: 'block', fontSize: '28px', color: '#2563eb', margin: '8px 0 2px' }}>
+              <strong style={{ display: 'block', fontSize: '22px', color: '#2563eb', margin: '4px 0 1px' }}>
                 {queue.length}
               </strong>
-              <small style={{ color: '#64748b', fontSize: '11px' }}>Total tokens loaded</small>
+              <small style={{ color: '#64748b', fontSize: '10.5px' }}>Total tokens loaded</small>
             </div>
 
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748b', fontWeight: 700 }}>
-                <Scale size={15} color="#16a34a" /> Currently Serving
+            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#64748b', fontWeight: 700 }}>
+                <Scale size={14} color="#16a34a" /> Currently Serving
               </div>
-              <strong style={{ display: 'block', fontSize: '28px', color: '#16a34a', margin: '8px 0 2px' }}>
+              <strong style={{ display: 'block', fontSize: '22px', color: '#16a34a', margin: '4px 0 1px' }}>
                 {servingCount}
               </strong>
-              <small style={{ color: '#166534', fontSize: '11px', fontWeight: 700 }}>Active at weighbridges</small>
+              <small style={{ color: '#166534', fontSize: '10.5px', fontWeight: 700 }}>Active at weighbridges</small>
             </div>
 
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748b', fontWeight: 700 }}>
-                <Clock size={15} color="#eab308" /> Waiting Vehicles
+            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#64748b', fontWeight: 700 }}>
+                <Clock size={14} color="#eab308" /> Waiting Vehicles
               </div>
-              <strong style={{ display: 'block', fontSize: '28px', color: '#ca8a04', margin: '8px 0 2px' }}>
+              <strong style={{ display: 'block', fontSize: '22px', color: '#ca8a04', margin: '4px 0 1px' }}>
                 {waitingCount}
               </strong>
-              <small style={{ color: '#64748b', fontSize: '11px' }}>In staging lane</small>
+              <small style={{ color: '#64748b', fontSize: '10.5px' }}>In staging lane</small>
             </div>
 
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748b', fontWeight: 700 }}>
-                <CheckCircle2 size={15} color="#0d631b" /> Completed Today
+            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#64748b', fontWeight: 700 }}>
+                <CheckCircle2 size={14} color="#0d631b" /> Completed Today
               </div>
-              <strong style={{ display: 'block', fontSize: '28px', color: '#0d631b', margin: '8px 0 2px' }}>
+              <strong style={{ display: 'block', fontSize: '22px', color: '#0d631b', margin: '4px 0 1px' }}>
                 {completedCount + 74}
               </strong>
-              <small style={{ color: '#64748b', fontSize: '11px' }}>Batches cleared</small>
+              <small style={{ color: '#64748b', fontSize: '10.5px' }}>Batches cleared</small>
             </div>
           </section>
 
@@ -284,18 +286,18 @@ export default function StaffQueuePage() {
               </button>
             </div>
 
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+              <table style={{ width: '100%', minWidth: '850px', borderCollapse: 'collapse', fontSize: '13px' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0', textAlign: 'left', color: '#64748b' }}>
-                    <th style={{ padding: '12px 16px' }}>Token #</th>
-                    <th style={{ padding: '12px 16px' }}>Booking Number</th>
-                    <th style={{ padding: '12px 16px' }}>Farmer Name</th>
-                    <th style={{ padding: '12px 16px' }}>Slot Time</th>
-                    <th style={{ padding: '12px 16px' }}>Commodity</th>
-                    <th style={{ padding: '12px 16px' }}>Bay Assigned</th>
-                    <th style={{ padding: '12px 16px' }}>Status</th>
-                    <th style={{ padding: '12px 16px', textAlign: 'right' }}>Operator Actions</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Token #</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Booking Number</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Farmer Name</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Slot Time</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Commodity</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Bay Assigned</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Status</th>
+                    <th style={{ padding: '12px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>Operator Actions</th>
                   </tr>
                 </thead>
                 <tbody>

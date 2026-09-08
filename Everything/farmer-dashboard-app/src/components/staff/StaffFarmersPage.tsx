@@ -132,19 +132,20 @@ export default function StaffFarmersPage() {
               border: '1px solid #e2e8f0',
               borderRadius: '16px',
               overflow: 'hidden',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             }}
           >
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+              <table style={{ width: '100%', minWidth: '820px', borderCollapse: 'collapse', fontSize: '13px' }}>
                 <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0', textAlign: 'left', color: '#64748b' }}>
-                    <th style={{ padding: '12px 16px' }}>Farmer ID &amp; Name</th>
-                    <th style={{ padding: '12px 16px' }}>Village / Tehsil</th>
-                    <th style={{ padding: '12px 16px' }}>Contact Number</th>
-                    <th style={{ padding: '12px 16px' }}>Total Bookings</th>
-                    <th style={{ padding: '12px 16px' }}>Gate Cleared</th>
-                    <th style={{ padding: '12px 16px' }}>Last Visit</th>
-                    <th style={{ padding: '12px 16px' }}>KYC Status</th>
+                  <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0', textAlign: 'left', color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.3px' }}>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Farmer ID &amp; Name</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Village / Tehsil</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Contact Number</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Total Bookings</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Gate Cleared</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Last Visit</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>KYC Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -157,37 +158,37 @@ export default function StaffFarmersPage() {
                   ) : farmers.length === 0 ? (
                     <tr>
                       <td colSpan={7} style={{ padding: '40px', textAlign: 'center', color: '#64748b' }}>
-                        No farmer profiles found matching "{searchQuery}".
+                        {searchQuery ? `No farmer profiles found matching "${searchQuery}".` : 'No registered farmer records found for this centre.'}
                       </td>
                     </tr>
                   ) : (
                     farmers.map((f) => (
                       <tr key={f.farmer_id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                        <td style={{ padding: '14px 16px' }}>
-                          <strong style={{ display: 'block', color: '#0f172a' }}>{f.name}</strong>
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                          <strong style={{ display: 'block', color: '#0f172a', fontSize: '13.5px' }}>{f.name}</strong>
                           <span style={{ fontSize: '11px', color: '#0d631b', fontWeight: 800 }}>
                             {f.farmer_id}
                           </span>
                         </td>
-                        <td style={{ padding: '14px 16px', color: '#334155' }}>
+                        <td style={{ padding: '12px 16px', color: '#334155', whiteSpace: 'nowrap' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <MapPin size={13} color="#64748b" />
                             <span>{f.village}, {f.district}</span>
                           </div>
                         </td>
-                        <td style={{ padding: '14px 16px', fontWeight: 600, color: '#0f172a' }}>
+                        <td style={{ padding: '12px 16px', fontWeight: 600, color: '#0f172a', whiteSpace: 'nowrap' }}>
                           {f.mobile}
                         </td>
-                        <td style={{ padding: '14px 16px', fontWeight: 700 }}>
+                        <td style={{ padding: '12px 16px', fontWeight: 700, whiteSpace: 'nowrap' }}>
                           {f.totalBookings} Batches
                         </td>
-                        <td style={{ padding: '14px 16px', color: '#16a34a', fontWeight: 700 }}>
+                        <td style={{ padding: '12px 16px', color: '#16a34a', fontWeight: 700, whiteSpace: 'nowrap' }}>
                           {f.verifiedBookings} Verified
                         </td>
-                        <td style={{ padding: '14px 16px', color: '#64748b' }}>
+                        <td style={{ padding: '12px 16px', color: '#64748b', whiteSpace: 'nowrap' }}>
                           {f.lastVisit}
                         </td>
-                        <td style={{ padding: '14px 16px' }}>
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
                           <span
                             style={{
                               display: 'inline-flex',
@@ -199,6 +200,7 @@ export default function StaffFarmersPage() {
                               fontWeight: 800,
                               background: '#dcfce7',
                               color: '#166534',
+                              border: '1px solid #bbf7d0',
                             }}
                           >
                             <BadgeCheck size={13} /> {f.kycStatus}

@@ -137,7 +137,7 @@ export default function StaffDashboardPage() {
                     {latest.isPriceRaised ? <Sparkles size={20} /> : <Megaphone size={20} />}
                   </div>
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px', flexWrap: 'wrap' }}>
                       <span
                         style={{
                           fontSize: '11px',
@@ -147,30 +147,32 @@ export default function StaffDashboardPage() {
                           borderRadius: '12px',
                           background: latest.isPriceRaised ? '#dcfce7' : '#e0f2fe',
                           color: latest.isPriceRaised ? '#166534' : '#0369a1',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
                         }}
                       >
                         {latest.isPriceRaised ? '🔥 Active Government MSP Hike' : '📢 Official MSP Price Notice'}
                       </span>
                       {latest.circularRef && (
-                        <span style={{ fontSize: '11px', color: '#64748b' }}>
+                        <span style={{ fontSize: '11px', color: '#64748b', whiteSpace: 'nowrap' }}>
                           Gazette: {latest.circularRef}
                         </span>
                       )}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                       <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>
-                        {latest.cropName} {latest.hindiName ? `(${latest.hindiName})` : ''}:
+                        {latest.cropName.includes('(') ? latest.cropName : `${latest.cropName}${latest.hindiName ? ` (${latest.hindiName})` : ''}`}:
                       </span>
                       <span style={{ fontWeight: 800, color: '#16a34a', fontSize: '15px' }}>
-                        ₹{latest.newPrice}/Qtl
+                        ₹{latest.newPrice.toLocaleString('en-IN')}/Qtl
                       </span>
                       {latest.bonusPerQtl > 0 && (
-                        <span style={{ fontSize: '11px', color: '#166534', background: '#bbf7d0', padding: '1px 6px', borderRadius: '6px', fontWeight: 700 }}>
+                        <span style={{ fontSize: '11px', color: '#166534', background: '#bbf7d0', padding: '1px 6px', borderRadius: '6px', fontWeight: 700, whiteSpace: 'nowrap' }}>
                           +₹{latest.bonusPerQtl} State Bonus
                         </span>
                       )}
                       {latest.isPriceRaised && latest.percentageIncrease > 0 && (
-                        <span style={{ fontSize: '11px', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center' }}>
+                        <span style={{ fontSize: '11px', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
                           <ArrowUpRight size={13} /> +₹{latest.newPrice - latest.oldPrice}/Qtl (+{latest.percentageIncrease}%)
                         </span>
                       )}

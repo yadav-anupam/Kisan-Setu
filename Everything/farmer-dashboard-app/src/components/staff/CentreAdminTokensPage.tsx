@@ -276,19 +276,19 @@ export default function CentreAdminTokensPage() {
           <div
             style={{
               background: '#ffffff',
-              padding: '16px 20px',
+              padding: '12px 16px',
               borderRadius: '12px',
               border: '1px solid #e2e8f0',
-              marginBottom: '20px',
+              marginBottom: '16px',
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '14px',
+              gap: '10px',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
           >
-            <div style={{ position: 'relative', flex: '1', minWidth: '260px' }}>
-              <Search size={16} color="#94a3b8" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+            <div style={{ position: 'relative', flex: '1', minWidth: '220px' }}>
+              <Search size={15} color="#94a3b8" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="text"
                 placeholder="Search token #, farmer name, or phone..."
@@ -296,25 +296,25 @@ export default function CentreAdminTokensPage() {
                 onChange={(e) => setSearch(e.target.value)}
                 style={{
                   width: '100%',
-                  padding: '9px 12px 9px 36px',
+                  padding: '8px 12px 8px 34px',
                   borderRadius: '8px',
                   border: '1px solid #cbd5e1',
-                  fontSize: '13px',
+                  fontSize: '12.5px',
                   outline: 'none',
                 }}
               />
             </div>
 
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <Filter size={15} color="#64748b" />
+              <Filter size={14} color="#64748b" />
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 style={{
-                  padding: '8px 12px',
+                  padding: '7px 12px',
                   borderRadius: '8px',
                   border: '1px solid #cbd5e1',
-                  fontSize: '13px',
+                  fontSize: '12.5px',
                   background: '#ffffff',
                   outline: 'none',
                 }}
@@ -336,117 +336,136 @@ export default function CentreAdminTokensPage() {
               borderRadius: '12px',
               border: '1px solid #e2e8f0',
               overflow: 'hidden',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             }}
           >
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+              <table style={{ width: '100%', minWidth: '780px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                 <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700 }}>
-                    <th style={{ padding: '14px 18px' }}>Token # &amp; Time</th>
-                    <th style={{ padding: '14px 18px' }}>Farmer Details</th>
-                    <th style={{ padding: '14px 18px' }}>Commodity &amp; Qty</th>
-                    <th style={{ padding: '14px 18px' }}>Vehicle #</th>
-                    <th style={{ padding: '14px 18px' }}>Current Status</th>
-                    <th style={{ padding: '14px 18px', textAlign: 'right' }}>Actions</th>
+                  <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.3px' }}>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Token # &amp; Time</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Farmer Details</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Commodity &amp; Qty</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Vehicle #</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Current Status</th>
+                    <th style={{ padding: '12px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredTokens.map((t) => (
-                    <tr key={t.tokenNo} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ padding: '14px 18px' }}>
-                        <div style={{ fontWeight: 800, color: '#064e3b', fontSize: '14px' }}>{t.tokenNo}</div>
-                        <div style={{ fontSize: '11px', color: '#64748b' }}>Issued: {t.issuedAt} • {t.slotTime}</div>
-                      </td>
-
-                      <td style={{ padding: '14px 18px' }}>
-                        <div style={{ fontWeight: 700, color: '#0f172a' }}>{t.farmerName}</div>
-                        <div style={{ fontSize: '12px', color: '#64748b' }}>+91 {t.farmerMobile}</div>
-                      </td>
-
-                      <td style={{ padding: '14px 18px' }}>
-                        <div style={{ fontWeight: 600, color: '#0f172a' }}>{t.commodity}</div>
-                        <div style={{ fontSize: '12px', color: '#16a34a', fontWeight: 700 }}>~ {t.estimatedQuantityQtl} Quintals</div>
-                      </td>
-
-                      <td style={{ padding: '14px 18px' }}>
-                        <span style={{ background: '#f1f5f9', padding: '4px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: 700, color: '#334155' }}>
-                          {t.vehicleNo}
-                        </span>
-                      </td>
-
-                      <td style={{ padding: '14px 18px' }}>
-                        <span
-                          style={{
-                            padding: '4px 10px',
-                            borderRadius: '6px',
-                            fontSize: '11px',
-                            fontWeight: 800,
-                            background:
-                              t.status === 'COMPLETED'
-                                ? '#ecfdf5'
-                                : t.status === 'CALLED'
-                                ? '#fef3c7'
-                                : t.status === 'WEIGHMENT' || t.status === 'QUALITY'
-                                ? '#eff6ff'
-                                : '#f1f5f9',
-                            color:
-                              t.status === 'COMPLETED'
-                                ? '#059669'
-                                : t.status === 'CALLED'
-                                ? '#b45309'
-                                : t.status === 'WEIGHMENT' || t.status === 'QUALITY'
-                                ? '#1d4ed8'
-                                : '#64748b',
-                          }}
-                        >
-                          {t.status}
-                        </span>
-                      </td>
-
-                      <td style={{ padding: '14px 18px', textAlign: 'right' }}>
-                        {t.status === 'WAITING' ? (
-                          <button
-                            onClick={() => handleCallToken(t.tokenNo)}
-                            style={{
-                              padding: '6px 12px',
-                              background: '#15803d',
-                              color: '#ffffff',
-                              border: 'none',
-                              borderRadius: '6px',
-                              fontSize: '12px',
-                              fontWeight: 700,
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '4px',
-                            }}
-                          >
-                            <Play size={12} /> Call to Scale
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => alert(`Printing official duplicate slip for ${t.tokenNo}`)}
-                            style={{
-                              padding: '6px 10px',
-                              background: '#f1f5f9',
-                              color: '#475569',
-                              border: '1px solid #cbd5e1',
-                              borderRadius: '6px',
-                              fontSize: '12px',
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '4px',
-                            }}
-                          >
-                            <Printer size={12} /> Re-Print
-                          </button>
-                        )}
+                  {filteredTokens.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} style={{ padding: '36px 16px', textAlign: 'center', color: '#64748b' }}>
+                        No tokens found matching search or filter criteria.
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    filteredTokens.map((t) => (
+                      <tr key={t.tokenNo} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontWeight: 800, color: '#064e3b', fontSize: '13.5px' }}>{t.tokenNo}</div>
+                          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>Issued: {t.issuedAt} • {t.slotTime}</div>
+                        </td>
+
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '13px' }}>{t.farmerName}</div>
+                          <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '1px' }}>+91 {t.farmerMobile}</div>
+                        </td>
+
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontWeight: 600, color: '#0f172a', fontSize: '13px' }}>{t.commodity}</div>
+                          <div style={{ fontSize: '11.5px', color: '#16a34a', fontWeight: 700, marginTop: '1px' }}>~ {t.estimatedQuantityQtl} Quintals</div>
+                        </td>
+
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                          <span style={{ background: '#f1f5f9', padding: '3px 8px', borderRadius: '6px', fontSize: '11.5px', fontWeight: 700, color: '#334155', border: '1px solid #e2e8f0', display: 'inline-block' }}>
+                            {t.vehicleNo}
+                          </span>
+                        </td>
+
+                        <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                          <span
+                            style={{
+                              padding: '3px 9px',
+                              borderRadius: '6px',
+                              fontSize: '11px',
+                              fontWeight: 800,
+                              display: 'inline-block',
+                              background:
+                                t.status === 'COMPLETED'
+                                  ? '#ecfdf5'
+                                  : t.status === 'CALLED'
+                                  ? '#fef3c7'
+                                  : t.status === 'WEIGHMENT' || t.status === 'QUALITY'
+                                  ? '#eff6ff'
+                                  : '#f1f5f9',
+                              color:
+                                t.status === 'COMPLETED'
+                                  ? '#059669'
+                                  : t.status === 'CALLED'
+                                  ? '#b45309'
+                                  : t.status === 'WEIGHMENT' || t.status === 'QUALITY'
+                                  ? '#1d4ed8'
+                                  : '#64748b',
+                              border:
+                                t.status === 'COMPLETED'
+                                  ? '1px solid #a7f3d0'
+                                  : t.status === 'CALLED'
+                                  ? '1px solid #fde68a'
+                                  : t.status === 'WEIGHMENT' || t.status === 'QUALITY'
+                                  ? '1px solid #bfdbfe'
+                                  : '1px solid #e2e8f0',
+                            }}
+                          >
+                            {t.status}
+                          </span>
+                        </td>
+
+                        <td style={{ padding: '12px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                          {t.status === 'WAITING' ? (
+                            <button
+                              type="button"
+                              onClick={() => handleCallToken(t.tokenNo)}
+                              style={{
+                                padding: '5px 12px',
+                                background: '#15803d',
+                                color: '#ffffff',
+                                border: 'none',
+                                borderRadius: '6px',
+                                fontSize: '11.5px',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                              }}
+                            >
+                              <Play size={11} /> Call to Scale
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => alert(`Printing official duplicate slip for ${t.tokenNo}`)}
+                              style={{
+                                padding: '5px 10px',
+                                background: '#f8fafc',
+                                color: '#475569',
+                                border: '1px solid #cbd5e1',
+                                borderRadius: '6px',
+                                fontSize: '11.5px',
+                                fontWeight: 600,
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                              }}
+                            >
+                              <Printer size={11} /> Re-Print
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

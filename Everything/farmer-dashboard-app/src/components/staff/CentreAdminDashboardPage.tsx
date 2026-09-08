@@ -139,7 +139,7 @@ export default function CentreAdminDashboardPage() {
           pageTitle="Mandi Centre Operational Command"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1440px', margin: '0 auto' }}>
+        <main style={{ padding: '16px 20px', maxWidth: '1440px', margin: '0 auto' }}>
           {/* Official Gazette MSP Announcement Banner */}
           {priceAnnouncements.length > 0 && (() => {
             const latest = priceAnnouncements[0]
@@ -147,24 +147,24 @@ export default function CentreAdminDashboardPage() {
               <div
                 style={{
                   background: '#ffffff',
-                  borderRadius: '16px',
-                  padding: '16px 20px',
-                  marginBottom: '20px',
+                  borderRadius: '14px',
+                  padding: '12px 16px',
+                  marginBottom: '14px',
                   border: latest.isPriceRaised ? '1.5px solid #86efac' : '1px solid #e2e8f0',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   flexWrap: 'wrap',
-                  gap: '14px',
+                  gap: '10px',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div
                     style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '10px',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '8px',
                       background: latest.isPriceRaised ? '#16a34a' : '#0284c7',
                       color: '#ffffff',
                       display: 'flex',
@@ -173,51 +173,53 @@ export default function CentreAdminDashboardPage() {
                       flexShrink: 0,
                     }}
                   >
-                    {latest.isPriceRaised ? <Sparkles size={20} /> : <Megaphone size={20} />}
+                    {latest.isPriceRaised ? <Sparkles size={16} /> : <Megaphone size={16} />}
                   </div>
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px', flexWrap: 'wrap' }}>
                       <span
                         style={{
-                          fontSize: '11px',
+                          fontSize: '10.5px',
                           fontWeight: 800,
                           textTransform: 'uppercase',
                           padding: '2px 8px',
-                          borderRadius: '12px',
+                          borderRadius: '10px',
                           background: latest.isPriceRaised ? '#dcfce7' : '#e0f2fe',
                           color: latest.isPriceRaised ? '#166534' : '#0369a1',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
                         }}
                       >
                         {latest.isPriceRaised ? '🔥 Active Government MSP Hike' : '📢 Official MSP Price Notice'}
                       </span>
                       {latest.circularRef && (
-                        <span style={{ fontSize: '11px', color: '#64748b' }}>
+                        <span style={{ fontSize: '10.5px', color: '#64748b', whiteSpace: 'nowrap' }}>
                           Gazette: {latest.circularRef}
                         </span>
                       )}
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                      <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>
-                        {latest.cropName} {latest.hindiName ? `(${latest.hindiName})` : ''}:
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                      <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '13px' }}>
+                        {latest.cropName.includes('(') ? latest.cropName : `${latest.cropName}${latest.hindiName ? ` (${latest.hindiName})` : ''}`}:
                       </span>
-                      <span style={{ fontWeight: 800, color: '#16a34a', fontSize: '15px' }}>
-                        ₹{latest.newPrice}/Qtl
+                      <span style={{ fontWeight: 800, color: '#16a34a', fontSize: '14px' }}>
+                        ₹{latest.newPrice.toLocaleString('en-IN')}/Qtl
                       </span>
                       {latest.bonusPerQtl > 0 && (
-                        <span style={{ fontSize: '11px', color: '#166534', background: '#bbf7d0', padding: '1px 6px', borderRadius: '6px', fontWeight: 700 }}>
-                          +₹{latest.bonusPerQtl} State Bonus
+                        <span style={{ fontSize: '10.5px', color: '#166534', background: '#bbf7d0', padding: '1px 5px', borderRadius: '4px', fontWeight: 700, whiteSpace: 'nowrap' }}>
+                          +₹{latest.bonusPerQtl} Bonus
                         </span>
                       )}
                       {latest.isPriceRaised && latest.percentageIncrease > 0 && (
-                        <span style={{ fontSize: '11px', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center' }}>
-                          <ArrowUpRight size={13} /> +₹{latest.newPrice - latest.oldPrice}/Qtl (+{latest.percentageIncrease}%)
+                        <span style={{ fontSize: '10.5px', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                          <ArrowUpRight size={12} /> +₹{latest.newPrice - latest.oldPrice}/Qtl (+{latest.percentageIncrease}%)
                         </span>
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div style={{ fontSize: '12px', color: '#64748b' }}>
+                <div style={{ fontSize: '11.5px', color: '#64748b' }}>
                   Season: <strong style={{ color: '#0f172a' }}>{latest.effectiveSeason}</strong>
                 </div>
               </div>
@@ -228,31 +230,31 @@ export default function CentreAdminDashboardPage() {
           <div
             style={{
               background: 'linear-gradient(135deg, #064e3b 0%, #0d631b 60%, #15803d 100%)',
-              borderRadius: '20px',
-              padding: '24px 28px',
+              borderRadius: '16px',
+              padding: '18px 22px',
               color: '#ffffff',
-              marginBottom: '24px',
-              boxShadow: '0 8px 24px -6px rgba(13, 99, 27, 0.25)',
+              marginBottom: '16px',
+              boxShadow: '0 6px 20px -4px rgba(13, 99, 27, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
-              gap: '16px',
+              gap: '12px',
             }}
           >
             <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.15)', padding: '4px 12px', borderRadius: '99px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '8px' }}>
-                <Building2 size={13} /> {staff.centre_name || 'Chiraigaon Mandi Centre (FCS)'}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.15)', padding: '3px 10px', borderRadius: '99px', fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+                <Building2 size={12} /> {staff.centre_name || 'Chiraigaon Mandi Centre (FCS)'}
               </div>
-              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 4px', letterSpacing: '-0.3px' }}>
+              <h1 style={{ fontSize: '20px', fontWeight: 800, margin: '0 0 3px', letterSpacing: '-0.2px' }}>
                 Centre Administration &amp; Intake Command
               </h1>
-              <p style={{ fontSize: '13px', color: '#dcfce7', margin: 0 }}>
-                Supervising Nodal Officer: <strong>{staff.full_name} ({staff.staff_id})</strong> • Live Procurement Session 2026-27
+              <p style={{ fontSize: '12px', color: '#dcfce7', margin: 0 }}>
+                Supervising Officer: <strong>{staff.full_name} ({staff.staff_id})</strong> • Live Session 2026-27
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <button
                 type="button"
                 onClick={loadData}
@@ -261,9 +263,9 @@ export default function CentreAdminDashboardPage() {
                   background: 'rgba(255, 255, 255, 0.15)',
                   border: '1px solid rgba(255, 255, 255, 0.3)',
                   color: '#ffffff',
-                  padding: '8px 14px',
-                  borderRadius: '10px',
-                  fontSize: '12.5px',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
                   fontWeight: 700,
                   cursor: 'pointer',
                   display: 'flex',
@@ -271,239 +273,241 @@ export default function CentreAdminDashboardPage() {
                   gap: '6px',
                 }}
               >
-                <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />
+                <RefreshCw size={13} className={isLoading ? 'animate-spin' : ''} />
                 Refresh Telemetry
               </button>
             </div>
           </div>
 
           {/* 6 Metric KPI Matrix */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '16px' }}>
             {/* KPI 1 */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px 20px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#64748b' }}>Today's Bookings</span>
-                <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#f0fdf4', color: '#166534', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Calendar size={17} />
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Today's Bookings</span>
+                <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: '#f0fdf4', color: '#166534', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Calendar size={15} />
                 </div>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.todayBookings}</div>
-              <div style={{ fontSize: '11.5px', color: '#16a34a', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.todayBookings}</div>
+              <div style={{ fontSize: '11px', color: '#16a34a', fontWeight: 700, marginTop: '3px' }}>
                 ✓ {kpis.todayVerified} Verified &amp; Intake Ready
               </div>
             </div>
 
             {/* KPI 2 */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px 20px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#64748b' }}>Holding Yard Queue</span>
-                <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Clock size={17} />
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Holding Yard Queue</span>
+                <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Clock size={15} />
                 </div>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.currentQueue} Trolleys</div>
-              <div style={{ fontSize: '11.5px', color: '#2563eb', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.currentQueue} Trolleys</div>
+              <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 700, marginTop: '3px' }}>
                 ~22 min Avg Clearance
               </div>
             </div>
 
             {/* KPI 3 */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px 20px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#64748b' }}>Today's Procurement</span>
-                <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#faf5ff', color: '#9333ea', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Package size={17} />
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Today's Procurement</span>
+                <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: '#faf5ff', color: '#9333ea', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Package size={15} />
                 </div>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.totalProcuredQtl} Qtl</div>
-              <div style={{ fontSize: '11.5px', color: '#9333ea', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.totalProcuredQtl} Qtl</div>
+              <div style={{ fontSize: '11px', color: '#9333ea', fontWeight: 700, marginTop: '3px' }}>
                 {(kpis.totalProcuredQtl / 10).toFixed(1)} MT Procured
               </div>
             </div>
 
             {/* KPI 4 */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px 20px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#64748b' }}>Weighbridge Status</span>
-                <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Scale size={17} />
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Weighbridge Status</span>
+                <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Scale size={15} />
                 </div>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.activeWeighbridges} Bays Online</div>
-              <div style={{ fontSize: '11.5px', color: '#059669', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.activeWeighbridges} Bays Online</div>
+              <div style={{ fontSize: '11px', color: '#059669', fontWeight: 700, marginTop: '3px' }}>
                 Calibrated &amp; Operational
               </div>
             </div>
 
             {/* KPI 5 */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px 20px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#64748b' }}>Moisture FAQ Rate</span>
-                <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#fff7ed', color: '#ea580c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Sparkles size={17} />
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Moisture FAQ Rate</span>
+                <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: '#fff7ed', color: '#ea580c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Sparkles size={15} />
                 </div>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.moisturePassRate}%</div>
-              <div style={{ fontSize: '11.5px', color: '#ea580c', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>{kpis.moisturePassRate}%</div>
+              <div style={{ fontSize: '11px', color: '#ea580c', fontWeight: 700, marginTop: '3px' }}>
                 Avg {avgMoisture}% Moisture (&le;12% FAQ)
               </div>
             </div>
 
             {/* KPI 6 */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px 20px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#64748b' }}>DBT Release Ready</span>
-                <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#fef2f2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <IndianRupee size={17} />
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>DBT Release Ready</span>
+                <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: '#fef2f2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <IndianRupee size={15} />
                 </div>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>
                 ₹ {(kpis.pendingDbtAmount / 100000).toFixed(2)} L
               </div>
-              <div style={{ fontSize: '11.5px', color: '#dc2626', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '11px', color: '#dc2626', fontWeight: 700, marginTop: '3px' }}>
                 {pendingDbtBatches.length} Vouchers Awaiting Vetting
               </div>
             </div>
           </div>
 
           {/* Quick Operational Shortcuts */}
-          <div style={{ marginBottom: '28px' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', marginBottom: '14px' }}>
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
               Centre Operations &amp; Fast-Track Actions
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
               <div
                 onClick={() => navigate('/centre-admin/appointments')}
-                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
+                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '12px 14px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#f0fdf4', color: '#166534', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Calendar size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#f0fdf4', color: '#166534', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Calendar size={17} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>Vet Farmer Appointments</div>
-                    <div style={{ fontSize: '11.5px', color: '#64748b' }}>Daily slot pacing &amp; quotas</div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Vet Appointments</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Daily slot pacing &amp; quotas</div>
                   </div>
                 </div>
-                <ChevronRight size={18} color="#94a3b8" />
+                <ChevronRight size={16} color="#94a3b8" />
               </div>
 
               <div
                 onClick={() => navigate('/centre-admin/token-management')}
-                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
+                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '12px 14px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Clock size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Clock size={17} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>Live Queue &amp; Token Speed</div>
-                    <div style={{ fontSize: '11.5px', color: '#64748b' }}>Manage bay calls &amp; pauses</div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Token Speed</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Manage bay calls &amp; pauses</div>
                   </div>
                 </div>
-                <ChevronRight size={18} color="#94a3b8" />
+                <ChevronRight size={16} color="#94a3b8" />
               </div>
 
               <div
                 onClick={() => navigate('/centre-admin/payments')}
-                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
+                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '12px 14px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fef2f2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <IndianRupee size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#fef2f2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <IndianRupee size={17} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>DBT Payment Vetting</div>
-                    <div style={{ fontSize: '11.5px', color: '#64748b' }}>Approve J-Form bank releases</div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>DBT Payment Vetting</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Approve J-Form bank releases</div>
                   </div>
                 </div>
-                <ChevronRight size={18} color="#94a3b8" />
+                <ChevronRight size={16} color="#94a3b8" />
               </div>
 
               <div
                 onClick={() => navigate('/centre-admin/staff')}
-                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
+                style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '12px 14px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s ease' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#faf5ff', color: '#9333ea', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <ShieldCheck size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#faf5ff', color: '#9333ea', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ShieldCheck size={17} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>Centre Staff Roster</div>
-                    <div style={{ fontSize: '11.5px', color: '#64748b' }}>Assign scales &amp; gate officers</div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Staff Roster</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Assign scales &amp; gate officers</div>
                   </div>
                 </div>
-                <ChevronRight size={18} color="#94a3b8" />
+                <ChevronRight size={16} color="#94a3b8" />
               </div>
             </div>
           </div>
 
-          {/* 2-Column Operational Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '20px' }}>
+          {/* 2-Column Operational Grid: Side-by-side & Compact */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '14px', alignItems: 'stretch' }}>
             {/* Left: Pending J-Form Vouchers Awaiting DBT Approval */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '16px 18px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', gap: '10px' }}>
                 <div>
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
                     Pending J-Form Procurement Vouchers
                   </h3>
-                  <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>
-                    Weighed and quality-tested batches awaiting administrative DBT payout release.
+                  <p style={{ fontSize: '11.5px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
+                    Weighed &amp; tested batches awaiting administrative DBT payout release.
                   </p>
                 </div>
-                <span style={{ background: '#fef3c7', color: '#b45309', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: 700 }}>
+                <span style={{ background: '#fef3c7', color: '#b45309', border: '1px solid #fde68a', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap', flexShrink: 0 }}>
                   {pendingDbtBatches.length} Vouchers
                 </span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1, justifyContent: pendingDbtBatches.length === 0 ? 'center' : 'flex-start' }}>
                 {pendingDbtBatches.length === 0 ? (
-                  <div style={{ padding: '32px 16px', textAlign: 'center', color: '#64748b', background: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1' }}>
-                    <CheckCircle2 size={28} color="#16a34a" style={{ margin: '0 auto 8px', display: 'block' }} />
-                    <strong style={{ display: 'block', fontSize: '13.5px', color: '#0f172a' }}>All J-Form Vouchers Cleared</strong>
-                    <span style={{ fontSize: '12px' }}>No procurement batches are currently pending superintendent DBT authorization.</span>
+                  <div style={{ padding: '20px 14px', textAlign: 'center', color: '#64748b', background: '#f8fafc', borderRadius: '12px', border: '1.5px dashed #cbd5e1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <CheckCircle2 size={26} color="#16a34a" style={{ marginBottom: '6px' }} />
+                    <strong style={{ fontSize: '13px', color: '#0f172a', marginBottom: '2px' }}>All J-Form Vouchers Cleared</strong>
+                    <span style={{ fontSize: '11.5px', color: '#64748b', maxWidth: '300px', lineHeight: 1.35 }}>No procurement batches are currently pending superintendent DBT authorization.</span>
                   </div>
                 ) : (
                   pendingDbtBatches.slice(0, 4).map((b) => (
                     <div
                       key={b.id}
                       style={{
-                        border: '1px solid #f1f5f9',
-                        borderRadius: '12px',
-                        padding: '14px',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '10px',
+                        padding: '10px 12px',
                         background: '#f8fafc',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
+                        gap: '10px',
                       }}
                     >
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>{b.farmer_name}</span>
-                          <span style={{ background: '#eff6ff', color: '#1d4ed8', padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 700 }}>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                          <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '13px' }}>{b.farmer_name}</span>
+                          <span style={{ background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe', padding: '1px 5px', borderRadius: '4px', fontSize: '10px', fontWeight: 700 }}>
                             #{b.batch_number}
                           </span>
                         </div>
-                        <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>
+                        <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
                           {b.commodity} • Net: <strong style={{ color: '#0f172a' }}>{b.net_weight_qtl} Qtl</strong> • Moisture: {b.moisture_percentage}%
                         </div>
                       </div>
 
-                      <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '15px', fontWeight: 800, color: '#15803d' }}>
+                      <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                        <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#15803d' }}>
                           ₹ {b.net_amount.toLocaleString('en-IN')}
                         </div>
                         <button
+                          type="button"
                           onClick={() => navigate('/centre-admin/payments')}
                           style={{
-                            marginTop: '4px',
-                            padding: '4px 10px',
+                            marginTop: '2px',
+                            padding: '4px 9px',
                             background: '#15803d',
                             color: '#ffffff',
                             border: 'none',
-                            borderRadius: '6px',
-                            fontSize: '11px',
+                            borderRadius: '5px',
+                            fontSize: '10.5px',
                             fontWeight: 700,
                             cursor: 'pointer',
                           }}
@@ -517,49 +521,89 @@ export default function CentreAdminDashboardPage() {
               </div>
             </div>
 
-            {/* Right: Active Mandi MSP Price Master & Scale Telemetry */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                  Active Centre MSP Price Rates
-                </h3>
+            {/* Right: Active Mandi MSP Price Master */}
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '16px 18px', boxShadow: '0 2px 6px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', gap: '10px' }}>
+                <div>
+                  <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
+                    Active Centre MSP Price Rates
+                  </h3>
+                  <p style={{ fontSize: '11.5px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
+                    Official procurement benchmark rates (KMS 2026-27).
+                  </p>
+                </div>
                 <button
+                  type="button"
                   onClick={() => navigate('/centre-admin/price-management')}
-                  style={{ background: 'none', border: 'none', color: '#15803d', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+                  style={{
+                    background: '#f0fdf4',
+                    border: '1px solid #bbf7d0',
+                    color: '#15803d',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
                 >
                   View All &rarr;
                 </button>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
                 {prices.slice(0, 4).map((p) => (
                   <div
                     key={p.id}
                     style={{
                       border: '1px solid #e2e8f0',
-                      borderRadius: '12px',
-                      padding: '10px 14px',
+                      borderRadius: '10px',
+                      padding: '8px 12px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      background: '#f0fdf4',
+                      background: '#f8fafc',
+                      gap: '10px',
                     }}
                   >
-                    <div>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
-                        {p.cropName}
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
+                          {p.cropName}
+                        </span>
+                        <span style={{ fontSize: '10px', fontWeight: 700, padding: '1px 6px', borderRadius: '4px', background: '#ffffff', color: '#475569', border: '1px solid #cbd5e1' }}>
+                          {p.season}
+                        </span>
                       </div>
-                      <div style={{ fontSize: '11px', color: '#16a34a' }}>
-                        {p.hindiName || 'Grade A'} • {p.season}
+                      <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                        <span>FAQ Moisture: <strong style={{ color: '#0f172a' }}>&le;{p.faqMoistureLimit || 12}%</strong></span>
+                        {p.bonusPerQtl ? (
+                          <span style={{ color: '#15803d', fontWeight: 700 }}>• +₹{p.bonusPerQtl} State Bonus</span>
+                        ) : null}
                       </div>
                     </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#15803d' }}>
-                        ₹ {p.mspPerQtl} / Qtl
+                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                      <div
+                        style={{
+                          background: '#ecfdf5',
+                          color: '#065f46',
+                          border: '1px solid #a7f3d0',
+                          padding: '4px 9px',
+                          borderRadius: '7px',
+                          fontSize: '12.5px',
+                          fontWeight: 800,
+                          whiteSpace: 'nowrap',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '3px',
+                        }}
+                      >
+                        ₹ {p.mspPerQtl.toLocaleString('en-IN')} <span style={{ fontSize: '10.5px', fontWeight: 600, color: '#047857' }}>/ Qtl</span>
                       </div>
-                      {p.bonusPerQtl ? (
-                        <div style={{ fontSize: '10.5px', color: '#64748b' }}>+₹{p.bonusPerQtl} State Bonus</div>
-                      ) : null}
                     </div>
                   </div>
                 ))}

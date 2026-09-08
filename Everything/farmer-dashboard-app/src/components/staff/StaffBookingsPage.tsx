@@ -295,17 +295,17 @@ export default function StaffBookingsPage() {
               overflow: 'hidden',
             }}
           >
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+              <table style={{ width: '100%', minWidth: '820px', borderCollapse: 'collapse', fontSize: '13px' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0', textAlign: 'left', color: '#64748b' }}>
-                    <th style={{ padding: '12px 16px' }}>Booking &amp; Token</th>
-                    <th style={{ padding: '12px 16px' }}>Farmer Details</th>
-                    <th style={{ padding: '12px 16px' }}>Slot Time</th>
-                    <th style={{ padding: '12px 16px' }}>Commodity &amp; Qty</th>
-                    <th style={{ padding: '12px 16px' }}>Vehicle #</th>
-                    <th style={{ padding: '12px 16px' }}>Gate Status</th>
-                    <th style={{ padding: '12px 16px', textAlign: 'right' }}>Actions</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Booking &amp; Token</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Farmer Details</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Slot Time</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Commodity &amp; Qty</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Vehicle #</th>
+                    <th style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>Gate Status</th>
+                    <th style={{ padding: '12px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
