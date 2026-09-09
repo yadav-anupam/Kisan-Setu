@@ -131,6 +131,35 @@
   flex-shrink: 0;
 }
 
+/* Home Navigation Button */
+.farmer-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 11px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.farmer-home-btn:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #166534;
+  transform: translateY(-1px);
+}
+
+.farmer-home-btn-label {
+  line-height: 1;
+}
+
 /* Language Dropdown */
 .farmer-lang-wrapper {
   position: relative;
@@ -346,6 +375,18 @@
 }
 
 @media (max-width: 540px) {
+  .farmer-home-btn-label {
+    display: none;
+  }
+
+  .farmer-home-btn {
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
   .farmer-lang-label,
   .farmer-lang-arrow {
     display: none;

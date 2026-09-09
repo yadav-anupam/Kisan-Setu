@@ -14,6 +14,7 @@ import {
   Info,
   Zap,
   X,
+  Home,
 } from 'lucide-react'
 import { navigate, useRouter } from '../../router'
 import './StaffHeader.css'
@@ -184,6 +185,18 @@ export default function StaffHeader({ onToggleSidebar, pageTitle = 'Operations D
 
       {/* Header Right Actions */}
       <div className="staff-topbar-right">
+        {/* Return to Public Website (Home) Button */}
+        <button
+          type="button"
+          className="staff-home-btn"
+          onClick={() => navigate('/')}
+          title="Return to Public Website (Home)"
+          aria-label="Home"
+        >
+          <Home size={14} />
+          <span className="staff-home-btn-text">Home</span>
+        </button>
+
         {/* Action Shortcuts based on Portal */}
         {isStaffPortal && (
           <button

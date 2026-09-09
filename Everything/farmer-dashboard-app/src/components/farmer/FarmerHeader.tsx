@@ -6,6 +6,7 @@ import {
   Bell,
   MapPin,
   ShieldCheck,
+  Home,
 } from 'lucide-react'
 import { navigate } from '../../router'
 import { getFarmerProfile, type FarmerProfile } from '../../auth'
@@ -118,6 +119,18 @@ export default function FarmerHeader({
       </div>
 
       <div className="farmer-topbar-right">
+        {/* Return to Public Website (Home) Button */}
+        <button
+          type="button"
+          className="farmer-home-btn"
+          onClick={() => navigate('/')}
+          title="Return to Public Home Page"
+          aria-label="Home"
+        >
+          <Home size={15} />
+          <span className="farmer-home-btn-label">Home</span>
+        </button>
+
         {/* Language Selector Dropdown */}
         <div className="farmer-lang-wrapper" ref={dropdownRef}>
           <button

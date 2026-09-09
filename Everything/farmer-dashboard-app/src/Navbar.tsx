@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { ChevronDown, Globe2, Leaf, Menu, UserRoundCheck, X } from 'lucide-react'
+import { ChevronDown, Globe2, Leaf, Menu, UserRoundCheck, X, LayoutDashboard } from 'lucide-react'
 import { useLanguage } from './useLanguage'
 import { navigate } from './router'
+import { isFarmerLoggedIn } from './auth'
+import { isStaffAuthenticated, getStaffAuthSession } from './services/staffDataService'
 import logoImg from './assets/logo.png'
 import './Navbar.css'
 
@@ -14,6 +16,59 @@ export default function Navbar({ activePath = '/' }: NavbarProps) {
   const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [imgError, setImgError] = useState(false)
+  const [loggedInState, setLoggedInState] = useState<{
+    isLoggedIn: boolean
+    dashboardPath: string
+    label: string
+  }>({
+    isLoggedIn: false,
+    dashboardPath: '/login',
+    label: t.loginBtn,
+  })
+
+  useEffect(() => {
+    const checkAuth = () => {
+      if (isFarmerLoggedIn()) {
+        setLoggedInState({
+          isLoggedIn: true,
+          dashboardPath: '/farmer-dashboard',
+          label: 'Dashboard',
+        })
+      } else if (isStaffAuthenticated()) {
+        const staff = getStaffAuthSession()
+        const targetPath =
+          staff.role === 'MANDI_ADMIN' || (staff.role as any) === 'ADMIN'
+            ? '/admin/dashboard'
+            : staff.role === 'CENTRE_OPERATOR' || (staff.role as any) === 'CENTRE_ADMIN'
+            ? '/centre-admin/dashboard'
+            : '/staff/dashboard'
+
+        setLoggedInState({
+          isLoggedIn: true,
+          dashboardPath: targetPath,
+          label: 'Dashboard',
+        })
+      } else {
+        setLoggedInState({
+          isLoggedIn: false,
+          dashboardPath: '/login',
+          label: t.loginBtn,
+        })
+      }
+    }
+
+    checkAuth()
+    window.addEventListener('kisan_setu_profile_updated', checkAuth)
+    window.addEventListener('kisan_setu_farmer_logged_out', checkAuth)
+    window.addEventListener('kisan_setu_staff_profile_updated', checkAuth)
+
+    return () => {
+      window.removeEventListener('kisan_setu_profile_updated', checkAuth)
+      window.removeEventListener('kisan_setu_farmer_logged_out', checkAuth)
+      window.removeEventListener('kisan_setu_staff_profile_updated', checkAuth)
+    }
+  }, [t.loginBtn])
+
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const navItems = [
@@ -122,14 +177,19 @@ export default function Navbar({ activePath = '/' }: NavbarProps) {
             )}
           </div>
 
-          {/* Login / Sign In CTA */}
+          {/* Login / Dashboard CTA */}
           <a
-            className="ks-login-cta"
-            href="/login"
-            onClick={(e) => handleNav(e, '/login')}
+            className={`ks-login-cta ${loggedInState.isLoggedIn ? 'logged-in' : ''}`}
+            href={loggedInState.dashboardPath}
+            onClick={(e) => handleNav(e, loggedInState.dashboardPath)}
+            title={loggedInState.isLoggedIn ? 'Return to Active Dashboard' : 'Farmer Login'}
           >
-            <UserRoundCheck size={16} />
-            <span>{t.loginBtn}</span>
+            {loggedInState.isLoggedIn ? (
+              <LayoutDashboard size={16} />
+            ) : (
+              <UserRoundCheck size={16} />
+            )}
+            <span>{loggedInState.label}</span>
           </a>
 
           {/* Mobile Menu Hamburger */}
@@ -225,13 +285,17 @@ export default function Navbar({ activePath = '/' }: NavbarProps) {
               </div>
 
               <a
-                className="ks-login-cta"
+                className={`ks-login-cta ${loggedInState.isLoggedIn ? 'logged-in' : ''}`}
                 style={{ width: '100%', justifyContent: 'center' }}
-                href="/login"
-                onClick={(e) => handleNav(e, '/login')}
+                href={loggedInState.dashboardPath}
+                onClick={(e) => handleNav(e, loggedInState.dashboardPath)}
               >
-                <UserRoundCheck size={16} />
-                <span>{t.loginBtn}</span>
+                {loggedInState.isLoggedIn ? (
+                  <LayoutDashboard size={16} />
+                ) : (
+                  <UserRoundCheck size={16} />
+                )}
+                <span>{loggedInState.label}</span>
               </a>
             </div>
           </aside>
