@@ -1,0 +1,332 @@
+/* Kisan Setu Nodal Departments & Statutory Agencies - Responsive Styles */
+
+.admin-dept-container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Hero Banner */
+.admin-dept-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 16px;
+  padding: 24px 28px;
+  color: #ffffff;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+}
+
+.admin-dept-hero-left {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.admin-dept-hierarchy-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.admin-dept-hero-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+}
+
+.admin-dept-hero-desc {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+  max-width: 650px;
+  line-height: 1.45;
+}
+
+.admin-dept-stats-row {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.admin-dept-stat-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(4px);
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 85px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-dept-stat-num {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.admin-dept-stat-sub {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* Department Cards Grid */
+.admin-dept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.admin-dept-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-dept-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.admin-dept-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.admin-dept-code-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.admin-dept-status-badge {
+  background: #ecfdf5;
+  color: #059669;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.admin-dept-card-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+}
+
+.admin-dept-card-parent {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+/* Head Officer Box */
+.admin-dept-head-box {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border: 1px solid #f1f5f9;
+}
+
+.admin-dept-head-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  letter-spacing: 0.3px;
+}
+
+.admin-dept-head-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.admin-dept-head-desig {
+  font-size: 12px;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.admin-dept-contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Metrics 2x2 Grid */
+.admin-dept-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 12px;
+}
+
+.admin-dept-stat-tile {
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid #f1f5f9;
+}
+
+.admin-dept-stat-label {
+  color: #64748b;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin-dept-stat-val {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+/* Card Action Footer */
+.admin-dept-card-footer {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-dept-view-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-dept-view-btn:hover {
+  background: #dbeafe;
+}
+
+/* Breakpoints */
+@media (max-width: 768px) {
+  .admin-dept-container {
+    padding: 16px;
+  }
+
+  .admin-dept-hero {
+    padding: 18px 20px;
+    border-radius: 14px;
+    gap: 14px;
+  }
+
+  .admin-dept-hero-title {
+    font-size: 18px;
+  }
+
+  .admin-dept-hero-desc {
+    font-size: 12px;
+  }
+
+  .admin-dept-stats-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .admin-dept-stat-card {
+    padding: 10px 14px;
+  }
+
+  .admin-dept-stat-num {
+    font-size: 18px;
+  }
+
+  .admin-dept-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .admin-dept-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .admin-dept-view-btn {
+    width: 100%;
+    justify-content: center;
+    height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dept-container {
+    padding: 12px;
+  }
+
+  .admin-dept-hero {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .admin-dept-hierarchy-pill {
+    font-size: 10.5px;
+    padding: 3px 10px;
+  }
+
+  .admin-dept-hero-title {
+    font-size: 17px;
+  }
+
+  .admin-dept-contact-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

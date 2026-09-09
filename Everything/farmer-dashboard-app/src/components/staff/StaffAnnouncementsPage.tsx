@@ -20,6 +20,7 @@ import StaffSidebar from './StaffSidebar'
 import CentreAdminSidebar from './CentreAdminSidebar'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './StaffAnnouncementsPage.css'
 
 export interface AnnouncementItem {
   id: string
@@ -183,45 +184,23 @@ export default function StaffAnnouncementsPage() {
           pageTitle="Live Mandi Announcements &amp; Public Broadcast"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1280px', margin: '0 auto' }}>
+        <main className="staff-announcements-main">
           {/* Header Bar */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '20px',
-              flexWrap: 'wrap',
-              gap: '12px',
-            }}
-          >
+          <div className="staff-announcements-header">
             <div>
-              <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <h1>
                 <Megaphone size={22} color="#0d631b" />
                 Live Yard Broadcast &amp; Public Announcements
               </h1>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: '3px 0 0' }}>
+              <p>
                 Broadcast real-time audio/visual notifications to the mandi yard LED screen, weighbridge bays, and farmer mobile dashboards.
               </p>
             </div>
 
             <button
               type="button"
+              className="staff-broadcast-btn"
               onClick={() => setIsCreateModalOpen(true)}
-              style={{
-                background: 'linear-gradient(135deg, #075a27 0%, #0d631b 100%)',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '10px',
-                padding: '10px 18px',
-                fontWeight: 700,
-                fontSize: '13px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(13, 99, 27, 0.25)',
-              }}
             >
               <Plus size={16} /> Broadcast New Announcement
             </button>
@@ -235,47 +214,27 @@ export default function StaffAnnouncementsPage() {
           )}
 
           {/* Announcements Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '18px' }}>
+          <div className="staff-announcements-grid">
             {filteredAnnouncements.map((a) => {
               const isUrgent = a.type === 'URGENT'
               const isBay = a.type === 'BAY_UPDATE'
+              const isWeather = a.type === 'WEATHER'
+              const cardClass = isUrgent ? 'urgent' : isBay ? 'bay' : isWeather ? 'weather' : ''
+              const badgeClass = isUrgent ? 'urgent' : isBay ? 'bay' : isWeather ? 'weather' : 'general'
+
               return (
-                <div
-                  key={a.id}
-                  style={{
-                    background: '#ffffff',
-                    border: isUrgent ? '1.5px solid #fca5a5' : isBay ? '1.5px solid #86efac' : '1px solid #e2e8f0',
-                    borderRadius: '16px',
-                    padding: '20px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div key={a.id} className={`staff-announcement-card ${cardClass}`}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 800,
-                          padding: '3px 8px',
-                          borderRadius: '8px',
-                          background: isUrgent ? '#fee2e2' : isBay ? '#dcfce7' : '#f1f5f9',
-                          color: isUrgent ? '#991b1b' : isBay ? '#166534' : '#475569',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '4px',
-                        }}
-                      >
+                      <span className={`staff-announcement-badge ${badgeClass}`}>
                         {isUrgent ? <AlertCircle size={12} /> : <Volume2 size={12} />}
                         {a.type.replace('_', ' ')}
                       </span>
 
                       <button
                         type="button"
+                        className="staff-announcement-delete-btn"
                         onClick={() => handleDeleteAnnouncement(a.id)}
-                        style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
                         title="Remove Announcement"
                       >
                         <Trash2 size={15} />
@@ -290,7 +249,7 @@ export default function StaffAnnouncementsPage() {
                     </p>
                   </div>
 
-                  <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11.5px', color: '#64748b' }}>
+                  <div className="staff-announcement-footer">
                     <span>Target: <strong>{a.targetAudience.replace('_', ' ')}</strong></span>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
                       <Clock size={12} /> {new Date(a.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -355,7 +314,7 @@ export default function StaffAnnouncementsPage() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
+              <div className="staff-modal-field-grid">
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
                     Alert Category *

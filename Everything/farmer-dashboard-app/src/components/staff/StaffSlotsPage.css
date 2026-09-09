@@ -1,0 +1,220 @@
+﻿/* StaffSlotsPage.css - Responsive Slot Capacity & Timetable */
+
+.staff-slots-main {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.staff-slots-header {
+  margin-bottom: 20px;
+}
+
+.staff-slots-header h1 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.staff-slots-header p {
+  font-size: 12.5px;
+  color: #64748b;
+  margin: 4px 0 0;
+}
+
+/* KPI Banner Grid */
+.staff-slots-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.staff-slots-kpi-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.staff-slots-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.staff-slots-kpi-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.staff-slots-kpi-value {
+  display: block;
+  font-size: 26px;
+  margin: 8px 0 2px;
+  line-height: 1.2;
+}
+
+.staff-slots-kpi-sub {
+  font-size: 11px;
+}
+
+/* Slots Cards Grid */
+.staff-slots-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.staff-slot-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
+}
+
+.staff-slot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.staff-slot-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.staff-slot-card-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  borderRadius: 6px;
+  white-space: nowrap;
+}
+
+/* 3-Column Slot Breakdown */
+.staff-slot-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.staff-slot-breakdown > div {
+  min-width: 0;
+}
+
+.staff-slot-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.staff-slot-btn-view {
+  flex: 1;
+  background: #0d631b;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-align: center;
+}
+
+.staff-slot-btn-view:hover {
+  background: #075a27;
+}
+
+.staff-slot-btn-details {
+  background: #f1f5f9;
+  color: #334155;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.staff-slot-btn-details:hover {
+  background: #e2e8f0;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .staff-slots-main {
+    padding: 14px 12px;
+  }
+
+  .staff-slots-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  /* Make the 3rd card span full width on 2-col mobile layout for clean balance */
+  .staff-slots-kpi-grid > .staff-slots-kpi-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .staff-slots-kpi-card {
+    padding: 14px 12px;
+  }
+
+  .staff-slots-kpi-value {
+    font-size: 22px;
+  }
+
+  .staff-slots-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .staff-slot-card {
+    padding: 16px 14px;
+  }
+
+  .staff-slot-breakdown {
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .staff-slots-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .staff-slots-kpi-grid > .staff-slots-kpi-card:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .staff-slot-actions {
+    flex-direction: column;
+  }
+
+  .staff-slot-btn-details {
+    width: 100%;
+    text-align: center;
+  }
+}

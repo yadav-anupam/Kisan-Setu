@@ -16,6 +16,7 @@ import StaffSidebar from './StaffSidebar'
 import CentreAdminSidebar from './CentreAdminSidebar'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './StaffSlotsPage.css'
 
 export default function StaffSlotsPage() {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
@@ -75,76 +76,50 @@ export default function StaffSlotsPage() {
           pageTitle="Slot Capacity &amp; Timetable"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <main className="staff-slots-main">
           {/* Header */}
-          <div style={{ marginBottom: '20px' }}>
-            <h1 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-              Centre Procurement Slots &amp; Capacity
-            </h1>
-            <p style={{ fontSize: '12.5px', color: '#64748b', margin: '2px 0 0' }}>
-              Hourly booking limits, gate clearance, and weighbridge utilization for {staff.centre_name}
-            </p>
+          <div className="staff-slots-header">
+            <h1>Centre Procurement Slots &amp; Capacity</h1>
+            <p>Hourly booking limits, gate clearance, and weighbridge utilization for {staff.centre_name}</p>
           </div>
 
           {/* KPI Banner */}
-          <section
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '16px',
-              marginBottom: '24px',
-            }}
-          >
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 700 }}>Total Daily Capacity</div>
-              <strong style={{ display: 'block', fontSize: '26px', color: '#0f172a', margin: '8px 0 2px' }}>
+          <section className="staff-slots-kpi-grid">
+            <div className="staff-slots-kpi-card">
+              <div className="staff-slots-kpi-label">Total Daily Capacity</div>
+              <strong className="staff-slots-kpi-value" style={{ color: '#0f172a' }}>
                 {totalCapacity} Vehicles
               </strong>
-              <small style={{ color: '#64748b', fontSize: '11px' }}>6 Operational Windows</small>
+              <small className="staff-slots-kpi-sub" style={{ color: '#64748b' }}>6 Operational Windows</small>
             </div>
 
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 700 }}>Total Booked Today</div>
-              <strong style={{ display: 'block', fontSize: '26px', color: '#0d631b', margin: '8px 0 2px' }}>
+            <div className="staff-slots-kpi-card">
+              <div className="staff-slots-kpi-label">Total Booked Today</div>
+              <strong className="staff-slots-kpi-value" style={{ color: '#0d631b' }}>
                 {totalBooked} ({Math.round((totalBooked / (totalCapacity || 1)) * 100)}%)
               </strong>
-              <small style={{ color: '#16a34a', fontSize: '11px', fontWeight: 700 }}>Active Farm Bookings</small>
+              <small className="staff-slots-kpi-sub" style={{ color: '#16a34a', fontWeight: 700 }}>Active Farm Bookings</small>
             </div>
 
-            <div className="fd-stat-card" style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '18px' }}>
-              <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 700 }}>Cleared &amp; Verified</div>
-              <strong style={{ display: 'block', fontSize: '26px', color: '#16a34a', margin: '8px 0 2px' }}>
+            <div className="staff-slots-kpi-card">
+              <div className="staff-slots-kpi-label">Cleared &amp; Verified</div>
+              <strong className="staff-slots-kpi-value" style={{ color: '#16a34a' }}>
                 {totalVerified} Vehicles
               </strong>
-              <small style={{ color: '#64748b', fontSize: '11px' }}>Weighment recorded</small>
+              <small className="staff-slots-kpi-sub" style={{ color: '#64748b' }}>Weighment recorded</small>
             </div>
           </section>
 
           {/* Slots Cards Grid */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-              gap: '16px',
-            }}
-          >
+          <div className="staff-slots-cards-grid">
             {slots.map((slot) => {
               const utilPercent = Math.round((slot.booked_count / slot.capacity) * 100)
               const available = slot.capacity - slot.booked_count
               const pending = slot.booked_count - slot.verified_count
 
               return (
-                <div
-                  key={slot.id}
-                  style={{
-                    background: '#ffffff',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '16px',
-                    padding: '20px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <div key={slot.id} className="staff-slot-card">
+                  <div className="staff-slot-card-header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <Clock size={18} color="#0d631b" />
                       <strong style={{ fontSize: '15px', color: '#0f172a' }}>
@@ -152,11 +127,8 @@ export default function StaffSlotsPage() {
                       </strong>
                     </div>
                     <span
+                      className="staff-slot-card-badge"
                       style={{
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        padding: '3px 8px',
-                        borderRadius: '6px',
                         background: slot.status === 'COMPLETED' ? '#f1f5f9' : '#dcfce7',
                         color: slot.status === 'COMPLETED' ? '#64748b' : '#166534',
                       }}
@@ -167,7 +139,7 @@ export default function StaffSlotsPage() {
 
                   {/* Utilization Metric */}
                   <div style={{ marginBottom: '14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '6px' }}>
                       <span style={{ color: '#64748b' }}>Slot Utilization</span>
                       <strong style={{ color: utilPercent > 80 ? '#f59e0b' : '#0d631b' }}>
                         {slot.booked_count} / {slot.capacity} bookings ({utilPercent}%)
@@ -186,18 +158,7 @@ export default function StaffSlotsPage() {
                   </div>
 
                   {/* 3-Column Slot Breakdown */}
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1fr 1fr',
-                      gap: '8px',
-                      background: '#f8fafc',
-                      padding: '12px',
-                      borderRadius: '10px',
-                      marginBottom: '14px',
-                      textAlign: 'center',
-                    }}
-                  >
+                  <div className="staff-slot-breakdown">
                     <div>
                       <small style={{ fontSize: '10.5px', color: '#64748b', display: 'block' }}>Verified</small>
                       <strong style={{ fontSize: '14px', color: '#16a34a' }}>{slot.verified_count}</strong>
@@ -213,37 +174,18 @@ export default function StaffSlotsPage() {
                   </div>
 
                   {/* Buttons */}
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className="staff-slot-actions">
                     <button
                       type="button"
+                      className="staff-slot-btn-view"
                       onClick={() => navigate(`/staff/bookings?slot=${encodeURIComponent(slot.start_time)}`)}
-                      style={{
-                        flex: 1,
-                        background: '#0d631b',
-                        color: '#ffffff',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '8px 12px',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                      }}
                     >
                       View Bookings
                     </button>
                     <button
                       type="button"
+                      className="staff-slot-btn-details"
                       onClick={() => setSelectedSlot(slot)}
-                      style={{
-                        background: '#f1f5f9',
-                        color: '#334155',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '8px 12px',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                      }}
                     >
                       Slot Details
                     </button>

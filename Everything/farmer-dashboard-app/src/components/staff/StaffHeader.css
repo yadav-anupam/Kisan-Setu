@@ -251,12 +251,58 @@
   }
   
   .staff-title-text {
-    max-width: 300px;
-    font-size: 14px;
+    max-width: 200px;
+    font-size: 13.5px;
   }
 }
 
 @media (max-width: 540px) {
+  .staff-topbar {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .staff-topbar-left {
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .staff-title-group {
+    gap: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .staff-title-row {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .staff-title-text {
+    max-width: 100px;
+    font-size: 12.5px;
+    flex-shrink: 1;
+  }
+
+  .staff-role-badge {
+    font-size: 8.5px;
+    padding: 1.5px 5px;
+    max-width: 75px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .staff-action-btn {
+    height: 32px;
+    padding: 0 8px;
+    font-size: 11px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
   .staff-subtitle {
     display: none;
   }
@@ -269,8 +315,24 @@
   .staff-avatar-pill {
     padding: 2px;
     border-radius: 50%;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     justify-content: center;
+  }
+
+  .staff-notif-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .staff-role-badge {
+    display: none;
+  }
+
+  .staff-title-text {
+    max-width: 130px;
+    font-size: 12.5px;
   }
 }

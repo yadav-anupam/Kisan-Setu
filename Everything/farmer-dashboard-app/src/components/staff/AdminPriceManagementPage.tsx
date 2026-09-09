@@ -25,6 +25,7 @@ import StaffSidebar from './StaffSidebar'
 import CentreAdminSidebar from './CentreAdminSidebar'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './AdminPriceManagementPage.css'
 
 export default function AdminPriceManagementPage() {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
@@ -160,36 +161,22 @@ export default function AdminPriceManagementPage() {
           pageTitle="Government MSP &amp; Commodity Price Master"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1360px', margin: '0 auto' }}>
+        <main className="admin-price-container">
           {/* Top Header Banner */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #075a27 0%, #0d631b 60%, #15803d 100%)',
-              borderRadius: '20px',
-              padding: '24px 28px',
-              color: '#ffffff',
-              marginBottom: '22px',
-              boxShadow: '0 8px 24px -4px rgba(13, 99, 27, 0.25)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '16px',
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.15)', padding: '4px 12px', borderRadius: '99px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+          <div className="admin-price-banner">
+            <div className="admin-price-banner-text">
+              <div className="admin-price-banner-pills">
+                <span className="admin-price-pill-gov">
                   <Landmark size={13} /> Official APMC Governance &amp; Price Authority
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', background: 'rgba(254, 240, 138, 0.25)', color: '#fef08a', border: '1px solid rgba(254, 240, 138, 0.3)', padding: '4px 10px', borderRadius: '99px', fontSize: '11px', fontWeight: 800 }}>
+                <span className="admin-price-pill-season">
                   ● Season 2026-27 Active
                 </span>
               </div>
-              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 6px', letterSpacing: '-0.3px' }}>
+              <h1 className="admin-price-title">
                 Official Minimum Support Price (MSP) Master Registry
               </h1>
-              <p style={{ fontSize: '13px', color: '#dcfce7', margin: 0 }}>
+              <p className="admin-price-desc">
                 Declare, revise, and broadcast legally binding procurement benchmarks, state incentive bonuses, and FAQ quality standards.
               </p>
             </div>
@@ -197,20 +184,7 @@ export default function AdminPriceManagementPage() {
             <button
               type="button"
               onClick={() => handleOpenAnnounce()}
-              style={{
-                background: '#ffffff',
-                color: '#075a27',
-                border: 'none',
-                borderRadius: '10px',
-                padding: '11px 20px',
-                fontWeight: 800,
-                fontSize: '13.5px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
-              }}
+              className="admin-price-announce-btn"
             >
               <Megaphone size={16} /> Announce Official MSP Price
             </button>
@@ -225,17 +199,8 @@ export default function AdminPriceManagementPage() {
 
           {/* Latest Price Announcements Bulletin Card */}
           {announcements.length > 0 && (
-            <div
-              style={{
-                background: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)',
-                border: '1.5px solid #fde68a',
-                borderRadius: '16px',
-                padding: '20px 24px',
-                marginBottom: '24px',
-                boxShadow: '0 4px 12px rgba(217, 119, 6, 0.06)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
+            <div className="admin-price-gazette-card">
+              <div className="admin-price-gazette-header">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ background: '#d97706', color: '#ffffff', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     LATEST OFFICIAL GAZETTE DECLARATION
@@ -249,7 +214,7 @@ export default function AdminPriceManagementPage() {
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+              <div className="admin-price-gazette-body">
                 <div>
                   <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#78350f', margin: '0 0 4px' }}>
                     {announcements[0].cropName} Official MSP: ₹{announcements[0].newPrice}/Qtl
@@ -270,21 +235,8 @@ export default function AdminPriceManagementPage() {
           )}
 
           {/* Search bar & Metadata */}
-          <div
-            style={{
-              background: '#ffffff',
-              border: '1px solid #e2e8f0',
-              borderRadius: '14px',
-              padding: '14px 18px',
-              marginBottom: '20px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '14px',
-              flexWrap: 'wrap',
-            }}
-          >
-            <div style={{ position: 'relative', flex: 1, minWidth: '280px', maxWidth: '420px' }}>
+          <div className="admin-price-search-bar">
+            <div className="admin-price-search-input-wrap">
               <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
               <input
                 type="text"
@@ -294,25 +246,16 @@ export default function AdminPriceManagementPage() {
                 style={{ width: '100%', height: '38px', padding: '0 12px 0 36px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', boxSizing: 'border-box' }}
               />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12.5px', color: '#64748b' }}>
+            <div className="admin-price-search-meta">
               <span>Total Commodities: <strong>{prices.length} Registered</strong></span>
               <span>•</span>
               <span>Logged Authority: <strong>{staff.full_name}</strong></span>
             </div>
           </div>
 
-          {/* Prices Grid / Table */}
-          <div
-            style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              border: '1px solid #e2e8f0',
-              overflow: 'hidden',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              marginBottom: '28px',
-            }}
-          >
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+          {/* Prices Grid / Table for Desktop & Tablet */}
+          <div className="admin-price-table-wrapper">
+            <table className="admin-price-table">
               <thead>
                 <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#64748b', fontWeight: 700, fontSize: '11.5px', textTransform: 'uppercase' }}>
                   <th style={{ padding: '14px 18px' }}>Crop Commodity</th>
@@ -376,6 +319,7 @@ export default function AdminPriceManagementPage() {
                             alignItems: 'center',
                             gap: '5px',
                             boxShadow: '0 1px 3px rgba(13,99,27,0.2)',
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           <Megaphone size={13} /> Announce / Revise
@@ -388,17 +332,72 @@ export default function AdminPriceManagementPage() {
             </table>
           </div>
 
+          {/* Mobile Card List (shown on viewports <= 640px) */}
+          <div className="admin-price-cards-mobile">
+            {filteredPrices.map((p) => {
+              const totalRate = p.mspPerQtl + (p.bonusPerQtl || 0)
+              return (
+                <div key={p.id} className="admin-price-mobile-card">
+                  <div className="admin-price-mobile-card-header">
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <strong style={{ color: '#0f172a', fontSize: '15px' }}>{p.cropName}</strong>
+                        {((p.bonusPerQtl || 0) > 0) && (
+                          <span style={{ background: '#dcfce7', color: '#166534', padding: '1px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 800 }}>
+                            +Bonus
+                          </span>
+                        )}
+                      </div>
+                      <span style={{ fontSize: '12px', color: '#64748b' }}>{p.hindiName}</span>
+                    </div>
+                    <span style={{ background: '#f1f5f9', color: '#334155', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: 700 }}>
+                      {p.season}
+                    </span>
+                  </div>
+
+                  <div className="admin-price-mobile-card-grid">
+                    <div className="admin-price-mobile-stat-item">
+                      <span className="admin-price-mobile-stat-label">Base MSP</span>
+                      <span className="admin-price-mobile-stat-val">₹{p.mspPerQtl.toLocaleString('en-IN')} / Qtl</span>
+                    </div>
+
+                    <div className="admin-price-mobile-stat-item">
+                      <span className="admin-price-mobile-stat-label">State Bonus</span>
+                      <span className="admin-price-mobile-stat-val" style={{ color: p.bonusPerQtl ? '#0d631b' : '#64748b' }}>
+                        {p.bonusPerQtl ? `+ ₹${p.bonusPerQtl} / Qtl` : '—'}
+                      </span>
+                    </div>
+
+                    <div className="admin-price-mobile-stat-item">
+                      <span className="admin-price-mobile-stat-label">Total Payout</span>
+                      <span className="admin-price-mobile-stat-val" style={{ color: '#0d631b', fontSize: '15px', fontWeight: 800 }}>
+                        ₹{totalRate.toLocaleString('en-IN')} / Qtl
+                      </span>
+                    </div>
+
+                    <div className="admin-price-mobile-stat-item">
+                      <span className="admin-price-mobile-stat-label">Max Moisture</span>
+                      <span className="admin-price-mobile-stat-val">{p.faqMoistureLimit}% Limit</span>
+                    </div>
+                  </div>
+
+                  <div className="admin-price-mobile-card-actions">
+                    <button
+                      type="button"
+                      onClick={() => handleOpenAnnounce(p)}
+                      className="admin-price-mobile-action-btn"
+                    >
+                      <Megaphone size={14} /> Announce / Revise Rate
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
           {/* Official Gazette Declarations History */}
-          <div
-            style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              border: '1px solid #e2e8f0',
-              padding: '24px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <div className="admin-price-history-box">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <FileText size={18} color="#0d631b" />
                 Gazette Declaration &amp; Price Revision History
@@ -408,20 +407,7 @@ export default function AdminPriceManagementPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {announcements.map((anc) => (
-                <div
-                  key={anc.id}
-                  style={{
-                    background: '#f8fafc',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    gap: '12px',
-                  }}
-                >
+                <div key={anc.id} className="admin-price-history-item">
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                       <strong style={{ fontSize: '14px', color: '#0f172a' }}>{anc.cropName}</strong>

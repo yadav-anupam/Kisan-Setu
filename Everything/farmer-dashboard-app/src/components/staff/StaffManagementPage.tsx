@@ -46,6 +46,7 @@ import StaffSidebar from './StaffSidebar'
 import CentreAdminSidebar from './CentreAdminSidebar'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './StaffManagementPage.css'
 
 interface SectionMeta {
   id: StaffSection
@@ -340,36 +341,22 @@ export default function StaffManagementPage() {
           pageTitle="Centre Staff & Section Rosters"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1440px', margin: '0 auto' }}>
+        <main className="staff-mgmt-container">
           {/* Top Header Banner */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #075a27 0%, #0d631b 60%, #15803d 100%)',
-              borderRadius: '20px',
-              padding: '24px 28px',
-              color: '#ffffff',
-              marginBottom: '22px',
-              boxShadow: '0 8px 24px -4px rgba(13, 99, 27, 0.25)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '16px',
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.15)', padding: '4px 12px', borderRadius: '99px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+          <div className="staff-mgmt-banner">
+            <div className="staff-mgmt-banner-text">
+              <div className="staff-mgmt-banner-pills">
+                <span className="staff-mgmt-pill-dir">
                   <ShieldCheck size={13} /> Official APMC Personnel Directory
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', background: 'rgba(255, 255, 255, 0.15)', border: '1px solid rgba(255, 255, 255, 0.2)', padding: '4px 10px', borderRadius: '99px', fontSize: '11px', fontWeight: 700 }}>
+                <span className="staff-mgmt-pill-live">
                   ● Live State Directory
                 </span>
               </div>
-              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 6px', letterSpacing: '-0.3px' }}>
+              <h1 className="staff-mgmt-banner-title">
                 Centre Staff &amp; Section-Wise Duty Rosters
               </h1>
-              <p style={{ fontSize: '13px', color: '#dcfce7', margin: 0 }}>
+              <p className="staff-mgmt-banner-desc">
                 View and manage appointed personnel categorized by registered procurement mandis and operational sections.
               </p>
             </div>
@@ -377,21 +364,7 @@ export default function StaffManagementPage() {
             <button
               type="button"
               onClick={() => setAppointModalOpen(true)}
-              style={{
-                background: '#ffffff',
-                color: '#075a27',
-                border: 'none',
-                borderRadius: '10px',
-                padding: '11px 20px',
-                fontWeight: 800,
-                fontSize: '13.5px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                cursor: 'pointer',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
-                transition: 'all 0.15s ease',
-              }}
+              className="staff-mgmt-appoint-btn"
             >
               <UserPlus size={17} color="#075a27" />
               Appoint New Staff Officer
@@ -422,23 +395,9 @@ export default function StaffManagementPage() {
           )}
 
           {/* Controls Bar: Registered Mandi Selector + Search + View Switcher */}
-          <div
-            style={{
-              background: '#ffffff',
-              border: '1px solid #e2e8f0',
-              borderRadius: '16px',
-              padding: '16px 20px',
-              marginBottom: '20px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '16px',
-              flexWrap: 'wrap',
-              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.02)',
-            }}
-          >
+          <div className="staff-mgmt-controls-bar">
             {/* Left Filter: Mandi Selector (Statewide Super Admin) or Locked Mandi Badge (Centre Admin) */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1', minWidth: '300px' }}>
+            <div className="staff-mgmt-mandi-select-wrap">
               {isSuperAdmin ? (
                 <>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '13px', whiteSpace: 'nowrap' }}>
@@ -447,19 +406,7 @@ export default function StaffManagementPage() {
                   <select
                     value={selectedMandiFilter}
                     onChange={(e) => setSelectedMandiFilter(e.target.value)}
-                    style={{
-                      height: '38px',
-                      padding: '0 12px',
-                      borderRadius: '8px',
-                      border: '1.5px solid #cbd5e1',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: '#0f172a',
-                      background: '#f8fafc',
-                      outline: 'none',
-                      flex: 1,
-                      maxWidth: '420px',
-                    }}
+                    className="staff-mgmt-mandi-select"
                   >
                     <option value="ALL">All Registered Mandis ({staffList.length} Officers)</option>
                     {availableMandisInRoster.map((mandi) => {
@@ -486,7 +433,7 @@ export default function StaffManagementPage() {
             </div>
 
             {/* Middle Search Input */}
-            <div style={{ position: 'relative', width: '280px' }}>
+            <div className="staff-mgmt-search-wrap">
               <Search
                 size={15}
                 style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}
@@ -496,30 +443,13 @@ export default function StaffManagementPage() {
                 placeholder="Search by officer name, ID, or desk..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  width: '100%',
-                  height: '38px',
-                  padding: '0 12px 0 36px',
-                  borderRadius: '8px',
-                  border: '1px solid #cbd5e1',
-                  fontSize: '12.5px',
-                  boxSizing: 'border-box',
-                }}
+                className="staff-mgmt-search-input"
               />
             </div>
 
             {/* Right: View Mode Toggle & Refresh */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: '#f1f5f9',
-                  borderRadius: '8px',
-                  padding: '3px',
-                  gap: '2px',
-                }}
-              >
+            <div className="staff-mgmt-view-actions">
+              <div className="staff-mgmt-toggle-pill">
                 <button
                   type="button"
                   onClick={() => setViewMode('SECTION_GROUPED')}
@@ -566,20 +496,7 @@ export default function StaffManagementPage() {
               <button
                 type="button"
                 onClick={loadStaff}
-                style={{
-                  background: '#f1f5f9',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '8px',
-                  height: '38px',
-                  padding: '0 12px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  color: '#475569',
-                }}
+                className="staff-mgmt-refresh-btn"
               >
                 <RefreshCw size={13} /> Refresh
               </button>
@@ -956,19 +873,10 @@ export default function StaffManagementPage() {
             /* ====================================================================
                MODE 2: ROSTER TABLE VIEW
                ==================================================================== */
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-              }}
-            >
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
-                  <thead>
-                    <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#64748b', fontWeight: 700, fontSize: '12px', textTransform: 'uppercase' }}>
+            <div className="staff-mgmt-table-wrap">
+              <table className="staff-mgmt-table">
+                <thead>
+                  <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#64748b', fontWeight: 700, fontSize: '12px', textTransform: 'uppercase' }}>
                       <th style={{ padding: '14px 18px' }}>Officer Details</th>
                       <th style={{ padding: '14px 18px' }}>Staff ID</th>
                       <th style={{ padding: '14px 18px' }}>Operational Section</th>
@@ -1097,7 +1005,6 @@ export default function StaffManagementPage() {
                   </tbody>
                 </table>
               </div>
-            </div>
           )}
         </main>
       </div>

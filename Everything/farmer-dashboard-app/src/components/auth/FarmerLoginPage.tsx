@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import {
   ArrowLeft,
   CalendarCheck,
+  Check,
   CheckCircle2,
   ChevronDown,
   Eye,
@@ -245,51 +246,66 @@ export default function FarmerLoginPage() {
                 navigate('/')
               }}
             >
-              <ArrowLeft size={16} /> Back to Home
+              <ArrowLeft size={16} />
+              <span className="fl-back-label">{t.farmerPortal?.common?.backHome || 'Back to Home'}</span>
             </a>
 
             <div className="fl-top-actions">
-              {/* Language Selector */}
-              <div className="ks-lang-wrapper" ref={dropdownRef}>
-                <button
-                  className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
-                  onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  aria-label="Change Language"
-                >
-                  <Globe2 size={14} />
-                  <span>{activeLangObj.nativeName}</span>
-                  <ChevronDown size={12} className="ks-lang-arrow" />
-                </button>
-
-                {langMenuOpen && (
-                  <div className="ks-lang-dropdown">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                        onClick={() => {
-                          setLanguage(lang.code)
-                          setLangMenuOpen(false)
-                        }}
-                      >
-                        <span className="ks-lang-native">{lang.nativeName}</span>
-                        <span className="ks-lang-english">{lang.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
               {/* Need Help WhatsApp Link */}
               <a
                 href="https://wa.me/919214334494"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fl-help-btn"
+                title={fl.needHelp}
               >
                 <MessageSquare size={14} />
-                <span>{fl.needHelp}</span>
+                <span className="fl-help-label">{fl.needHelp}</span>
               </a>
+
+              {/* Language Selector */}
+              <div className="fl-lang-wrapper" ref={dropdownRef}>
+                <button
+                  type="button"
+                  className={`fl-lang-btn ${langMenuOpen ? 'open' : ''}`}
+                  onClick={() => setLangMenuOpen(!langMenuOpen)}
+                  aria-label="Change Language"
+                >
+                  <Globe2 size={15} className="fl-lang-globe" />
+                  <span className="fl-lang-name">{activeLangObj.nativeName}</span>
+                  <ChevronDown size={13} className={`fl-lang-arrow ${langMenuOpen ? 'open' : ''}`} />
+                </button>
+
+                {langMenuOpen && (
+                  <div className="fl-lang-dropdown">
+                    <div className="fl-lang-dropdown-header">
+                      <span>Select Language / भाषा चुनें</span>
+                    </div>
+                    <div className="fl-lang-grid">
+                      {languages.map((lang) => {
+                        const isSelected = currentLang === lang.code
+                        return (
+                          <button
+                            type="button"
+                            key={lang.code}
+                            className={`fl-lang-option ${isSelected ? 'selected' : ''}`}
+                            onClick={() => {
+                              setLanguage(lang.code)
+                              setLangMenuOpen(false)
+                            }}
+                          >
+                            <div className="fl-lang-option-text">
+                              <span className="fl-lang-native">{lang.nativeName}</span>
+                              <span className="fl-lang-english">{lang.name}</span>
+                            </div>
+                            {isSelected && <Check size={14} className="fl-lang-check" />}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -306,7 +322,7 @@ export default function FarmerLoginPage() {
             {hasPendingRedirect() && (
               <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '10px', padding: '10px 14px', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#92400e', fontWeight: 600 }}>
                 <Lock size={15} color="#d97706" style={{ flexShrink: 0 }} />
-                <span>Authentication Required: Please login to access Farmer Dashboard &amp; Services.</span>
+                <span>{t.farmerPortal?.common?.authRequired || 'Authentication Required: Please login to access Farmer Dashboard & Services.'}</span>
               </div>
             )}
 
@@ -521,7 +537,7 @@ export default function FarmerLoginPage() {
 
           {/* Footer Copyright */}
           <div className="fl-footer-bar">
-            <span>© 2026 Kisan Setu • Department of Consumer Affairs</span>
+            <span>{t.footer.copyright}</span>
           </div>
         </section>
       </div>

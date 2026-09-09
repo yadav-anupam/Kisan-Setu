@@ -96,7 +96,7 @@ export default function HomePage() {
                   }}
                 >
                   <LogIn size={18} />
-                  <span>Login Farmer</span>
+                  <span>{t.home.bookSlotBtn || t.loginBtn}</span>
                 </a>
                 <a
                   className="ks-btn-secondary"

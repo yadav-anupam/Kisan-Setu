@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   LifeBuoy,
   Send,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { useRouter } from '../../router'
 import { getFarmerProfile, isFarmerLoggedIn } from '../../auth'
+import { useLanguage } from '../../useLanguage'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
@@ -30,6 +31,8 @@ import '../farmer/FarmerDashboard.css'
 import './HelpSupportPage.css'
 
 export default function HelpSupportPage() {
+  const { t } = useLanguage()
+  const fh = t.farmerPortal?.header
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { path } = useRouter()
 
@@ -168,7 +171,7 @@ export default function HelpSupportPage() {
           <div style={{ padding: '0 16px', paddingTop: '16px' }}>
             <FarmerHeader
               onToggleSidebar={() => setSidebarOpen(true)}
-              pageTitle="Help & Grievance Redressal"
+              pageTitle={fh?.helpTitle || 'Help & Grievance Redressal'}
             />
           </div>
         )}
@@ -192,7 +195,7 @@ export default function HelpSupportPage() {
               <a href="tel:18001801551" className="help-helpline-number">1800-180-1551</a>
               <span className="help-helpline-sub">
                 <Phone size={11} style={{ display: 'inline', marginRight: 4, verticalAlign: 'middle' }} />
-                Toll-Free Â· Monâ€“Sat, 8 AM â€“ 8 PM
+                Toll-Free • Mon–Sat, 8 AM – 8 PM
               </span>
             </div>
 
@@ -276,7 +279,7 @@ export default function HelpSupportPage() {
                     required
                     rows={4}
                     className="help-form-textarea"
-                    placeholder="Provide specific details â€” weighment batch, transaction date, dispute reason..."
+                    placeholder="Provide specific details — weighment batch, transaction date, dispute reason..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -293,7 +296,7 @@ export default function HelpSupportPage() {
                   Submitting as: <strong style={{ color: '#334155' }}>
                     {isStaffRole ? activeStaff.full_name : activeFarmer?.name || 'Farmer'}
                   </strong>
-                  &nbsp;Â·&nbsp;{mandiCentre}
+                  &nbsp;•&nbsp;{mandiCentre}
                 </div>
 
                 <button type="submit" className="help-submit-btn" disabled={submitting}>

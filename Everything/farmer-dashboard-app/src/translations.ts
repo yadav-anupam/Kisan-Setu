@@ -262,6 +262,11 @@ export interface Translations {
     quickFill: string
     needHelp: string
     switchRole: string
+    backToHome?: string
+    authRequiredNotice?: string
+    quickDemoA?: string
+    quickDemoB?: string
+    otpExpiredMsg?: string
   }
   farmerRegister: {
     heroTitle1: string
@@ -340,6 +345,110 @@ export interface Translations {
     tollFree: string
     address: string
     copyright: string
+  }
+  farmerPortal: {
+    sidebar: {
+      mainMenu: string
+      dashboard: string
+      myAppointments: string
+      bookNewSlot: string
+      liveQueue: string
+      procurementDbt: string
+      myProcurement: string
+      dbtPayments: string
+      history: string
+      accountSupport: string
+      notifications: string
+      profile: string
+      helpSupport: string
+      logout: string
+      smartNoticeTitle: string
+      smartNoticeDesc: string
+      viewQueue: string
+    }
+    header: {
+      namaste: string
+      dashboardTitle: string
+      dashboardSub: string
+      appointmentsTitle: string
+      queueTitle: string
+      procurementTitle: string
+      paymentsTitle: string
+      historyTitle: string
+      notificationsTitle: string
+      profileTitle: string
+      helpTitle: string
+      kycVerified: string
+      openProfile: string
+    }
+    dashboard: {
+      announcementBadge: string
+      announcementViewAll: string
+      heroGreeting: string
+      heroSub: string
+      quickActions: string
+      bookSlotBtn: string
+      trackQueueBtn: string
+      viewDbtBtn: string
+      fileGrievanceBtn: string
+      activeAppointmentsTitle: string
+      noAppointments: string
+      bookFirstSlot: string
+      tokenNumber: string
+      reportingTime: string
+      centreName: string
+      crop: string
+      quantity: string
+      status: string
+      viewPass: string
+      directions: string
+      todayMspTitle: string
+      allProcurementCentres: string
+      weatherTitle: string
+      gpsLive: string
+      refreshWeather: string
+      recentDeliveriesTitle: string
+      noDeliveries: string
+      viewAllRecords: string
+      statsTotalEarnings: string
+      statsTotalVolume: string
+      statsActiveTokens: string
+      statsPendingDbt: string
+      liveActive?: string
+      servingToken?: string
+      yourToken?: string
+      farmersAhead?: string
+      estWait?: string
+      centreIntakeToken?: string
+      noQueueToken?: string
+      quickOperations?: string
+      tokenQr?: string
+      downloadTokenPass?: string
+      statsTotalBatches?: string
+      statsAvgWaitTime?: string
+      statsSuccessfulPayments?: string
+      viewAll?: string
+      noNotifications?: string
+      verifiedRecords?: string
+      tableDate?: string
+      tableCrop?: string
+      tableQtyVal?: string
+      tableStatus?: string
+      statusCompleted?: string
+      lastPaymentReceived?: string
+      pfmsLinked?: string
+      liveWeatherFeed?: string
+      humidity?: string
+    }
+    common: {
+      backHome: string
+      authRequired: string
+      loading: string
+      viewDetails: string
+      cancel: string
+      confirm: string
+      close: string
+    }
   }
 }
 
@@ -962,6 +1071,110 @@ const enTranslations: Translations = {
     address: 'Krishi Bhawan, New Delhi - 110001',
     copyright: '© 2026 Kisan Setu. Department of Consumer Affairs. All rights reserved.',
   },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'Main Menu',
+      dashboard: 'Dashboard',
+      myAppointments: 'My Appointments',
+      bookNewSlot: 'Book New Slot',
+      liveQueue: 'Live Yard Queue',
+      procurementDbt: 'Procurement & DBT',
+      myProcurement: 'My Procurement',
+      dbtPayments: 'DBT Payments',
+      history: 'Procurement History',
+      accountSupport: 'Account & Support',
+      notifications: 'Notifications',
+      profile: 'My Profile',
+      helpSupport: 'Help & Support',
+      logout: 'Log Out',
+      smartNoticeTitle: 'Mandi Live Operations',
+      smartNoticeDesc: 'Weighbridge & gate intake active. Monitor your token position before dispatch.',
+      viewQueue: 'View Live Queue →',
+    },
+    header: {
+      namaste: 'Namaste',
+      dashboardTitle: 'Farmer Dashboard',
+      dashboardSub: 'Digital APMC Procurement & Live Queue Tracking System',
+      appointmentsTitle: 'My Appointments & Slot Passes',
+      queueTitle: 'Live Yard Queue Tracker',
+      procurementTitle: 'My Procurement & Weighment',
+      paymentsTitle: 'DBT Payments & PFMS Ledger',
+      historyTitle: 'Procurement History',
+      notificationsTitle: 'Notifications & Alerts',
+      profileTitle: 'Farmer Profile & KYC',
+      helpTitle: 'Grievance Redressal & Help Desk',
+      kycVerified: 'KYC Verified',
+      openProfile: 'Open Farmer Profile',
+    },
+    dashboard: {
+      announcementBadge: 'MSP Procurement Notice',
+      announcementViewAll: 'View All Notices →',
+      heroGreeting: 'Welcome back,',
+      heroSub: 'Track appointments, live queue status, weighbridge entries, and DBT payments.',
+      quickActions: 'Quick Actions',
+      bookSlotBtn: 'Book Procurement Slot',
+      trackQueueBtn: 'Live Token Queue',
+      viewDbtBtn: 'Check DBT Payments',
+      fileGrievanceBtn: 'File a Grievance',
+      activeAppointmentsTitle: 'Active Appointments & Digital Gate Passes',
+      noAppointments: 'No upcoming appointments scheduled',
+      bookFirstSlot: 'Book your first mandi procurement slot to get a digital entry pass.',
+      tokenNumber: 'Token No.',
+      reportingTime: 'Reporting Window',
+      centreName: 'Procurement Centre',
+      crop: 'Commodity',
+      quantity: 'Quantity',
+      status: 'Status',
+      viewPass: 'View Gate Pass / QR',
+      directions: 'Yard Directions',
+      todayMspTitle: "Today's Official Government MSP Procurement Rates",
+      allProcurementCentres: 'All Procurement Centres & Fair Price Benchmarks',
+      weatherTitle: 'Procurement Yard Weather & Harvest Advisory',
+      gpsLive: 'Live GPS',
+      refreshWeather: 'Refresh Weather',
+      recentDeliveriesTitle: 'Recent Procurement Batches',
+      noDeliveries: 'No procurement batches recorded yet.',
+      viewAllRecords: 'View All Records →',
+      statsTotalEarnings: 'Total MSP Earnings',
+      statsTotalVolume: 'Total Volume Sold',
+      statsActiveTokens: 'Active Queue Tokens',
+      statsPendingDbt: 'Pending DBT Transfers',
+      liveActive: 'Live Active',
+      servingToken: 'Serving Token',
+      yourToken: 'Your Token',
+      farmersAhead: 'Farmers Ahead',
+      estWait: 'Est. Wait',
+      centreIntakeToken: 'Centre Intake Token',
+      noQueueToken: 'No Queue Token',
+      quickOperations: '1-Click Operations',
+      tokenQr: 'Token QR',
+      downloadTokenPass: 'Download Token & Gate Pass',
+      statsTotalBatches: 'Total Batches',
+      statsAvgWaitTime: 'Avg Waiting Time',
+      statsSuccessfulPayments: 'Successful Payments',
+      viewAll: 'View All',
+      noNotifications: 'No new notifications.',
+      verifiedRecords: 'Verified Activity Records',
+      tableDate: 'Date',
+      tableCrop: 'Crop',
+      tableQtyVal: 'Quantity / Value',
+      tableStatus: 'Status',
+      statusCompleted: 'Completed',
+      lastPaymentReceived: 'Last Payment Received',
+      pfmsLinked: 'Direct PFMS Linked',
+      liveWeatherFeed: 'Live Meteorological Feed',
+      humidity: 'Humidity',
+    },
+    common: {
+      backHome: 'Back to Home',
+      authRequired: 'Authentication Required: Please login to access Farmer Dashboard & Services.',
+      loading: 'Loading...',
+      viewDetails: 'View Details',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      close: 'Close',
+    },
+  },
 }
 
 const hiTranslations: Translations = {
@@ -1583,6 +1796,110 @@ const hiTranslations: Translations = {
     address: 'कृषि भवन, नई दिल्ली - 110001',
     copyright: '© 2026 किसान सेतु. उपभोक्ता मामले विभाग, भारत सरकार. सर्वाधिकार सुरक्षित।',
   },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'मुख्य मेनू',
+      dashboard: 'डैशबोर्ड',
+      myAppointments: 'मेरी नियुक्तियां',
+      bookNewSlot: 'नया स्लॉट बुक करें',
+      liveQueue: 'लाइव यार्ड कतार',
+      procurementDbt: 'खरीद एवं डीबीटी',
+      myProcurement: 'मेरी उपज खरीद',
+      dbtPayments: 'डीबीटी भुगतान',
+      history: 'खरीद इतिहास',
+      accountSupport: 'खाता एवं सहायता',
+      notifications: 'सूचनाएं',
+      profile: 'मेरी प्रोफाइल',
+      helpSupport: 'सहायता एवं शिकायत',
+      logout: 'लॉग आउट',
+      smartNoticeTitle: 'मंडी लाइव संचालन',
+      smartNoticeDesc: 'कांटा तौल व गेट प्रवेश सक्रिय है। मंडी निकलने से पहले टोकन स्थिति जांचें।',
+      viewQueue: 'लाइव कतार देखें →',
+    },
+    header: {
+      namaste: 'नमस्ते',
+      dashboardTitle: 'किसान डैशबोर्ड',
+      dashboardSub: 'डिजिटल मंडी खरीद और लाइव कतार ट्रैकर प्रणाली',
+      appointmentsTitle: 'मेरी नियुक्तियां एवं डिजिटल गेट पास',
+      queueTitle: 'लाइव यार्ड कतार ट्रैकर',
+      procurementTitle: 'मेरी उपज खरीद एवं तौल',
+      paymentsTitle: 'डीबीटी भुगतान एवं पीएफएमएस लेजर',
+      historyTitle: 'खरीद इतिहास रिकॉर्ड',
+      notificationsTitle: 'सूचनाएं एवं अलर्ट',
+      profileTitle: 'किसान प्रोफाइल एवं केवाईसी',
+      helpTitle: 'शिकायत निवारण एवं सहायता डेस्क',
+      kycVerified: 'केवाईसी सत्यापित',
+      openProfile: 'किसान प्रोफाइल खोलें',
+    },
+    dashboard: {
+      announcementBadge: 'एमएसपी खरीद सूचना',
+      announcementViewAll: 'सभी सूचनाएं देखें →',
+      heroGreeting: 'स्वागत है,',
+      heroSub: 'अपनी नियुक्तियां, लाइव कतार स्थिति, वे-ब्रिज तौल और डीबीटी भुगतान ट्रैक करें।',
+      quickActions: 'त्वरित कार्य',
+      bookSlotBtn: 'खरीद स्लॉट बुक करें',
+      trackQueueBtn: 'लाइव टोकन कतार',
+      viewDbtBtn: 'डीबीटी भुगतान देखें',
+      fileGrievanceBtn: 'शिकायत दर्ज करें',
+      activeAppointmentsTitle: 'सक्रिय नियुक्तियां एवं डिजिटल गेट पास',
+      noAppointments: 'कोई आगामी नियुक्ति निर्धारित नहीं है',
+      bookFirstSlot: 'डिजिटल प्रवेश पास पाने के लिए अपना पहला खरीद स्लॉट बुक करें।',
+      tokenNumber: 'टोकन सं.',
+      reportingTime: 'रिपोर्टिंग समय',
+      centreName: 'खरीद केंद्र',
+      crop: 'उपज',
+      quantity: 'मात्रा',
+      status: 'स्थिति',
+      viewPass: 'गेट पास / क्यूआर देखें',
+      directions: 'मंडी मार्ग',
+      todayMspTitle: 'आज के आधिकारिक सरकारी एमएसपी खरीद भाव',
+      allProcurementCentres: 'सभी खरीद केंद्र एवं उचित मूल्य मानक',
+      weatherTitle: 'खरीद यार्ड मौसम एवं कृषि सलाह',
+      gpsLive: 'लाइव जीपीएस',
+      refreshWeather: 'मौसम अपडेट करें',
+      recentDeliveriesTitle: 'हालिया खरीद बैच',
+      noDeliveries: 'अभी तक कोई खरीद बैच दर्ज नहीं हुआ है।',
+      viewAllRecords: 'सभी रिकॉर्ड देखें →',
+      statsTotalEarnings: 'कुल एमएसपी आय',
+      statsTotalVolume: 'कुल बेची गई उपज',
+      statsActiveTokens: 'सक्रिय कतार टोकन',
+      statsPendingDbt: 'लंबित डीबीटी अंतरण',
+      liveActive: 'लाइव सक्रिय',
+      servingToken: 'वर्तमान टोकन',
+      yourToken: 'आपका टोकन',
+      farmersAhead: 'आगे किसान',
+      estWait: 'अनुमानित प्रतीक्षा',
+      centreIntakeToken: 'केंद्र प्रवेश टोकन',
+      noQueueToken: 'कोई कतार टोकन नहीं',
+      quickOperations: '1-क्लिक त्वरित संचालन',
+      tokenQr: 'टोकन क्यूआर',
+      downloadTokenPass: 'टोकन व गेट पास डाउनलोड करें',
+      statsTotalBatches: 'कुल बैच',
+      statsAvgWaitTime: 'औसत प्रतीक्षा समय',
+      statsSuccessfulPayments: 'सफल भुगतान',
+      viewAll: 'सभी देखें',
+      noNotifications: 'कोई नई सूचना नहीं है।',
+      verifiedRecords: 'प्रमाणित गतिविधि रिकॉर्ड',
+      tableDate: 'दिनांक',
+      tableCrop: 'फसल',
+      tableQtyVal: 'मात्रा / मूल्य',
+      tableStatus: 'स्थिति',
+      statusCompleted: 'पूर्ण हुआ',
+      lastPaymentReceived: 'अंतिम प्राप्त भुगतान',
+      pfmsLinked: 'पीएफएमएस से सीधे जुड़ा हुआ',
+      liveWeatherFeed: 'लाइव मौसम व उपग्रह डेटा',
+      humidity: 'आर्द्रता',
+    },
+    common: {
+      backHome: 'मुख्य पृष्ठ पर वापस जाएं',
+      authRequired: 'प्रमाणीकरण आवश्यक: किसान सेवाओं के लिए कृपया लॉगिन करें।',
+      loading: 'लोड हो रहा है...',
+      viewDetails: 'विवरण देखें',
+      cancel: 'रद्द करें',
+      confirm: 'पुष्टि करें',
+      close: 'बंद करें',
+    },
+  },
 }
 
 // Marathi Translations
@@ -1629,6 +1946,110 @@ const mrTranslations: Translations = {
     subtitle: 'हमीभाव खरेदीसाठी चरणबद्ध ऑनलाइन नोंदणी',
     proceedToDashboard: 'शेतकरी डॅशबोर्ड उघडा',
   },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'मुख्य मेनू',
+      dashboard: 'डॅशबोर्ड',
+      myAppointments: 'माझ्या भेटी / स्लॉट',
+      bookNewSlot: 'नवीन स्लॉट बुक करा',
+      liveQueue: 'थेट यार्ड रांग',
+      procurementDbt: 'खरेदी आणि डीबीटी',
+      myProcurement: 'माझी धान्य खरेदी',
+      dbtPayments: 'डीबीटी पेमेंट',
+      history: 'खरेदी इतिहास',
+      accountSupport: 'खाते आणि मदत',
+      notifications: 'सूचना',
+      profile: 'शेतकरी प्रोफाइल',
+      helpSupport: 'मदत व तक्रार निवारण',
+      logout: 'लॉग आउट करा',
+      smartNoticeTitle: 'थेट बाजार माहिती',
+      smartNoticeDesc: 'काटा आणि गेट प्रवेश सुरू आहे. निघण्यापूर्वी टोकन स्थिती तपासा.',
+      viewQueue: 'थेट रांग पहा →',
+    },
+    header: {
+      namaste: 'नमस्कार',
+      dashboardTitle: 'शेतकरी डॅशबोर्ड',
+      dashboardSub: 'डिजिटल शेती खरेदी आणि थेट रांग ट्रॅकिंग प्रणाली',
+      appointmentsTitle: 'माझ्या भेटी आणि गेट पास',
+      queueTitle: 'थेट यार्ड रांग ट्रॅकर',
+      procurementTitle: 'माझी पिके खरेदी आणि वजन',
+      paymentsTitle: 'डीबीटी पेमेंट आणि पीएफएमएस नोंदी',
+      historyTitle: 'खरेदी इतिहास नोंदी',
+      notificationsTitle: 'सूचना आणि सूचना फलक',
+      profileTitle: 'शेतकरी प्रोफाइल आणि केवायसी',
+      helpTitle: 'तक्रार निवारण आणि हेल्प डेस्क',
+      kycVerified: 'केवायसी सत्यापित',
+      openProfile: 'शेतकरी प्रोफाइल उघडा',
+    },
+    dashboard: {
+      announcementBadge: 'अधिकृत हमीभाव खरेदी सूचना',
+      announcementViewAll: 'सर्व सूचना पहा →',
+      heroGreeting: 'स्वागत आहे,',
+      heroSub: 'आपले स्लॉट, थेट रांग, काटा वजन आणि थेट बँक खात्यातील रक्कम तपासा.',
+      quickActions: 'त्वरित सेवा',
+      bookSlotBtn: 'खरेदी स्लॉट बुक करा',
+      trackQueueBtn: 'थेट टोकन रांग',
+      viewDbtBtn: 'डीबीटी पेमेंट तपासा',
+      fileGrievanceBtn: 'तक्रार नोंदवा',
+      activeAppointmentsTitle: 'सक्रिय भेटी आणि डिजिटल गेट पास',
+      noAppointments: 'कोणतीही आगामी भेट नियोजित नाही',
+      bookFirstSlot: 'डिजिटल प्रवेश पास मिळविण्यासाठी आपला पहिला स्लॉट बुक करा.',
+      tokenNumber: 'टोकन क्र.',
+      reportingTime: 'हजेरी वेळ',
+      centreName: 'खरेदी केंद्र',
+      crop: 'पीक',
+      quantity: 'प्रमाण',
+      status: 'स्थिती',
+      viewPass: 'गेट पास / क्यूआर पहा',
+      directions: 'मार्केट दिशा',
+      todayMspTitle: 'आजचे अधिकृत शासकीय हमीभाव',
+      allProcurementCentres: 'सर्व खरेदी केंद्र आणि दर',
+      weatherTitle: 'यार्ड हवामान व शेती सल्ला',
+      gpsLive: 'थेट जीपीएस',
+      refreshWeather: 'हवामान ताजे करा',
+      recentDeliveriesTitle: 'अलीकडील खरेदी बॅच',
+      noDeliveries: 'अद्याप कोणतीही खरेदी नोंद झालेली नाही.',
+      viewAllRecords: 'सर्व नोंदी पहा →',
+      statsTotalEarnings: 'एकूण हमीभाव उत्पन्न',
+      statsTotalVolume: 'एकूण विक्री प्रमाण',
+      statsActiveTokens: 'सक्रिय रांग टोकन',
+      statsPendingDbt: 'प्रलंबित डीबीटी हस्तांतरण',
+      liveActive: 'थेट सक्रिय',
+      servingToken: 'चालू टोकन',
+      yourToken: 'तुमचा टोकन',
+      farmersAhead: 'पुढील शेतकरी',
+      estWait: 'अंदाजे प्रतीक्षा वेळ',
+      centreIntakeToken: 'केंद्र प्रवेश टोकन',
+      noQueueToken: 'रांग टोकन नाही',
+      quickOperations: '1-क्लिक जलद सेवा',
+      tokenQr: 'टोकन क्यूआर',
+      downloadTokenPass: 'टोकन आणि गेट पास डाउनलोड करा',
+      statsTotalBatches: 'एकूण बॅच',
+      statsAvgWaitTime: 'सरासरी प्रतीक्षा वेळ',
+      statsSuccessfulPayments: 'यशस्वी पेमेंट्स',
+      viewAll: 'सर्व पहा',
+      noNotifications: 'कोणतीही नवीन सूचना नाही.',
+      verifiedRecords: 'सत्यापित नोंदी',
+      tableDate: 'तारीख',
+      tableCrop: 'पीक',
+      tableQtyVal: 'प्रमाण / मूल्य',
+      tableStatus: 'स्थिती',
+      statusCompleted: 'पूर्ण झाले',
+      lastPaymentReceived: 'शेवटचे प्राप्त पेमेंट',
+      pfmsLinked: 'पीएफएमएस थेट जोडलेले',
+      liveWeatherFeed: 'थेट हवामान माहिती',
+      humidity: 'आर्द्रता',
+    },
+    common: {
+      backHome: 'मुख्य पृष्ठावर परत जा',
+      authRequired: 'प्रमाणीकरण आवश्यक: शेतकरी सेवांसाठी कृपया लॉगिन करा.',
+      loading: 'लोड होत आहे...',
+      viewDetails: 'तपशील पहा',
+      cancel: 'रद्द करा',
+      confirm: 'निश्चित करा',
+      close: 'बंद करा',
+    },
+  },
 }
 
 // Punjabi Translations
@@ -1671,6 +2092,110 @@ const paTranslations: Translations = {
     heroTitle2: 'ਹਰ ਕਿਸਾਨ ਲਈ ਆਧੁਨਿਕ ਡਿਜੀਟਲ ਖਰੀਦ',
     title: 'ਕਿਸਾਨ ਰਜਿਸਟ੍ਰੇਸ਼ਨ',
     subtitle: 'ਐਮਐਸਪੀ ਖਰੀਦ ਲਈ ਕਦਮ-ਦਰ-ਕਦਮ ਰਜਿਸਟ੍ਰੇਸ਼ਨ',
+  },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'ਮੁੱਖ ਮੇਨੂ',
+      dashboard: 'ਡੈਸ਼ਬੋਰਡ',
+      myAppointments: 'ਮੇਰੀਆਂ ਮੁਲਾਕਾਤਾਂ',
+      bookNewSlot: 'ਨਵਾਂ ਸਲਾਟ ਬੁੱਕ ਕਰੋ',
+      liveQueue: 'ਲਾਈਵ ਮੰਡੀ ਲਾਈਨ',
+      procurementDbt: 'ਖਰੀਦ ਅਤੇ ਡੀਬੀਟੀ',
+      myProcurement: 'ਮੇਰੀ ਫ਼ਸਲ ਖਰੀਦ',
+      dbtPayments: 'ਡੀਬੀਟੀ ਭੁਗਤਾਨ',
+      history: 'ਖਰੀਦ ਇਤਿਹਾਸ',
+      accountSupport: 'ਖਾਤਾ ਅਤੇ ਸਹਾਇਤਾ',
+      notifications: 'ਸੂਚਨਾਵਾਂ',
+      profile: 'ਕਿਸਾਨ ਪ੍ਰੋਫਾਈਲ',
+      helpSupport: 'ਸਹਾਇਤਾ ਅਤੇ ਸ਼ਿਕਾਇਤਾਂ',
+      logout: 'ਲਾਗ ਆਊਟ ਕਰੋ',
+      smartNoticeTitle: 'ਮੰਡੀ ਲਾਈਵ ਕਾਰਵਾਈ',
+      smartNoticeDesc: 'ਕੰਪਿਊਟਰ ਕੰਡਾ ਅਤੇ ਗੇਟ ਦਾਖਲਾ ਚਾਲੂ ਹੈ। ਤੁਰਨ ਤੋਂ ਪਹਿਲਾਂ ਟੋਕਨ ਸਥਿਤੀ ਦੇਖੋ।',
+      viewQueue: 'ਲਾਈਵ ਲਾਈਨ ਦੇਖੋ →',
+    },
+    header: {
+      namaste: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ',
+      dashboardTitle: 'ਕਿਸਾਨ ਡੈਸ਼ਬੋਰਡ',
+      dashboardSub: 'ਡਿਜੀਟਲ ਖਰੀਦ ਅਤੇ ਲਾਈਵ ਲਾਈਨ ਟਰੈਕਿੰਗ ਸਿਸਟਮ',
+      appointmentsTitle: 'ਮੇਰੀਆਂ ਮੁਲਾਕਾਤਾਂ ਅਤੇ ਗੇਟ ਪਾਸ',
+      queueTitle: 'ਲਾਈਵ ਯਾਰਡ ਲਾਈਨ ਟਰੈਕਰ',
+      procurementTitle: 'ਮੇਰੀ ਫ਼ਸਲ ਖਰੀਦ ਅਤੇ ਤੋਲ',
+      paymentsTitle: 'ਡੀਬੀਟੀ ਭੁਗਤਾਨ ਅਤੇ ਪੀਐੱਫਐੱਮਐੱਸ ਰਿਕਾਰਡ',
+      historyTitle: 'ਖਰੀਦ ਇਤਿਹਾਸ ਰਿਕਾਰਡ',
+      notificationsTitle: 'ਸੂਚਨਾਵਾਂ ਅਤੇ ਅਲਰਟ',
+      profileTitle: 'ਕਿਸਾਨ ਪ੍ਰੋਫਾਈਲ ਅਤੇ ਕੇਵਾਈਸੀ',
+      helpTitle: 'ਸ਼ਿਕਾਇਤ ਨਿਵਾਰਨ ਅਤੇ ਹੈਲਪ ਡੈਸਕ',
+      kycVerified: 'ਕੇਵਾਈਸੀ ਤਸਦੀਕਸ਼ੁਦਾ',
+      openProfile: 'ਕਿਸਾਨ ਪ੍ਰੋਫਾਈਲ ਖੋਲ੍ਹੋ',
+    },
+    dashboard: {
+      announcementBadge: 'ਸਰਕਾਰੀ ਐਮਐਸਪੀ ਖਰੀਦ ਸੂਚਨਾ',
+      announcementViewAll: 'ਸਾਰੀਆਂ ਸੂਚਨਾਵਾਂ ਦੇਖੋ →',
+      heroGreeting: 'ਜੀ ਆਇਆਂ ਨੂੰ,',
+      heroSub: 'ਆਪਣੇ ਸਲਾਟ, ਲਾਈਵ ਲਾਈਨ, ਕੰਡੇ ਦਾ ਤੋਲ ਅਤੇ ਸਿੱਧਾ ਬੈਂਕ ਖਾਤੇ ਦਾ ਭੁਗਤਾਨ ਦੇਖੋ।',
+      quickActions: 'ਜ਼ਰੂਰੀ ਕਾਰਵਾਈਆਂ',
+      bookSlotBtn: 'ਖਰੀਦ ਸਲਾਟ ਬੁੱਕ ਕਰੋ',
+      trackQueueBtn: 'ਲਾਈਵ ਟੋਕਨ ਲਾਈਨ',
+      viewDbtBtn: 'ਡੀਬੀਟੀ ਭੁਗਤਾਨ ਦੇਖੋ',
+      fileGrievanceBtn: 'ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰੋ',
+      activeAppointmentsTitle: 'ਚਾਲੂ ਮੁਲਾਕਾਤਾਂ ਅਤੇ ਡਿਜੀਟਲ ਗੇਟ ਪਾਸ',
+      noAppointments: 'ਕੋਈ ਆਉਣ ਵਾਲੀ ਮੁਲਾਕਾਤ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਹੈ',
+      bookFirstSlot: 'ਡਿਜੀਟਲ ਐਂਟਰੀ ਪਾਸ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣਾ ਪਹਿਲਾ ਸਲਾਟ ਬੁੱਕ ਕਰੋ।',
+      tokenNumber: 'ਟੋਕਨ ਨੰ.',
+      reportingTime: 'ਪਹੁੰਚਣ ਦਾ ਸਮਾਂ',
+      centreName: 'ਖਰੀਦ ਕੇਂਦਰ',
+      crop: 'ਫ਼ਸਲ',
+      quantity: 'ਮਾਤਰਾ',
+      status: 'ਸਥਿਤੀ',
+      viewPass: 'ਗੇਟ ਪਾਸ / ਕਿਊਆਰ ਦੇਖੋ',
+      directions: 'ਮੰਡੀ ਦਾ ਰਸਤਾ',
+      todayMspTitle: 'ਅੱਜ ਦੇ ਸਰਕਾਰੀ ਐਮਐਸਪੀ ਖਰੀਦ ਭਾਅ',
+      allProcurementCentres: 'ਸਾਰੇ ਖਰੀਦ ਕੇਂਦਰ ਅਤੇ ਮਿਆਰੀ ਰੇਟ',
+      weatherTitle: 'ਮੰਡੀ ਦਾ ਮੌਸਮ ਅਤੇ ਖੇਤੀ ਸਲਾਹ',
+      gpsLive: 'ਲਾਈਵ ਜੀਪੀਐਸ',
+      refreshWeather: 'ਮੌਸਮ ਅਪਡੇਟ ਕਰੋ',
+      recentDeliveriesTitle: 'ਹਾਲੀਆ ਖਰੀਦ ਬੈਚ',
+      noDeliveries: 'ਹਾਲੇ ਕੋਈ ਖਰੀਦ ਰਿਕਾਰਡ ਨਹੀਂ ਹੋਈ ਹੈ।',
+      viewAllRecords: 'ਸਾਰੇ ਰਿਕਾਰਡ ਦੇਖੋ →',
+      statsTotalEarnings: 'ਕੁੱਲ ਐਮਐਸਪੀ ਕਮਾਈ',
+      statsTotalVolume: 'ਕੁੱਲ ਵਿਕਰੀ ਮਾਤਰਾ',
+      statsActiveTokens: 'ਸਰਗਰਮ ਲਾਈਨ ਟੋਕਨ',
+      statsPendingDbt: 'ਬਕਾਇਆ ਡੀਬੀਟੀ ਤਬਾਦਲੇ',
+      liveActive: 'ਲਾਈਵ ਸਰਗਰਮ',
+      servingToken: 'ਮੌਜੂਦਾ ਟੋਕਨ',
+      yourToken: 'ਤੁਹਾਡਾ ਟੋਕਨ',
+      farmersAhead: 'ਅੱਗੇ ਕਿਸਾਨ',
+      estWait: 'ਅੰਦਾਜ਼ਨ ਉਡੀਕ ਸਮਾਂ',
+      centreIntakeToken: 'ਕੇਂਦਰ ਐਂਟਰੀ ਟੋਕਨ',
+      noQueueToken: 'ਕੋਈ ਟੋਕਨ ਨਹੀਂ',
+      quickOperations: '1-ਕਲਿੱਕ ਕਾਰਵਾਈ',
+      tokenQr: 'ਟੋਕਨ ਕਿਊਆਰ',
+      downloadTokenPass: 'ਟੋਕਨ ਅਤੇ ਗੇਟ ਪਾਸ ਡਾਊਨਲੋਡ ਕਰੋ',
+      statsTotalBatches: 'ਕੁੱਲ ਬੈਚ',
+      statsAvgWaitTime: 'ਔਸਤ ਉਡੀਕ ਸਮਾਂ',
+      statsSuccessfulPayments: 'ਸਫਲ ਭੁਗਤਾਨ',
+      viewAll: 'ਸਭ ਦੇਖੋ',
+      noNotifications: 'ਕੋਈ ਨਵੀਂ ਸੂਚਨਾ ਨਹੀਂ ਹੈ।',
+      verifiedRecords: 'ਤਸਦੀਕਸ਼ੁਦਾ ਰਿਕਾਰਡ',
+      tableDate: 'ਮਿਤੀ',
+      tableCrop: 'ਫ਼ਸਲ',
+      tableQtyVal: 'ਮਾਤਰਾ / ਮੁੱਲ',
+      tableStatus: 'ਸਥਿਤੀ',
+      statusCompleted: 'ਮੁਕੰਮਲ',
+      lastPaymentReceived: 'ਆਖਰੀ ਪ੍ਰਾਪਤ ਭੁਗਤਾਨ',
+      pfmsLinked: 'ਸਿੱਧਾ ਪੀਐੱਫਐੱਮਐੱਸ ਲਿੰਕ',
+      liveWeatherFeed: 'ਲਾਈਵ ਮੌਸਮ ਡੇਟਾ',
+      humidity: 'ਨਮੀ',
+    },
+    common: {
+      backHome: 'ਮੁੱਖ ਪੰਨੇ ਤੇ ਵਾਪਸ ਜਾਓ',
+      authRequired: 'ਕਿਸਾਨ ਸੇਵਾਵਾਂ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਲਾਗਇਨ ਕਰੋ।',
+      loading: 'ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...',
+      viewDetails: 'ਵੇਰਵੇ ਦੇਖੋ',
+      cancel: 'ਰੱਦ ਕਰੋ',
+      confirm: 'ਪੁਸ਼ਟੀ ਕਰੋ',
+      close: 'ਬੰਦ ਕਰੋ',
+    },
   },
 }
 
@@ -1753,6 +2278,110 @@ const teTranslations: Translations = {
     title: 'రైతు నమోదు',
     subtitle: 'MSP సేకరణ కోసం దశలవారీగా ధృవీకరించబడిన నమోదు',
   },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'ప్రధాన మెనూ',
+      dashboard: 'డ్యాష్‌బోర్డ్',
+      myAppointments: 'నా అపాయింట్‌మెంట్లు',
+      bookNewSlot: 'కొత్త స్లాట్ బుక్ చేయండి',
+      liveQueue: 'లైవ్ యార్డ్ క్యూ',
+      procurementDbt: 'సేకరణ & డీబీటీ',
+      myProcurement: 'నా సేకరణ',
+      dbtPayments: 'డీబీటీ చెల్లింపులు',
+      history: 'సేకరణ చరిత్ర',
+      accountSupport: 'ఖాతా & మద్దతు',
+      notifications: 'నోటిఫికేషన్లు',
+      profile: 'రైతు ప్రొఫైల్',
+      helpSupport: 'సహాయం & మద్దతు',
+      logout: 'లాగ్ అవుట్',
+      smartNoticeTitle: 'లైవ్ మార్కెట్ కార్యకలాపాలు',
+      smartNoticeDesc: 'తూకం వేయడం & గేట్ ప్రవేశం ప్రారంభమైంది. బయలుదేరే ముందు మీ టోకెన్ స్థితిని చూడండి.',
+      viewQueue: 'లైవ్ క్యూ చూడండి →',
+    },
+    header: {
+      namaste: 'నమస్కారం',
+      dashboardTitle: 'రైతు డ్యాష్‌బోర్డ్',
+      dashboardSub: 'డిజిటల్ వ్యవసాయ సేకరణ & లైవ్ క్యూ ట్రాకింగ్ వ్యవస్థ',
+      appointmentsTitle: 'నా అపాయింట్‌మెంట్లు & గేట్ పాస్‌లు',
+      queueTitle: 'లైవ్ యార్డ్ క్యూ ట్రాకర్',
+      procurementTitle: 'నా పంట సేకరణ & తూకం',
+      paymentsTitle: 'డీబీటీ చెల్లింపులు & పీఎఫ్ఎంఎస్ రికార్డులు',
+      historyTitle: 'సేకరణ చరిత్ర రికార్డులు',
+      notificationsTitle: 'నోటిఫికేషన్లు & హెచ్చరికలు',
+      profileTitle: 'రైతు ప్రొఫైల్ & కేవైసీ',
+      helpTitle: 'ఫిర్యాదుల పరిష్కారం & హెల్ప్‌డెస్క్',
+      kycVerified: 'కేవైసీ ధృవీకరించబడింది',
+      openProfile: 'రైతు ప్రొఫైల్ తెరవండి',
+    },
+    dashboard: {
+      announcementBadge: 'అధికారిక MSP సేకరణ ప్రకటన',
+      announcementViewAll: 'అన్ని ప్రకటనలను చూడండి →',
+      heroGreeting: 'స్వాగతం,',
+      heroSub: 'మీ అపాయింట్‌మెంట్లు, లైవ్ క్యూ స్థితి, వేబ్రిడ్జ్ ఎంట్రీలు మరియు డీబీటీ చెల్లింపులను ట్రాక్ చేయండి.',
+      quickActions: 'త్వరిత చర్యలు',
+      bookSlotBtn: 'సేకరణ స్లాట్ బుక్ చేయండి',
+      trackQueueBtn: 'లైవ్ టోకెన్ క్యూ',
+      viewDbtBtn: 'డీబీటీ చెల్లింపులు చూడండి',
+      fileGrievanceBtn: 'ఫిర్యాదు నమోదు చేయండి',
+      activeAppointmentsTitle: 'క్రియాశీల అపాయింట్‌మెంట్లు & గేట్ పాస్‌లు',
+      noAppointments: 'ఎటువంటి రాబోయే అపాయింట్‌మెంట్లు లేవు',
+      bookFirstSlot: 'డిజిటల్ ఎంట్రీ పాస్ పొందడానికి మీ మొదటి స్లాట్ బుక్ చేయండి.',
+      tokenNumber: 'టోకెన్ సంఖ్య',
+      reportingTime: 'రిపోర్టింగ్ సమయం',
+      centreName: 'సేకరణ కేంద్రం',
+      crop: 'పంట',
+      quantity: 'పరిమాణం',
+      status: 'స్థితి',
+      viewPass: 'గేట్ పాస్ / క్యూఆర్ చూడండి',
+      directions: 'మార్కెట్ మార్గం',
+      todayMspTitle: 'నేటి అధికారిక ప్రభుత్వ MSP సేకరణ ధరలు',
+      allProcurementCentres: 'అన్ని సేకరణ కేంద్రాలు & ప్రామాణిక ధరలు',
+      weatherTitle: 'యార్డ్ వాతావరణం & వ్యవసాయ సలహా',
+      gpsLive: 'లైవ్ జీపీఎస్',
+      refreshWeather: 'వాతావరణం రిఫ్రెష్ చేయండి',
+      recentDeliveriesTitle: 'ఇటీవలి సేకరణ బ్యాచ్‌లు',
+      noDeliveries: 'ఇంకా ఎటువంటి సేకరణ నమోదు కాలేదు.',
+      viewAllRecords: 'అన్ని రికార్డులు చూడండి →',
+      statsTotalEarnings: 'మొత్తం MSP ఆదాయం',
+      statsTotalVolume: 'మొత్తం అమ్మిన పరిమాణం',
+      statsActiveTokens: 'క్రియాశీల క్యూ టోకెన్లు',
+      statsPendingDbt: 'పెండింగ్ డీబీటీ బదిలీలు',
+      liveActive: 'లైవ్ కార్యాచరణ',
+      servingToken: 'ప్రస్తుత టోకెన్',
+      yourToken: 'మీ టోకెన్',
+      farmersAhead: 'ముందున్న రైతులు',
+      estWait: 'అంచనా వేచివుండే సమయం',
+      centreIntakeToken: 'కేంద్ర ఎంట్రీ టోకెన్',
+      noQueueToken: 'క్యూ టోకెన్ లేదు',
+      quickOperations: '1-క్లిక్ శీఘ్ర సేవలు',
+      tokenQr: 'టోకెన్ క్యూఆర్',
+      downloadTokenPass: 'టోకెన్ & గేట్ పాస్ డౌన్‌లోడ్',
+      statsTotalBatches: 'మొత్తం బ్యాచ్‌లు',
+      statsAvgWaitTime: 'సగటు వేచివుండే సమయం',
+      statsSuccessfulPayments: 'విజయవంతమైన చెల్లింపులు',
+      viewAll: 'అన్నీ చూడండి',
+      noNotifications: 'కొత్త నోటిఫికేషన్లు లేవు.',
+      verifiedRecords: 'ధృవీకరించబడిన రికార్డులు',
+      tableDate: 'తేదీ',
+      tableCrop: 'పంట',
+      tableQtyVal: 'పరిమాణం / విలువ',
+      tableStatus: 'స్థితి',
+      statusCompleted: 'పూర్తయింది',
+      lastPaymentReceived: 'చివరిగా అందిన చెల్లింపు',
+      pfmsLinked: 'పీఎఫ్ఎంఎస్ ప్రత్యక్ష అనుసంధానం',
+      liveWeatherFeed: 'లైవ్ వాతావరణ సమాచారం',
+      humidity: 'తేమ శాతం',
+    },
+    common: {
+      backHome: 'హోమ్‌కు తిరిగి వెళ్లండి',
+      authRequired: 'రైతు సేవల కోసం దయచేసి లాగిన్ అవ్వండి.',
+      loading: 'లోడ్ అవుతోంది...',
+      viewDetails: 'వివరాలు చూడండి',
+      cancel: 'రద్దు చేయండి',
+      confirm: 'నిర్ధారించండి',
+      close: 'మూసివేయండి',
+    },
+  },
 }
 
 // Kannada Translations
@@ -1795,6 +2424,110 @@ const knTranslations: Translations = {
     heroTitle2: 'ಪ್ರತಿಯೊಬ್ಬ ರೈತರಿಗೆ ನೇರ ಡಿಜಿಟಲ್ ಖರೀದಿ',
     title: 'ರೈತರ ನೋಂದಣಿ',
   },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'ಮುಖ್ಯ ಮೆನು',
+      dashboard: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+      myAppointments: 'ನನ್ನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು',
+      bookNewSlot: 'ಹೊಸ ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಿ',
+      liveQueue: 'ಲೈವ್ ಯಾರ್ಡ್ ಕ್ಯೂ',
+      procurementDbt: 'ಖರೀದಿ ಮತ್ತು ಡಿಬಿಟಿ',
+      myProcurement: 'ನನ್ನ ಖರೀದಿ',
+      dbtPayments: 'ಡಿಬಿಟಿ ಪಾವತಿಗಳು',
+      history: 'ಖರೀದಿ ಇತಿಹಾಸ',
+      accountSupport: 'ಖಾತೆ ಮತ್ತು ಬೆಂಬಲ',
+      notifications: 'ಅಧಿಸೂಚನೆಗಳು',
+      profile: 'ರೈತರ ಪ್ರೊಫೈಲ್',
+      helpSupport: 'ಸಹಾಯ ಮತ್ತು ದೂರುಗಳು',
+      logout: 'ಲಾಗ್ ಔಟ್',
+      smartNoticeTitle: 'ಮಂಡಿ ಲೈವ್ ಕಾರ್ಯಾಚರಣೆ',
+      smartNoticeDesc: 'ತೂಕ ಮತ್ತು ಗೇಟ್ ಪ್ರವೇಶ ಸಕ್ರಿಯವಾಗಿದೆ. ಹೊರಡುವ ಮುನ್ನ ಟೋಕನ್ ಸ್ಥಿತಿ ಪರಿಶೀಲಿಸಿ.',
+      viewQueue: 'ಲೈವ್ ಕ್ಯೂ ನೋಡಿ →',
+    },
+    header: {
+      namaste: 'ನಮಸ್ಕಾರ',
+      dashboardTitle: 'ರೈತರ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+      dashboardSub: 'ಡಿಜಿಟಲ್ ಕೃಷಿ ಖರೀದಿ ಮತ್ತು ಲೈವ್ ಕ್ಯೂ ಟ್ರ್ಯಾಕಿಂಗ್ ವ್ಯವಸ್ಥೆ',
+      appointmentsTitle: 'ನನ್ನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಮತ್ತು ಗೇಟ್ ಪಾಸ್',
+      queueTitle: 'ಲೈವ್ ಯಾರ್ಡ್ ಕ್ಯೂ ಟ್ರ್ಯಾಕರ್',
+      procurementTitle: 'ನನ್ನ ಬೆಳೆ ಖರೀದಿ ಮತ್ತು ತೂಕ',
+      paymentsTitle: 'ಡಿಬಿಟಿ ಪಾವತಿಗಳು ಮತ್ತು ಪಿಎಫ್‌ಎಂಎಸ್ ಲೆಡ್ಜರ್',
+      historyTitle: 'ಖರೀದಿ ಇತಿಹಾಸ ದಾಖಲೆಗಳು',
+      notificationsTitle: 'ಅಧಿಸೂಚನೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು',
+      profileTitle: 'ರೈತರ ಪ್ರೊಫೈಲ್ ಮತ್ತು ಕೆವೈಸಿ',
+      helpTitle: 'ದೂರು ಪರಿಹಾರ ಮತ್ತು ಸಹಾಯವಾಣಿ',
+      kycVerified: 'ಕೆವೈಸಿ ಪರಿಶೀಲಿಸಲಾಗಿದೆ',
+      openProfile: 'ರೈತರ ಪ್ರೊಫೈಲ್ ತೆರೆಯಿರಿ',
+    },
+    dashboard: {
+      announcementBadge: 'ಅಧಿಕೃತ ಎಂಎಸ್‌ಪಿ ಖರೀದಿ ಪ್ರಕಟಣೆ',
+      announcementViewAll: 'ಎಲ್ಲ ಪ್ರಕಟಣೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ →',
+      heroGreeting: 'ಸ್ವಾಗತ,',
+      heroSub: 'ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು, ಲೈವ್ ಕ್ಯೂ ಸ್ಥಿತಿ, ತೂಕದ ನಮೂದುಗಳು ಮತ್ತು ಡಿಬಿಟಿ ಪಾವತಿಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.',
+      quickActions: 'ತ್ವರಿತ ಕ್ರಿಯೆಗಳು',
+      bookSlotBtn: 'ಖರೀದಿ ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಿ',
+      trackQueueBtn: 'ಲೈವ್ ಟೋಕನ್ ಕ್ಯೂ',
+      viewDbtBtn: 'ಡಿಬಿಟಿ ಪಾವತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ',
+      fileGrievanceBtn: 'ದೂರು ದಾಖಲಿಸಿ',
+      activeAppointmentsTitle: 'ಸಕ್ರಿಯ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಮತ್ತು ಗೇಟ್ ಪಾಸ್‌ಗಳು',
+      noAppointments: 'ಯಾವುದೇ ಮುಂಬರುವ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳಿಲ್ಲ',
+      bookFirstSlot: 'ಡಿಜಿಟಲ್ ಎಂಟ್ರಿ ಪಾಸ್ ಪಡೆಯಲು ನಿಮ್ಮ ಮೊದಲ ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಿ.',
+      tokenNumber: 'ಟೋಕನ್ ಸಂಖ್ಯೆ',
+      reportingTime: 'ವರದಿ ಸಮಯ',
+      centreName: 'ಖರೀದಿ ಕೇಂದ್ರ',
+      crop: 'ಬೆಳೆ',
+      quantity: 'ಪ್ರಮಾಣ',
+      status: 'ಸ್ಥಿತಿ',
+      viewPass: 'ಗೇಟ್ ಪಾಸ್ / ಕ್ಯೂಆರ್ ವೀಕ್ಷಿಸಿ',
+      directions: 'ಮಂಡಿ ಮಾರ್ಗ',
+      todayMspTitle: 'ಇಂದಿನ ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಎಂಎಸ್‌ಪಿ ಖರೀದಿ ದರಗಳು',
+      allProcurementCentres: 'ಎಲ್ಲ ಖರೀದಿ ಕೇಂದ್ರಗಳು ಮತ್ತು ಪ್ರಮಾಣಿತ ದರಗಳು',
+      weatherTitle: 'ಯಾರ್ಡ್ ಹವಾಮಾನ ಮತ್ತು ಕೃಷಿ ಸಲಹೆ',
+      gpsLive: 'ಲೈವ್ ಜಿಪಿಎಸ್',
+      refreshWeather: 'ಹವಾಮಾನ ನವೀಕರಿಸಿ',
+      recentDeliveriesTitle: 'ಇತ್ತೀಚಿನ ಖರೀದಿ ಬ್ಯಾಚ್‌ಗಳು',
+      noDeliveries: 'ಇನ್ನೂ ಯಾವುದೇ ಖರೀದಿ ದಾಖಲಾಗಿಲ್ಲ.',
+      viewAllRecords: 'ಎಲ್ಲ ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ →',
+      statsTotalEarnings: 'ಒಟ್ಟು ಎಂಎಸ್‌ಪಿ ಆದಾಯ',
+      statsTotalVolume: 'ಒಟ್ಟು ಮಾರಾಟವಾದ ಪ್ರಮಾಣ',
+      statsActiveTokens: 'ಸಕ್ರಿಯ ಕ್ಯೂ ಟೋಕನ್‌ಗಳು',
+      statsPendingDbt: 'ಬಾಕಿ ಇರುವ ಡಿಬಿಟಿ ವರ್ಗಾವಣೆಗಳು',
+      liveActive: 'ಲೈವ್ ಸಕ್ರಿಯ',
+      servingToken: 'ಪ್ರಸ್ತುತ ಟೋಕನ್',
+      yourToken: 'ನಿಮ್ಮ ಟೋಕನ್',
+      farmersAhead: 'ಮುಂದಿರುವ ರೈತರು',
+      estWait: 'ಅಂದಾಜು ಕಾಯುವ ಸಮಯ',
+      centreIntakeToken: 'ಕೇಂದ್ರ ಪ್ರವೇಶ ಟೋಕನ್',
+      noQueueToken: 'ಕ್ಯೂ ಟೋಕನ್ ಇಲ್ಲ',
+      quickOperations: '1-ಕ್ಲಿಕ್ ತ್ವರಿತ ಸೇವೆಗಳು',
+      tokenQr: 'ಟೋಕನ್ ಕ್ಯೂಆರ್',
+      downloadTokenPass: 'ಟೋಕನ್ ಮತ್ತು ಗೇಟ್ ಪಾಸ್ ಡೌನ್‌ಲೋಡ್',
+      statsTotalBatches: 'ಒಟ್ಟು ಬ್ಯಾಚ್‌ಗಳು',
+      statsAvgWaitTime: 'ಸರಾಸರಿ ಕಾಯುವ ಸಮಯ',
+      statsSuccessfulPayments: 'ಯಶಸ್ವಿ ಪಾವತಿಗಳು',
+      viewAll: 'ಎಲ್ಲವನ್ನೂ ವೀಕ್ಷಿಸಿ',
+      noNotifications: 'ಯಾವುದೇ ಹೊಸ ಅಧಿಸೂಚನೆಗಳಿಲ್ಲ.',
+      verifiedRecords: 'ಪರಿಶೀಲಿಸಿದ ಚಟುವಟಿಕೆ ದಾಖಲೆಗಳು',
+      tableDate: 'ದಿನಾಂಕ',
+      tableCrop: 'ಬೆಳೆ',
+      tableQtyVal: 'ಪ್ರಮಾಣ / ಮೌಲ್ಯ',
+      tableStatus: 'ಸ್ಥಿತಿ',
+      statusCompleted: 'ಪೂರ್ಣಗೊಂಡಿದೆ',
+      lastPaymentReceived: 'ಕೊನೆಯದಾಗಿ ಸ್ವೀಕರಿಸಿದ ಪಾವತಿ',
+      pfmsLinked: 'ಪಿಎಫ್‌ಎಂಎಸ್ ನೇರ ಲಿಂಕ್ ಮಾಡಲಾಗಿದೆ',
+      liveWeatherFeed: 'ಲೈವ್ ಹವಾಮಾನ ಮಾಹಿತಿ',
+      humidity: 'ತೇವಾಂಶ',
+    },
+    common: {
+      backHome: 'ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ',
+      authRequired: 'ರೈತರ ಸೇವೆಗಳಿಗಾಗಿ ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಮಾಡಿ.',
+      loading: 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...',
+      viewDetails: 'ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ',
+      cancel: 'ರದ್ದುಮಾಡಿ',
+      confirm: 'ಖಚಿತಪಡಿಸಿ',
+      close: 'ಮುಚ್ಚಿ',
+    },
+  },
 }
 
 // Malayalam Translations
@@ -1835,6 +2568,110 @@ const mlTranslations: Translations = {
     ...enTranslations.farmerRegister,
     heroTitle1: 'കിസാൻ സേതുവിൽ ചേരുക',
     title: 'കർഷക രജിസ്ട്രേഷൻ',
+  },
+  farmerPortal: {
+    sidebar: {
+      mainMenu: 'പ്രധാന മെനു',
+      dashboard: 'ഡാഷ്‌ബോർഡ്',
+      myAppointments: 'എന്റെ അപ്പോയിന്റ്മെന്റുകൾ',
+      bookNewSlot: 'പുതിയ സ്ലോട്ട് ബുക്ക് ചെയ്യുക',
+      liveQueue: 'തത്സമയ യാർഡ് ക്യൂ',
+      procurementDbt: 'സംഭരണവും ഡിബിടിയും',
+      myProcurement: 'എന്റെ വിള സംഭരണം',
+      dbtPayments: 'ഡിബിടി പേയ്മെന്റുകൾ',
+      history: 'സംഭരണ ചരിത്രം',
+      accountSupport: 'അക്കൗണ്ടും സഹായവും',
+      notifications: 'അറിയിപ്പുകൾ',
+      profile: 'കർഷക പ്രൊഫൈൽ',
+      helpSupport: 'സഹായവും പരാതികളും',
+      logout: 'ലോഗ് ഔട്ട്',
+      smartNoticeTitle: 'തത്സമയ മാർക്കറ്റ് വിവരങ്ങൾ',
+      smartNoticeDesc: 'തൂക്കവും പ്രവേശനവും സജീവമാണ്. യാത്ര തിരിക്കും മുൻപ് ടോക്കൺ നില പരിശോധിക്കുക.',
+      viewQueue: 'ലൈവ് ക്യൂ കാണുക →',
+    },
+    header: {
+      namaste: 'നമസ്കാരം',
+      dashboardTitle: 'കർഷക ഡാഷ്‌ബോർഡ്',
+      dashboardSub: 'ഡിജിറ്റൽ വിള സംഭരണവും ലൈവ് ക്യൂ ട്രാക്കിംഗ് സംവിധാനവും',
+      appointmentsTitle: 'എന്റെ അപ്പോയിന്റ്മെന്റുകളും ഗേറ്റ് പാസുകളും',
+      queueTitle: 'തത്സമയ യാർഡ് ക്യൂ ട്രാക്കർ',
+      procurementTitle: 'എന്റെ വിള സംഭരണവും തൂക്കവും',
+      paymentsTitle: 'ഡിബിടി പേയ്മെന്റുകളും പിഎഫ്എംഎസ് രേഖകളും',
+      historyTitle: 'സംഭരണ ചരിത്ര രേഖകൾ',
+      notificationsTitle: 'അറിയിപ്പുകളും മുന്നറിയിപ്പുകളും',
+      profileTitle: 'കർഷക പ്രൊഫൈലും കെവൈസിയും',
+      helpTitle: 'പരാതി പരിഹാരവും ഹെൽപ്പ് ഡെസ്കും',
+      kycVerified: 'കെവൈസി പരിശോധിച്ചുറപ്പിച്ചു',
+      openProfile: 'കർഷക പ്രൊഫൈൽ തുറക്കുക',
+    },
+    dashboard: {
+      announcementBadge: 'ഔദ്യോഗിക എംഎസ്പി സംഭരണ അറിയിപ്പ്',
+      announcementViewAll: 'എല്ലാ അറിയിപ്പുകളും കാണുക →',
+      heroGreeting: 'സ്വാഗതം,',
+      heroSub: 'നിങ്ങളുടെ അപ്പോയിന്റ്മെന്റുകൾ, ലൈവ് ക്യൂ നില, തൂക്ക വിവരങ്ങൾ, ഡിബിടി തുക എന്നിവ പരിശോധിക്കുക.',
+      quickActions: 'പ്രധാന സേവനങ്ങൾ',
+      bookSlotBtn: 'സംഭരണ സ്ലോട്ട് ബുക്ക് ചെയ്യുക',
+      trackQueueBtn: 'ലൈവ് ടോക്കൺ ക്യൂ',
+      viewDbtBtn: 'ഡിബിടി പേയ്മെന്റുകൾ കാണുക',
+      fileGrievanceBtn: 'പരാതി സമർപ്പിക്കുക',
+      activeAppointmentsTitle: 'സജീവ അപ്പോയിന്റ്മെന്റുകളും ഡിജിറ്റൽ ഗേറ്റ് പാസുകളും',
+      noAppointments: 'വരാനിരിക്കുന്ന അപ്പോയിന്റ്മെന്റുകൾ ലഭ്യമല്ല',
+      bookFirstSlot: 'ഡിജിറ്റಲ್ എൻട്രി പാസ് ലഭിക്കാൻ നിങ്ങളുടെ ആദ്യ സ്ലോട്ട് ബുക്ക് ചെയ്യുക.',
+      tokenNumber: 'ടോക്കൺ നമ്പർ',
+      reportingTime: 'റിപ്പോർട്ടിംഗ് സമയം',
+      centreName: 'സംഭരണ കേന്ദ്രം',
+      crop: 'വിള',
+      quantity: 'അളവ്',
+      status: 'നില',
+      viewPass: 'ഗേറ്റ് പാസ് / ക്യുആർ കാണുക',
+      directions: 'മാർക്കറ്റ് വഴി',
+      todayMspTitle: 'ഇന്നത്തെ ഔദ്യോഗിക സർക്കാർ എംഎസ്പി നിരക്കുകൾ',
+      allProcurementCentres: 'എല്ലാ സംഭരണ കേന്ദ്രങ്ങളും നിരക്കുകളും',
+      weatherTitle: 'കാലാവസ്ഥയും കാർഷിക നിർദ്ദേശങ്ങളും',
+      gpsLive: 'ലൈവ് ജിപിഎസ്',
+      refreshWeather: 'കാലാവസ്ഥ പുതുക്കുക',
+      recentDeliveriesTitle: 'സമീപകാല സംഭരണങ്ങൾ',
+      noDeliveries: 'സംഭരണ വിവരങ്ങൾ ഇതുവരെ ലഭ്യമല്ല.',
+      viewAllRecords: 'എല്ലാ രേഖകളും കാണുക →',
+      statsTotalEarnings: 'ആകെ എംഎസ്പി വരുമാനം',
+      statsTotalVolume: 'ആകെ വിറ്റ വിളയുടെ അളവ്',
+      statsActiveTokens: 'സജീവ ക്യൂ ടോക്കണുകൾ',
+      statsPendingDbt: 'തീർപ്പാക്കാനുള്ള ഡിബിടി തുക',
+      liveActive: 'തത്സമയം സജീവം',
+      servingToken: 'നിലവിലെ ടോക്കൺ',
+      yourToken: 'നിങ്ങളുടെ ടോക്കൺ',
+      farmersAhead: 'മുന്നിലുള്ള കർഷകർ',
+      estWait: 'പ്രതീക്ഷിത കാത്തിരിപ്പ് സമയം',
+      centreIntakeToken: 'കേന്ദ്ര പ്രവേശന ടോക്കൺ',
+      noQueueToken: 'ക്യൂ ടോക്കൺ ലഭ്യമല്ല',
+      quickOperations: '1-ക്ലിക്ക് ദ്രുത സേവനങ്ങൾ',
+      tokenQr: 'ടോക്കൺ ക്യുആർ',
+      downloadTokenPass: 'ടോക്കണും ഗേറ്റ് പാസും ഡൗൺലോഡ് ചെയ്യുക',
+      statsTotalBatches: 'ആകെ ബാച്ചുകൾ',
+      statsAvgWaitTime: 'ശരാശരി കാത്തിരിപ്പ് സമയം',
+      statsSuccessfulPayments: 'വിജയകരമായ പേയ്‌മെന്റുകൾ',
+      viewAll: 'എല്ലാം കാണുക',
+      noNotifications: 'പുതിയ അറിയിപ്പുകൾ ലഭ്യമല്ല.',
+      verifiedRecords: 'പരിശോധിച്ചുറപ്പിച്ച വിവരങ്ങൾ',
+      tableDate: 'തീയതി',
+      tableCrop: 'വിള',
+      tableQtyVal: 'അളവ് / തുക',
+      tableStatus: 'നില',
+      statusCompleted: 'പൂർത്തിയായി',
+      lastPaymentReceived: 'അവസാനം ലഭിച്ച പേയ്‌മെന്റ്',
+      pfmsLinked: 'പിഎഫ്എംഎസ് നേരിട്ട് ബന്ധിപ്പിച്ചു',
+      liveWeatherFeed: 'തത്സമയ കാലാവസ്ഥ വിവരങ്ങൾ',
+      humidity: 'ഈർപ്പം',
+    },
+    common: {
+      backHome: 'ഹോമിലേക്ക് മടങ്ങുക',
+      authRequired: 'കർഷക സേവനങ്ങൾക്കായി ദയവായി ലോഗിൻ ചെയ്യുക.',
+      loading: 'ലോഡ് ചെയ്യുന്നു...',
+      viewDetails: 'വിശദാംശങ്ങൾ കാണുക',
+      cancel: 'റദ്ദാക്കുക',
+      confirm: 'ഉറപ്പാക്കുക',
+      close: 'അടയ്ക്കുക',
+    },
   },
 }
 

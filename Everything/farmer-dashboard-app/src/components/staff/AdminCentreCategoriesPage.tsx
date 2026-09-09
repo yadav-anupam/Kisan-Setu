@@ -13,6 +13,7 @@ import {
 import StaffHeader from './StaffHeader'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './AdminCentreCategoriesPage.css'
 
 interface CentreCategory {
   id: string
@@ -132,42 +133,29 @@ export default function AdminCentreCategoriesPage() {
           pageTitle="Procurement Centre Classification &amp; Categories"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1280px', margin: '0 auto' }}>
+        <main className="admin-tiers-container">
           {/* Top Hero Banner */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
-              borderRadius: '16px',
-              padding: '24px 28px',
-              color: '#ffffff',
-              marginBottom: '24px',
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: '16px',
-            }}
-          >
-            <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.15)', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>
+          <div className="admin-tiers-hero">
+            <div className="admin-tiers-hero-left">
+              <div className="admin-tiers-engine-pill">
                 <Layers size={14} color="#93c5fd" /> Institutional Classification Engine
               </div>
-              <h1 style={{ fontSize: '20px', fontWeight: 800, margin: '0 0 6px 0' }}>
+              <h1 className="admin-tiers-hero-title">
                 Procurement Yard Classification &amp; Fee Mandates
               </h1>
-              <p style={{ fontSize: '13px', color: '#c7d2fe', margin: 0, maxWidth: '640px' }}>
+              <p className="admin-tiers-hero-desc">
                 Define regulatory tiers, daily capacity baselines, APMC cess percentages, and DBT payment SLA protocols across all 268 state-mapped purchase nodes.
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px' }}>
-              <div style={{ background: 'rgba(255,255,255,0.1)', padding: '12px 18px', borderRadius: '10px', textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 800 }}>268</div>
-                <div style={{ fontSize: '11px', color: '#cbd5e1' }}>Total Nodes</div>
+            <div className="admin-tiers-stats-row">
+              <div className="admin-tiers-stat-card">
+                <div className="admin-tiers-stat-num">268</div>
+                <div className="admin-tiers-stat-sub">Total Nodes</div>
               </div>
-              <div style={{ background: 'rgba(255,255,255,0.1)', padding: '12px 18px', borderRadius: '10px', textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 800 }}>5</div>
-                <div style={{ fontSize: '11px', color: '#cbd5e1' }}>Active Tiers</div>
+              <div className="admin-tiers-stat-card">
+                <div className="admin-tiers-stat-num">5</div>
+                <div className="admin-tiers-stat-sub">Active Tiers</div>
               </div>
             </div>
           </div>
@@ -194,95 +182,56 @@ export default function AdminCentreCategoriesPage() {
           )}
 
           {/* Categories Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+          <div className="admin-tiers-grid">
             {categories.map((cat) => (
-              <div
-                key={cat.id}
-                style={{
-                  background: '#ffffff',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  padding: '20px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
+              <div key={cat.id} className="admin-tiers-card">
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div className="admin-tiers-card-header">
                     <span
+                      className="admin-tiers-code-badge"
                       style={{
                         background: `${cat.badgeColor}15`,
                         color: cat.badgeColor,
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        letterSpacing: '0.4px',
                       }}
                     >
                       {cat.code}
                     </span>
                     <button
                       onClick={() => setEditingCategory(cat)}
-                      style={{
-                        background: '#f1f5f9',
-                        border: 'none',
-                        padding: '6px 10px',
-                        borderRadius: '6px',
-                        color: '#475569',
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                      }}
+                      className="admin-tiers-edit-btn"
                     >
                       <Edit2 size={13} /> Edit Tier
                     </button>
                   </div>
 
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '0 0 6px 0' }}>
+                  <h3 className="admin-tiers-card-name">
                     {cat.name}
                   </h3>
-                  <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.4', margin: '0 0 16px 0' }}>
+                  <p className="admin-tiers-card-desc">
                     {cat.description}
                   </p>
 
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1fr',
-                      gap: '10px',
-                      background: '#f8fafc',
-                      padding: '12px',
-                      borderRadius: '8px',
-                      marginBottom: '16px',
-                      fontSize: '12px',
-                    }}
-                  >
-                    <div>
-                      <span style={{ color: '#64748b' }}>Active Centres:</span>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>{cat.totalCount}</div>
+                  <div className="admin-tiers-specs-box">
+                    <div className="admin-tiers-spec-item">
+                      <span className="admin-tiers-spec-label">Active Centres:</span>
+                      <div className="admin-tiers-spec-val">{cat.totalCount}</div>
                     </div>
-                    <div>
-                      <span style={{ color: '#64748b' }}>Daily Intake Cap:</span>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>{cat.avgDailyQuotaMT} MT</div>
+                    <div className="admin-tiers-spec-item">
+                      <span className="admin-tiers-spec-label">Daily Intake Cap:</span>
+                      <div className="admin-tiers-spec-val">{cat.avgDailyQuotaMT} MT</div>
                     </div>
-                    <div>
-                      <span style={{ color: '#64748b' }}>APMC Mandi Cess:</span>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>{cat.mandiCessPercent}%</div>
+                    <div className="admin-tiers-spec-item">
+                      <span className="admin-tiers-spec-label">APMC Mandi Cess:</span>
+                      <div className="admin-tiers-spec-val">{cat.mandiCessPercent}%</div>
                     </div>
-                    <div>
-                      <span style={{ color: '#64748b' }}>DBT Payment SLA:</span>
-                      <div style={{ fontWeight: 800, color: '#059669', fontSize: '14px' }}>&le; {cat.settlementSlaHours} hrs</div>
+                    <div className="admin-tiers-spec-item">
+                      <span className="admin-tiers-spec-label">DBT Payment SLA:</span>
+                      <div className="admin-tiers-spec-val" style={{ color: '#059669' }}>&le; {cat.settlementSlaHours} hrs</div>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#64748b' }}>
+                <div className="admin-tiers-card-footer">
                   <span>Regulatory Authority: State Mandi Board</span>
                   <span style={{ fontWeight: 700, color: '#1e40af' }}>Tier Active</span>
                 </div>
@@ -292,28 +241,8 @@ export default function AdminCentreCategoriesPage() {
 
           {/* Edit Category Modal */}
           {editingCategory && (
-            <div
-              style={{
-                position: 'fixed',
-                inset: 0,
-                background: 'rgba(15, 23, 42, 0.6)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 1000,
-                padding: '20px',
-              }}
-            >
-              <div
-                style={{
-                  background: '#ffffff',
-                  borderRadius: '14px',
-                  width: '100%',
-                  maxWidth: '520px',
-                  padding: '24px',
-                  boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)',
-                }}
-              >
+            <div className="admin-tiers-modal-overlay">
+              <div className="admin-tiers-modal-box">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                   <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
                     Edit Category: {editingCategory.name}
@@ -335,7 +264,7 @@ export default function AdminCentreCategoriesPage() {
                       rows={3}
                       value={editingCategory.description}
                       onChange={(e) => setEditingCategory({ ...editingCategory, description: e.target.value })}
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', boxSizing: 'border-box' }}
                     />
                   </div>
 
@@ -348,7 +277,7 @@ export default function AdminCentreCategoriesPage() {
                         type="number"
                         value={editingCategory.avgDailyQuotaMT}
                         onChange={(e) => setEditingCategory({ ...editingCategory, avgDailyQuotaMT: Number(e.target.value) })}
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', boxSizing: 'border-box' }}
                       />
                     </div>
                     <div>
@@ -360,7 +289,7 @@ export default function AdminCentreCategoriesPage() {
                         step="0.1"
                         value={editingCategory.mandiCessPercent}
                         onChange={(e) => setEditingCategory({ ...editingCategory, mandiCessPercent: Number(e.target.value) })}
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', boxSizing: 'border-box' }}
                       />
                     </div>
                     <div style={{ gridColumn: '1 / -1' }}>
@@ -371,7 +300,7 @@ export default function AdminCentreCategoriesPage() {
                         type="number"
                         value={editingCategory.settlementSlaHours}
                         onChange={(e) => setEditingCategory({ ...editingCategory, settlementSlaHours: Number(e.target.value) })}
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', boxSizing: 'border-box' }}
                       />
                     </div>
                   </div>

@@ -187,29 +187,44 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'dashboard' || activeTab === 'overview' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/dashboard')}
           >
             <LayoutDashboard size={17} />
             <span>Centre Command Desk</span>
+            {(activeTab === 'dashboard' || activeTab === 'overview') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'tokens' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'tokens' || activeTab === 'token-management' || activeTab === 'slots' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/token-management')}
           >
             <QrCode size={17} />
             <span>Token &amp; Slot Quotas</span>
+            {(activeTab === 'tokens' || activeTab === 'token-management' || activeTab === 'slots') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'queue' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'queue' || activeTab === 'live-queue' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/live-queue')}
           >
             <Clock size={17} />
             <span>Live Yard Queue</span>
+            {(activeTab === 'queue' || activeTab === 'live-queue') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           <button
@@ -219,6 +234,11 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
           >
             <IndianRupee size={17} />
             <span>DBT Batch Approvals</span>
+            {(activeTab === 'procurement' || activeTab === 'payments') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           {/* Section: Governance & Personnel */}
@@ -233,46 +253,67 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
           >
             <Users size={17} />
             <span>Registered Farmers</span>
+            {activeTab === 'farmers' && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'staff' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'staff' || activeTab === 'management' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/staff')}
           >
             <ShieldCheck size={17} />
             <span>Centre Staff Roster</span>
-            <span
-              style={{
-                background: '#dcfce7',
-                color: '#166534',
-                fontSize: '9.5px',
-                fontWeight: 800,
-                padding: '2px 6px',
-                borderRadius: '6px',
-                marginLeft: 'auto',
-              }}
-            >
-              ACTIVE
-            </span>
+            {(activeTab === 'staff' || activeTab === 'management') ? (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            ) : (
+              <span
+                style={{
+                  background: '#dcfce7',
+                  color: '#166534',
+                  fontSize: '9.5px',
+                  fontWeight: 800,
+                  padding: '2px 6px',
+                  borderRadius: '6px',
+                  marginLeft: 'auto',
+                }}
+              >
+                ACTIVE
+              </span>
+            )}
           </button>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'reports' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'reports' || activeTab === 'analytics' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/reports')}
           >
             <BarChart3 size={17} />
             <span>Centre Analytics</span>
+            {(activeTab === 'reports' || activeTab === 'analytics') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'audit-logs' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'audit-logs' || activeTab === 'history' || activeTab === 'audit' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/audit-logs')}
           >
             <History size={17} />
             <span>Audit Trail</span>
+            {(activeTab === 'audit-logs' || activeTab === 'history' || activeTab === 'audit') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           {/* Section: Settings & Support */}
@@ -287,15 +328,25 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
           >
             <Settings size={17} />
             <span>Centre Settings</span>
+            {activeTab === 'settings' && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'support' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'support' || activeTab === 'help' || activeTab === 'grievance' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/help-support')}
           >
             <LifeBuoy size={17} />
             <span>Farmer Help &amp; Grievances</span>
+            {(activeTab === 'support' || activeTab === 'help' || activeTab === 'grievance') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
           </button>
         </nav>
 

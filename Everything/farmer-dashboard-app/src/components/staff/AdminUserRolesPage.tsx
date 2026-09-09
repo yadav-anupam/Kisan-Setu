@@ -5,6 +5,7 @@ import {
   RotateCcw,
   Check,
   X,
+  ShieldCheck,
 } from 'lucide-react'
 import { navigate } from '../../router'
 import {
@@ -15,6 +16,7 @@ import {
 import StaffHeader from './StaffHeader'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './AdminUserRolesPage.css'
 
 interface PermissionItem {
   id: string
@@ -155,62 +157,33 @@ export default function AdminUserRolesPage() {
           pageTitle="User Roles &amp; Security Permissions Matrix"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1280px', margin: '0 auto' }}>
+        <main className="admin-rbac-container">
           {/* Header Controls */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: '16px',
-              marginBottom: '20px',
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: '0 0 4px 0' }}>
+          <div className="admin-rbac-header-row">
+            <div className="admin-rbac-header-info">
+              <div className="admin-rbac-title-badge">
+                <ShieldCheck size={14} /> Security Governance Matrix
+              </div>
+              <h1 className="admin-rbac-title">
                 Role-Based Access Control (RBAC)
               </h1>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
+              <p className="admin-rbac-desc">
                 Configure fine-grained operational authorities across Platform Admins, Centre Superintendents, Field Operators, and Vigilance Auditors.
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="admin-rbac-actions">
               <button
+                type="button"
                 onClick={handleResetDefaults}
-                style={{
-                  padding: '9px 14px',
-                  borderRadius: '8px',
-                  background: '#ffffff',
-                  border: '1px solid #cbd5e1',
-                  color: '#475569',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  cursor: 'pointer',
-                }}
+                className="admin-rbac-btn-reset"
               >
                 <RotateCcw size={15} /> Reset Defaults
               </button>
               <button
+                type="button"
                 onClick={handleSaveMatrix}
-                style={{
-                  padding: '9px 18px',
-                  borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #1e1b4b 0%, #1e3a8a 100%)',
-                  border: 'none',
-                  color: '#ffffff',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(30,58,138,0.25)',
-                }}
+                className="admin-rbac-btn-save"
               >
                 <Save size={15} /> Save &amp; Enforce Permissions
               </button>
@@ -218,36 +191,14 @@ export default function AdminUserRolesPage() {
           </div>
 
           {toastMessage && (
-            <div
-              style={{
-                background: '#ecfdf5',
-                border: '1px solid #6ee7b7',
-                padding: '14px 18px',
-                borderRadius: '8px',
-                color: '#065f46',
-                fontWeight: 600,
-                fontSize: '13px',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}
-            >
+            <div className="admin-rbac-toast">
               <CheckCircle2 size={18} color="#059669" />
               <span>{toastMessage}</span>
             </div>
           )}
 
           {/* Role Filter Tabs */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '8px',
-              marginBottom: '20px',
-              borderBottom: '1px solid #e2e8f0',
-              paddingBottom: '12px',
-            }}
-          >
+          <div className="admin-rbac-tabs-bar">
             {[
               { key: 'ALL', label: 'All Roles (Matrix View)' },
               { key: 'ADMIN', label: 'Platform & State Admins' },
@@ -257,17 +208,9 @@ export default function AdminUserRolesPage() {
             ].map((tab) => (
               <button
                 key={tab.key}
+                type="button"
                 onClick={() => setSelectedRole(tab.key as any)}
-                style={{
-                  padding: '7px 14px',
-                  borderRadius: '6px',
-                  fontSize: '13px',
-                  fontWeight: selectedRole === tab.key ? 700 : 500,
-                  border: 'none',
-                  background: selectedRole === tab.key ? '#1e3a8a' : '#f1f5f9',
-                  color: selectedRole === tab.key ? '#ffffff' : '#475569',
-                  cursor: 'pointer',
-                }}
+                className={`admin-rbac-tab-btn ${selectedRole === tab.key ? 'active' : ''}`}
               >
                 {tab.label}
               </button>
@@ -275,151 +218,105 @@ export default function AdminUserRolesPage() {
           </div>
 
           {/* RBAC Table Matrix */}
-          <div
-            style={{
-              background: '#ffffff',
-              borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-              overflow: 'hidden',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-            }}
-          >
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+          <div className="admin-rbac-card">
+            <div className="admin-rbac-table-wrap">
+              <table className="admin-rbac-table">
                 <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700 }}>
-                    <th style={{ padding: '14px 18px', width: '40%' }}>Security Capability / Action</th>
-                    <th style={{ padding: '14px 18px', width: '15%' }}>Category</th>
+                  <tr>
+                    <th style={{ width: '40%' }}>Security Capability / Action</th>
+                    <th style={{ width: '15%' }}>Category</th>
                     {(selectedRole === 'ALL' || selectedRole === 'ADMIN') && (
-                      <th style={{ padding: '14px 18px', textAlign: 'center' }}>Platform Admin</th>
+                      <th className="center">Platform Admin</th>
                     )}
                     {(selectedRole === 'ALL' || selectedRole === 'CENTRE_ADMIN') && (
-                      <th style={{ padding: '14px 18px', textAlign: 'center' }}>Centre Admin</th>
+                      <th className="center">Centre Admin</th>
                     )}
                     {(selectedRole === 'ALL' || selectedRole === 'STAFF') && (
-                      <th style={{ padding: '14px 18px', textAlign: 'center' }}>Field Staff</th>
+                      <th className="center">Field Staff</th>
                     )}
                     {(selectedRole === 'ALL' || selectedRole === 'AUDITOR') && (
-                      <th style={{ padding: '14px 18px', textAlign: 'center' }}>Auditor</th>
+                      <th className="center">Auditor</th>
                     )}
                   </tr>
                 </thead>
                 <tbody>
-                  {permissions.map((p) => (
-                    <tr key={p.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ padding: '14px 18px' }}>
-                        <div style={{ fontWeight: 700, color: '#0f172a' }}>{p.name}</div>
-                        <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>{p.description}</div>
-                      </td>
+                  {permissions.map((p) => {
+                    const catClass =
+                      p.category === 'Operations'
+                        ? 'operations'
+                        : p.category === 'Finance & DBT'
+                        ? 'finance'
+                        : p.category === 'Master Config'
+                        ? 'master'
+                        : 'security'
 
-                      <td style={{ padding: '14px 18px' }}>
-                        <span
-                          style={{
-                            background: '#f1f5f9',
-                            color: '#475569',
-                            padding: '3px 8px',
-                            borderRadius: '6px',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                          }}
-                        >
-                          {p.category}
-                        </span>
-                      </td>
-
-                      {(selectedRole === 'ALL' || selectedRole === 'ADMIN') && (
-                        <td style={{ padding: '14px 18px', textAlign: 'center' }}>
-                          <button
-                            type="button"
-                            onClick={() => toggleRolePermission(p.id, 'ADMIN')}
-                            style={{
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '8px',
-                              border: 'none',
-                              background: p.roles.ADMIN ? '#dbeafe' : '#f1f5f9',
-                              color: p.roles.ADMIN ? '#1d4ed8' : '#94a3b8',
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {p.roles.ADMIN ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
-                          </button>
+                    return (
+                      <tr key={p.id}>
+                        <td>
+                          <div className="admin-rbac-perm-title">{p.name}</div>
+                          <div className="admin-rbac-perm-desc">{p.description}</div>
                         </td>
-                      )}
 
-                      {(selectedRole === 'ALL' || selectedRole === 'CENTRE_ADMIN') && (
-                        <td style={{ padding: '14px 18px', textAlign: 'center' }}>
-                          <button
-                            type="button"
-                            onClick={() => toggleRolePermission(p.id, 'CENTRE_ADMIN')}
-                            style={{
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '8px',
-                              border: 'none',
-                              background: p.roles.CENTRE_ADMIN ? '#dcfce7' : '#f1f5f9',
-                              color: p.roles.CENTRE_ADMIN ? '#15803d' : '#94a3b8',
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {p.roles.CENTRE_ADMIN ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
-                          </button>
+                        <td>
+                          <span className={`admin-rbac-category-pill ${catClass}`}>
+                            {p.category}
+                          </span>
                         </td>
-                      )}
 
-                      {(selectedRole === 'ALL' || selectedRole === 'STAFF') && (
-                        <td style={{ padding: '14px 18px', textAlign: 'center' }}>
-                          <button
-                            type="button"
-                            onClick={() => toggleRolePermission(p.id, 'STAFF')}
-                            style={{
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '8px',
-                              border: 'none',
-                              background: p.roles.STAFF ? '#fef3c7' : '#f1f5f9',
-                              color: p.roles.STAFF ? '#b45309' : '#94a3b8',
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {p.roles.STAFF ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
-                          </button>
-                        </td>
-                      )}
+                        {(selectedRole === 'ALL' || selectedRole === 'ADMIN') && (
+                          <td className="center">
+                            <button
+                              type="button"
+                              onClick={() => toggleRolePermission(p.id, 'ADMIN')}
+                              className={`admin-rbac-toggle-btn ${p.roles.ADMIN ? 'admin-on' : 'off'}`}
+                              title={p.roles.ADMIN ? 'Platform Admin: Enabled' : 'Platform Admin: Disabled'}
+                            >
+                              {p.roles.ADMIN ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
+                            </button>
+                          </td>
+                        )}
 
-                      {(selectedRole === 'ALL' || selectedRole === 'AUDITOR') && (
-                        <td style={{ padding: '14px 18px', textAlign: 'center' }}>
-                          <button
-                            type="button"
-                            onClick={() => toggleRolePermission(p.id, 'AUDITOR')}
-                            style={{
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '8px',
-                              border: 'none',
-                              background: p.roles.AUDITOR ? '#f3e8ff' : '#f1f5f9',
-                              color: p.roles.AUDITOR ? '#7e22ce' : '#94a3b8',
-                              cursor: 'pointer',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {p.roles.AUDITOR ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
-                          </button>
-                        </td>
-                      )}
-                    </tr>
-                  ))}
+                        {(selectedRole === 'ALL' || selectedRole === 'CENTRE_ADMIN') && (
+                          <td className="center">
+                            <button
+                              type="button"
+                              onClick={() => toggleRolePermission(p.id, 'CENTRE_ADMIN')}
+                              className={`admin-rbac-toggle-btn ${p.roles.CENTRE_ADMIN ? 'centre-on' : 'off'}`}
+                              title={p.roles.CENTRE_ADMIN ? 'Centre Admin: Enabled' : 'Centre Admin: Disabled'}
+                            >
+                              {p.roles.CENTRE_ADMIN ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
+                            </button>
+                          </td>
+                        )}
+
+                        {(selectedRole === 'ALL' || selectedRole === 'STAFF') && (
+                          <td className="center">
+                            <button
+                              type="button"
+                              onClick={() => toggleRolePermission(p.id, 'STAFF')}
+                              className={`admin-rbac-toggle-btn ${p.roles.STAFF ? 'staff-on' : 'off'}`}
+                              title={p.roles.STAFF ? 'Field Staff: Enabled' : 'Field Staff: Disabled'}
+                            >
+                              {p.roles.STAFF ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
+                            </button>
+                          </td>
+                        )}
+
+                        {(selectedRole === 'ALL' || selectedRole === 'AUDITOR') && (
+                          <td className="center">
+                            <button
+                              type="button"
+                              onClick={() => toggleRolePermission(p.id, 'AUDITOR')}
+                              className={`admin-rbac-toggle-btn ${p.roles.AUDITOR ? 'auditor-on' : 'off'}`}
+                              title={p.roles.AUDITOR ? 'Auditor: Enabled' : 'Auditor: Disabled'}
+                            >
+                              {p.roles.AUDITOR ? <Check size={16} strokeWidth={3} /> : <X size={16} />}
+                            </button>
+                          </td>
+                        )}
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>

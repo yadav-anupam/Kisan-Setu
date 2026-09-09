@@ -26,6 +26,7 @@ import {
 import StaffHeader from './StaffHeader'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './AdminDashboardPage.css'
 
 export default function AdminDashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -139,75 +140,35 @@ export default function AdminDashboardPage() {
           pageTitle="Administrative Master Intelligence &amp; District Overview"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1440px', margin: '0 auto' }}>
+        <main className="admin-dashboard-container">
           {/* Top Welcome Action Bar */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '24px',
-              flexWrap: 'wrap',
-              gap: '16px',
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <span
-                  style={{
-                    background: '#dbeafe',
-                    color: '#1e40af',
-                    fontSize: '11px',
-                    fontWeight: 800,
-                    padding: '3px 8px',
-                    borderRadius: '6px',
-                    letterSpacing: '0.5px',
-                  }}
-                >
+          <div className="admin-dash-header">
+            <div className="admin-dash-header-left">
+              <div className="admin-dash-meta-tags">
+                <span className="admin-tag-gov">
                   STATE / DISTRICT GOVERNANCE
                 </span>
-                <span
-                  style={{
-                    background: '#dcfce7',
-                    color: '#166534',
-                    fontSize: '11px',
-                    fontWeight: 800,
-                    padding: '3px 8px',
-                    borderRadius: '6px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                  }}
-                >
+                <span className="admin-tag-backend">
                   <Activity size={12} />
                   {metrics?.backendType || 'Statewide APMC Central Grid'}
                 </span>
-                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                <span className="admin-tag-user">
                   Logged in: <strong>{staff.full_name} ({staff.role})</strong>
                 </span>
               </div>
-              <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+              <h1 className="admin-dash-title">
                 Kisan Setu Administrative Command Center
               </h1>
-              <p style={{ fontSize: '13.5px', color: '#64748b', margin: '3px 0 0' }}>
+              <p className="admin-dash-subtitle">
                 Macro-level telemetry, procurement throughput, financial DBT tracking, and yard queue health across Eastern Uttar Pradesh.
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <div className="admin-dash-controls">
               <select
                 value={districtFilter}
                 onChange={(e) => setDistrictFilter(e.target.value)}
-                style={{
-                  height: '40px',
-                  padding: '0 12px',
-                  borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
-                  fontSize: '13px',
-                  background: '#ffffff',
-                  fontWeight: 600,
-                  color: '#334155',
-                }}
+                className="admin-dash-select"
               >
                 <option value="ALL">All Districts ({centresCount} Mandis)</option>
                 <option value="Varanasi">Varanasi</option>
@@ -219,16 +180,7 @@ export default function AdminDashboardPage() {
               <select
                 value={timeRange}
                 onChange={(e) => setTimeRange(e.target.value as 'Today' | 'Week' | 'Season')}
-                style={{
-                  height: '40px',
-                  padding: '0 12px',
-                  borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
-                  fontSize: '13px',
-                  background: '#ffffff',
-                  fontWeight: 600,
-                  color: '#334155',
-                }}
+                className="admin-dash-select"
               >
                 <option value="Today">Today's Intake</option>
                 <option value="Week">This Week</option>
@@ -239,21 +191,7 @@ export default function AdminDashboardPage() {
                 type="button"
                 onClick={loadData}
                 disabled={isLoading}
-                style={{
-                  height: '40px',
-                  padding: '0 14px',
-                  borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
-                  background: '#ffffff',
-                  color: '#334155',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  cursor: 'pointer',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                }}
+                className="admin-dash-btn-refresh"
               >
                 <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />
                 Refresh
@@ -262,217 +200,126 @@ export default function AdminDashboardPage() {
               <button
                 type="button"
                 onClick={handleExportReport}
-                style={{
-                  height: '40px',
-                  padding: '0 16px',
-                  borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
-                  background: '#0d631b',
-                  color: '#ffffff',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  cursor: 'pointer',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                }}
+                className="admin-dash-btn-export"
               >
                 <Download size={15} /> Export CSV
               </button>
             </div>
           </div>
-
           {/* Top 6 Macro KPI Metric Cards */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '16px',
-              marginBottom: '28px',
-            }}
-          >
+          <div className="admin-dash-kpi-grid">
             {/* Card 1: Active Centres */}
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#64748b' }}>
-                    Active Procurement Centres
-                  </span>
-                  <div style={{ fontSize: '26px', fontWeight: 800, color: '#0f172a', marginTop: '4px' }}>
-                    {centresCount}
-                  </div>
-                  <span style={{ fontSize: '11.5px', color: '#166534', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '3px', marginTop: '2px' }}>
-                    <ArrowUpRight size={13} /> {districtFilter === 'ALL' ? 'Statewide Network' : `${districtFilter} District`}
-                  </span>
+            <div className="admin-dash-kpi-card">
+              <div className="admin-dash-kpi-info">
+                <span className="admin-dash-kpi-label">
+                  Active Procurement Centres
+                </span>
+                <div className="admin-dash-kpi-value">
+                  {centresCount}
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#dcfce7', display: 'grid', placeItems: 'center', color: '#166534' }}>
-                  <Building2 size={20} />
-                </div>
+                <span className="admin-dash-kpi-sub" style={{ color: '#166534' }}>
+                  <ArrowUpRight size={13} /> {districtFilter === 'ALL' ? 'Statewide Network' : `${districtFilter} District`}
+                </span>
+              </div>
+              <div className="admin-dash-kpi-icon" style={{ background: '#dcfce7', color: '#166534' }}>
+                <Building2 size={20} />
               </div>
             </div>
 
             {/* Card 2: Registered Producers */}
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#64748b' }}>
-                    Registered Farmers
-                  </span>
-                  <div style={{ fontSize: '26px', fontWeight: 800, color: '#0f172a', marginTop: '4px' }}>
-                    {farmersCount}
-                  </div>
-                  <span style={{ fontSize: '11.5px', color: '#166534', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '3px', marginTop: '2px' }}>
-                    <ArrowUpRight size={13} /> Active KYC Verified
-                  </span>
+            <div className="admin-dash-kpi-card">
+              <div className="admin-dash-kpi-info">
+                <span className="admin-dash-kpi-label">
+                  Registered Farmers
+                </span>
+                <div className="admin-dash-kpi-value">
+                  {farmersCount}
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e0f2fe', display: 'grid', placeItems: 'center', color: '#0369a1' }}>
-                  <Users size={20} />
-                </div>
+                <span className="admin-dash-kpi-sub" style={{ color: '#166534' }}>
+                  <ArrowUpRight size={13} /> Active KYC Verified
+                </span>
+              </div>
+              <div className="admin-dash-kpi-icon" style={{ background: '#e0f2fe', color: '#0369a1' }}>
+                <Users size={20} />
               </div>
             </div>
 
             {/* Card 3: Staff & Officers */}
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#64748b' }}>
-                    Appointed Officers
-                  </span>
-                  <div style={{ fontSize: '26px', fontWeight: 800, color: '#0f172a', marginTop: '4px' }}>
-                    {staffCount}
-                  </div>
-                  <span style={{ fontSize: '11.5px', color: '#475569', fontWeight: 600, display: 'block', marginTop: '2px' }}>
-                    Across 4 Operational Sections
-                  </span>
+            <div className="admin-dash-kpi-card">
+              <div className="admin-dash-kpi-info">
+                <span className="admin-dash-kpi-label">
+                  Appointed Officers
+                </span>
+                <div className="admin-dash-kpi-value">
+                  {staffCount}
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#f3e8ff', display: 'grid', placeItems: 'center', color: '#7e22ce' }}>
-                  <ShieldCheck size={20} />
-                </div>
+                <span className="admin-dash-kpi-sub" style={{ color: '#475569' }}>
+                  Across 4 Operational Sections
+                </span>
+              </div>
+              <div className="admin-dash-kpi-icon" style={{ background: '#f3e8ff', color: '#7e22ce' }}>
+                <ShieldCheck size={20} />
               </div>
             </div>
 
             {/* Card 4: Total Tonnage */}
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#64748b' }}>
-                    Grain Procured (Qtl)
-                  </span>
-                  <div style={{ fontSize: '24px', fontWeight: 800, color: '#0d631b', marginTop: '4px' }}>
-                    {totalTonnageQtl.toLocaleString('en-IN', { maximumFractionDigits: 1 })} Qtl
-                  </div>
-                  <span style={{ fontSize: '11.5px', color: '#166534', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '3px', marginTop: '2px' }}>
-                    <ArrowUpRight size={13} /> FAQ Certified
-                  </span>
+            <div className="admin-dash-kpi-card">
+              <div className="admin-dash-kpi-info">
+                <span className="admin-dash-kpi-label">
+                  Grain Procured (Qtl)
+                </span>
+                <div className="admin-dash-kpi-value" style={{ color: '#0d631b' }}>
+                  {totalTonnageQtl.toLocaleString('en-IN', { maximumFractionDigits: 1 })} Qtl
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#ffedd5', display: 'grid', placeItems: 'center', color: '#c2410c' }}>
-                  <Scale size={20} />
-                </div>
+                <span className="admin-dash-kpi-sub" style={{ color: '#166534' }}>
+                  <ArrowUpRight size={13} /> FAQ Certified
+                </span>
+              </div>
+              <div className="admin-dash-kpi-icon" style={{ background: '#ffedd5', color: '#c2410c' }}>
+                <Scale size={20} />
               </div>
             </div>
 
             {/* Card 5: Total DBT Disbursed */}
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#64748b' }}>
-                    Total DBT Disbursed
-                  </span>
-                  <div style={{ fontSize: '22px', fontWeight: 800, color: '#0d631b', marginTop: '4px' }}>
-                    ₹ {(totalDisbursedAmount / 100000).toFixed(2)} Lakh
-                  </div>
-                  <span style={{ fontSize: '11.5px', color: '#166534', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '3px', marginTop: '2px' }}>
-                    Direct to Bank (PFMS)
-                  </span>
+            <div className="admin-dash-kpi-card">
+              <div className="admin-dash-kpi-info">
+                <span className="admin-dash-kpi-label">
+                  Total DBT Disbursed
+                </span>
+                <div className="admin-dash-kpi-value" style={{ color: '#0d631b', fontSize: '22px' }}>
+                  ₹ {(totalDisbursedAmount / 100000).toFixed(2)} Lakh
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#dcfce7', display: 'grid', placeItems: 'center', color: '#166534' }}>
-                  <IndianRupee size={20} />
-                </div>
+                <span className="admin-dash-kpi-sub" style={{ color: '#166534' }}>
+                  Direct to Bank (PFMS)
+                </span>
+              </div>
+              <div className="admin-dash-kpi-icon" style={{ background: '#dcfce7', color: '#166534' }}>
+                <IndianRupee size={20} />
               </div>
             </div>
 
             {/* Card 6: Average Gate Turnaround */}
-            <div
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#64748b' }}>
-                    Avg Turnaround Time
-                  </span>
-                  <div style={{ fontSize: '26px', fontWeight: 800, color: '#0f172a', marginTop: '4px' }}>
-                    {avgTurnaroundMins} min
-                  </div>
-                  <span style={{ fontSize: '11.5px', color: '#166534', fontWeight: 700, display: 'block', marginTop: '2px' }}>
-                    -65% vs unmanaged yards
-                  </span>
+            <div className="admin-dash-kpi-card">
+              <div className="admin-dash-kpi-info">
+                <span className="admin-dash-kpi-label">
+                  Avg Turnaround Time
+                </span>
+                <div className="admin-dash-kpi-value">
+                  {avgTurnaroundMins} min
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#f1f5f9', display: 'grid', placeItems: 'center', color: '#334155' }}>
-                  <Clock size={20} />
-                </div>
+                <span className="admin-dash-kpi-sub" style={{ color: '#166534' }}>
+                  -65% vs unmanaged yards
+                </span>
+              </div>
+              <div className="admin-dash-kpi-icon" style={{ background: '#f1f5f9', color: '#334155' }}>
+                <Clock size={20} />
               </div>
             </div>
           </div>
 
           {/* Complete Procurement Progress Pipeline Ribbon */}
-          <div
-            style={{
-              background: '#ffffff',
-              border: '1px solid #e2e8f0',
-              borderRadius: '16px',
-              padding: '24px',
-              marginBottom: '28px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div className="admin-dash-card-box" style={{ marginBottom: '28px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Activity size={18} color="#0d631b" />
                 Statewide Real-Time Procurement Intake Pipeline
@@ -482,7 +329,7 @@ export default function AdminDashboardPage() {
               </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', position: 'relative' }}>
+            <div className="admin-dash-pipeline-grid">
               <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '16px', textAlign: 'center' }}>
                 <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>1. Gate Check-In</span>
                 <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', margin: '4px 0' }}>
@@ -526,7 +373,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Grid Layout: Multi-District Telemetry + Commodity Breakdown */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', marginBottom: '28px' }}>
+          <div className="admin-dash-telemetry-grid">
             {/* Left: District Breakdown Table */}
             <div
               style={{
@@ -545,8 +392,9 @@ export default function AdminDashboardPage() {
                 <span style={{ fontSize: '12px', color: '#64748b' }}>Live Database Telemetry</span>
               </div>
 
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+              {/* Desktop & Tablet Table */}
+              <div className="admin-dash-table-wrap">
+                <table className="admin-dash-district-table">
                   <thead>
                     <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#64748b', fontWeight: 700, fontSize: '11.5px', textTransform: 'uppercase' }}>
                       <th style={{ padding: '10px 14px' }}>District</th>
@@ -599,6 +447,60 @@ export default function AdminDashboardPage() {
                     )}
                   </tbody>
                 </table>
+              </div>
+
+              {/* Mobile District Cards (shown below 600px) */}
+              <div className="admin-dash-district-cards-mobile">
+                {districtBreakdown.length === 0 ? (
+                  <div style={{ padding: '16px', textAlign: 'center', color: '#64748b', fontSize: '13px' }}>
+                    No district records available.
+                  </div>
+                ) : (
+                  districtBreakdown.map((row) => (
+                    <div key={row.district} className="admin-dash-district-card">
+                      <div className="admin-dash-district-card-header">
+                        <span className="admin-dash-district-card-name">{row.district}</span>
+                        <span
+                          style={{
+                            background:
+                              row.congestion === 'Optimal (Low)'
+                                ? '#dcfce7'
+                                : row.congestion === 'Medium Load'
+                                ? '#fef3c7'
+                                : '#fee2e2',
+                            color:
+                              row.congestion === 'Optimal (Low)'
+                                ? '#166534'
+                                : row.congestion === 'Medium Load'
+                                ? '#92400e'
+                                : '#991b1b',
+                            padding: '2px 8px',
+                            borderRadius: '10px',
+                            fontSize: '10.5px',
+                            fontWeight: 800,
+                          }}
+                        >
+                          ● {row.congestion}
+                        </span>
+                      </div>
+
+                      <div className="admin-dash-district-card-grid">
+                        <div className="admin-dash-district-stat-item">
+                          <span className="admin-dash-district-stat-label">Centres</span>
+                          <span className="admin-dash-district-stat-val">{row.centreCount}</span>
+                        </div>
+                        <div className="admin-dash-district-stat-item">
+                          <span className="admin-dash-district-stat-label">Intake</span>
+                          <span className="admin-dash-district-stat-val" style={{ color: '#0d631b' }}>{row.intakeQtl} Qtl</span>
+                        </div>
+                        <div className="admin-dash-district-stat-item">
+                          <span className="admin-dash-district-stat-label">Avg Wait</span>
+                          <span className="admin-dash-district-stat-val">{row.avgWaitMins}m</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
 
@@ -668,21 +570,13 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Quick Administrative Actions Grid */}
-          <div
-            style={{
-              background: '#ffffff',
-              border: '1px solid #e2e8f0',
-              borderRadius: '16px',
-              padding: '24px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-            }}
-          >
+          <div className="admin-dash-card-box">
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <ShieldCheck size={18} color="#0d631b" />
               Administrative Governance Shortcuts
             </h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+            <div className="admin-dash-shortcuts-grid">
               <button
                 type="button"
                 onClick={() => navigate('/admin/management')}

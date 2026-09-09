@@ -1,0 +1,448 @@
+/* Kisan Setu Admin Dashboard Styles - Fully Responsive Mobile & Desktop */
+
+.admin-dashboard-container {
+  padding: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Welcome & Action Header */
+.admin-dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-dash-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1 1 300px;
+}
+
+.admin-dash-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.admin-tag-gov {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.admin-tag-backend {
+  background: #dcfce7;
+  color: #166534;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.admin-tag-user {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.admin-dash-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.admin-dash-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 3px 0 0;
+  line-height: 1.4;
+}
+
+/* Control Bar */
+.admin-dash-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-dash-select {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 13px;
+  background: #ffffff;
+  font-weight: 600;
+  color: #334155;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.admin-dash-select:focus {
+  border-color: #16a34a;
+}
+
+.admin-dash-btn-refresh {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.admin-dash-btn-refresh:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.admin-dash-btn-export {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid #0d631b;
+  background: #0d631b;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.admin-dash-btn-export:hover {
+  background: #075a27;
+}
+
+/* KPI Cards Grid */
+.admin-dash-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-dash-kpi-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-dash-kpi-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-dash-kpi-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-dash-kpi-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.3px;
+}
+
+.admin-dash-kpi-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 4px;
+  line-height: 1.1;
+}
+
+.admin-dash-kpi-sub {
+  font-size: 11.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.admin-dash-kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+/* Pipeline Ribbon Responsive */
+.admin-dash-card-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+}
+
+.admin-dash-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  position: relative;
+}
+
+/* Two-column layout for District & Commodity */
+.admin-dash-telemetry-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+/* District Mandi Throughput Table */
+.admin-dash-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.admin-dash-district-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+/* Mobile District Cards List (shown below 600px) */
+.admin-dash-district-cards-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-dash-district-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-dash-district-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-dash-district-card-name {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.admin-dash-district-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #edf2f7;
+}
+
+.admin-dash-district-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-dash-district-stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.admin-dash-district-stat-val {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* Shortcuts Grid Responsive */
+.admin-dash-shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Tablet & Mobile Breakpoints */
+@media (max-width: 1024px) {
+  .admin-dash-telemetry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard-container {
+    padding: 16px;
+  }
+
+  .admin-dash-header {
+    margin-bottom: 18px;
+    gap: 14px;
+  }
+
+  .admin-dash-title {
+    font-size: 20px;
+  }
+
+  .admin-dash-subtitle {
+    font-size: 12.5px;
+  }
+
+  .admin-dash-controls {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .admin-dash-select {
+    width: 100%;
+    font-size: 12.5px;
+  }
+
+  .admin-dash-btn-refresh,
+  .admin-dash-btn-export {
+    width: 100%;
+    font-size: 12.5px;
+  }
+
+  .admin-dash-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .admin-dash-kpi-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .admin-dash-kpi-value {
+    font-size: 20px;
+  }
+
+  .admin-dash-kpi-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .admin-dash-pipeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .admin-dash-card-box {
+    padding: 16px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Switch district table to responsive mobile cards below 600px */
+  .admin-dash-table-wrap {
+    display: none;
+  }
+
+  .admin-dash-district-cards-mobile {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard-container {
+    padding: 12px;
+  }
+
+  .admin-dash-meta-tags {
+    gap: 6px;
+  }
+
+  .admin-tag-user {
+    display: block;
+    width: 100%;
+    margin-top: 2px;
+  }
+
+  .admin-dash-title {
+    font-size: 18px;
+  }
+
+  .admin-dash-controls {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .admin-dash-kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .admin-dash-pipeline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dash-shortcuts-grid {
+    grid-template-columns: 1fr;
+  }
+}

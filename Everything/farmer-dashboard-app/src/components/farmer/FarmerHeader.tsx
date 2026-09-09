@@ -30,7 +30,8 @@ export default function FarmerHeader({
   const [farmer, setFarmer] = useState<FarmerProfile>(getFarmerProfile)
   const [langMenuOpen, setLangMenuOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const { currentLang, setLanguage, languages } = useLanguage()
+  const { currentLang, setLanguage, languages, t } = useLanguage()
+  const fh = t.farmerPortal?.header
 
   useEffect(() => {
     const handleProfileUpdate = () => {
@@ -57,6 +58,20 @@ export default function FarmerHeader({
   const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
   const displayName = farmer.name || 'Farmer'
 
+  const getTranslatedTitle = (title?: string) => {
+    if (!title) return fh?.dashboardTitle || 'Farmer Dashboard'
+    const lower = title.toLowerCase()
+    if (lower.includes('appointment')) return fh?.appointmentsTitle || title
+    if (lower.includes('queue')) return fh?.queueTitle || title
+    if (lower.includes('procurement') && !lower.includes('history')) return fh?.procurementTitle || title
+    if (lower.includes('payment') || lower.includes('dbt')) return fh?.paymentsTitle || title
+    if (lower.includes('history')) return fh?.historyTitle || title
+    if (lower.includes('notification')) return fh?.notificationsTitle || title
+    if (lower.includes('profile')) return fh?.profileTitle || title
+    if (lower.includes('help') || lower.includes('grievance')) return fh?.helpTitle || title
+    return title
+  }
+
   return (
     <header className="farmer-topbar">
       <div className="farmer-topbar-left">
@@ -74,11 +89,11 @@ export default function FarmerHeader({
 
           {showNamaste ? (
             <h1 className="farmer-topbar-title">
-              <span className="farmer-namaste-text">Namaste,</span>{' '}
+              <span className="farmer-namaste-text">{fh?.namaste || 'Namaste'},</span>{' '}
               <span className="farmer-name-text">{farmer.name || 'Farmer'}</span>
             </h1>
           ) : (
-            <h1 className="farmer-topbar-title">{pageTitle || 'Farmer Dashboard'}</h1>
+            <h1 className="farmer-topbar-title">{getTranslatedTitle(pageTitle)}</h1>
           )}
         </div>
 

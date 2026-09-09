@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Kisan Setu — Help & Support Page — Mobile Responsive Styles
    ============================================================ */
 .help-main {
@@ -151,22 +151,37 @@
 .help-faq-a { font-size: 12.5px; color: #475569; margin: 0; line-height: 1.55; }
 
 /* ---- Responsive ---- */
+
 @media (max-width: 900px) {
-  .help-grid             { grid-template-columns: 1fr; }
-  .help-faq-grid         { grid-template-columns: 1fr; }
-  .help-faq-search-wrap  { width: 100%; }
-  .help-faq-header       { flex-direction: column; align-items: flex-start; }
+  .help-grid             { grid-template-columns: 1fr !important; }
+  .help-faq-grid         { grid-template-columns: 1fr !important; }
+  .help-faq-search-wrap  { width: 100% !important; max-width: 100% !important; }
+  .help-faq-header       { flex-direction: column !important; align-items: flex-start !important; }
+  .help-form-row         { grid-template-columns: 1fr !important; }
 }
+
 @media (max-width: 600px) {
-  .help-main             { padding: 12px 12px 28px; }
-  .help-hero h1          { font-size: 17px; }
-  .help-helpline-grid    { grid-template-columns: 1fr; gap: 10px; }
+  .help-main             { padding: 10px 10px 24px !important; }
+  .help-hero h1          { font-size: 16px !important; }
+  .help-helpline-grid    { grid-template-columns: 1fr !important; gap: 10px !important; }
   .help-helpline-card-primary,
-  .help-helpline-card    { padding: 14px 16px; border-radius: 12px; }
-  .help-helpline-number  { font-size: 18px; }
-  .help-card             { padding: 16px; border-radius: 14px; }
-  .help-card-title       { font-size: 14px; }
-  .help-form-row         { grid-template-columns: 1fr; }
-  .help-faq-item         { padding: 14px; }
-  .help-ticket-list      { max-height: 300px; }
+  .help-helpline-card    { padding: 14px 16px !important; border-radius: 12px !important; }
+  .help-helpline-number  { font-size: 18px !important; }
+  .help-card             { padding: 14px !important; border-radius: 14px !important; }
+  .help-card-title       { font-size: 14px !important; }
+  .help-form-row         { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .help-form-select,
+  .help-form-input       { height: 44px !important; font-size: 14px !important; }
+  .help-form-textarea    { font-size: 14px !important; }
+  .help-submit-btn       { height: 48px !important; font-size: 14px !important; }
+  .help-faq-item         { padding: 12px !important; }
+  .help-ticket-list      { max-height: 280px !important; }
+  .help-faq-section      { padding: 14px !important; }
 }
+
+@media (max-width: 400px) {
+  .help-main             { padding: 8px 8px 20px !important; }
+  .help-helpline-number  { font-size: 16px !important; }
+  .help-card             { padding: 12px !important; }
+}
+

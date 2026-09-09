@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   ArrowRight,
   BadgeCheck,
+  Check,
   CheckCircle2,
   ChevronDown,
   Eye,
@@ -220,20 +221,22 @@ export default function FarmerRegisterPage() {
               <img src={logoImg} alt="Kisan Setu Logo" className="fr-logo-img" />
               <div className="fr-brand-text">
                 <strong>{t.brandName}</strong>
-                <small>National Agri-Procurement Portal</small>
+                <small>{t.brandTagline}</small>
               </div>
             </a>
 
             {/* Story Copy */}
             <div className="fr-story-copy">
               <div className="fr-story-badge">
-                <ShieldCheck size={14} /> Official APMC &amp; MSP Platform
+                <ShieldCheck size={14} /> {fr.trustBanner || 'Official APMC & MSP Platform'}
               </div>
               <h2 className="fr-story-title">
-                Direct Selling, Instant Gate Entry &amp; Guaranteed DBT Payments
+                {fr.heroTitle1}
+                <br />
+                <em>{fr.heroTitle2}</em>
               </h2>
               <p className="fr-story-desc">
-                Register once with Aadhaar or DigiLocker to book digital tokens, monitor live weighbridge queues, and receive 100% fair MSP settlements directly in your bank account.
+                {fr.heroDesc}
               </p>
             </div>
 
@@ -286,36 +289,49 @@ export default function FarmerRegisterPage() {
               }}
             >
               <ArrowLeft size={16} />
-              <span>{step > 1 && step < 4 ? 'Back to Previous Step' : 'Back to Home'}</span>
+              <span>{step > 1 && step < 4 ? fr.prevStepBtn : (t.farmerPortal?.common?.backHome || 'Back to Home')}</span>
             </button>
 
             {/* Language Selector */}
-            <div className="ks-lang-wrapper" ref={dropdownRef}>
+            <div className="fl-lang-wrapper" ref={dropdownRef}>
               <button
-                className={`ks-lang-btn ${langMenuOpen ? 'open' : ''}`}
+                type="button"
+                className={`fl-lang-btn ${langMenuOpen ? 'open' : ''}`}
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
                 aria-label="Change Language"
               >
-                <Globe2 size={14} />
-                <span>{activeLangObj.nativeName}</span>
-                <ChevronDown size={12} className="ks-lang-arrow" />
+                <Globe2 size={15} className="fl-lang-globe" />
+                <span className="fl-lang-name">{activeLangObj.nativeName}</span>
+                <ChevronDown size={13} className={`fl-lang-arrow ${langMenuOpen ? 'open' : ''}`} />
               </button>
 
               {langMenuOpen && (
-                <div className="ks-lang-dropdown">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className={`ks-lang-option ${currentLang === lang.code ? 'selected' : ''}`}
-                      onClick={() => {
-                        setLanguage(lang.code)
-                        setLangMenuOpen(false)
-                      }}
-                    >
-                      <span className="ks-lang-native">{lang.nativeName}</span>
-                      <span className="ks-lang-english">{lang.name}</span>
-                    </button>
-                  ))}
+                <div className="fl-lang-dropdown">
+                  <div className="fl-lang-dropdown-header">
+                    <span>Select Language / भाषा चुनें</span>
+                  </div>
+                  <div className="fl-lang-grid">
+                    {languages.map((lang) => {
+                      const isSelected = currentLang === lang.code
+                      return (
+                        <button
+                          type="button"
+                          key={lang.code}
+                          className={`fl-lang-option ${isSelected ? 'selected' : ''}`}
+                          onClick={() => {
+                            setLanguage(lang.code)
+                            setLangMenuOpen(false)
+                          }}
+                        >
+                          <div className="fl-lang-option-text">
+                            <span className="fl-lang-native">{lang.nativeName}</span>
+                            <span className="fl-lang-english">{lang.name}</span>
+                          </div>
+                          {isSelected && <Check size={14} className="fl-lang-check" />}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
               )}
             </div>

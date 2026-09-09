@@ -1,0 +1,323 @@
+/* Kisan Setu Yard Tiers & Classification - Responsive Styles */
+
+.admin-tiers-container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Hero Banner */
+.admin-tiers-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  border-radius: 16px;
+  padding: 24px 28px;
+  color: #ffffff;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(30, 27, 75, 0.2);
+}
+
+.admin-tiers-hero-left {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.admin-tiers-engine-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.admin-tiers-hero-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+}
+
+.admin-tiers-hero-desc {
+  font-size: 13px;
+  color: #c7d2fe;
+  margin: 0;
+  max-width: 640px;
+  line-height: 1.45;
+}
+
+.admin-tiers-stats-row {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.admin-tiers-stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 80px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-tiers-stat-num {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.admin-tiers-stat-sub {
+  font-size: 11px;
+  color: #cbd5e1;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* Category Cards Grid */
+.admin-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.admin-tiers-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-tiers-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.admin-tiers-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.admin-tiers-code-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.admin-tiers-edit-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.admin-tiers-edit-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.admin-tiers-card-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+}
+
+.admin-tiers-card-desc {
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.45;
+  margin: 0 0 16px 0;
+}
+
+/* 2x2 Metric Specs Box */
+.admin-tiers-specs-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.admin-tiers-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-tiers-spec-label {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-tiers-spec-val {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.admin-tiers-card-footer {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+/* Modal Responsive */
+.admin-tiers-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.admin-tiers-modal-box {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  padding: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Breakpoints */
+@media (max-width: 768px) {
+  .admin-tiers-container {
+    padding: 16px;
+  }
+
+  .admin-tiers-hero {
+    padding: 18px 20px;
+    border-radius: 14px;
+    gap: 14px;
+  }
+
+  .admin-tiers-hero-title {
+    font-size: 18px;
+  }
+
+  .admin-tiers-hero-desc {
+    font-size: 12px;
+  }
+
+  .admin-tiers-stats-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .admin-tiers-stat-card {
+    padding: 10px 14px;
+  }
+
+  .admin-tiers-stat-num {
+    font-size: 18px;
+  }
+
+  .admin-tiers-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .admin-tiers-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-tiers-container {
+    padding: 12px;
+  }
+
+  .admin-tiers-hero {
+    padding: 16px 16px;
+    margin-bottom: 16px;
+  }
+
+  .admin-tiers-engine-pill {
+    font-size: 10.5px;
+    padding: 3px 10px;
+  }
+
+  .admin-tiers-hero-title {
+    font-size: 17px;
+  }
+
+  .admin-tiers-card-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .admin-tiers-code-badge {
+    font-size: 10.5px;
+    padding: 3px 8px;
+  }
+
+  .admin-tiers-edit-btn {
+    padding: 4px 8px;
+    font-size: 11.5px;
+  }
+
+  .admin-tiers-specs-box {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .admin-tiers-spec-val {
+    font-size: 13px;
+  }
+}

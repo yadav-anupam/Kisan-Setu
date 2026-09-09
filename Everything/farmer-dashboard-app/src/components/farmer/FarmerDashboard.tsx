@@ -24,6 +24,7 @@ import {
 } from 'lucide-react'
 import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../../auth'
 import { navigate } from '../../router'
+import { useLanguage } from '../../useLanguage'
 import FarmerHeader from './FarmerHeader'
 import BookingQR from '../common/BookingQR'
 import { GoogleMapsModal } from '../common/GoogleMapsModal'
@@ -66,6 +67,10 @@ import {
 import './FarmerDashboard.css'
 
 export default function FarmerDashboard() {
+  const { t } = useLanguage()
+  const fd = t.farmerPortal?.dashboard
+  const fs = t.farmerPortal?.sidebar
+  const fc = t.farmerPortal?.common
   const [farmer, setFarmer] = useState(getFarmerProfile())
   const [priceAnnouncements, setPriceAnnouncements] = useState<PriceAnnouncementRecord[]>(getOfficialPriceAnnouncements)
 
@@ -505,7 +510,7 @@ export default function FarmerDashboard() {
             {appointment ? (
               <div>
                 <div className="fd-card-header">
-                  <h2>Next Appointment</h2>
+                  <h2>{fs?.myAppointments || 'Next Appointment'}</h2>
                   <span className="fd-status-pill">{appointment.status}</span>
                 </div>
 
@@ -521,12 +526,12 @@ export default function FarmerDashboard() {
 
                 <div className="fd-appt-details-grid">
                   <div className="fd-appt-detail-box">
-                    <small>Produce Crop</small>
+                    <small>{fd?.crop || 'Produce Crop'}</small>
                     <strong>{appointment.crop}</strong>
                   </div>
                   <div className="fd-appt-detail-box">
-                    <small>Quantity</small>
-                    <strong>{appointment.quantity} Quintal</strong>
+                    <small>{fd?.quantity || 'Quantity'}</small>
+                    <strong>{appointment.quantity} Qtl</strong>
                   </div>
                 </div>
 
@@ -535,7 +540,7 @@ export default function FarmerDashboard() {
                     className="fd-card-btn secondary"
                     onClick={() => navigate('/appointments')}
                   >
-                    <Eye size={14} /> View Pass
+                    <Eye size={14} /> {fd?.viewPass || 'View Pass'}
                   </button>
                   <button
                     className="fd-card-btn secondary"
@@ -550,7 +555,7 @@ export default function FarmerDashboard() {
                       })
                     }}
                   >
-                    <MapPin size={14} color="#16a34a" /> Google Map
+                    <MapPin size={14} color="#16a34a" /> {fd?.directions || 'Google Map'}
                   </button>
                 </div>
               </div>
@@ -558,14 +563,14 @@ export default function FarmerDashboard() {
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
                 <div>
                   <div className="fd-card-header">
-                    <h2>Next Appointment</h2>
-                    <span className="fd-status-pill" style={{ background: '#f1f5f9', color: '#64748b' }}>No Active Slot</span>
+                    <h2>{fs?.myAppointments || 'Next Appointment'}</h2>
+                    <span className="fd-status-pill" style={{ background: '#f1f5f9', color: '#64748b' }}>{fd?.noAppointments || 'No Active Slot'}</span>
                   </div>
 
                   <div style={{ margin: '14px 0', fontSize: '13px', color: '#475569', lineHeight: '1.5' }}>
-                    <p style={{ margin: 0, fontWeight: 600, color: '#1e293b' }}>No upcoming appointment scheduled.</p>
+                    <p style={{ margin: 0, fontWeight: 600, color: '#1e293b' }}>{fd?.noAppointments || 'No upcoming appointment scheduled.'}</p>
                     <small style={{ color: '#64748b', display: 'block', marginTop: '6px' }}>
-                      Book an official intake slot to receive your verified digital token and QR gate pass.
+                      {fd?.bookFirstSlot || 'Book an official intake slot to receive your verified digital token and QR gate pass.'}
                     </small>
                   </div>
                 </div>
@@ -574,7 +579,7 @@ export default function FarmerDashboard() {
                   className="fd-card-btn primary"
                   onClick={() => setBookingModalOpen(true)}
                 >
-                  <PlusCircle size={15} /> Book Procurement Slot
+                  <PlusCircle size={15} /> {fd?.bookSlotBtn || 'Book Procurement Slot'}
                 </button>
               </div>
             )}
@@ -585,26 +590,26 @@ export default function FarmerDashboard() {
             {appointment ? (
               <div>
                 <div className="fd-card-header">
-                  <h2>Live Queue Status</h2>
+                  <h2>{fs?.liveQueue || 'Live Queue Status'}</h2>
                   <span className="fd-status-pill live">
-                    <span className="fd-live-dot" /> Live Active
+                    <span className="fd-live-dot" /> {fd?.liveActive || 'Live Active'}
                   </span>
                 </div>
 
                 <div className="fd-token-row">
                   <div className="fd-current-token">
-                    <small>Serving Token</small>
+                    <small>{fd?.servingToken || 'Serving Token'}</small>
                     <strong>{mandiStatus.current_serving_token}</strong>
                   </div>
                   <div className="fd-your-token">
-                    <small>Your Token</small>
+                    <small>{fd?.yourToken || 'Your Token'}</small>
                     <strong>{appointment.token}</strong>
                   </div>
                 </div>
 
                 <div className="fd-queue-meta">
-                  <span>Farmers Ahead: <strong>{mandiStatus.queue_length}</strong></span>
-                  <span>Est. Wait: <strong>{Math.round(mandiStatus.queue_length * (mandiStatus.avg_service_time_mins / Math.max(1, mandiStatus.active_counters)))} min</strong></span>
+                  <span>{fd?.farmersAhead || 'Farmers Ahead'}: <strong>{mandiStatus.queue_length}</strong></span>
+                  <span>{fd?.estWait || 'Est. Wait'}: <strong>{Math.round(mandiStatus.queue_length * (mandiStatus.avg_service_time_mins / Math.max(1, mandiStatus.active_counters)))} min</strong></span>
                 </div>
 
                 <div className="fd-queue-track">
@@ -620,17 +625,17 @@ export default function FarmerDashboard() {
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
                 <div>
                   <div className="fd-card-header">
-                    <h2>Live Queue Status</h2>
-                    <span className="fd-status-pill" style={{ background: '#f1f5f9', color: '#64748b' }}>No Queue Token</span>
+                    <h2>{fs?.liveQueue || 'Live Queue Status'}</h2>
+                    <span className="fd-status-pill" style={{ background: '#f1f5f9', color: '#64748b' }}>{fd?.noQueueToken || 'No Queue Token'}</span>
                   </div>
 
                   <div className="fd-token-row">
                     <div className="fd-current-token">
-                      <small>Centre Intake Token</small>
+                      <small>{fd?.centreIntakeToken || 'Centre Intake Token'}</small>
                       <strong>{mandiStatus.current_serving_token}</strong>
                     </div>
                     <div className="fd-your-token" style={{ opacity: 0.6 }}>
-                      <small>Your Token</small>
+                      <small>{fd?.yourToken || 'Your Token'}</small>
                       <strong>—</strong>
                     </div>
                   </div>
@@ -644,7 +649,7 @@ export default function FarmerDashboard() {
                   className="fd-card-btn secondary"
                   onClick={() => setBookingModalOpen(true)}
                 >
-                  <PlusCircle size={15} /> Book Slot to Join Queue
+                  <PlusCircle size={15} /> {fd?.bookSlotBtn || 'Book Slot to Join Queue'}
                 </button>
               </div>
             )}
@@ -654,26 +659,26 @@ export default function FarmerDashboard() {
           <div className="fd-card">
             <div>
               <div className="fd-card-header">
-                <h2>Quick Actions</h2>
-                <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>1-Click Operations</span>
+                <h2>{fd?.quickActions || 'Quick Actions'}</h2>
+                <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>{fd?.quickOperations || '1-Click Operations'}</span>
               </div>
 
               <div className="fd-quick-grid">
                 <div className="fd-quick-tile" onClick={() => setBookingModalOpen(true)}>
                   <div className="fd-quick-icon"><PlusCircle size={18} /></div>
-                  <span>Book Slot</span>
+                  <span>{fs?.bookNewSlot || 'Book Slot'}</span>
                 </div>
                 <div className="fd-quick-tile" onClick={() => navigate('/my-procurement')}>
                   <div className="fd-quick-icon"><MapPin size={18} /></div>
-                  <span>Batches</span>
+                  <span>{fs?.myProcurement || 'Batches'}</span>
                 </div>
                 <div className="fd-quick-tile" onClick={() => setQueueModalOpen(true)}>
                   <div className="fd-quick-icon"><QrCode size={18} /></div>
-                  <span>Token QR</span>
+                  <span>{fd?.tokenQr || 'Token QR'}</span>
                 </div>
                 <div className="fd-quick-tile" onClick={() => navigate('/dbt-payments')}>
                   <div className="fd-quick-icon"><Wallet size={18} /></div>
-                  <span>DBT Status</span>
+                  <span>{fs?.dbtPayments || 'DBT Status'}</span>
                 </div>
               </div>
             </div>
@@ -682,7 +687,7 @@ export default function FarmerDashboard() {
               className="fd-card-btn primary"
               onClick={() => alert('Downloading official digital receipt & gate pass (PDF)...')}
             >
-              <Download size={15} /> Download Token & Gate Pass
+              <Download size={15} /> {fd?.downloadTokenPass || fd?.viewPass || 'Download Token & Gate Pass'}
             </button>
           </div>
         </section>
@@ -692,27 +697,27 @@ export default function FarmerDashboard() {
             ========================================================================== */}
         <section className="fd-stats-grid">
           <div className="fd-stat-card">
-            <div className="fd-stat-label"><ShoppingBag size={14} /> Total Batches</div>
+            <div className="fd-stat-label"><ShoppingBag size={14} /> {fd?.statsTotalBatches || 'Total Batches'}</div>
             <strong>{procurements.length}</strong>
           </div>
 
           <div className="fd-stat-card">
-            <div className="fd-stat-label"><Scale size={14} /> Total Quantity</div>
+            <div className="fd-stat-label"><Scale size={14} /> {fd?.statsTotalVolume || 'Total Quantity'}</div>
             <strong>{metrics.totalProcuredQtl.toFixed(2)} <small style={{ fontSize: '12px', fontWeight: 500, color: '#64748b' }}>Qtl</small></strong>
           </div>
 
           <div className="fd-stat-card">
-            <div className="fd-stat-label"><TrendingUp size={14} /> Total MSP Earnings</div>
+            <div className="fd-stat-label"><TrendingUp size={14} /> {fd?.statsTotalEarnings || 'Total MSP Earnings'}</div>
             <strong className="highlight">₹ {metrics.totalRevenue.toLocaleString('en-IN')}</strong>
           </div>
 
           <div className="fd-stat-card">
-            <div className="fd-stat-label"><Clock size={14} /> Avg Waiting Time</div>
+            <div className="fd-stat-label"><Clock size={14} /> {fd?.statsAvgWaitTime || 'Avg Waiting Time'}</div>
             <strong>{mandiStatus.avg_service_time_mins} <small style={{ fontSize: '12px', fontWeight: 500, color: '#64748b' }}>min</small></strong>
           </div>
 
           <div className="fd-stat-card">
-            <div className="fd-stat-label"><CheckCircle2 size={14} /> Successful Payments</div>
+            <div className="fd-stat-label"><CheckCircle2 size={14} /> {fd?.statsSuccessfulPayments || 'Successful Payments'}</div>
             <strong className="highlight">{payments.filter(p => p.status === 'COMPLETED').length} <small style={{ fontSize: '11px', color: '#166534' }}>100% DBT</small></strong>
           </div>
         </section>
@@ -725,18 +730,18 @@ export default function FarmerDashboard() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div className="fd-card">
               <div className="fd-card-header">
-                <h2>Recent Notifications</h2>
+                <h2>{fs?.notifications || 'Recent Notifications'}</h2>
                 <button
                   style={{ background: 'none', border: 'none', color: '#16a34a', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer' }}
                   onClick={() => navigate('/notifications')}
                 >
-                  View All
+                  {fd?.viewAll || 'View All'}
                 </button>
               </div>
 
               <div className="fd-notif-list">
                 {notifications.length === 0 ? (
-                  <p style={{ fontSize: '12px', color: '#64748b', margin: '10px 0' }}>No new notifications.</p>
+                  <p style={{ fontSize: '12px', color: '#64748b', margin: '10px 0' }}>{fd?.noNotifications || 'No new notifications.'}</p>
                 ) : (
                   notifications.slice(0, 3).map((n) => (
                     <div key={n.id} className="fd-notif-item">
@@ -764,7 +769,7 @@ export default function FarmerDashboard() {
                   {weather.isLiveGPS && (
                     <span style={{ fontSize: '9px', background: 'rgba(220, 252, 231, 0.25)', color: '#dcfce7', fontWeight: 800, padding: '1px 6px', borderRadius: '12px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                       <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#4ade80', display: 'inline-block', boxShadow: '0 0 6px #4ade80' }} />
-                      GPS LIVE
+                      {fd?.gpsLive || 'GPS LIVE'}
                     </span>
                   )}
                 </div>
@@ -779,7 +784,7 @@ export default function FarmerDashboard() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end', marginBottom: '2px' }}>
                     <Wind size={13} /> {weather.windSpeed} km/h
                   </div>
-                  <div>Humidity: {weather.humidity}%</div>
+                  <div>{fd?.humidity || 'Humidity'}: {weather.humidity}%</div>
                 </div>
 
                 {weather.isLiveGPS ? (
@@ -798,7 +803,7 @@ export default function FarmerDashboard() {
                     }}
                   >
                     <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#4ade80' }} />
-                    Live Meteorological Feed
+                    {fd?.liveWeatherFeed || 'Live Meteorological Feed'}
                   </span>
                 ) : (
                   <button
@@ -823,7 +828,7 @@ export default function FarmerDashboard() {
                     title="Click to detect exact farm/GPS location"
                   >
                     <Navigation size={10} />
-                    {isLocating ? 'Detecting...' : 'Sync Live GPS'}
+                    {isLocating ? (fc?.loading || 'Detecting...') : (fd?.refreshWeather || 'Sync Live GPS')}
                   </button>
                 )}
               </div>
@@ -833,25 +838,25 @@ export default function FarmerDashboard() {
           {/* Column 2: Procurement History Table */}
           <div className="fd-card">
             <div className="fd-card-header">
-              <h2>Procurement History</h2>
-              <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>Verified Activity Records</span>
+              <h2>{fs?.history || 'Procurement History'}</h2>
+              <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>{fd?.verifiedRecords || 'Verified Activity Records'}</span>
             </div>
 
             <div className="fd-table-wrap">
               <table className="fd-history-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Crop</th>
-                    <th>Quantity / Value</th>
-                    <th>Status</th>
+                    <th>{fd?.tableDate || 'Date'}</th>
+                    <th>{fd?.tableCrop || fd?.crop || 'Crop'}</th>
+                    <th>{fd?.tableQtyVal || 'Quantity / Value'}</th>
+                    <th>{fd?.tableStatus || fd?.status || 'Status'}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {procurements.length === 0 ? (
                     <tr>
                       <td colSpan={4} style={{ textAlign: 'center', color: '#64748b', padding: '20px' }}>
-                        No procurement deliveries recorded yet.
+                        {fd?.noDeliveries || 'No procurement deliveries recorded yet.'}
                       </td>
                     </tr>
                   ) : (
@@ -863,7 +868,7 @@ export default function FarmerDashboard() {
                           <div><strong>{p.net_weight_qtl} Qtl</strong></div>
                           <small style={{ color: '#64748b' }}>₹ {Number(p.net_amount).toLocaleString('en-IN')}</small>
                         </td>
-                        <td><span className="fd-table-badge">✓ Completed</span></td>
+                        <td><span className="fd-table-badge">✓ {fd?.statusCompleted || 'Completed'}</span></td>
                       </tr>
                     ))
                   )}
@@ -876,22 +881,22 @@ export default function FarmerDashboard() {
               style={{ marginTop: '12px' }}
               onClick={() => navigate('/my-procurement')}
             >
-              <Download size={14} /> View All Procurement Batches
+              <Download size={14} /> {fd?.viewAllRecords || 'View All Procurement Batches'}
             </button>
           </div>
 
           {/* Column 3: Payment Summary */}
           <div className="fd-card">
             <div className="fd-card-header">
-              <h2>Payment Summary</h2>
+              <h2>{fs?.dbtPayments || 'Payment Summary'}</h2>
               <CreditCard size={17} color="#16a34a" />
             </div>
 
             <div className="fd-payment-banner">
-              <small>Last Payment Received</small>
+              <small>{fd?.lastPaymentReceived || 'Last Payment Received'}</small>
               <strong>₹ {payments.length > 0 ? Number(payments[0].amount).toLocaleString('en-IN') : '0'}</strong>
               <div className="fd-payment-badge">
-                <CheckCircle2 size={12} /> {payments.length > 0 ? `Credited on ${new Date(payments[0].transfer_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}` : 'Direct PFMS Linked'}
+                <CheckCircle2 size={12} /> {payments.length > 0 ? `Credited on ${new Date(payments[0].transfer_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}` : (fd?.pfmsLinked || 'Direct PFMS Linked')}
               </div>
             </div>
 
@@ -931,7 +936,7 @@ export default function FarmerDashboard() {
         <div className="fd-modal-overlay">
           <div className="fd-modal-card">
             <div className="fd-modal-header">
-              <h2>Book Procurement Slot</h2>
+              <h2>{fd?.bookSlotBtn || 'Book Procurement Slot'}</h2>
               <button
                 className="fd-modal-close"
                 onClick={() => setBookingModalOpen(false)}
@@ -1053,7 +1058,7 @@ export default function FarmerDashboard() {
                 className="fd-card-btn primary"
                 style={{ padding: '12px', marginTop: '6px' }}
               >
-                <CheckCircle2 size={16} /> Confirm & Generate Token
+                <CheckCircle2 size={16} /> {fc?.confirm || 'Confirm & Generate Token'}
               </button>
             </form>
           </div>
@@ -1110,7 +1115,7 @@ export default function FarmerDashboard() {
               style={{ width: '100%' }}
               onClick={() => setQueueModalOpen(false)}
             >
-              Close Live Monitor
+              {fc?.close || 'Close Live Monitor'}
             </button>
           </div>
         </div>

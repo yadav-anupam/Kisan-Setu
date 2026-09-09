@@ -18,6 +18,7 @@ import {
 import StaffHeader from './StaffHeader'
 import AdminSidebar from './AdminSidebar'
 import './StaffQRScannerPage.css'
+import './AdminDepartmentsPage.css'
 
 interface DepartmentItem {
   id: string
@@ -205,151 +206,100 @@ export default function AdminDepartmentsPage() {
           pageTitle="Inter-Agency Nodal Departments &amp; Governance"
         />
 
-        <main style={{ padding: '24px', maxWidth: '1280px', margin: '0 auto' }}>
+        <main className="admin-dept-container">
           {/* Top Banner */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-              borderRadius: '16px',
-              padding: '24px 28px',
-              color: '#ffffff',
-              marginBottom: '24px',
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: '16px',
-            }}
-          >
-            <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.15)', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>
+          <div className="admin-dept-hero">
+            <div className="admin-dept-hero-left">
+              <div className="admin-dept-hierarchy-pill">
                 <Building2 size={14} color="#38bdf8" /> Inter-Agency Administrative Hierarchy
               </div>
-              <h1 style={{ fontSize: '20px', fontWeight: 800, margin: '0 0 6px 0' }}>
+              <h1 className="admin-dept-hero-title">
                 Nodal Procurement Departments &amp; Statutory Agencies
               </h1>
-              <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, maxWidth: '650px' }}>
+              <p className="admin-dept-hero-desc">
                 Unified coordination directory across Food &amp; Civil Supplies (FCS), Cooperative Federation (PCF), Mandi Parishad, FCI, and Legal Metrology for KMS 2026-27.
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '14px' }}>
-              <div style={{ background: 'rgba(255,255,255,0.08)', padding: '12px 18px', borderRadius: '10px', textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 800 }}>{totalStaff}</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8' }}>Field Officers</div>
+            <div className="admin-dept-stats-row">
+              <div className="admin-dept-stat-card">
+                <div className="admin-dept-stat-num">{totalStaff}</div>
+                <div className="admin-dept-stat-sub">Field Officers</div>
               </div>
-              <div style={{ background: 'rgba(255,255,255,0.08)', padding: '12px 18px', borderRadius: '10px', textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 800 }}>{totalDisbursedCr > 0 ? `₹${totalDisbursedCr} Cr` : '₹0.00 Cr'}</div>
-                <div style={{ fontSize: '11px', color: '#34d399' }}>Disbursed DBT</div>
+              <div className="admin-dept-stat-card">
+                <div className="admin-dept-stat-num" style={{ color: '#34d399' }}>{totalDisbursedCr > 0 ? `₹${totalDisbursedCr} Cr` : '₹0.00 Cr'}</div>
+                <div className="admin-dept-stat-sub" style={{ color: '#34d399' }}>Disbursed DBT</div>
               </div>
             </div>
           </div>
 
           {/* Department Cards Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+          <div className="admin-dept-grid">
             {departments.map((dept) => (
               <div
                 key={dept.id}
-                style={{
-                  background: '#ffffff',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                  padding: '22px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
+                className="admin-dept-card"
               >
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span
-                      style={{
-                        background: '#eff6ff',
-                        color: '#1d4ed8',
-                        padding: '3px 8px',
-                        borderRadius: '6px',
-                        fontSize: '11px',
-                        fontWeight: 800,
-                      }}
-                    >
+                  <div className="admin-dept-card-header">
+                    <span className="admin-dept-code-badge">
                       {dept.code}
                     </span>
-                    <span
-                      style={{
-                        background: '#ecfdf5',
-                        color: '#059669',
-                        padding: '3px 8px',
-                        borderRadius: '6px',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                      }}
-                    >
+                    <span className="admin-dept-status-badge">
                       <CheckCircle2 size={12} /> {dept.status}
                     </span>
                   </div>
 
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '0 0 6px 0', lineHeight: '1.3' }}>
+                  <h3 className="admin-dept-card-name">
                     {dept.name}
                   </h3>
-                  <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 16px 0' }}>
+                  <p className="admin-dept-card-parent">
                     {dept.parentMinistry}
                   </p>
 
                   {/* Officer In-Charge Box */}
-                  <div
-                    style={{
-                      background: '#f8fafc',
-                      borderRadius: '8px',
-                      padding: '12px',
-                      marginBottom: '16px',
-                      border: '1px solid #f1f5f9',
-                    }}
-                  >
-                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', marginBottom: '4px' }}>
+                  <div className="admin-dept-head-box">
+                    <div className="admin-dept-head-title">
                       Nodal Department Head
                     </div>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
+                    <div className="admin-dept-head-name">
                       {dept.headOfficerName}
                     </div>
-                    <div style={{ fontSize: '12px', color: '#475569', marginBottom: '8px' }}>
+                    <div className="admin-dept-head-desig">
                       {dept.headDesignation}
                     </div>
 
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', fontSize: '12px', color: '#64748b' }}>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <Phone size={13} color="#2563eb" /> {dept.headContact}
-                      </span>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <Mail size={13} color="#2563eb" /> {dept.headEmail}
-                      </span>
+                    <div className="admin-dept-contact-row">
+                      <a href={`tel:${dept.headContact}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#2563eb', textDecoration: 'none' }}>
+                        <Phone size={13} /> {dept.headContact}
+                      </a>
+                      <a href={`mailto:${dept.headEmail}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#2563eb', textDecoration: 'none' }}>
+                        <Mail size={13} /> {dept.headEmail}
+                      </a>
                     </div>
                   </div>
 
                   {/* Department Stats */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', fontSize: '12px' }}>
-                    <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                      <span style={{ color: '#64748b' }}>Assigned Mandis:</span>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>{dept.assignedMandisCount}</div>
+                  <div className="admin-dept-stats-grid">
+                    <div className="admin-dept-stat-tile">
+                      <span className="admin-dept-stat-label">Assigned Mandis:</span>
+                      <div className="admin-dept-stat-val">{dept.assignedMandisCount}</div>
                     </div>
-                    <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                      <span style={{ color: '#64748b' }}>Active Field Staff:</span>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>{dept.activeFieldOfficers}</div>
+                    <div className="admin-dept-stat-tile">
+                      <span className="admin-dept-stat-label">Active Field Staff:</span>
+                      <div className="admin-dept-stat-val">{dept.activeFieldOfficers}</div>
                     </div>
                     {dept.seasonIntakeMT > 0 && (
                       <>
-                        <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                          <span style={{ color: '#64748b' }}>Season Intake:</span>
-                          <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '14px' }}>
+                        <div className="admin-dept-stat-tile">
+                          <span className="admin-dept-stat-label">Season Intake:</span>
+                          <div className="admin-dept-stat-val">
                             {(dept.seasonIntakeMT / 1000).toFixed(1)}k MT
                           </div>
                         </div>
-                        <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                          <span style={{ color: '#64748b' }}>DBT Released:</span>
-                          <div style={{ fontWeight: 800, color: '#059669', fontSize: '14px' }}>
+                        <div className="admin-dept-stat-tile">
+                          <span className="admin-dept-stat-label">DBT Released:</span>
+                          <div className="admin-dept-stat-val" style={{ color: '#059669' }}>
                             ₹{dept.dbtDisbursedCr.toFixed(1)} Cr
                           </div>
                         </div>
@@ -358,19 +308,10 @@ export default function AdminDepartmentsPage() {
                   </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px', marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
+                <div className="admin-dept-card-footer">
                   <button
                     onClick={() => navigate('/admin/staff')}
-                    style={{
-                      padding: '7px 14px',
-                      borderRadius: '6px',
-                      background: '#eff6ff',
-                      border: '1px solid #bfdbfe',
-                      color: '#1d4ed8',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                    }}
+                    className="admin-dept-view-btn"
                   >
                     View Assigned Staff &rarr;
                   </button>

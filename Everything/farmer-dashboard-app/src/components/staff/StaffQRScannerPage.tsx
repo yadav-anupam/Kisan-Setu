@@ -11,6 +11,7 @@ import {
   Search,
   ShieldAlert,
   ShieldCheck,
+  SwitchCamera,
   X,
   XCircle,
 } from 'lucide-react'
@@ -71,6 +72,7 @@ export default function StaffQRScannerPage() {
 
   // Scanner states
   const [isScanning, setIsScanning] = useState(false)
+  const [cameraFacingMode, setCameraFacingMode] = useState<'environment' | 'user'>('environment')
   const [cameraError, setCameraError] = useState<string | null>(null)
   const [manualInput, setManualInput] = useState('')
   const [isValidating, setIsValidating] = useState(false)
@@ -117,18 +119,32 @@ export default function StaffQRScannerPage() {
   const html5QrCodeRef = useRef<Html5Qrcode | null>(null)
 
   // Camera Scanner Lifecycle
-  const startCameraScanner = async () => {
+  const startCameraScanner = async (facing: 'environment' | 'user' = cameraFacingMode) => {
     setCameraError(null)
     try {
+      if (html5QrCodeRef.current && isScanning) {
+        try {
+          await html5QrCodeRef.current.stop()
+        } catch {
+          // ignore stop errors when restarting
+        }
+      }
+
       if (!html5QrCodeRef.current) {
         html5QrCodeRef.current = new Html5Qrcode('qr-reader-target')
       }
 
       await html5QrCodeRef.current.start(
-        { facingMode: 'environment' },
+        { facingMode: facing },
         {
-          fps: 10,
-          qrbox: { width: 260, height: 260 },
+          fps: 15,
+          qrbox: (viewfinderWidth, viewfinderHeight) => {
+            // Generous scanning area so entire QR in box is captured and visible
+            const minEdge = Math.min(viewfinderWidth, viewfinderHeight)
+            const qrEdge = Math.max(180, Math.floor(minEdge * 0.85))
+            return { width: qrEdge, height: qrEdge }
+          },
+          aspectRatio: undefined,
         },
         (decodedText) => {
           handleTokenDetected(decodedText)
@@ -150,15 +166,34 @@ export default function StaffQRScannerPage() {
   }
 
   const stopCameraScanner = async () => {
-    if (html5QrCodeRef.current && isScanning) {
+    if (html5QrCodeRef.current) {
       try {
-        await html5QrCodeRef.current.stop()
-        setIsScanning(false)
+        if (html5QrCodeRef.current.isScanning) {
+          await html5QrCodeRef.current.stop()
+        }
       } catch {
         // ignore
       }
+      setIsScanning(false)
     }
   }
+
+  const toggleCameraFacing = async () => {
+    const nextFacing = cameraFacingMode === 'environment' ? 'user' : 'environment'
+    setCameraFacingMode(nextFacing)
+    if (isScanning) {
+      await startCameraScanner(nextFacing)
+    }
+  }
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (html5QrCodeRef.current && html5QrCodeRef.current.isScanning) {
+        html5QrCodeRef.current.stop().catch(() => {})
+      }
+    }
+  }, [])
 
   // Handle Token Received (From Camera or Manual)
   const handleTokenDetected = async (rawToken: string) => {
@@ -268,7 +303,7 @@ export default function StaffQRScannerPage() {
                     <button
                       type="button"
                       className="fd-card-btn primary"
-                      onClick={startCameraScanner}
+                      onClick={() => startCameraScanner(cameraFacingMode)}
                       style={{ padding: '10px 20px', fontSize: '13px' }}
                     >
                       <Camera size={16} /> Activate Camera Scanner
@@ -278,8 +313,8 @@ export default function StaffQRScannerPage() {
               </div>
 
               {/* Scanner Control Actions */}
-              {isScanning && (
-                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+              <div style={{ display: 'flex', gap: '10px', marginTop: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {isScanning && (
                   <button
                     type="button"
                     className="fd-card-btn secondary"
@@ -288,8 +323,25 @@ export default function StaffQRScannerPage() {
                   >
                     <CameraOff size={14} /> Stop Scanner
                   </button>
-                </div>
-              )}
+                )}
+
+                <button
+                  type="button"
+                  className="fd-card-btn secondary"
+                  onClick={toggleCameraFacing}
+                  style={{
+                    padding: '8px 16px',
+                    fontSize: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                  title="Switch between front and back/rear camera"
+                >
+                  <SwitchCamera size={14} />
+                  <span>Camera: {cameraFacingMode === 'environment' ? 'Back (Rear)' : 'Front (Selfie)'}</span>
+                </button>
+              </div>
 
               {/* Camera Error Message */}
               {cameraError && (

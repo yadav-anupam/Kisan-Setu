@@ -18,6 +18,7 @@ import { navigate } from '../../router'
 import { logoutFarmer, getFarmerProfile } from '../../auth'
 import { getFarmerBookings } from '../../services/qrBookingService'
 import { fetchNotificationsFromDB } from '../../services/supabaseDataService'
+import { useLanguage } from '../../useLanguage'
 
 interface FarmerSidebarProps {
   activePage?:
@@ -44,6 +45,23 @@ export default function FarmerSidebar({
   onOpenBookingModal,
   onOpenQueueModal: _onOpenQueueModal,
 }: FarmerSidebarProps) {
+  const { t } = useLanguage()
+  const fs = t.farmerPortal?.sidebar || {
+    mainMenu: 'Main Menu',
+    dashboard: 'Dashboard',
+    myAppointments: 'My Appointments',
+    bookNewSlot: 'Book New Slot',
+    liveQueue: 'Live Yard Queue',
+    procurementDbt: 'Procurement & DBT',
+    myProcurement: 'My Procurement',
+    dbtPayments: 'DBT Payments',
+    history: 'Procurement History',
+    accountSupport: 'Account & Support',
+    notifications: 'Notifications',
+    profile: 'Farmer Profile',
+    helpSupport: 'Help & Support',
+    logout: 'Sign Out Farmer',
+  }
   const [upcomingCount, setUpcomingCount] = useState<number>(0)
   const [unreadCount, setUnreadCount] = useState<number>(0)
 
@@ -186,7 +204,7 @@ export default function FarmerSidebar({
         <nav className="fd-nav-list" style={{ overflowY: 'auto', flex: 1, padding: '4px 10px 16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
           {/* Section: Overview */}
           <div style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#94a3b8', padding: '10px 10px 4px' }}>
-            Main Menu
+            {fs.mainMenu}
           </div>
 
           <button
@@ -195,7 +213,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('dashboard')}
           >
             <CalendarCheck size={18} />
-            <span>Dashboard</span>
+            <span>{fs.dashboard}</span>
           </button>
 
           <button
@@ -204,7 +222,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('appointments')}
           >
             <Calendar size={18} />
-            <span>My Appointments</span>
+            <span>{fs.myAppointments}</span>
             {upcomingCount > 0 && <span className="fd-nav-badge">{upcomingCount}</span>}
           </button>
 
@@ -214,7 +232,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('book-slot')}
           >
             <PlusCircle size={18} />
-            <span>Book New Slot</span>
+            <span>{fs.bookNewSlot}</span>
           </button>
 
           <button
@@ -223,12 +241,12 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('queue')}
           >
             <Users size={18} />
-            <span>Live Yard Queue</span>
+            <span>{fs.liveQueue}</span>
           </button>
 
           {/* Section: Procurement & DBT */}
           <div style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#94a3b8', padding: '14px 10px 4px' }}>
-            Procurement &amp; DBT
+            {fs.procurementDbt}
           </div>
 
           <button
@@ -237,7 +255,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('procurement')}
           >
             <Sprout size={18} />
-            <span>My Procurement</span>
+            <span>{fs.myProcurement}</span>
           </button>
 
           <button
@@ -246,7 +264,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('payments')}
           >
             <CreditCard size={18} />
-            <span>DBT Payments</span>
+            <span>{fs.dbtPayments}</span>
           </button>
 
           <button
@@ -255,12 +273,12 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('history')}
           >
             <History size={18} />
-            <span>Procurement History</span>
+            <span>{fs.history}</span>
           </button>
 
           {/* Section: Preferences & Support */}
           <div style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#94a3b8', padding: '14px 10px 4px' }}>
-            Account &amp; Support
+            {fs.accountSupport}
           </div>
 
           <button
@@ -269,7 +287,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('notifications')}
           >
             <Bell size={18} />
-            <span>Notifications</span>
+            <span>{fs.notifications}</span>
             {unreadCount > 0 && <span className="fd-nav-badge red">{unreadCount}</span>}
           </button>
 
@@ -279,7 +297,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('profile')}
           >
             <User size={18} />
-            <span>Farmer Profile</span>
+            <span>{fs.profile}</span>
           </button>
 
           <button
@@ -288,7 +306,7 @@ export default function FarmerSidebar({
             onClick={() => handleItemClick('help')}
           >
             <HelpCircle size={18} />
-            <span>Help &amp; Support</span>
+            <span>{fs.helpSupport}</span>
           </button>
         </nav>
 
@@ -367,7 +385,7 @@ export default function FarmerSidebar({
             }}
           >
             <LogOut size={14} color="#dc2626" />
-            <span>Sign Out Farmer</span>
+            <span>{fs.logout}</span>
           </button>
         </div>
       </aside>
