@@ -1,0 +1,172 @@
+﻿/* ============================================================
+   Kisan Setu — Help & Support Page — Mobile Responsive Styles
+   ============================================================ */
+.help-main {
+  padding: 16px 16px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.help-hero { margin-bottom: 20px; }
+.help-hero h1 {
+  font-size: 20px; font-weight: 800; color: #0f172a;
+  margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.help-hero p { font-size: 12.5px; color: #64748b; margin: 4px 0 0; line-height: 1.5; }
+
+/* Helpline grid */
+.help-helpline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; margin-bottom: 24px;
+}
+.help-helpline-card-primary {
+  background: linear-gradient(135deg, #075a27 0%, #0d631b 100%);
+  border-radius: 14px; padding: 18px 20px; color: #ffffff;
+  box-shadow: 0 4px 16px rgba(13,99,27,0.22);
+}
+.help-helpline-card {
+  background: #ffffff; border: 1px solid #e2e8f0;
+  border-radius: 14px; padding: 18px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.help-helpline-label {
+  font-size: 10.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  display: block; margin-bottom: 4px;
+}
+.help-helpline-card-primary .help-helpline-label { opacity: 0.85; }
+.help-helpline-card .help-helpline-label { color: #64748b; }
+.help-helpline-number {
+  font-size: 22px; font-weight: 800; margin: 4px 0 2px;
+  display: block; text-decoration: none; color: inherit; letter-spacing: 0.5px;
+}
+.help-helpline-card .help-helpline-number { color: #0f172a; font-size: 20px; }
+.help-helpline-number:hover { text-decoration: underline; }
+.help-helpline-sub { font-size: 11.5px; display: block; }
+.help-helpline-card-primary .help-helpline-sub { opacity: 0.88; }
+.help-helpline-card .help-helpline-sub { color: #64748b; }
+
+/* Form + Tracker grid */
+.help-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px; margin-bottom: 24px;
+}
+.help-card {
+  background: #ffffff; border-radius: 16px;
+  border: 1px solid #e2e8f0; padding: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+.help-card-title {
+  font-size: 15px; font-weight: 800; color: #0f172a;
+  margin: 0 0 16px; display: flex; align-items: center; gap: 8px;
+}
+.help-form-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 14px;
+}
+.help-form-group { margin-bottom: 14px; }
+.help-form-label {
+  font-size: 12px; font-weight: 700; color: #334155;
+  display: block; margin-bottom: 6px;
+}
+.help-form-input,
+.help-form-select,
+.help-form-textarea {
+  width: 100%; padding: 10px 12px; border-radius: 8px;
+  border: 1.5px solid #cbd5e1; font-size: 13px;
+  font-family: inherit; box-sizing: border-box; background: #ffffff;
+  transition: border-color 0.15s; -webkit-appearance: none;
+}
+.help-form-input:focus,
+.help-form-select:focus,
+.help-form-textarea:focus {
+  outline: none; border-color: #0d631b;
+  box-shadow: 0 0 0 3px rgba(13,99,27,0.08);
+}
+.help-form-select { height: 42px; padding: 0 12px; cursor: pointer; }
+.help-form-input  { height: 42px; padding: 0 12px; }
+.help-submit-btn {
+  width: 100%; height: 46px; border-radius: 10px;
+  border: none; background: #0d631b; color: #ffffff;
+  font-weight: 800; font-size: 13.5px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  box-shadow: 0 4px 12px rgba(13,99,27,0.2);
+  transition: background 0.15s, transform 0.1s;
+}
+.help-submit-btn:hover  { background: #0a5217; }
+.help-submit-btn:active { transform: scale(0.98); }
+
+/* Ticket tracker */
+.help-ticket-list {
+  display: flex; flex-direction: column; gap: 10px;
+  max-height: 420px; overflow-y: auto;
+}
+.help-ticket-item {
+  border: 1px solid #e2e8f0; border-radius: 12px;
+  padding: 14px; background: #f8fafc; border-left: 3px solid #e2e8f0;
+}
+.help-ticket-item.open     { border-left-color: #fb923c; }
+.help-ticket-item.review   { border-left-color: #f59e0b; }
+.help-ticket-item.resolved { border-left-color: #22c55e; }
+.help-ticket-header {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;
+}
+.help-ticket-number { font-family: monospace; font-weight: 800; font-size: 12.5px; color: #0f172a; }
+.help-ticket-status {
+  font-size: 10.5px; font-weight: 800;
+  padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+}
+.help-ticket-status.open     { background: #fee2e2; color: #991b1b; }
+.help-ticket-status.review   { background: #fef3c7; color: #92400e; }
+.help-ticket-status.resolved { background: #dcfce7; color: #166534; }
+.help-ticket-empty {
+  padding: 32px 16px; text-align: center; color: #94a3b8; font-size: 13px;
+}
+
+/* FAQ */
+.help-faq-section {
+  background: #ffffff; border-radius: 16px;
+  border: 1px solid #e2e8f0; padding: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+.help-faq-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+}
+.help-faq-search-wrap { position: relative; width: 260px; max-width: 100%; }
+.help-faq-search {
+  width: 100%; height: 36px; padding: 0 10px 0 34px;
+  border-radius: 8px; border: 1.5px solid #cbd5e1;
+  font-size: 12.5px; box-sizing: border-box; background: #f8fafc;
+}
+.help-faq-search:focus { outline: none; border-color: #0d631b; background: #fff; }
+.help-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.help-faq-item {
+  background: #f8fafc; border: 1px solid #e2e8f0;
+  border-radius: 12px; padding: 16px; border-left: 3px solid #0d631b;
+}
+.help-faq-q { font-size: 13px; font-weight: 700; color: #0f172a; margin: 0 0 8px; line-height: 1.4; }
+.help-faq-a { font-size: 12.5px; color: #475569; margin: 0; line-height: 1.55; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .help-grid             { grid-template-columns: 1fr; }
+  .help-faq-grid         { grid-template-columns: 1fr; }
+  .help-faq-search-wrap  { width: 100%; }
+  .help-faq-header       { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 600px) {
+  .help-main             { padding: 12px 12px 28px; }
+  .help-hero h1          { font-size: 17px; }
+  .help-helpline-grid    { grid-template-columns: 1fr; gap: 10px; }
+  .help-helpline-card-primary,
+  .help-helpline-card    { padding: 14px 16px; border-radius: 12px; }
+  .help-helpline-number  { font-size: 18px; }
+  .help-card             { padding: 16px; border-radius: 14px; }
+  .help-card-title       { font-size: 14px; }
+  .help-form-row         { grid-template-columns: 1fr; }
+  .help-faq-item         { padding: 14px; }
+  .help-ticket-list      { max-height: 300px; }
+}
