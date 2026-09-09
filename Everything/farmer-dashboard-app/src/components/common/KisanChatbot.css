@@ -1,0 +1,488 @@
+/* ============================================================
+   Kisan Setu Chatbot — Floating Widget Styles
+   Design: Green theme matching Kisan Setu design system
+   ============================================================ */
+
+/* ── FAB (Floating Action Button) ──────────────────────────── */
+.ks-chat-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9000;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(13, 99, 27, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease;
+  outline: none;
+  padding: 0;
+}
+
+.ks-chat-fab:hover {
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 10px 32px rgba(13, 99, 27, 0.5);
+}
+
+.ks-chat-fab:active {
+  transform: scale(0.95);
+}
+
+/* Robot image on FAB when closed */
+.ks-fab-avatar-img {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* X icon when open — show inside a green circle */
+.ks-chat-fab.open {
+  background: linear-gradient(135deg, #15803d 0%, #0d631b 100%);
+  box-shadow: 0 4px 18px rgba(13, 99, 27, 0.45);
+}
+
+.ks-chat-fab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ks-chat-fab.open .ks-chat-fab-icon {
+  transform: rotate(90deg);
+}
+
+/* Unread badge on FAB */
+.ks-chat-fab-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  animation: ks-badge-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes ks-badge-pop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+/* ── Chat Panel ─────────────────────────────────────────────── */
+.ks-chat-panel {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 8999;
+  width: 380px;
+  max-height: 560px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+}
+
+/* Open / Closed states */
+.ks-chat-panel.ks-panel-open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.ks-chat-panel.ks-panel-closed {
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Panel Header ───────────────────────────────────────────── */
+.ks-chat-header {
+  background: linear-gradient(135deg, #15803d 0%, #0d631b 100%);
+  color: #ffffff;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ks-chat-header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 2px;
+}
+
+.ks-chat-header-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.ks-chat-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ks-chat-header-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.ks-chat-header-subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 2px 0 0;
+  line-height: 1.2;
+}
+
+.ks-chat-header-close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  transition: background 0.15s;
+}
+
+.ks-chat-header-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Status dot */
+.ks-chat-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #86efac;
+  display: inline-block;
+  margin-right: 4px;
+  animation: ks-pulse 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+@keyframes ks-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Messages Area ──────────────────────────────────────────── */
+.ks-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+  background: #f8fafc;
+}
+
+.ks-chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+.ks-chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ks-chat-messages::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 99px;
+}
+
+/* ── Message Bubbles ────────────────────────────────────────── */
+.ks-msg {
+  display: flex;
+  gap: 8px;
+  animation: ks-msg-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 100%;
+}
+
+@keyframes ks-msg-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ks-msg.ks-bot {
+  align-items: flex-end;
+}
+
+.ks-msg.ks-user {
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
+.ks-msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ks-msg-avatar-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.ks-msg-bubble {
+  max-width: 82%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.ks-bot .ks-msg-bubble {
+  background: #ffffff;
+  color: #1e293b;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e8f5e9;
+}
+
+.ks-user .ks-msg-bubble {
+  background: linear-gradient(135deg, #15803d, #0d631b);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+/* Typing indicator */
+.ks-typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 10px 14px;
+  align-items: center;
+}
+
+.ks-typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #15803d;
+  animation: ks-typing 1.2s ease-in-out infinite;
+}
+
+.ks-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.ks-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes ks-typing {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Suggested Questions Chips ──────────────────────────────── */
+.ks-suggestions {
+  padding: 6px 14px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid #f0fdf4;
+  background: #f8fafc;
+  flex-shrink: 0;
+}
+
+.ks-suggestions-label {
+  width: 100%;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.ks-chip {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  white-space: nowrap;
+  outline: none;
+}
+
+.ks-chip:hover {
+  background: #dcfce7;
+  transform: translateY(-1px);
+  border-color: #86efac;
+}
+
+.ks-chip:active {
+  transform: translateY(0);
+}
+
+/* ── Input Area ─────────────────────────────────────────────── */
+.ks-chat-input-area {
+  padding: 10px 12px;
+  border-top: 1px solid #e8f5e9;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.ks-chat-input {
+  flex: 1;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 22px;
+  padding: 9px 14px;
+  font-size: 13.5px;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  resize: none;
+  min-height: 38px;
+  max-height: 100px;
+  font-family: inherit;
+  line-height: 1.4;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  scrollbar-width: none;
+}
+
+.ks-chat-input:focus {
+  border-color: #15803d;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
+}
+
+.ks-chat-input::placeholder {
+  color: #94a3b8;
+}
+
+.ks-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #15803d, #0d631b);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.ks-send-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 3px 12px rgba(13, 99, 27, 0.35);
+}
+
+.ks-send-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.ks-send-btn:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Welcome message / disclaimer ───────────────────────────── */
+.ks-chat-disclaimer {
+  font-size: 11px;
+  color: #94a3b8;
+  text-align: center;
+  padding: 4px 14px 8px;
+  background: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+/* ── Scroll anchor ──────────────────────────────────────────── */
+.ks-scroll-anchor {
+  height: 1px;
+  flex-shrink: 0;
+}
+
+/* ── Mobile Responsive ──────────────────────────────────────── */
+@media (max-width: 480px) {
+  .ks-chat-fab {
+    bottom: 18px;
+    right: 18px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .ks-chat-panel {
+    bottom: 82px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: 70vh;
+    border-radius: 18px 18px 0 0;
+    transform-origin: bottom center;
+  }
+
+  .ks-chat-panel.ks-panel-closed {
+    transform: scale(0.95) translateY(30px);
+  }
+}
+
+@media (max-width: 360px) {
+  .ks-msg-bubble {
+    font-size: 13px;
+    padding: 8px 11px;
+  }
+
+  .ks-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+}

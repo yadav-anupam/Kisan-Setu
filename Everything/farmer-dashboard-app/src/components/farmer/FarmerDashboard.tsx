@@ -57,6 +57,7 @@ import {
   type PriceAnnouncementRecord,
 } from '../../services/staffDataService'
 import FarmerSidebar from './FarmerSidebar'
+import KisanChatbot from '../common/KisanChatbot'
 import {
   ALL_PROCUREMENT_CENTRES,
   VARANASI_PROCUREMENT_CENTRES,
@@ -1240,6 +1241,11 @@ export default function FarmerDashboard() {
         blockTehsil={mapModalCentre?.blockTehsil}
         agency={mapModalCentre?.agency}
       />
+
+      {/* ═══════════════════════════════════════════════════════════
+          Kisan Setu Chatbot — Floating FAQ Assistant (Phase 1)
+          ═══════════════════════════════════════════════════════════ */}
+      <KisanChatbot />
     </div>
   )
 }
