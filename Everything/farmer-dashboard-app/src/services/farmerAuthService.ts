@@ -221,7 +221,7 @@ export async function authenticateFarmerWithBackend(
 
       if (!error && data) {
         // If pin_hash is saved on record, verify it
-        if (!data.pin_hash || data.pin_hash === inputPinHash || cleanPin === '123456') {
+        if (data.pin_hash && data.pin_hash === inputPinHash) {
           const profile: FarmerProfile = {
             farmerId: data.farmer_id,
             name: data.name,
@@ -270,54 +270,14 @@ export async function authenticateFarmerWithBackend(
   )
 
   if (found) {
-    // Check PIN hash or accept standard master/demo PIN '123456'
-    if (
-      !found.pinHash ||
-      found.pinHash === inputPinHash ||
-      cleanPin === '123456' ||
-      cleanPin === '000000'
-    ) {
+    if (found.pinHash && found.pinHash === inputPinHash) {
       return { success: true, farmer: found, message: 'Authentication successful.' }
     } else {
       return { success: false, message: 'Invalid 6-digit PIN or password for this registered mobile.' }
     }
   }
 
-  // 3. If mobile not registered yet, auto-provision demo account with entered mobile
-  if (cleanInput.length >= 10 && cleanPin.length >= 4) {
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000)
-    const newProfile: RegisteredFarmerRecord = {
-      farmerId: `KS-FARM-2026-${randomSuffix}`,
-      name: `Farmer ${cleanInput.slice(-4)}`,
-      mobile: cleanInput,
-      email: `farmer${cleanInput.slice(-4)}@kispansetu.in`,
-      dob: '1990-01-01',
-      gender: 'Male',
-      maritalStatus: 'Married',
-      state: 'Uttar Pradesh',
-      district: 'Varanasi',
-      village: 'Village Chiraigaon',
-      postOffice: 'Chiraigaon Post',
-      tehsil: 'Chiraigaon',
-      pincode: '221112',
-      preferredMandi: 'Chiraigaon 1st at Gaurakala (FCS)',
-      primaryProduce: 'Wheat (गेहूं)',
-      landHolding: '3.00 Acre',
-      khasraNo: '102/1',
-      experience: '10 Years',
-      farmerType: 'Small Farmer (Marginal)',
-      bankAccount: `XXXX-XXXX-${cleanInput.slice(-4)}`,
-      bankName: 'State Bank of India',
-      ifscCode: 'SBIN0001234',
-      vehicleNumber: `UP-65-XX-${cleanInput.slice(-4)}`,
-      pinHash: inputPinHash,
-      registeredAt: new Date().toISOString(),
-    }
-    saveFarmerToVault(newProfile)
-    return { success: true, farmer: newProfile, message: 'New farmer profile provisioned and authenticated.' }
-  }
-
-  return { success: false, message: 'Farmer record not found. Please register your account.' }
+  return { success: false, message: 'No registered farmer account found. Please register your account first.' }
 }
 
 /**
@@ -340,35 +300,5 @@ export async function authenticateFarmerWithOtp(
     return { success: true, farmer: found, message: 'OTP verified successfully.' }
   }
 
-  // Provision new profile for this mobile
-  const randomSuffix = Math.floor(1000 + Math.random() * 9000)
-  const newProfile: RegisteredFarmerRecord = {
-    farmerId: `KS-FARM-2026-${randomSuffix}`,
-    name: `Farmer ${cleanMobile.slice(-4)}`,
-    mobile: cleanMobile,
-    email: `farmer${cleanMobile.slice(-4)}@kispansetu.in`,
-    dob: '1990-01-01',
-    gender: 'Male',
-    maritalStatus: 'Married',
-    state: 'Uttar Pradesh',
-    district: 'Varanasi',
-    village: 'Village Chiraigaon',
-    postOffice: 'Chiraigaon Post',
-    tehsil: 'Chiraigaon',
-    pincode: '221112',
-    preferredMandi: 'Chiraigaon 1st at Gaurakala (FCS)',
-    primaryProduce: 'Wheat (गेहूं)',
-    landHolding: '3.00 Acre',
-    khasraNo: '102/1',
-    experience: '10 Years',
-    farmerType: 'Small Farmer (Marginal)',
-    bankAccount: `XXXX-XXXX-${cleanMobile.slice(-4)}`,
-    bankName: 'State Bank of India',
-    ifscCode: 'SBIN0001234',
-    vehicleNumber: `UP-65-XX-${cleanMobile.slice(-4)}`,
-    pinHash: await hashTokenSHA256('123456'),
-    registeredAt: new Date().toISOString(),
-  }
-  saveFarmerToVault(newProfile)
-  return { success: true, farmer: newProfile, message: 'OTP verified & profile loaded.' }
+  return { success: false, message: 'No registered farmer account found for this mobile number. Please register first.' }
 }

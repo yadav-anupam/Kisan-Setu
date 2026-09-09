@@ -60,7 +60,15 @@ const PROFILE_STORAGE_KEY = 'kisan_setu_farmer_profile'
 const REDIRECT_STORAGE_KEY = 'kisan_setu_redirect_after_login'
 
 export function isFarmerLoggedIn(): boolean {
-  return localStorage.getItem(AUTH_STORAGE_KEY) === 'true'
+  try {
+    if (localStorage.getItem(AUTH_STORAGE_KEY) !== 'true') return false
+    const profile = localStorage.getItem(PROFILE_STORAGE_KEY)
+    if (!profile) return false
+    const parsed = JSON.parse(profile)
+    return !!(parsed?.farmerId && parsed?.mobile)
+  } catch {
+    return false
+  }
 }
 
 export function getFarmerAuthIdentity(): AuthIdentity | null {

@@ -558,15 +558,12 @@ export async function authenticateStaffWithBackend(
         .maybeSingle()
 
       if (!error && data) {
-        if (data.status === 'INACTIVE') {
-          return { success: false, message: 'Your staff account has been deactivated. Please contact your Mandi Administrator.' }
+        const status = data.status
+        if (['INACTIVE', 'SUSPENDED', 'PENDING'].includes(status)) {
+          return { success: false, message: 'Account access denied. Status: ' + status + '. Contact your Mandi Administrator.' }
         }
 
-        const isDemoAdminPass = cleanPass === '123456' || cleanPass === 'admin123' || cleanPass === 'Admin@123'
-        const matches =
-          !data.password_hash ||
-          data.password_hash === inputHash ||
-          (isDemoAdminPass && (data.staff_id.startsWith('ST-') || data.staff_id.startsWith('OP-') || data.staff_id.startsWith('AD-') || data.staff_id.startsWith('ADM-')))
+        const matches = data.password_hash && data.password_hash === inputHash
 
         if (matches) {
           const profile: StaffProfile = {
@@ -601,15 +598,12 @@ export async function authenticateStaffWithBackend(
   )
 
   if (found) {
-    if (found.status === 'INACTIVE') {
-      return { success: false, message: 'Your staff account has been deactivated. Please contact your Mandi Administrator.' }
+    const status = found.status
+    if (['INACTIVE', 'SUSPENDED', 'PENDING'].includes(status)) {
+      return { success: false, message: 'Account access denied. Status: ' + status + '. Contact your Mandi Administrator.' }
     }
 
-    const isDemoAdminPass = cleanPass === '123456' || cleanPass === 'admin123' || cleanPass === 'Admin@123'
-    const matches =
-      !found.passwordHash ||
-      found.passwordHash === inputHash ||
-      (isDemoAdminPass && (found.staff_id.startsWith('ST-') || found.staff_id.startsWith('OP-') || found.staff_id.startsWith('AD-') || found.staff_id.startsWith('ADM-')))
+    const matches = found.passwordHash && found.passwordHash === inputHash
 
     if (matches) {
       const profile: StaffProfile = {
@@ -689,14 +683,11 @@ export function isStaffAuthenticated(): boolean {
       return false
     }
     const raw = localStorage.getItem(STAFF_AUTH_STORAGE_KEY)
-    if (raw) {
-      const parsed = JSON.parse(raw)
-      return !!parsed?.staff_id
-    }
-    // Default active demo session available if not explicitly signed out
-    return true
+    if (!raw) return false
+    const parsed = JSON.parse(raw)
+    return !!(parsed?.staff_id)
   } catch {
-    return true
+    return false
   }
 }
 
@@ -748,7 +739,18 @@ export function getStaffAuthSession(): StaffProfile {
   } catch {
     // fallback
   }
-  return OFFICIAL_STAFF_ACCOUNTS[0]
+  // Return empty shell — no auto-session for unauthenticated users
+  return {
+    staff_id: '',
+    full_name: '',
+    mobile: '',
+    email: '',
+    role: 'STAFF' as StaffRole,
+    centre_id: '',
+    centre_name: '',
+    designation: '',
+    status: 'INACTIVE',
+  }
 }
 
 export function logoutStaffUser(): void {
