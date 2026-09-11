@@ -38,6 +38,7 @@ import AdminUserRolesPage from './components/staff/AdminUserRolesPage'
 import AdminDepartmentsPage from './components/staff/AdminDepartmentsPage'
 import AdminSystemSettingsPage from './components/staff/AdminSystemSettingsPage'
 import AdminLoginPage from './components/staff/AdminLoginPage'
+import CentreAdminLoginPage from './components/staff/CentreAdminLoginPage'
 import CentreAdminDashboardPage from './components/staff/CentreAdminDashboardPage'
 import CentreAdminTokensPage from './components/staff/CentreAdminTokensPage'
 import StaffPaymentsPage from './components/staff/StaffPaymentsPage'
@@ -60,9 +61,11 @@ export default function App() {
       return <AdminLoginPage />
     }
 
+    if (path === '/centre-admin/login' || path === '/centre-admin-login') {
+      return <CentreAdminLoginPage />
+    }
+
     if (
-      path === '/centre-admin/login' ||
-      path === '/centre-admin-login' ||
       path === '/staff/login' ||
       path === '/staff-login' ||
       path === '/operator-login'

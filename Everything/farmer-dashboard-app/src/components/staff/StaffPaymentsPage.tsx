@@ -8,7 +8,7 @@ import { navigate } from '../../router'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
-  getProcurementBatches,
+  fetchProcurementBatchesFromDB,
   approveProcurementForDBT,
   type StaffProfile,
   type ProcurementBatchItem,
@@ -31,11 +31,17 @@ export default function StaffPaymentsPage() {
   const [successMsg, setSuccessMsg] = useState('')
   const [isProcessing, setIsProcessing] = useState<string | null>(null)
 
-  const loadData = useCallback(() => {
+  const loadData = useCallback(async () => {
     const s = getStaffAuthSession()
     setStaff(s)
     const isSuperAdmin = s.role === 'ADMIN' && isAdmin
-    setBatches(getProcurementBatches(isSuperAdmin ? undefined : s.centre_name))
+    const all = await fetchProcurementBatchesFromDB()
+    const targetCentre = isSuperAdmin ? undefined : s.centre_name
+    if (targetCentre && targetCentre !== 'ALL') {
+      setBatches(all.filter(b => b.centre_name && b.centre_name.toLowerCase().includes(targetCentre.toLowerCase())))
+    } else {
+      setBatches(all)
+    }
   }, [isAdmin])
 
   useEffect(() => {
@@ -64,8 +70,11 @@ export default function StaffPaymentsPage() {
 
     if (res.success) {
       setSuccessMsg(`Payment Approved! ${res.message}`)
-      setBatches(getProcurementBatches())
+      const all = await fetchProcurementBatchesFromDB()
+      setBatches(all)
       setTimeout(() => setSuccessMsg(''), 5000)
+    } else {
+      alert(res.message)
     }
   }
 
@@ -339,3 +348,4 @@ export default function StaffPaymentsPage() {
     </div>
   )
 }
+

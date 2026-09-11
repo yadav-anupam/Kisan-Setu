@@ -18,7 +18,7 @@ import { navigate } from '../../router'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
-  getProcurementBatches,
+  fetchProcurementBatchesFromDB,
   fetchStaffDashboardKPIs,
   getCommodityPrices,
   getOfficialPriceAnnouncements,
@@ -49,11 +49,11 @@ export default function CentreAdminDashboardPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [avgMoisture, setAvgMoisture] = useState('11.5')
 
-  const loadData = () => {
+  const loadData = async () => {
     setIsLoading(true)
     const currentStaff = getStaffAuthSession()
     setStaff(currentStaff)
-    const allBatches = getProcurementBatches()
+    const allBatches = await fetchProcurementBatchesFromDB()
     const centreBatches = allBatches.filter(
       (b) =>
         !b.centre_name ||
@@ -615,3 +615,4 @@ export default function CentreAdminDashboardPage() {
     </div>
   )
 }
+

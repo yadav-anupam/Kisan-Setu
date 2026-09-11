@@ -20,9 +20,13 @@ import { GoogleMapsModal } from '../common/GoogleMapsModal'
 import {
   getFarmerRawToken,
   getFarmerBookings,
-  createSlotBooking,
   cancelBookingInDB,
 } from '../../services/qrBookingService'
+import {
+  fetchAvailableSlotsForFarmer,
+  bookSlotAtomic,
+  type CentreSlotItem,
+} from '../../services/slotManagementService'
 import FarmerSidebar from './FarmerSidebar'
 import FarmerHeader from './FarmerHeader'
 import {
@@ -76,12 +80,46 @@ export default function MyAppointmentsPage() {
   // Booking Form State
   const [newCrop, setNewCrop] = useState('Wheat (गेहूं)')
   const [newQty, setNewQty] = useState('45')
-  const [newDate, setNewDate] = useState('2026-09-10')
+  const [newDate, setNewDate] = useState(() => new Date().toISOString().split('T')[0])
   const [newTime, setNewTime] = useState('10:00 AM')
   const [newVehicleNumber, setNewVehicleNumber] = useState('')
   const [selectedCentre, setSelectedCentre] = useState<string>(
     farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName
   )
+  const [availableFarmerSlots, setAvailableFarmerSlots] = useState<Array<CentreSlotItem & { available_capacity: number; is_bookable: boolean }>>([])
+  const [selectedSlotId, setSelectedSlotId] = useState<string>('')
+  const [isLoadingSlots, setIsLoadingSlots] = useState<boolean>(false)
+
+  // Dynamic Slot Fetcher for Selected Centre & Date
+  const loadDynamicSlots = useCallback(async () => {
+    const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === selectedCentre) || ALL_PROCUREMENT_CENTRES[0]
+    setIsLoadingSlots(true)
+    try {
+      const sList = await fetchAvailableSlotsForFarmer(matched.id, newDate)
+      setAvailableFarmerSlots(sList)
+      const firstBookable = sList.find((s) => s.is_bookable)
+      if (firstBookable) {
+        setSelectedSlotId(firstBookable.id)
+        setNewTime(firstBookable.start_time)
+      } else if (sList.length > 0) {
+        setSelectedSlotId(sList[0].id)
+        setNewTime(sList[0].start_time)
+      } else {
+        setSelectedSlotId('')
+      }
+    } catch {
+      setAvailableFarmerSlots([])
+      setSelectedSlotId('')
+    } finally {
+      setIsLoadingSlots(false)
+    }
+  }, [selectedCentre, newDate])
+
+  useEffect(() => {
+    if (bookingModalOpen) {
+      loadDynamicSlots()
+    }
+  }, [bookingModalOpen, loadDynamicSlots])
 
   const refreshAppointments = useCallback(async () => {
     try {
@@ -172,45 +210,67 @@ export default function MyAppointmentsPage() {
     }
   }, [farmer.farmerId, farmer.mobile])
 
+  const [isBookingSubmitting, setIsBookingSubmitting] = useState(false)
+  const [bookingError, setBookingError] = useState('')
+
   const handleBookSlot = async (e: React.FormEvent) => {
     e.preventDefault()
-    const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === selectedCentre) || ALL_PROCUREMENT_CENTRES[0]
+    setBookingError('')
+    setIsBookingSubmitting(true)
 
-    const { booking } = await createSlotBooking({
-      farmer_id: farmer.farmerId || 'KS-FARM-2026-8942',
-      farmer_name: farmer.name || 'Ramesh Kumar Singh',
-      farmer_phone: farmer.mobile,
-      centre_id: matched.id,
-      centre_name: matched.centreName,
-      booking_date: newDate,
-      start_time: newTime,
-      end_time: '01:00 PM',
-      commodity: newCrop,
-      quantity: Number(newQty),
-      vehicle_number: newVehicleNumber.trim() || '',
-    })
+    try {
+      const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === selectedCentre) || ALL_PROCUREMENT_CENTRES[0]
 
-    const parsedDate = new Date(newDate)
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const newApt: Appointment = {
-      id: booking.id,
-      date: newDate,
-      day: parsedDate.getDate().toString().padStart(2, '0'),
-      month: monthNames[parsedDate.getMonth()] || 'Sep',
-      year: parsedDate.getFullYear().toString(),
-      time: newTime,
-      centre: matched.centreName,
-      address: matched.address,
-      crop: newCrop,
-      quantity: newQty,
-      token: booking.token_number,
-      status: 'Upcoming',
+      if (!selectedSlotId) {
+        throw new Error('No available slot selected. Please choose an open intake window.')
+      }
+
+      const res = await bookSlotAtomic({
+        slot_id: selectedSlotId,
+        farmer_id: farmer.farmerId || 'KS-FARM-2026-8942',
+        farmer_name: farmer.name || 'Ramesh Kumar Singh',
+        farmer_phone: farmer.mobile,
+        centre_id: matched.id,
+        centre_name: matched.centreName,
+        booking_date: newDate,
+        commodity: newCrop,
+        quantity: Number(newQty),
+        vehicle_number: newVehicleNumber.trim() || '',
+      })
+
+      if (!res.success) {
+        throw new Error(res.message)
+      }
+
+      const bookedSlot = availableFarmerSlots.find((s) => s.id === selectedSlotId)
+      const slotTimeDisplay = bookedSlot ? `${bookedSlot.start_time} - ${bookedSlot.end_time}` : newTime
+
+      const parsedDate = new Date(newDate)
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      const newApt: Appointment = {
+        id: res.booking_id || '',
+        date: newDate,
+        day: parsedDate.getDate().toString().padStart(2, '0'),
+        month: monthNames[parsedDate.getMonth()] || 'Sep',
+        year: parsedDate.getFullYear().toString(),
+        time: slotTimeDisplay,
+        centre: matched.centreName,
+        address: matched.address,
+        crop: newCrop,
+        quantity: newQty,
+        token: res.token_number || '',
+        status: 'Upcoming',
+      }
+      setUpcomingList((prev) => [newApt, ...prev])
+      setBookingModalOpen(false)
+      window.dispatchEvent(new Event('kisan_setu_booking_updated'))
+      refreshAppointments()
+    } catch (err: any) {
+      console.error('Booking failed:', err)
+      setBookingError(err.message || 'Failed to book slot. Please try again.')
+    } finally {
+      setIsBookingSubmitting(false)
     }
-    setUpcomingList((prev) => [newApt, ...prev])
-    setBookingModalOpen(false)
-    window.dispatchEvent(new Event('kisan_setu_booking_updated'))
-    alert(`Appointment booked successfully at ${matched.centreName}! Gate Token: ${newApt.token}`)
-    refreshAppointments()
   }
 
   const handleConfirmReschedule = (e: React.FormEvent) => {
@@ -606,30 +666,6 @@ export default function MyAppointmentsPage() {
                 />
               </div>
 
-              <div className="fd-modal-grid-2">
-                <div className="fd-modal-field">
-                  <label>Appointment Date *</label>
-                  <input
-                    type="date"
-                    required
-                    value={newDate}
-                    onChange={(e) => setNewDate(e.target.value)}
-                  />
-                </div>
-                <div className="fd-modal-field">
-                  <label>Time Slot *</label>
-                  <select
-                    value={newTime}
-                    onChange={(e) => setNewTime(e.target.value)}
-                  >
-                    <option value="09:00 AM">09:00 AM - 11:00 AM</option>
-                    <option value="11:00 AM">11:00 AM - 01:00 PM</option>
-                    <option value="02:00 PM">02:00 PM - 04:00 PM</option>
-                    <option value="04:00 PM">04:00 PM - 06:00 PM</option>
-                  </select>
-                </div>
-              </div>
-
               <div className="fd-modal-field">
                 <label>Choose Procurement Centre ({ALL_PROCUREMENT_CENTRES.length} Centres Available) *</label>
                 <select
@@ -678,6 +714,109 @@ export default function MyAppointmentsPage() {
               </div>
 
               <div className="fd-modal-field">
+                <label>Appointment Date *</label>
+                <input
+                  type="date"
+                  required
+                  value={newDate}
+                  onChange={(e) => setNewDate(e.target.value)}
+                />
+              </div>
+
+              <div className="fd-modal-field">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ margin: 0, fontWeight: 600 }}>Available Intake Time Slot *</label>
+                  {isLoadingSlots && <span style={{ fontSize: '12px', color: '#16a34a' }}>Checking availability...</span>}
+                </div>
+
+                {isLoadingSlots ? (
+                  <div style={{ padding: '14px', textAlign: 'center', color: '#64748b', fontSize: '13px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    Loading slots for selected centre & date...
+                  </div>
+                ) : availableFarmerSlots.length === 0 ? (
+                  <div style={{ padding: '14px', color: '#b45309', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px', fontSize: '13px', lineHeight: '1.4' }}>
+                    ⚠️ <strong>No slots available:</strong> The Centre Admin has not scheduled open intake windows for this date ({newDate}). Please select another date or nearby procurement centre.
+                  </div>
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '8px', maxHeight: '220px', overflowY: 'auto', padding: '2px' }}>
+                    {availableFarmerSlots.map((s) => {
+                      const isSelected = selectedSlotId === s.id
+                      const isBookable = s.is_bookable
+                      const isFull = s.status === 'FULL' || s.available_capacity <= 0
+                      const isClosed = s.status === 'CLOSED' || !s.is_active
+
+                      let statusBadge = `${s.available_capacity} spots left`
+                      let badgeBg = '#dcfce7'
+                      let badgeColor = '#15803d'
+
+                      if (isClosed) {
+                        statusBadge = 'CLOSED'
+                        badgeBg = '#fee2e2'
+                        badgeColor = '#b91c1c'
+                      } else if (isFull) {
+                        statusBadge = 'FULL'
+                        badgeBg = '#ffedd5'
+                        badgeColor = '#c2410c'
+                      }
+
+                      return (
+                        <button
+                          key={s.id}
+                          type="button"
+                          disabled={!isBookable}
+                          onClick={() => {
+                            if (isBookable) {
+                              setSelectedSlotId(s.id)
+                              setNewTime(s.start_time)
+                            }
+                          }}
+                          style={{
+                            padding: '10px 12px',
+                            borderRadius: '8px',
+                            textAlign: 'left',
+                            border: isSelected
+                              ? '2px solid #16a34a'
+                              : isBookable
+                              ? '1px solid #cbd5e1'
+                              : '1px solid #e2e8f0',
+                            background: isSelected
+                              ? '#f0fdf4'
+                              : isBookable
+                              ? '#ffffff'
+                              : '#f8fafc',
+                            cursor: isBookable ? 'pointer' : 'not-allowed',
+                            opacity: isBookable ? 1 : 0.65,
+                            boxShadow: isSelected ? '0 0 0 2px rgba(22,163,74,0.2)' : 'none',
+                            transition: 'all 0.15s ease',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '4px',
+                          }}
+                        >
+                          <div style={{ fontWeight: 700, fontSize: '13px', color: isSelected ? '#15803d' : '#1e293b' }}>
+                            ⏰ {s.start_time} - {s.end_time}
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', marginTop: '2px' }}>
+                            <span style={{ color: '#64748b' }}>Cap: {s.capacity}</span>
+                            <span style={{
+                              background: badgeBg,
+                              color: badgeColor,
+                              padding: '2px 6px',
+                              borderRadius: '4px',
+                              fontWeight: 700,
+                              fontSize: '10.5px',
+                            }}>
+                              {statusBadge}
+                            </span>
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              <div className="fd-modal-field">
                 <label>Vehicle / Tractor / Trolley Number (Optional)</label>
                 <input
                   type="text"
@@ -687,12 +826,33 @@ export default function MyAppointmentsPage() {
                 />
               </div>
 
+              {bookingError && (
+                <div style={{
+                  background: '#fef2f2',
+                  border: '1px solid #fca5a5',
+                  color: '#b91c1c',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  marginBottom: '12px',
+                  lineHeight: '1.4'
+                }}>
+                  <strong>Booking Error:</strong> {bookingError}
+                </div>
+              )}
+
               <button
                 type="submit"
                 className="fd-card-btn primary"
-                style={{ padding: '12px', marginTop: '6px' }}
+                disabled={isBookingSubmitting || !selectedSlotId || availableFarmerSlots.length === 0}
+                style={{
+                  padding: '12px',
+                  marginTop: '6px',
+                  opacity: isBookingSubmitting || !selectedSlotId || availableFarmerSlots.length === 0 ? 0.6 : 1,
+                  cursor: isBookingSubmitting || !selectedSlotId || availableFarmerSlots.length === 0 ? 'not-allowed' : 'pointer'
+                }}
               >
-                <CheckCircle2 size={16} /> Confirm & Generate Token
+                <CheckCircle2 size={16} /> {isBookingSubmitting ? 'Confirming & Generating Token...' : 'Confirm & Generate Token'}
               </button>
             </form>
           </div>

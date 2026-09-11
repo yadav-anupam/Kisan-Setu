@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import {
   Sparkles,
   TrendingUp,
@@ -17,7 +17,7 @@ import {
   getStaffAuthSession,
   isStaffAuthenticated,
   fetchStaffDashboardKPIs,
-  getProcurementBatches,
+  fetchProcurementBatchesFromDB,
   type StaffProfile,
   type StaffDashboardKPIs,
   type ProcurementBatchItem,
@@ -52,13 +52,17 @@ export default function StaffReportsPage() {
   const [mlData, setMlData] = useState<any>(null)
   const [batches, setBatches] = useState<ProcurementBatchItem[]>([])
 
-  const loadData = () => {
+  const loadData = useCallback(async () => {
     setIsRefreshing(true)
     const currentStaff = getStaffAuthSession()
     setStaff(currentStaff)
 
     // Load batches for this centre
-    const localBatches = getProcurementBatches(currentStaff.centre_name)
+    const all = await fetchProcurementBatchesFromDB()
+    const targetCentre = currentStaff.centre_name
+    const localBatches = targetCentre && targetCentre !== 'ALL' 
+      ? all.filter(b => b.centre_name && b.centre_name.toLowerCase().includes(targetCentre.toLowerCase()))
+      : all
     setBatches(localBatches)
 
     fetchStaffDashboardKPIs(currentStaff.centre_id, currentStaff.centre_name)
@@ -79,7 +83,7 @@ export default function StaffReportsPage() {
       .finally(() => {
         setIsRefreshing(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
@@ -1026,4 +1030,5 @@ export default function StaffReportsPage() {
     </div>
   )
 }
+
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   BadgeCheck,
   Eye,
@@ -11,7 +11,12 @@ import {
 import logoImg from '../../assets/logo.png'
 import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
-import { authenticateStaffWithBackend } from '../../services/staffDataService'
+import {
+  authenticateStaffWithBackend,
+  isStaffAuthenticated,
+  getStaffAuthSession,
+} from '../../services/staffDataService'
+import { getRoleHomeRoute } from '../../services/rbacService'
 import {
   VARANASI_PROCUREMENT_CENTRES,
   CHANDAULI_PROCUREMENT_CENTRES,
@@ -21,12 +26,19 @@ import {
 import './StaffQRScannerPage.css'
 
 export default function StaffLoginPage() {
-  const [emailOrId, setEmailOrId] = useState('rajesh.kumar@fcs.up.gov.in')
-  const [password, setPassword] = useState('123456')
+  const [emailOrId, setEmailOrId] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [selectedMandi, setSelectedMandi] = useState('Chiraigaon 1st at Gaurakala (FCS)')
   const [isLoading, setIsLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+
+  useEffect(() => {
+    if (isStaffAuthenticated()) {
+      const session = getStaffAuthSession()
+      navigate(getRoleHomeRoute(session.role || 'STAFF'))
+    }
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,7 +54,8 @@ export default function StaffLoginPage() {
 
       const res = await authenticateStaffWithBackend(emailOrId, password, selectedMandi)
       if (res.success && res.profile) {
-        const defaultTarget = res.profile.role === 'MANDI_ADMIN' ? '/centre-admin/dashboard' : '/staff/dashboard'
+        const defaultTarget = getRoleHomeRoute(res.profile.role)
+        sessionStorage.removeItem('kisan_setu_staff_logged_out')
         const target = sessionStorage.getItem('kisan_setu_staff_redirect') || defaultTarget
         sessionStorage.removeItem('kisan_setu_staff_redirect')
         navigate(target)
@@ -268,41 +281,6 @@ export default function StaffLoginPage() {
                 {isLoading ? 'Verifying Credentials with Backend...' : 'Sign In to Mandi Desk'}
               </button>
             </form>
-
-            <div style={{ marginTop: '20px', padding: '12px 14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', fontSize: '11.5px', color: '#64748b' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontWeight: 700 }}>
-                <span>Official Appointed Accounts:</span>
-                <span style={{ color: '#0d631b' }}>Pass: 123456</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmailOrId('vikram.singh@fcs.up.gov.in')
-                    setPassword('123456')
-                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
-                    setErrorMsg('')
-                  }}
-                  title="Vikram Singh (vikram.singh@fcs.up.gov.in / AD-001)"
-                  style={{ padding: '8px 6px', fontSize: '11.5px', fontWeight: 700, borderRadius: '6px', border: '1px solid #fed7aa', background: '#fff7ed', color: '#c2410c', cursor: 'pointer', textAlign: 'center' }}
-                >
-                  🏢 Centre Admin
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmailOrId('rajesh.kumar@fcs.up.gov.in')
-                    setPassword('123456')
-                    setSelectedMandi('Chiraigaon 1st at Gaurakala (FCS)')
-                    setErrorMsg('')
-                  }}
-                  title="Rajesh Kumar (rajesh.kumar@fcs.up.gov.in / ST-102)"
-                  style={{ padding: '8px 6px', fontSize: '11.5px', fontWeight: 700, borderRadius: '6px', border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534', cursor: 'pointer', textAlign: 'center' }}
-                >
-                  🛡️ Gate Officer
-                </button>
-              </div>
-            </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '12px' }}>
               <button

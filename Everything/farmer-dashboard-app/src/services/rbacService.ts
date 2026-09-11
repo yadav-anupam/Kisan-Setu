@@ -30,6 +30,7 @@ export type AppPermission =
 
   // Centre Admin Specific (Single-Centre Governance)
   | 'MANAGE_CENTRE_TOKENS'
+  | 'MANAGE_CENTRE_SLOTS'
   | 'APPROVE_DBT_PAYMENTS'
   | 'MANAGE_CENTRE_STAFF'
   | 'MANAGE_CENTRE_PRICES'
@@ -103,16 +104,25 @@ const ROLE_PERMISSIONS: Record<UserRole, AppPermission[]> = {
     'BROADCAST_ANNOUNCEMENT',
     // Centre Admin Authority
     'MANAGE_CENTRE_TOKENS',
+    'MANAGE_CENTRE_SLOTS',
     'APPROVE_DBT_PAYMENTS',
     'MANAGE_CENTRE_STAFF',
     'MANAGE_CENTRE_PRICES',
     'VIEW_CENTRE_REPORTS',
     'VIEW_CENTRE_AUDIT_LOGS',
     'MANAGE_CENTRE_SETTINGS',
+    'VIEW_OWN_PROFILE',
   ],
 
   ADMIN: [
-    // Inherits all staff & centre admin capabilities
+    // Global Access to Everything
+    'VIEW_OWN_PROFILE',
+    'EDIT_OWN_PROFILE',
+    'BOOK_SLOT',
+    'VIEW_OWN_BOOKINGS',
+    'CANCEL_OWN_BOOKING',
+    'VIEW_OWN_PROCUREMENT',
+    'VIEW_OWN_PAYMENTS',
     'VIEW_LIVE_QUEUE',
     'SUBMIT_GRIEVANCE',
     'SCAN_GATE_PASS',
@@ -126,6 +136,7 @@ const ROLE_PERMISSIONS: Record<UserRole, AppPermission[]> = {
     'VIEW_CENTRE_SLOTS',
     'BROADCAST_ANNOUNCEMENT',
     'MANAGE_CENTRE_TOKENS',
+    'MANAGE_CENTRE_SLOTS',
     'APPROVE_DBT_PAYMENTS',
     'MANAGE_CENTRE_STAFF',
     'MANAGE_CENTRE_PRICES',
@@ -210,3 +221,42 @@ export function canAccessFarmerResource(
 
   return true
 }
+
+/**
+ * Resolves the primary canonical dashboard route for a given user role.
+ */
+export function getRoleHomeRoute(role: UserRole | string | undefined): string {
+  if (!role) return '/login'
+  const normalized = normalizeRole(role)
+  switch (normalized) {
+    case 'ADMIN':
+      return '/admin/dashboard'
+    case 'CENTRE_ADMIN':
+      return '/centre-admin/dashboard'
+    case 'STAFF':
+      return '/staff/dashboard'
+    case 'FARMER':
+    default:
+      return '/farmer-dashboard'
+  }
+}
+
+/**
+ * Resolves the appropriate login portal route for a given user role.
+ */
+export function getRoleLoginRoute(role: UserRole | string | undefined): string {
+  if (!role) return '/login'
+  const normalized = normalizeRole(role)
+  switch (normalized) {
+    case 'ADMIN':
+      return '/admin/login'
+    case 'CENTRE_ADMIN':
+      return '/centre-admin/login'
+    case 'STAFF':
+      return '/staff/login'
+    case 'FARMER':
+    default:
+      return '/login'
+  }
+}
+

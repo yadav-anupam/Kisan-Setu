@@ -10,7 +10,7 @@ import { navigate } from '../../router'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
-  getProcurementBatches,
+  fetchProcurementBatchesFromDB,
   saveQualityCheckBatch,
   getCommodityPrices,
   type StaffProfile,
@@ -42,10 +42,14 @@ export default function StaffQualityCheckPage() {
   const [successMsg, setSuccessMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
 
-  const loadData = useCallback(() => {
+  const loadData = useCallback(async () => {
     const s = getStaffAuthSession()
     setStaff(s)
-    const list = getProcurementBatches(s.centre_name)
+    const all = await fetchProcurementBatchesFromDB()
+    const targetCentre = s.centre_name
+    const list = targetCentre && targetCentre !== 'ALL' 
+      ? all.filter(b => b.centre_name && b.centre_name.toLowerCase().includes(targetCentre.toLowerCase()))
+      : all
     setBatches(list)
     if (list.length > 0 && !selectedBatch) {
       setSelectedBatch(list[0])
@@ -114,7 +118,8 @@ export default function StaffQualityCheckPage() {
     setIsSubmitting(false)
     if (res.success) {
       setSuccessMsg(`Quality inspection certified for batch ${selectedBatch.batch_number}!`)
-      setBatches(getProcurementBatches())
+      const all = await fetchProcurementBatchesFromDB()
+      setBatches(all)
       setTimeout(() => setSuccessMsg(''), 4000)
     } else {
       setErrorMsg(res.message || 'Failed to save quality assessment.')
@@ -474,3 +479,4 @@ export default function StaffQualityCheckPage() {
     </div>
   )
 }
+

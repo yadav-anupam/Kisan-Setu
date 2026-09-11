@@ -174,23 +174,26 @@ export async function saveFarmerProfileToDB(profile: Partial<DbFarmerProfile>): 
 // -----------------------------------------------------------------------------
 export async function fetchProcurementsFromDB(farmerId: string): Promise<DbProcurementBatch[]> {
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      const { data, error } = await supabase
-        .from('procurements')
-        .select('*')
-        .eq('farmer_id', farmerId)
-        .order('created_at', { ascending: false })
-
-      if (!error && data && data.length > 0) {
-        return data as DbProcurementBatch[]
-      }
-    } catch {
-      // fallback
-    }
+  if (!supabase) {
+    throw new Error('Database connection failed. Please check Supabase configuration.')
   }
 
-  return []
+  try {
+    const { data, error } = await supabase
+      .from('procurements')
+      .select('*')
+      .eq('farmer_id', farmerId)
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      if (error.code === 'PGRST116') return []
+      throw error
+    }
+
+    return (data || []) as DbProcurementBatch[]
+  } catch (err: any) {
+    throw new Error(`Database error fetching procurements: ${err.message}`)
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -198,23 +201,26 @@ export async function fetchProcurementsFromDB(farmerId: string): Promise<DbProcu
 // -----------------------------------------------------------------------------
 export async function fetchDbtPaymentsFromDB(farmerId: string): Promise<DbDbtPayment[]> {
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      const { data, error } = await supabase
-        .from('dbt_payments')
-        .select('*')
-        .eq('farmer_id', farmerId)
-        .order('transfer_date', { ascending: false })
-
-      if (!error && data && data.length > 0) {
-        return data as DbDbtPayment[]
-      }
-    } catch {
-      // fallback
-    }
+  if (!supabase) {
+    throw new Error('Database connection failed. Please check Supabase configuration.')
   }
 
-  return []
+  try {
+    const { data, error } = await supabase
+      .from('dbt_payments')
+      .select('*')
+      .eq('farmer_id', farmerId)
+      .order('transfer_date', { ascending: false })
+
+    if (error) {
+      if (error.code === 'PGRST116') return []
+      throw error
+    }
+
+    return (data || []) as DbDbtPayment[]
+  } catch (err: any) {
+    throw new Error(`Database error fetching DBT payments: ${err.message}`)
+  }
 }
 
 // -----------------------------------------------------------------------------

@@ -55,6 +55,8 @@ const DEFAULT_FARMER: FarmerProfile = {
 
 import type { AuthIdentity } from './services/rbacService'
 
+import { getSupabaseClient } from './services/supabaseClient'
+
 const AUTH_STORAGE_KEY = 'kisan_setu_farmer_auth'
 const PROFILE_STORAGE_KEY = 'kisan_setu_farmer_profile'
 const REDIRECT_STORAGE_KEY = 'kisan_setu_redirect_after_login'
@@ -99,6 +101,10 @@ export function updateFarmerProfile(updates: Partial<FarmerProfile>): FarmerProf
 }
 
 export function logoutFarmer(): void {
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    supabase.auth.signOut().catch(console.error)
+  }
   localStorage.removeItem(AUTH_STORAGE_KEY)
   localStorage.removeItem(PROFILE_STORAGE_KEY)
   sessionStorage.removeItem(REDIRECT_STORAGE_KEY)

@@ -12,7 +12,7 @@ import {
   getStaffAuthSession,
   isStaffAuthenticated,
   fetchCentreQueue,
-  getProcurementBatches,
+  fetchProcurementBatchesFromDB,
   saveWeighmentBatch,
   type QueueItem,
   type ProcurementBatchItem,
@@ -53,7 +53,12 @@ export default function StaffWeighmentPage() {
     } catch {
       // ignore
     }
-    setBatches(getProcurementBatches(s.centre_name))
+    const all = await fetchProcurementBatchesFromDB()
+    const targetCentre = s.centre_name
+    setBatches(targetCentre && targetCentre !== 'ALL' 
+      ? all.filter(b => b.centre_name && b.centre_name.toLowerCase().includes(targetCentre.toLowerCase()))
+      : all
+    )
   }, [selectedToken])
 
   useEffect(() => {
@@ -110,7 +115,8 @@ export default function StaffWeighmentPage() {
     setIsSubmitting(false)
     if (res.success && res.batch) {
       setSuccessBatch(res.batch)
-      setBatches(getProcurementBatches())
+      const all = await fetchProcurementBatchesFromDB()
+      setBatches(all)
     } else {
       setErrorMsg(res.message || 'Failed to record weighment.')
     }
@@ -611,3 +617,4 @@ export default function StaffWeighmentPage() {
     </div>
   )
 }
+

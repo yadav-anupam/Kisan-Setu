@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Building2,
   Eye,
   EyeOff,
   KeyRound,
   Lock,
-  RefreshCw,
   ShieldCheck,
   Store,
   Users,
@@ -16,35 +15,42 @@ import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
 import {
   authenticateStaffWithBackend,
-  getAllProcurementCentresList,
+  isStaffAuthenticated,
+  getStaffAuthSession,
   type StaffProfile,
 } from '../../services/staffDataService'
-import type { ProcurementCentreItem } from '../../data/procurementCentresData'
+import { getRoleHomeRoute } from '../../services/rbacService'
+import {
+  fetchAllCentresFromDB,
+  type ProcurementCentreItem,
+} from '../../services/procurementCentresService'
 
 export default function CentreAdminLoginPage() {
-  const [identifier, setIdentifier] = useState('AD-001')
-  const [password, setPassword] = useState('123456')
+  const [identifier, setIdentifier] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [selectedCentre, setSelectedCentre] = useState('centre-up-vns-01')
-  const [captchaCode, setCaptchaCode] = useState('X7B29')
-  const [captchaInput, setCaptchaInput] = useState('X7B29')
+  const [centres, setCentres] = useState<ProcurementCentreItem[]>([])
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isOtpMode, setIsOtpMode] = useState(false)
   const [otpSent, setOtpSent] = useState(false)
   const [otpCode, setOtpCode] = useState('')
 
-  const centres: ProcurementCentreItem[] = getAllProcurementCentresList()
-
-  const generateCaptcha = () => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-    let res = ''
-    for (let i = 0; i < 5; i++) {
-      res += chars.charAt(Math.floor(Math.random() * chars.length))
+  useEffect(() => {
+    if (isStaffAuthenticated()) {
+      const session = getStaffAuthSession()
+      navigate(getRoleHomeRoute(session.role || 'CENTRE_ADMIN'))
+      return
     }
-    setCaptchaCode(res)
-    setCaptchaInput('')
-  }
+
+    fetchAllCentresFromDB().then((data) => {
+      if (data && data.length > 0) {
+        setCentres(data)
+        setSelectedCentre(data[0].id)
+      }
+    })
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -58,11 +64,6 @@ export default function CentreAdminLoginPage() {
     if (!isOtpMode) {
       if (!password.trim()) {
         setErrorMsg('Please enter your account password.')
-        return
-      }
-      if (captchaInput.toUpperCase() !== captchaCode.toUpperCase()) {
-        setErrorMsg('Security CAPTCHA verification failed. Please try again.')
-        generateCaptcha()
         return
       }
     } else {
@@ -94,6 +95,7 @@ export default function CentreAdminLoginPage() {
           centre_id: selectedCentre,
           centre_name: centres.find((c: ProcurementCentreItem) => c.id === selectedCentre)?.centreName || authResult.profile.centre_name,
         }
+        sessionStorage.removeItem('kisan_setu_staff_logged_out')
         localStorage.setItem('kisan_setu_staff_auth', JSON.stringify(profile))
         window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: profile }))
         navigate('/centre-admin/dashboard')
@@ -105,14 +107,6 @@ export default function CentreAdminLoginPage() {
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleQuickFill = (id: string, pass: string, centreId: string) => {
-    setIdentifier(id)
-    setPassword(pass)
-    setSelectedCentre(centreId)
-    setCaptchaInput(captchaCode)
-    setErrorMsg('')
   }
 
   return (
@@ -393,23 +387,6 @@ export default function CentreAdminLoginPage() {
                     </button>
                   </div>
                 </div>
-
-                {/* Security CAPTCHA */}
-                <div style={{ background: '#f1f5f9', borderRadius: '10px', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ background: '#e2e8f0', padding: '6px 14px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 800, fontSize: '17px', letterSpacing: '4px', color: '#1e293b' }}>
-                    {captchaCode}
-                  </div>
-                  <button type="button" onClick={generateCaptcha} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#64748b' }} title="Refresh CAPTCHA">
-                    <RefreshCw size={16} />
-                  </button>
-                  <input
-                    type="text"
-                    value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value)}
-                    placeholder="Enter code"
-                    style={{ flex: 1, height: '36px', padding: '0 10px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
-                  />
-                </div>
               </>
             ) : (
               /* OTP Mode */
@@ -423,7 +400,7 @@ export default function CentreAdminLoginPage() {
                     type="text"
                     value={otpCode}
                     onChange={(e) => setOtpCode(e.target.value)}
-                    placeholder={otpSent ? 'Demo OTP: 123456' : 'Click Send OTP below'}
+                    placeholder={otpSent ? 'Enter received OTP' : 'Click Send OTP below'}
                     disabled={!otpSent}
                     style={{
                       width: '100%',
@@ -471,29 +448,6 @@ export default function CentreAdminLoginPage() {
               {isOtpMode ? '← Sign In with Password instead' : '🔑 Sign In with OTP instead'}
             </button>
           </form>
-
-          {/* Quick Demo Credentials */}
-          <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid #f1f5f9' }}>
-            <div style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
-              Demo Centre Admin Accounts (Click to Fill)
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
-              <button
-                type="button"
-                onClick={() => handleQuickFill('AD-001', 'Admin@123', 'centre-up-vns-01')}
-                style={{ padding: '7px 8px', borderRadius: '8px', border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer', textAlign: 'left' }}
-              >
-                Chiraigaon Mandi<br /><small style={{ fontWeight: 500, color: '#64748b' }}>Vikram Singh (AD-001)</small>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickFill('IN-305', 'Inspector@123', 'centre-up-vns-02')}
-                style={{ padding: '7px 8px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#ffffff', color: '#334155', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer', textAlign: 'left' }}
-              >
-                Rohania Sub-Yard<br /><small style={{ fontWeight: 500, color: '#64748b' }}>Pooja Verma (IN-305)</small>
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Security Notice */}

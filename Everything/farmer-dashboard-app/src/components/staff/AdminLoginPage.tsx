@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Building2,
   Eye,
   EyeOff,
   KeyRound,
   Lock,
-  RefreshCw,
   ShieldCheck,
   Landmark,
   Users,
@@ -17,31 +16,29 @@ import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
 import {
   authenticateStaffWithBackend,
+  isStaffAuthenticated,
+  getStaffAuthSession,
   type StaffProfile,
 } from '../../services/staffDataService'
+import { getRoleHomeRoute } from '../../services/rbacService'
 import './AdminLoginPage.css'
 
 export default function AdminLoginPage() {
-  const [identifier, setIdentifier] = useState('ADM-UP-001')
-  const [password, setPassword] = useState('123456')
+  const [identifier, setIdentifier] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [captchaCode, setCaptchaCode] = useState('X7B29')
-  const [captchaInput, setCaptchaInput] = useState('X7B29')
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isOtpMode, setIsOtpMode] = useState(false)
   const [otpSent, setOtpSent] = useState(false)
   const [otpCode, setOtpCode] = useState('')
 
-  const generateCaptcha = () => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-    let res = ''
-    for (let i = 0; i < 5; i++) {
-      res += chars.charAt(Math.floor(Math.random() * chars.length))
+  useEffect(() => {
+    if (isStaffAuthenticated()) {
+      const session = getStaffAuthSession()
+      navigate(getRoleHomeRoute(session.role || 'ADMIN'))
     }
-    setCaptchaCode(res)
-    setCaptchaInput('')
-  }
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -55,11 +52,6 @@ export default function AdminLoginPage() {
     if (!isOtpMode) {
       if (!password.trim()) {
         setErrorMsg('Please enter your account password.')
-        return
-      }
-      if (captchaInput.toUpperCase() !== captchaCode.toUpperCase()) {
-        setErrorMsg('Security CAPTCHA verification failed. Please try again.')
-        generateCaptcha()
         return
       }
     } else {
@@ -91,9 +83,12 @@ export default function AdminLoginPage() {
           centre_id: 'STATE_HQ',
           centre_name: 'State APMC & Food Supplies Headquarters',
         }
+        sessionStorage.removeItem('kisan_setu_staff_logged_out')
         localStorage.setItem('kisan_setu_staff_auth', JSON.stringify(profile))
         window.dispatchEvent(new CustomEvent('kisan_setu_staff_profile_updated', { detail: profile }))
-        navigate('/admin/dashboard')
+        const target = sessionStorage.getItem('kisan_setu_staff_redirect') || '/admin/dashboard'
+        sessionStorage.removeItem('kisan_setu_staff_redirect')
+        navigate(target)
       } else {
         setErrorMsg(authResult.message || 'Authentication failed. Please verify credentials.')
       }
@@ -102,13 +97,6 @@ export default function AdminLoginPage() {
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleQuickFill = (id: string, pass: string) => {
-    setIdentifier(id)
-    setPassword(pass)
-    setCaptchaInput(captchaCode)
-    setErrorMsg('')
   }
 
   return (
@@ -282,28 +270,6 @@ export default function AdminLoginPage() {
                     </button>
                   </div>
                 </div>
-
-                {/* Security CAPTCHA */}
-                <div className="admin-captcha-block">
-                  <div className="admin-captcha-display">
-                    {captchaCode}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={generateCaptcha}
-                    className="admin-captcha-refresh"
-                    title="Refresh CAPTCHA"
-                  >
-                    <RefreshCw size={16} />
-                  </button>
-                  <input
-                    type="text"
-                    value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value)}
-                    placeholder="Enter code"
-                    className="admin-captcha-input"
-                  />
-                </div>
               </>
             ) : (
               /* OTP Mode */
@@ -343,30 +309,6 @@ export default function AdminLoginPage() {
               {isOtpMode ? '← Sign In with Password instead' : '🔑 Sign In with OTP instead'}
             </button>
           </form>
-
-          {/* Quick Demo Credentials */}
-          <div className="admin-quick-fill-section">
-            <div className="admin-quick-fill-label">
-              State Administration Accounts (Click to Fill)
-            </div>
-            <div className="admin-quick-fill-grid">
-              <button
-                type="button"
-                onClick={() => handleQuickFill('admin@fcs.up.gov.in', '123456')}
-                className="admin-quick-card"
-              >
-                State APMC Director<br /><small>Dr. Arvind Sharma (ADM-UP-001)</small>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickFill('director@up-agri.gov.in', '123456')}
-                className="admin-quick-card"
-                style={{ background: '#f8fafc', borderColor: '#e2e8f0', color: '#334155' }}
-              >
-                Agriculture Secretary<br /><small>Smt. Meenakshi (ADM-UP-002)</small>
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Security Notice */}

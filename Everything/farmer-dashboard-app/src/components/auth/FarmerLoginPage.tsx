@@ -23,7 +23,12 @@ import logoImg from '../../assets/logo.png'
 import farmerHeroImg from '../../assets/hero-farmer.png'
 import { navigate } from '../../router'
 import { useLanguage } from '../../useLanguage'
-import { loginFarmer, getAndClearRedirectAfterLogin, hasPendingRedirect } from '../../auth'
+import {
+  loginFarmer,
+  isFarmerLoggedIn,
+  getAndClearRedirectAfterLogin,
+  hasPendingRedirect,
+} from '../../auth'
 import {
   authenticateFarmerWithBackend,
   authenticateFarmerWithOtp,
@@ -48,6 +53,14 @@ export default function FarmerLoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [langMenuOpen, setLangMenuOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Auto-redirect if farmer is already logged in
+  useEffect(() => {
+    if (isFarmerLoggedIn()) {
+      const target = getAndClearRedirectAfterLogin()
+      navigate(target)
+    }
+  }, [])
 
   // Close language dropdown on outside click
   useEffect(() => {

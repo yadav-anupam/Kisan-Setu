@@ -87,9 +87,7 @@ export async function hashTokenSHA256(rawToken: string): Promise<string> {
 // -----------------------------------------------------------------------------
 // Persistent Raw Token Vault (Delivered only to Farmer frontend)
 // -----------------------------------------------------------------------------
-const STORAGE_FARMER_TOKENS_KEY = 'kisan_setu_farmer_raw_tokens'
-const STORAGE_LOCAL_BOOKINGS_KEY = 'kisan_setu_secure_bookings'
-const STORAGE_LOCAL_AUDITS_KEY = 'kisan_setu_verification_audits'
+const STORAGE_FARMER_TOKENS_KEY = 'kisan_setu_farmer_qr_tokens'
 
 export function getFarmerRawToken(bookingNumber: string): string {
   const saved = localStorage.getItem(STORAGE_FARMER_TOKENS_KEY)
@@ -104,7 +102,7 @@ export function getFarmerRawToken(bookingNumber: string): string {
   return `KS1|fallback-${bookingNumber}`
 }
 
-function setFarmerRawToken(bookingNumber: string, rawToken: string): void {
+export function setFarmerRawToken(bookingNumber: string, rawToken: string): void {
   const saved = localStorage.getItem(STORAGE_FARMER_TOKENS_KEY)
   let map: Record<string, string> = {}
   if (saved) {
@@ -118,37 +116,7 @@ function setFarmerRawToken(bookingNumber: string, rawToken: string): void {
   localStorage.setItem(STORAGE_FARMER_TOKENS_KEY, JSON.stringify(map))
 }
 
-function getLocalBookingsCache(): BookingRecord[] {
-  const saved = localStorage.getItem(STORAGE_LOCAL_BOOKINGS_KEY)
-  if (saved) {
-    try {
-      return JSON.parse(saved)
-    } catch {
-      // ignore
-    }
-  }
-  return []
-}
-
-function saveLocalBookingsCache(bookings: BookingRecord[]): void {
-  localStorage.setItem(STORAGE_LOCAL_BOOKINGS_KEY, JSON.stringify(bookings))
-}
-
-function getLocalAuditsCache(): VerificationAuditLog[] {
-  const saved = localStorage.getItem(STORAGE_LOCAL_AUDITS_KEY)
-  if (saved) {
-    try {
-      return JSON.parse(saved)
-    } catch {
-      // ignore
-    }
-  }
-  return []
-}
-
-function saveLocalAuditsCache(audits: VerificationAuditLog[]): void {
-  localStorage.setItem(STORAGE_LOCAL_AUDITS_KEY, JSON.stringify(audits))
-}
+// Removed unused local audits cache functions
 
 // -----------------------------------------------------------------------------
 // Core Two-Way Operations
@@ -188,14 +156,25 @@ export async function createSlotBooking(params: {
   quantity: number
   vehicle_number: string
 }): Promise<{ booking: BookingRecord; rawToken: string }> {
+  const supabase = getSupabaseClient()
+  if (!supabase) {
+    throw new Error('Database connection failed. Please check Supabase configuration.')
+  }
+
   const rawToken = generateSecureQRToken()
   const tokenHash = await hashTokenSHA256(rawToken)
 
-  const cached = getLocalBookingsCache()
-  const matchingDateCount = cached.filter(
-    (b) => b.booking_date === params.booking_date && b.centre_name === params.centre_name
-  ).length
+  const { count, error: countError } = await supabase
+    .from('bookings')
+    .select('*', { count: 'exact', head: true })
+    .eq('booking_date', params.booking_date)
+    .eq('centre_name', params.centre_name)
 
+  if (countError && countError.code !== 'PGRST116') {
+    throw new Error(`Failed to verify slot availability: ${countError.message}`)
+  }
+
+  const matchingDateCount = count || 0
   const { bookingNumber: bookingNum, tokenNumber: tokenNum } = generateAtomicToken(params.booking_date, matchingDateCount)
 
   const payload: Omit<BookingRecord, 'id' | 'created_at' | 'updated_at'> = {
@@ -216,32 +195,14 @@ export async function createSlotBooking(params: {
     qr_token_hash: tokenHash,
   }
 
-  let finalBooking: BookingRecord = {
-    ...payload,
-    id: `book-${Date.now()}`,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+  const { data, error } = await supabase.from('bookings').insert(payload).select().single()
+  if (error) {
+    throw new Error(`Database error creating booking: ${error.message}`)
   }
 
-  const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      const { data, error } = await supabase.from('bookings').insert(payload).select().single()
-      if (!error && data) {
-        finalBooking = data as BookingRecord
-      }
-    } catch {
-      // fallback
-    }
-  }
+  setFarmerRawToken(bookingNum, rawToken)
 
-  // Update local cache & token vault
-  const current = getLocalBookingsCache()
-  current.unshift(finalBooking)
-  saveLocalBookingsCache(current)
-  setFarmerRawToken(finalBooking.booking_number, rawToken)
-
-  return { booking: finalBooking, rawToken }
+  return { booking: data as BookingRecord, rawToken }
 }
 
 /**
@@ -254,40 +215,31 @@ export async function getFarmerBookings(farmerId: string, farmerPhone?: string):
   }
 
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      let query = supabase.from('bookings').select('*')
-      if (farmerId && farmerPhone) {
-        query = query.or(`farmer_id.eq.${farmerId},farmer_phone.eq.${farmerPhone}`)
-      } else if (farmerId) {
-        query = query.eq('farmer_id', farmerId)
-      } else if (farmerPhone) {
-        query = query.eq('farmer_phone', farmerPhone)
-      }
-
-      const { data, error } = await query.order('created_at', { ascending: false })
-
-      if (!error && data) {
-        // Merge into local cache without overwriting other farmers' local records
-        const local = getLocalBookingsCache()
-        const otherFarmers = local.filter(
-          (b) => b.farmer_id !== farmerId && (!farmerPhone || b.farmer_phone !== farmerPhone)
-        )
-        const updatedCache = [...(data as BookingRecord[]), ...otherFarmers]
-        saveLocalBookingsCache(updatedCache)
-        return data as BookingRecord[]
-      }
-    } catch {
-      // fallback
-    }
+  if (!supabase) {
+    throw new Error('Database connection failed. Please check Supabase configuration.')
   }
 
-  // Strict local cache filtering
-  return getLocalBookingsCache().filter((b) => {
-    if (farmerId && b.farmer_id === farmerId) return true
-    if (farmerPhone && b.farmer_phone && b.farmer_phone === farmerPhone) return true
-    return false
-  })
+  try {
+    let query = supabase.from('bookings').select('*')
+    if (farmerId && farmerPhone) {
+      query = query.or(`farmer_id.eq.${farmerId},farmer_phone.eq.${farmerPhone}`)
+    } else if (farmerId) {
+      query = query.eq('farmer_id', farmerId)
+    } else if (farmerPhone) {
+      query = query.eq('farmer_phone', farmerPhone)
+    }
+
+    const { data, error } = await query.order('created_at', { ascending: false })
+
+    if (error) {
+      if (error.code === 'PGRST116') return []
+      throw new Error(`Database error fetching bookings: ${error.message}`)
+    }
+
+    return (data || []) as BookingRecord[]
+  } catch (err: any) {
+    throw new Error(`Database error fetching bookings: ${err.message}`)
+  }
 }
 
 /**
@@ -298,14 +250,14 @@ export async function getAllBookingsFromDB(): Promise<BookingRecord[]> {
   if (supabase) {
     try {
       const { data, error } = await supabase.from('bookings').select('*').order('created_at', { ascending: false })
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data as BookingRecord[]
       }
     } catch {
-      // fallback
+      console.error('Failed to fetch bookings')
     }
   }
-  return getLocalBookingsCache()
+  return []
 }
 
 /**
@@ -315,24 +267,17 @@ export async function cancelBookingInDB(bookingIdOrNumber: string): Promise<bool
   const supabase = getSupabaseClient()
   if (supabase) {
     try {
-      await supabase
+      const { error } = await supabase
         .from('bookings')
         .update({ status: 'CANCELLED', updated_at: new Date().toISOString() })
         .or(`id.eq.${bookingIdOrNumber},booking_number.eq.${bookingIdOrNumber},token_number.eq.${bookingIdOrNumber}`)
+      
+      if (!error) return true
     } catch {
-      // fallback
+      console.error('Failed to cancel booking')
     }
   }
-
-  // Update local cache
-  const local = getLocalBookingsCache()
-  const updated = local.map((b) =>
-    b.id === bookingIdOrNumber || b.booking_number === bookingIdOrNumber || b.token_number === bookingIdOrNumber
-      ? { ...b, status: 'CANCELLED' as const, updated_at: new Date().toISOString() }
-      : b
-  )
-  saveLocalBookingsCache(updated)
-  return true
+  return false
 }
 
 /**
@@ -366,30 +311,26 @@ export async function validateQRToken(
   }
 
   const tokenHash = await hashTokenSHA256(cleanToken)
-  let booking: BookingRecord | null = null
-
-  // Query Live Supabase
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .eq('qr_token_hash', tokenHash)
-        .maybeSingle()
-
-      if (!error && data) {
-        booking = data as BookingRecord
-      }
-    } catch {
-      // fallback
-    }
+  if (!supabase) {
+    return { result: 'NOT_FOUND', message: 'Database connection failed.' }
   }
 
-  // Fallback to cache if offline
-  if (!booking) {
-    const cached = getLocalBookingsCache()
-    booking = cached.find((b) => b.qr_token_hash === tokenHash || cleanToken.includes(b.booking_number)) || null
+  let booking: BookingRecord | null = null
+  try {
+    const { data, error } = await supabase
+      .from('bookings')
+      .select('*')
+      .eq('qr_token_hash', tokenHash)
+      .maybeSingle()
+
+    if (error) {
+       console.error('validateQRToken DB error:', error)
+    } else if (data) {
+      booking = data as BookingRecord
+    }
+  } catch (err) {
+    console.error('validateQRToken exception:', err)
   }
 
   if (!booking) {
@@ -455,44 +396,33 @@ export async function confirmBookingVerification(
 ): Promise<{ success: boolean; booking?: BookingRecord; message: string }> {
   const now = new Date().toISOString()
   const supabase = getSupabaseClient()
-  let updatedBooking: BookingRecord | null = null
-
-  if (supabase) {
-    try {
-      const { data, error } = await supabase
-        .from('bookings')
-        .update({
-          verification_status: 'VERIFIED',
-          verified_by: staffUser.id,
-          verified_by_name: staffUser.name,
-          verified_at: now,
-          verification_remarks: remarks,
-          updated_at: now,
-        })
-        .eq('id', bookingId)
-        .select()
-        .single()
-
-      if (!error && data) {
-        updatedBooking = data as BookingRecord
-      }
-    } catch {
-      // fallback
-    }
+  if (!supabase) {
+    return { success: false, message: 'Database connection failed.' }
   }
 
-  // Update local cache
-  const cached = getLocalBookingsCache()
-  const idx = cached.findIndex((b) => b.id === bookingId)
-  if (idx !== -1) {
-    cached[idx].verification_status = 'VERIFIED'
-    cached[idx].verified_by = staffUser.id
-    cached[idx].verified_by_name = staffUser.name
-    cached[idx].verified_at = now
-    cached[idx].verification_remarks = remarks
-    cached[idx].updated_at = now
-    if (!updatedBooking) updatedBooking = cached[idx]
-    saveLocalBookingsCache(cached)
+  let updatedBooking: BookingRecord | null = null
+  try {
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({
+        verification_status: 'VERIFIED',
+        verified_by: staffUser.id,
+        verified_by_name: staffUser.name,
+        verified_at: now,
+        verification_remarks: remarks,
+        updated_at: now,
+      })
+      .eq('id', bookingId)
+      .select()
+      .single()
+
+    if (error) {
+      return { success: false, message: `Database error updating verification: ${error.message}` }
+    }
+    
+    updatedBooking = data as BookingRecord
+  } catch (err: any) {
+    return { success: false, message: `Database error updating verification: ${err.message}` }
   }
 
   // Record Audit Log in Supabase
@@ -519,33 +449,23 @@ export async function confirmBookingVerification(
  * 5. AUDIT LOG WRITER TO SUPABASE
  */
 async function recordAuditLog(log: Omit<VerificationAuditLog, 'id' | 'scanned_at'>): Promise<void> {
-  const auditEntry: VerificationAuditLog = {
-    ...log,
-    id: `audit-${Date.now()}`,
-    scanned_at: new Date().toISOString(),
-  }
-
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      await supabase.from('booking_verifications').insert({
-        booking_id: log.booking_id,
-        booking_number: log.booking_number,
-        staff_id: log.staff_id,
-        staff_name: log.staff_name,
-        centre_name: log.centre_name,
-        action: log.action,
-        result: log.result,
-        remarks: log.remarks,
-      })
-    } catch {
-      // fallback
-    }
-  }
+  if (!supabase) return
 
-  const currentAudits = getLocalAuditsCache()
-  currentAudits.unshift(auditEntry)
-  saveLocalAuditsCache(currentAudits)
+  try {
+    await supabase.from('booking_verifications').insert({
+      booking_id: log.booking_id,
+      booking_number: log.booking_number,
+      staff_id: log.staff_id,
+      staff_name: log.staff_name,
+      centre_name: log.centre_name,
+      action: log.action,
+      result: log.result,
+      remarks: log.remarks,
+    })
+  } catch (err) {
+    console.warn('Audit log failed', err)
+  }
 }
 
 /**
@@ -556,56 +476,46 @@ export async function getVerificationHistoryAsync(filters?: {
   search?: string
 }): Promise<VerificationAuditLog[]> {
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      let query = supabase
-        .from('booking_verifications')
-        .select('*')
-        .order('scanned_at', { ascending: false })
-
-      if (filters?.status && filters.status !== 'ALL') {
-        query = query.eq('result', filters.status)
-      }
-
-      const { data, error } = await query
-      if (!error && data) {
-        saveLocalAuditsCache(data as VerificationAuditLog[])
-        let res = data as VerificationAuditLog[]
-        if (filters?.search && filters.search.trim()) {
-          const q = filters.search.toLowerCase()
-          res = res.filter(
-            (a) =>
-              a.booking_number.toLowerCase().includes(q) ||
-              (a.farmer_name && a.farmer_name.toLowerCase().includes(q)) ||
-              a.staff_name.toLowerCase().includes(q)
-          )
-        }
-        return res
-      }
-    } catch {
-      // fallback
-    }
+  if (!supabase) {
+    throw new Error('Database connection failed.')
   }
 
-  return getVerificationHistory(filters)
+  try {
+    let query = supabase
+      .from('booking_verifications')
+      .select('*')
+      .order('scanned_at', { ascending: false })
+
+    if (filters?.status && filters.status !== 'ALL') {
+      query = query.eq('result', filters.status)
+    }
+
+    const { data, error } = await query
+    if (error) {
+      if (error.code === 'PGRST116') return []
+      throw error
+    }
+
+    let res = (data || []) as VerificationAuditLog[]
+    if (filters?.search && filters.search.trim()) {
+      const q = filters.search.toLowerCase()
+      res = res.filter(
+        (a) =>
+          a.booking_number.toLowerCase().includes(q) ||
+          (a.farmer_name && a.farmer_name.toLowerCase().includes(q)) ||
+          a.staff_name.toLowerCase().includes(q)
+      )
+    }
+    return res
+  } catch (err: any) {
+    throw new Error(`Failed to fetch audit history: ${err.message}`)
+  }
 }
 
-export function getVerificationHistory(filters?: {
+export function getVerificationHistory(_filters?: {
   status?: string
   search?: string
 }): VerificationAuditLog[] {
-  let audits = getLocalAuditsCache()
-  if (filters?.status && filters.status !== 'ALL') {
-    audits = audits.filter((a) => a.result === filters.status)
-  }
-  if (filters?.search && filters.search.trim()) {
-    const q = filters.search.toLowerCase()
-    audits = audits.filter(
-      (a) =>
-        a.booking_number.toLowerCase().includes(q) ||
-        (a.farmer_name && a.farmer_name.toLowerCase().includes(q)) ||
-        a.staff_name.toLowerCase().includes(q)
-    )
-  }
-  return audits
+  // Sync version is deprecated, returning empty array
+  return []
 }

@@ -16,6 +16,7 @@ import {
   type StaffProfile,
 } from '../../services/staffDataService'
 import { confirmBookingVerification } from '../../services/qrBookingService'
+import { fetchCentreSlotsByDate, type CentreSlotItem } from '../../services/slotManagementService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
 import CentreAdminSidebar from './CentreAdminSidebar'
@@ -25,14 +26,23 @@ import './StaffQRScannerPage.css'
 export default function StaffBookingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams()
+  const initialDate = searchParams.get('date') || ''
+  const initialSlotId = searchParams.get('slotId') || ''
+  const initialSlotTime = searchParams.get('slotTime') || searchParams.get('slot') || 'all'
+
   const isCentreAdmin = pathname.startsWith('/centre-admin')
   const isAdmin = pathname.startsWith('/admin')
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [bookings, setBookings] = useState<any[]>([])
+  const [availableSlots, setAvailableSlots] = useState<CentreSlotItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   // Filters
-  const [dateFilter, setDateFilter] = useState<'today' | 'tomorrow' | 'all'>('all')
+  const [dateFilter, setDateFilter] = useState<'today' | 'tomorrow' | 'all'>(initialDate ? 'all' : 'today')
+  const [exactDate, setExactDate] = useState(initialDate || new Date().toISOString().split('T')[0])
+  const [slotTimeFilter, setSlotTimeFilter] = useState<string>(initialSlotTime)
+  const [slotIdFilter, setSlotIdFilter] = useState<string>(initialSlotId)
   const [statusFilter, setStatusFilter] = useState('all')
   const [verificationFilter, setVerificationFilter] = useState('all')
   const [commodityFilter, setCommodityFilter] = useState('all')
@@ -42,13 +52,28 @@ export default function StaffBookingsPage() {
   const [selectedBooking, setSelectedBooking] = useState<any | null>(null)
   const [isVerifying, setIsVerifying] = useState(false)
 
+  const loadSlotsList = useCallback(async (centreId: string, date: string) => {
+    try {
+      const sList = await fetchCentreSlotsByDate(centreId, date)
+      setAvailableSlots(sList)
+    } catch {
+      // ignore
+    }
+  }, [])
+
   const loadBookings = useCallback(async () => {
     setIsLoading(true)
     const currentStaff = getStaffAuthSession()
     setStaff(currentStaff)
+    const centreId = currentStaff.centre_id || 'centre-alwar-01'
 
-    const list = await fetchCentreBookings(currentStaff.centre_id, {
-      dateFilter,
+    loadSlotsList(centreId, exactDate)
+
+    const list = await fetchCentreBookings(centreId, {
+      exactDate: dateFilter === 'all' ? undefined : exactDate,
+      dateFilter: dateFilter === 'all' ? 'all' : undefined,
+      slotTime: slotTimeFilter !== 'all' ? slotTimeFilter : undefined,
+      slotId: slotIdFilter !== 'all' ? slotIdFilter : undefined,
       statusFilter,
       verificationFilter,
       commodityFilter,
@@ -56,7 +81,7 @@ export default function StaffBookingsPage() {
     })
     setBookings(list)
     setIsLoading(false)
-  }, [dateFilter, statusFilter, verificationFilter, commodityFilter, searchQuery])
+  }, [dateFilter, exactDate, slotTimeFilter, slotIdFilter, statusFilter, verificationFilter, commodityFilter, searchQuery, loadSlotsList])
 
   useEffect(() => {
     if (!isStaffAuthenticated()) {
@@ -215,6 +240,50 @@ export default function StaffBookingsPage() {
 
             {/* Filter Dropdowns */}
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <input
+                type="date"
+                value={exactDate}
+                onChange={(e) => {
+                  setExactDate(e.target.value)
+                  setDateFilter('all')
+                }}
+                style={{
+                  height: '40px',
+                  padding: '0 10px',
+                  borderRadius: '8px',
+                  border: '1px solid #cbd5e1',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  background: '#ffffff',
+                  color: '#0f172a',
+                }}
+              />
+
+              <select
+                value={slotTimeFilter}
+                onChange={(e) => {
+                  setSlotTimeFilter(e.target.value)
+                  setSlotIdFilter('all')
+                }}
+                style={{
+                  height: '40px',
+                  padding: '0 10px',
+                  borderRadius: '8px',
+                  border: slotTimeFilter !== 'all' ? '2px solid #0d631b' : '1px solid #cbd5e1',
+                  fontSize: '12.5px',
+                  fontWeight: 600,
+                  background: '#ffffff',
+                  color: slotTimeFilter !== 'all' ? '#0d631b' : '#0f172a',
+                }}
+              >
+                <option value="all">All Slot Timings</option>
+                {availableSlots.map((s) => (
+                  <option key={s.id} value={s.start_time}>
+                    Slot: {s.start_time} – {s.end_time} ({s.booked_count}/{s.capacity})
+                  </option>
+                ))}
+              </select>
+
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}

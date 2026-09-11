@@ -4,6 +4,7 @@ import { useLanguage } from './useLanguage'
 import { navigate } from './router'
 import { isFarmerLoggedIn } from './auth'
 import { isStaffAuthenticated, getStaffAuthSession } from './services/staffDataService'
+import { getRoleHomeRoute } from './services/rbacService'
 import logoImg from './assets/logo.png'
 import './Navbar.css'
 
@@ -31,21 +32,14 @@ export default function Navbar({ activePath = '/' }: NavbarProps) {
       if (isFarmerLoggedIn()) {
         setLoggedInState({
           isLoggedIn: true,
-          dashboardPath: '/farmer-dashboard',
+          dashboardPath: getRoleHomeRoute('FARMER'),
           label: 'Dashboard',
         })
       } else if (isStaffAuthenticated()) {
         const staff = getStaffAuthSession()
-        const targetPath =
-          staff.role === 'MANDI_ADMIN' || (staff.role as any) === 'ADMIN'
-            ? '/admin/dashboard'
-            : staff.role === 'CENTRE_OPERATOR' || (staff.role as any) === 'CENTRE_ADMIN'
-            ? '/centre-admin/dashboard'
-            : '/staff/dashboard'
-
         setLoggedInState({
           isLoggedIn: true,
-          dashboardPath: targetPath,
+          dashboardPath: getRoleHomeRoute(staff.role),
           label: 'Dashboard',
         })
       } else {

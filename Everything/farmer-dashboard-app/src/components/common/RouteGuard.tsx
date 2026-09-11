@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter, navigate } from '../../router'
 import { isFarmerLoggedIn, getFarmerAuthIdentity, setRedirectAfterLogin } from '../../auth'
-import { isStaffAuthenticated, getStaffAuthIdentity } from '../../services/staffDataService'
-import { hasPermission } from '../../services/rbacService'
+import { isStaffAuthenticated, getStaffAuthIdentity, getStaffAuthSession } from '../../services/staffDataService'
+import { hasPermission, getRoleHomeRoute } from '../../services/rbacService'
 import type { UserRole, AppPermission, AuthIdentity } from '../../services/rbacService'
-import { ShieldAlert, ArrowLeft } from 'lucide-react'
+import { ShieldAlert, ArrowLeft, Loader2 } from 'lucide-react'
 
 interface RouteGuardProps {
   children: React.ReactNode
@@ -25,6 +25,7 @@ export const RouteGuard: React.FC<RouteGuardProps> = ({
   requiredPermission,
 }) => {
   const { path } = useRouter()
+  const [isEvaluating, setIsEvaluating] = useState(true)
 
   // 1. Evaluate Authentication & Extract Identity
   let user: AuthIdentity | null = null
@@ -39,11 +40,18 @@ export const RouteGuard: React.FC<RouteGuardProps> = ({
     // Staff, Centre Admin, or Admin portals
     isAuthenticated = isStaffAuthenticated()
     if (isAuthenticated) {
-      user = getStaffAuthIdentity()
+      const session = getStaffAuthSession()
+      if (session.status && ['INACTIVE', 'SUSPENDED', 'PENDING'].includes(session.status)) {
+        isAuthenticated = false
+        user = null
+      } else {
+        user = getStaffAuthIdentity()
+      }
     }
   }
 
   useEffect(() => {
+    setIsEvaluating(false)
     if (!isAuthenticated || !user) {
       // Save target path for post-login return
       if (portal === 'FARMER') {
@@ -62,9 +70,13 @@ export const RouteGuard: React.FC<RouteGuardProps> = ({
     }
   }, [isAuthenticated, user, portal, path])
 
-  // 2. While redirecting unauthenticated user, render minimal placeholder
-  if (!isAuthenticated || !user) {
-    return null
+  // 2. While evaluating or redirecting unauthenticated user, render loading indicator
+  if (isEvaluating || !isAuthenticated || !user) {
+    return (
+      <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+      </div>
+    )
   }
 
   // 3. Evaluate Role-Based Authorization
@@ -100,20 +112,6 @@ interface UnauthorizedViewProps {
 }
 
 const UnauthorizedView: React.FC<UnauthorizedViewProps> = ({ user, reason }) => {
-  const getHomeRoute = () => {
-    switch (user.role) {
-      case 'ADMIN':
-        return '/admin/dashboard'
-      case 'CENTRE_ADMIN':
-        return '/centre-admin/dashboard'
-      case 'STAFF':
-        return '/staff/dashboard'
-      case 'FARMER':
-      default:
-        return '/farmer-dashboard'
-    }
-  }
-
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-200 p-8 text-center animate-in fade-in zoom-in duration-200">
@@ -138,7 +136,7 @@ const UnauthorizedView: React.FC<UnauthorizedViewProps> = ({ user, reason }) => 
 
         <div className="flex flex-col sm:flex-row gap-3">
           <button
-            onClick={() => navigate(getHomeRoute())}
+            onClick={() => navigate(getRoleHomeRoute(user.role))}
             className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -157,3 +155,4 @@ const UnauthorizedView: React.FC<UnauthorizedViewProps> = ({ user, reason }) => 
 }
 
 export default RouteGuard
+
