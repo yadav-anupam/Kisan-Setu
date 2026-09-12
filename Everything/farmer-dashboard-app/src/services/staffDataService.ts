@@ -139,23 +139,29 @@ async function initStaffPasswordHashes() {
 }
 initStaffPasswordHashes()
 
-const LEGACY_MOCK_IDS = new Set([
-  'ST-001', 'ST-002', 'ST-003', 'ST-004',
-  'OP-001', 'OP-002', 'OP-003',
-  'AD-001', 'AD-002', 'AD-003', 'AD-004',
-  'ADM-UP-001', 'ADM-UP-002',
-])
-
 /**
- * Retrieves the local staff vault of registered officers (only appointed officers).
+ * Retrieves the local staff vault of registered officers (only legitimately appointed officers).
+ * Automatically purges any lingering mock data from localStorage.
  */
 export function getStaffVault(): RegisteredStaffRecord[] {
   try {
     const raw = localStorage.getItem(STAFF_VAULT_STORAGE_KEY)
     if (raw) {
       const parsed: RegisteredStaffRecord[] = JSON.parse(raw)
-      // Filter out any legacy mock staff IDs if they were stored previously in browser
-      return parsed.filter((s) => !LEGACY_MOCK_IDS.has(s.staff_id))
+      // Only keep real appointed staff (IDs with -2026- or Master Admin)
+      const valid = parsed.filter((s) => {
+        if (!s || !s.staff_id) return false
+        // Exclude all mock IDs (ST-102, OP-401, AD-001, etc.)
+        if (/^(ST|OP|AD|ADM)-\d{1,4}$/i.test(s.staff_id)) return false
+        // Real appointed officers have generated format: e.g. ST-2026-XXXX or OP-2026-XXXX or AD-2026-XXXX
+        return s.staff_id.includes('-2026-') || s.staff_id === 'ADM-MASTER-001'
+      })
+
+      // Clean up localStorage immediately if mock entries were present
+      if (valid.length !== parsed.length) {
+        localStorage.setItem(STAFF_VAULT_STORAGE_KEY, JSON.stringify(valid))
+      }
+      return valid
     }
   } catch {
     // fallback
@@ -550,6 +556,8 @@ export async function fetchAllAppointedStaff(): Promise<RegisteredStaffRecord[]>
         const combinedMap = new Map<string, RegisteredStaffRecord>()
 
         data.forEach((d: any) => {
+          if (!d.staff_id || /^(ST|OP|AD|ADM)-\d{1,4}$/i.test(d.staff_id)) return
+
           combinedMap.set(d.staff_id, {
             staff_id: d.staff_id,
             full_name: d.full_name,
