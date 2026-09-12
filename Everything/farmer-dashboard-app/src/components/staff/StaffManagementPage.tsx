@@ -1339,24 +1339,6 @@ export default function StaffManagementPage() {
                 />
               </div>
 
-              <div
-                style={{
-                  background: '#f8fafc',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '10px',
-                  padding: '10px 14px',
-                  marginBottom: '18px',
-                  fontSize: '11.5px',
-                  color: '#475569',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <ShieldCheck size={16} color="#0d631b" />
-                <span>Password is stored with SHA-256 government cryptographic encryption.</span>
-              </div>
-
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                 <button
                   type="button"

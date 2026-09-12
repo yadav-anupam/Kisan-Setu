@@ -993,10 +993,6 @@ export default function FarmerProfilePage() {
                 </label>
               </div>
 
-              <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '10px', padding: '10px 12px', fontSize: '11.5px', color: '#1e40af', marginBottom: '16px' }}>
-                🔒 <strong>Privacy Assurance:</strong> Your consent is digitally recorded. Documents are verified cryptographically and never shared with third parties.
-              </div>
-
               <button
                 type="button"
                 className="fd-card-btn primary"

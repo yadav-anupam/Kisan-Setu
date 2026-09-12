@@ -927,10 +927,6 @@ export default function FarmerRegisterPage() {
                 </label>
               </div>
 
-              <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '10px', padding: '10px 12px', fontSize: '11.5px', color: '#1e40af', marginBottom: '16px' }}>
-                🔒 <strong>Govt Digital Security:</strong> Data is fetched via DigiLocker API gateways with SHA-256 digital signature encryption.
-              </div>
-
               <button
                 type="button"
                 className="fd-card-btn primary"

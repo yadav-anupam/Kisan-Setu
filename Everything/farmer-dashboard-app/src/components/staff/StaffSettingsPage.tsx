@@ -219,8 +219,7 @@ export default function StaffSettingsPage() {
 
               <div style={{ fontSize: '12.5px', color: '#64748b', lineHeight: 1.6 }}>
                 <div>• <strong>Current Terminal Operator:</strong> {staff.full_name} ({staff.staff_id})</div>
-                <div>• <strong>Assigned Node:</strong> {staff.centre_name} • Gate 2</div>
-                <div>• <strong>Cryptographic Key Engine:</strong> SHA-256 / KS1 Token Protocol</div>
+                <div>• <strong>Assigned Node:</strong> {staff.centre_name} • Gate Verification Desk</div>
                 <div>• <strong>Database Gateway:</strong> Central Procurement Database (Live &amp; Connected)</div>
               </div>
             </div>

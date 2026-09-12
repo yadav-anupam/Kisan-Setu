@@ -262,13 +262,13 @@ export default function StaffQRScannerPage() {
             <div className="st-scanner-card">
               <div style={{ textAlign: 'center', maxWidth: '480px' }}>
                 <span className="fd-section-badge" style={{ marginBottom: '8px' }}>
-                  <ShieldCheck size={13} /> Digital Cryptographic Validator
+                  <ShieldCheck size={13} /> Gate Pass Verification
                 </span>
                 <h2 style={{ fontFamily: 'Manrope', fontSize: '20px', fontWeight: 800, margin: '4px 0 6px' }}>
                   Scan Farmer Gate Pass QR
                 </h2>
                 <p style={{ fontSize: '12.5px', color: '#64748b', margin: 0 }}>
-                  Point camera at the farmer's KS1 QR token. The system computes SHA-256 hash server-side to validate authenticity.
+                  Point camera at the farmer's QR token to scan and verify gate pass details.
                 </p>
               </div>
 

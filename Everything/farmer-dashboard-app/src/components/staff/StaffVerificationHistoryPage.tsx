@@ -131,7 +131,7 @@ export default function StaffVerificationHistoryPage() {
                 Verification Audit Logs
               </h1>
               <p style={{ fontSize: '12.5px', color: '#64748b', margin: '2px 0 0' }}>
-                Immutable SHA-256 cryptographic gate scan records for {staff.centre_name}
+                Official gate entry and verification records for {staff.centre_name}
               </p>
             </div>
 
