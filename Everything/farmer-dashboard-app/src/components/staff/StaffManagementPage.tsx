@@ -52,6 +52,7 @@ interface SectionMeta {
   id: StaffSection
   title: string
   shortTitle: string
+  managedBy: string
   icon: typeof DoorOpen
   color: string
   bg: string
@@ -65,6 +66,7 @@ const MANDI_SECTIONS: SectionMeta[] = [
     id: 'GATE_INTAKE',
     title: 'Gate & Intake Control Section',
     shortTitle: 'Gate & Intake',
+    managedBy: 'Managed by Appointed Gate Staff',
     icon: DoorOpen,
     color: '#15803d',
     bg: '#f0fdf4',
@@ -76,17 +78,19 @@ const MANDI_SECTIONS: SectionMeta[] = [
     id: 'WEIGHMENT_ASSAY',
     title: 'Weighbridge & Quality Assay Section',
     shortTitle: 'Weighment & Assay',
+    managedBy: 'Managed by Appointed Weighbridge & Quality Operators',
     icon: Scale,
     color: '#1d4ed8',
     bg: '#eff6ff',
     border: '#bfdbfe',
-    description: 'Gross and tare weighbridge calibration, electronic grain moisture testing (<12%) & QA assay.',
-    responsibilities: ['Gross/Tare Weighment', 'Moisture Content Assay', 'Grain Refraction & Grading'],
+    description: 'Gross and tare weighbridge calibration, electronic grain moisture testing (<12%) & QA assay grading.',
+    responsibilities: ['Gross/Tare Weighment', 'Moisture Content Assay (<12%)', 'Grain Refraction & Grading'],
   },
   {
     id: 'PROCUREMENT_DBT',
     title: 'Procurement & DBT Accounts Section',
     shortTitle: 'Procurement & DBT',
+    managedBy: 'Managed by Appointed DBT & Accounts Staff',
     icon: IndianRupee,
     color: '#b45309',
     bg: '#fefce8',
@@ -96,14 +100,15 @@ const MANDI_SECTIONS: SectionMeta[] = [
   },
   {
     id: 'ADMIN_GRIEVANCE',
-    title: 'Administration & Grievance Cell',
-    shortTitle: 'Admin & Grievance',
+    title: 'Mandi Administration & Command Cell',
+    shortTitle: 'Mandi Administration',
+    managedBy: 'Managed by Centre Admin (Mandi Yard Administrator)',
     icon: Landmark,
     color: '#7e22ce',
     bg: '#faf5ff',
     border: '#e9d5ff',
-    description: 'Mandi Superintendent command, farmer grievance resolution, staff duty rosters & audit logs.',
-    responsibilities: ['Centre Command', 'Farmer Dispute Redressal', 'Security & Compliance Audits'],
+    description: 'Mandi Superintendent leadership, staff duty rosters, farmer grievance redressal & centre compliance.',
+    responsibilities: ['Mandi Command & Oversight', 'Staff Roster Allocation', 'Farmer Dispute Redressal'],
   },
 ]
 
@@ -177,7 +182,10 @@ export default function StaffManagementPage() {
     }
   }, [loadStaff, pathname, isCentreAdmin, isAdmin])
 
-  // Handle Section Change in Appoint Form
+  const isSuperAdmin = (currentStaff.role === 'ADMIN' && isAdmin)
+  const currentMandiName = currentStaff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)'
+
+  // Handle Role / Section Change in Appoint Form
   const handleFormSectionChange = (newSec: StaffSection) => {
     setFormSection(newSec)
     if (newSec === 'GATE_INTAKE') {
@@ -197,14 +205,29 @@ export default function StaffManagementPage() {
       setShift('General Shift (09:00 - 18:00)')
     } else if (newSec === 'ADMIN_GRIEVANCE') {
       setRole('MANDI_ADMIN')
-      setDesignation('APMC Grievance & Farmer Helpdesk Officer')
-      setDeskAssigned('Grievance Redressal Cell')
+      setDesignation('Mandi Yard Administrator & Centre In-Charge')
+      setDeskAssigned('Mandi Command & Administrative Office')
       setShift('General Shift (08:30 - 17:00)')
     }
   }
 
-  const isSuperAdmin = (currentStaff.role === 'ADMIN' && isAdmin)
-  const currentMandiName = currentStaff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)'
+  const openAppointModal = () => {
+    setFormError('')
+    if (isSuperAdmin) {
+      setRole('MANDI_ADMIN')
+      setFormSection('ADMIN_GRIEVANCE')
+      setDesignation('Mandi Yard Administrator & Centre In-Charge')
+      setDeskAssigned('Mandi Command & Administrative Office')
+      setShift('General Shift (08:30 - 17:00)')
+    } else {
+      setRole('STAFF')
+      setFormSection('GATE_INTAKE')
+      setDesignation('Gate Entry & QR Verification Officer')
+      setDeskAssigned('Gate 1 Entry Booth')
+      setShift('Morning Shift (06:00 - 14:00)')
+    }
+    setAppointModalOpen(true)
+  }
 
   const handleAppointSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -347,27 +370,29 @@ export default function StaffManagementPage() {
             <div className="staff-mgmt-banner-text">
               <div className="staff-mgmt-banner-pills">
                 <span className="staff-mgmt-pill-dir">
-                  <ShieldCheck size={13} /> Official APMC Personnel Directory
+                  <ShieldCheck size={13} /> {isSuperAdmin ? 'State APMC Supreme Command' : 'Mandi Staff Administration'}
                 </span>
                 <span className="staff-mgmt-pill-live">
-                  ● Live State Directory
+                  ● {isSuperAdmin ? 'All 58+ Procurement Mandis' : currentMandiName}
                 </span>
               </div>
               <h1 className="staff-mgmt-banner-title">
-                Centre Staff &amp; Section-Wise Duty Rosters
+                {isSuperAdmin ? 'Statewide Mandi Command & Staff Appointments' : 'Mandi Operational Staff & Section Rosters'}
               </h1>
               <p className="staff-mgmt-banner-desc">
-                View and manage appointed personnel categorized by registered procurement mandis and operational sections.
+                {isSuperAdmin
+                  ? 'As Master APMC Administrator, you have supreme jurisdiction across all 58+ Procurement Mandis. Appoint Centre Admins (Mandi Yard Administrators) for each Mandi and oversee on-ground personnel.'
+                  : `Direct command of ${currentMandiName}. Appoint and manage your dedicated on-ground staff across Gate & Intake, Weighbridge & Quality Assay, and Procurement & DBT Accounts.`}
               </p>
             </div>
 
             <button
               type="button"
-              onClick={() => setAppointModalOpen(true)}
+              onClick={openAppointModal}
               className="staff-mgmt-appoint-btn"
             >
               <UserPlus size={17} color="#075a27" />
-              Appoint New Staff Officer
+              {isSuperAdmin ? 'Appoint Centre Admin / Staff' : 'Appoint Section Staff Officer'}
             </button>
           </div>
 
@@ -646,7 +671,7 @@ export default function StaffManagementPage() {
                           <IconComp size={18} />
                         </div>
                         <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                             <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
                               {sec.title}
                             </h2>
@@ -663,8 +688,21 @@ export default function StaffManagementPage() {
                             >
                               {sectionOfficers.length} Officers On Roster
                             </span>
+                            <span
+                              style={{
+                                background: sec.bg,
+                                color: sec.color,
+                                border: `1px dashed ${sec.border}`,
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                padding: '1px 8px',
+                                borderRadius: '6px',
+                              }}
+                            >
+                              ● {sec.managedBy}
+                            </span>
                           </div>
-                          <p style={{ fontSize: '12px', color: '#64748b', margin: '2px 0 0' }}>
+                          <p style={{ fontSize: '12px', color: '#64748b', margin: '3px 0 0' }}>
                             {sec.description}
                           </p>
                         </div>
@@ -1053,9 +1091,13 @@ export default function StaffManagementPage() {
                 </div>
                 <div>
                   <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                    Appoint Mandi Staff Officer
+                    {isSuperAdmin ? 'Appoint Mandi Centre Admin / Staff Officer' : 'Appoint Section Staff Officer'}
                   </h2>
-                  <small style={{ color: '#64748b' }}>Assign to specific registered Mandi &amp; operational section</small>
+                  <small style={{ color: '#64748b' }}>
+                    {isSuperAdmin
+                      ? 'Assign Mandi Yard Administrators or operational section officers across all 58+ centres'
+                      : `Appoint on-ground section personnel for ${currentMandiName}`}
+                  </small>
                 </div>
               </div>
               <button
@@ -1089,7 +1131,7 @@ export default function StaffManagementPage() {
               {/* 1. Mandi Selection */}
               <div style={{ marginBottom: '14px' }}>
                 <label style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', display: 'block', marginBottom: '6px' }}>
-                  Registered APMC Procurement Mandi {isSuperAdmin ? '*' : '(Assigned Centre)'}
+                  Target APMC Procurement Mandi {isSuperAdmin ? '*' : '(Assigned Centre)'}
                 </label>
                 {isSuperAdmin ? (
                   <select
@@ -1153,19 +1195,19 @@ export default function StaffManagementPage() {
                       </span>
                     </div>
                     <small style={{ color: '#64748b', fontSize: '11.5px', marginTop: '4px', display: 'block' }}>
-                      As Mandi Superintendent / Centre Admin, you can only appoint officers to your authorized procurement depot.
+                      As Mandi Superintendent / Centre Admin, you appoint operational staff exclusively for your assigned depot.
                     </small>
                   </div>
                 )}
               </div>
 
-              {/* 2. Section Selection */}
+              {/* 2. Role / Section Selection */}
               <div style={{ marginBottom: '14px' }}>
                 <label style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', display: 'block', marginBottom: '6px' }}>
-                  Operational Section &amp; Functional Wing *
+                  {isSuperAdmin ? 'Appointment Role & Operational Wing *' : 'Assigned Section & Functional Wing *'}
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                  {MANDI_SECTIONS.map((sec) => (
+                  {MANDI_SECTIONS.filter((sec) => isSuperAdmin || sec.id !== 'ADMIN_GRIEVANCE').map((sec) => (
                     <button
                       key={sec.id}
                       type="button"
@@ -1181,12 +1223,23 @@ export default function StaffManagementPage() {
                         textAlign: 'left',
                         cursor: 'pointer',
                         display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
+                        flexDirection: 'column',
+                        gap: '2px',
                       }}
                     >
-                      <sec.icon size={15} color={sec.color} />
-                      <span>{sec.shortTitle}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <sec.icon size={15} color={sec.color} />
+                        <span style={{ fontWeight: 800 }}>{sec.shortTitle}</span>
+                      </div>
+                      <span style={{ fontSize: '10px', color: '#64748b', marginLeft: '21px' }}>
+                        {sec.id === 'ADMIN_GRIEVANCE'
+                          ? 'Centre Admin / Mandi In-Charge'
+                          : sec.id === 'GATE_INTAKE'
+                          ? 'Gate Entry & Pass Staff'
+                          : sec.id === 'WEIGHMENT_ASSAY'
+                          ? 'Weighbridge & Assay Operator'
+                          : 'J-Form & DBT Officer'}
+                      </span>
                     </button>
                   ))}
                 </div>
