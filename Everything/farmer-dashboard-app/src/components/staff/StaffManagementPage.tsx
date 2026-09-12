@@ -6,7 +6,6 @@ import {
   Clock,
   DoorOpen,
   Grid,
-  IndianRupee,
   Landmark,
   Layers,
   LayoutList,
@@ -76,27 +75,15 @@ const MANDI_SECTIONS: SectionMeta[] = [
   },
   {
     id: 'WEIGHMENT_ASSAY',
-    title: 'Weighbridge & Quality Assay Section',
-    shortTitle: 'Weighment & Assay',
-    managedBy: 'Managed by Appointed Weighbridge & Quality Operators',
+    title: 'Weighbridge, Quality Assay & DBT Accounts Section',
+    shortTitle: 'Weighbridge, Assay & DBT',
+    managedBy: 'Managed by 1 Appointed Staff (Unified Centre Operator)',
     icon: Scale,
     color: '#1d4ed8',
     bg: '#eff6ff',
     border: '#bfdbfe',
-    description: 'Gross and tare weighbridge calibration, electronic grain moisture testing (<12%) & QA assay grading.',
-    responsibilities: ['Gross/Tare Weighment', 'Moisture Content Assay (<12%)', 'Grain Refraction & Grading'],
-  },
-  {
-    id: 'PROCUREMENT_DBT',
-    title: 'Procurement & DBT Accounts Section',
-    shortTitle: 'Procurement & DBT',
-    managedBy: 'Managed by Appointed DBT & Accounts Staff',
-    icon: IndianRupee,
-    color: '#b45309',
-    bg: '#fefce8',
-    border: '#fde047',
-    description: 'Electronic J-Form acceptance, godown stack allocation, PFMS beneficiary verification & DBT clearance.',
-    responsibilities: ['J-Form Bill Generation', 'Bag Stacking Logs', 'PFMS / Aadhaar DBT Approvals'],
+    description: 'Single unified officer handling gross & tare weighbridge capture, electronic grain moisture testing (<12%), QA grading, J-Form digital billing & PFMS DBT payment releases.',
+    responsibilities: ['Gross & Tare Weighment', 'Moisture Assay (<12%)', 'J-Form Bill Generation', 'PFMS DBT Approvals'],
   },
   {
     id: 'ADMIN_GRIEVANCE',
@@ -193,16 +180,11 @@ export default function StaffManagementPage() {
       setDesignation('Gate Entry & QR Verification Officer')
       setDeskAssigned('Gate 1 Entry Booth')
       setShift('Morning Shift (06:00 - 14:00)')
-    } else if (newSec === 'WEIGHMENT_ASSAY') {
+    } else if (newSec === 'WEIGHMENT_ASSAY' || newSec === 'PROCUREMENT_DBT') {
       setRole('CENTRE_OPERATOR')
-      setDesignation('Weighbridge In-Charge & Scale Operator')
-      setDeskAssigned('Gross/Tare Weighbridge #1')
+      setDesignation('Weighbridge In-Charge, Quality Assay & DBT Officer')
+      setDeskAssigned('Integrated Weighbridge, QA & DBT Terminal')
       setShift('General Shift (08:00 - 17:00)')
-    } else if (newSec === 'PROCUREMENT_DBT') {
-      setRole('CENTRE_OPERATOR')
-      setDesignation('J-Form Billing & Stacking Officer')
-      setDeskAssigned('J-Form Generation Counter #3')
-      setShift('General Shift (09:00 - 18:00)')
     } else if (newSec === 'ADMIN_GRIEVANCE') {
       setRole('MANDI_ADMIN')
       setDesignation('Mandi Yard Administrator & Centre In-Charge')
@@ -324,7 +306,13 @@ export default function StaffManagementPage() {
 
   // Group by Section
   const getStaffBySection = (secId: StaffSection) => {
-    return filteredStaff.filter((s) => (s.section || 'GATE_INTAKE') === secId)
+    return filteredStaff.filter((s) => {
+      const sec = s.section || (s.role === 'MANDI_ADMIN' ? 'ADMIN_GRIEVANCE' : s.role === 'CENTRE_OPERATOR' ? 'WEIGHMENT_ASSAY' : 'GATE_INTAKE')
+      if (secId === 'WEIGHMENT_ASSAY') {
+        return sec === 'WEIGHMENT_ASSAY' || sec === 'PROCUREMENT_DBT' || s.role === 'CENTRE_OPERATOR'
+      }
+      return sec === secId
+    })
   }
 
   // Get Unique Mandis present in Staff List + All Registered Procurement Depots
@@ -1235,10 +1223,8 @@ export default function StaffManagementPage() {
                         {sec.id === 'ADMIN_GRIEVANCE'
                           ? 'Centre Admin / Mandi In-Charge'
                           : sec.id === 'GATE_INTAKE'
-                          ? 'Gate Entry & Pass Staff'
-                          : sec.id === 'WEIGHMENT_ASSAY'
-                          ? 'Weighbridge & Assay Operator'
-                          : 'J-Form & DBT Officer'}
+                          ? 'Gate Entry & QR Verification Staff'
+                          : 'Unified Weighbridge, Quality & DBT Officer (1 Staff)'}
                       </span>
                     </button>
                   ))}
