@@ -6,6 +6,7 @@
 import { getSupabaseClient } from './supabaseClient'
 import { getStaffAuthSession } from './staffDataService'
 import { hashTokenSHA256, generateSecureQRToken, setFarmerRawToken } from './qrBookingService'
+import { ALL_PROCUREMENT_CENTRES } from '../data/procurementCentresData'
 
 export type SlotStatus = 'DRAFT' | 'ACTIVE' | 'FULL' | 'CLOSED' | 'COMPLETED' | 'CANCELLED'
 
@@ -85,24 +86,57 @@ export function parse12HourTimeToMinutes(timeStr: string): number {
 
 /**
  * Fetches all slots for a specific centre and operational date from Supabase PostgreSQL.
+ * Seamlessly matches across centre IDs ('vns-01', 'centre-up-vns-01') and centre names.
  * Enforces centre-level isolation.
  */
 export async function fetchCentreSlotsByDate(
-  centreId: string,
-  dateStr?: string
+  centreIdOrName: string,
+  dateStr?: string,
+  explicitCentreName?: string
 ): Promise<CentreSlotItem[]> {
   const supabase = getSupabaseClient()
   if (!supabase) return []
 
   const targetDate = dateStr || new Date().toISOString().split('T')[0]
+  const rawQuery = (centreIdOrName || '').trim()
 
   try {
-    const { data, error } = await supabase
+    const matched = ALL_PROCUREMENT_CENTRES.find(
+      (c) =>
+        c.id.toLowerCase() === rawQuery.toLowerCase() ||
+        c.centreName.toLowerCase() === rawQuery.toLowerCase() ||
+        `centre-up-${c.id}`.toLowerCase() === rawQuery.toLowerCase() ||
+        `centre-${c.id}`.toLowerCase() === rawQuery.toLowerCase()
+    )
+
+    const resolvedName = explicitCentreName || (matched ? matched.centreName : rawQuery)
+    const possibleIds = Array.from(
+      new Set([
+        rawQuery,
+        matched ? matched.id : '',
+        matched ? `centre-up-${matched.id}` : '',
+        matched ? `centre-${matched.id}` : '',
+        rawQuery.startsWith('centre-up-') ? rawQuery.replace('centre-up-', '') : '',
+        rawQuery.startsWith('centre-') ? rawQuery.replace('centre-', '') : '',
+        !rawQuery.startsWith('centre-') && rawQuery ? `centre-up-${rawQuery}` : '',
+      ].filter(Boolean))
+    )
+
+    let query = supabase
       .from('centre_slots')
       .select('*')
-      .eq('centre_id', centreId)
       .eq('slot_date', targetDate)
-      .order('start_time', { ascending: true })
+
+    if (possibleIds.length > 0 && resolvedName) {
+      const escapedName = resolvedName.replace(/,/g, '').trim()
+      query = query.or(`centre_id.in.(${possibleIds.join(',')}),centre_name.ilike.%${escapedName}%`)
+    } else if (possibleIds.length > 0) {
+      query = query.in('centre_id', possibleIds)
+    } else if (resolvedName) {
+      query = query.ilike('centre_name', `%${resolvedName}%`)
+    }
+
+    const { data, error } = await query.order('start_time', { ascending: true })
 
     if (error) {
       console.error('Error fetching centre slots:', error)
@@ -395,10 +429,11 @@ export async function copyCentreSlotsToDate(
  * Includes calculated available capacity and availability status.
  */
 export async function fetchAvailableSlotsForFarmer(
-  centreId: string,
-  dateStr: string
+  centreIdOrName: string,
+  dateStr: string,
+  explicitCentreName?: string
 ): Promise<Array<CentreSlotItem & { available_capacity: number; is_bookable: boolean }>> {
-  const slots = await fetchCentreSlotsByDate(centreId, dateStr)
+  const slots = await fetchCentreSlotsByDate(centreIdOrName, dateStr, explicitCentreName)
 
   return slots.map((s) => {
     const available = Math.max(0, s.capacity - s.booked_count)

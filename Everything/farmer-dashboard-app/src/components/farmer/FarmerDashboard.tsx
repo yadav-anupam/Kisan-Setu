@@ -154,7 +154,7 @@ export default function FarmerDashboard() {
     const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === selectedCentre) || ALL_PROCUREMENT_CENTRES[0]
     setIsLoadingSlots(true)
     try {
-      const sList = await fetchAvailableSlotsForFarmer(matched.id, newDate)
+      const sList = await fetchAvailableSlotsForFarmer(matched.id, newDate, matched.centreName)
       setAvailableFarmerSlots(sList)
       const firstBookable = sList.find((s) => s.is_bookable)
       if (firstBookable) {

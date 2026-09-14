@@ -80,7 +80,7 @@ export default function StaffSlotsPage() {
     const centreId = currentStaff.centre_id || 'centre-alwar-01'
 
     try {
-      const data = await fetchCentreSlotsByDate(centreId, selectedDate)
+      const data = await fetchCentreSlotsByDate(centreId, selectedDate, currentStaff.centre_name)
       setSlots(data)
     } catch (err: any) {
       setErrorMsg(err.message || 'Failed to load centre slots.')
