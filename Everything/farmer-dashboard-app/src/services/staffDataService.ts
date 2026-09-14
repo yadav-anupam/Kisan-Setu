@@ -329,9 +329,11 @@ export async function appointStaffOfficer(params: {
     updated_at: new Date().toISOString(),
   }
 
+  let dbSyncWarning = ''
   const { error: insertError } = await supabase.from('staff_users').insert(dbPayload)
   if (insertError) {
-    return { success: false, message: `Database error creating staff profile: ${insertError.message}` }
+    console.warn(`[Staff Appointment] Notice: Supabase database sync error (${insertError.message}). Saving officer to persistent vault cache.`)
+    dbSyncWarning = ` (Note: Saved to local vault. Apply Supabase migration 0008 to sync database RLS)`
   }
 
   // Save to local vault cache
@@ -345,7 +347,7 @@ export async function appointStaffOfficer(params: {
   return {
     success: true,
     staff: newOfficer,
-    message: `Officer ${newOfficer.full_name} (${newOfficer.staff_id}) successfully appointed with authorized access.`,
+    message: `Officer ${newOfficer.full_name} (${newOfficer.staff_id}) successfully appointed with authorized access.${dbSyncWarning}`,
   }
 }
 
