@@ -308,9 +308,40 @@ export default function FarmerSidebar({
             <HelpCircle size={18} />
             <span>{fs.helpSupport}</span>
           </button>
+
+          {/* Dedicated In-Menu Sign Out Option (Especially visible on mobile screens) */}
+          <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px dashed #e2e8f0' }}>
+            <button
+              type="button"
+              className="fd-nav-item fd-nav-logout-btn"
+              onClick={() => {
+                onClose()
+                handleLogout()
+              }}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '10px 12px',
+                borderRadius: '10px',
+                background: '#fef2f2',
+                color: '#dc2626',
+                border: '1px solid #fee2e2',
+                fontWeight: 700,
+                fontSize: '13px',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              <LogOut size={18} color="#dc2626" />
+              <span style={{ color: '#dc2626' }}>{fs.logout || 'Sign Out Farmer'}</span>
+            </button>
+          </div>
         </nav>
 
-        {/* Farmer Profile Footer */}
+        {/* Farmer Profile Footer (Sticky at Bottom) */}
         <div
           style={{
             marginTop: 'auto',
@@ -318,6 +349,7 @@ export default function FarmerSidebar({
             background: '#f8fafc',
             borderTop: '1px solid #e2e8f0',
             padding: '12px 14px',
+            paddingBottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
             zIndex: 10,
             display: 'flex',
             flexDirection: 'column',
@@ -366,26 +398,30 @@ export default function FarmerSidebar({
           <button
             type="button"
             className="fd-logout-btn"
-            onClick={handleLogout}
+            onClick={() => {
+              onClose()
+              handleLogout()
+            }}
             style={{
               width: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              padding: '9px 14px',
+              padding: '10px 14px',
               borderRadius: '8px',
-              background: '#fef2f2',
-              color: '#dc2626',
-              border: '1px solid #fecaca',
+              background: '#dc2626',
+              color: '#ffffff',
+              border: 'none',
               fontWeight: 700,
-              fontSize: '12.5px',
+              fontSize: '13px',
               cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(220, 38, 38, 0.25)',
               transition: 'all 0.15s ease',
             }}
           >
-            <LogOut size={14} color="#dc2626" />
-            <span>{fs.logout}</span>
+            <LogOut size={16} color="#ffffff" />
+            <span>{fs.logout || 'Sign Out Farmer'}</span>
           </button>
         </div>
       </aside>

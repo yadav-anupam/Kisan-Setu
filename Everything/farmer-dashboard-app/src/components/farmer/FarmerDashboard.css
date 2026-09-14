@@ -1209,6 +1209,10 @@
     top: 0 !important;
     bottom: 0 !important;
     left: 0 !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
     width: 268px !important;
     min-width: 268px !important;
     max-width: 268px !important;
