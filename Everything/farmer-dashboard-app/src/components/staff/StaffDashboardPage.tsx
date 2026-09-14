@@ -55,19 +55,23 @@ export default function StaffDashboardPage() {
     }
 
     const currentStaff = getStaffAuthSession()
-    Promise.all([
-      fetchStaffDashboardKPIs(currentStaff.centre_id),
-      fetchCentreSlots(currentStaff.centre_id),
-      fetchCentreQueue(currentStaff.centre_id),
-    ])
-      .then(([kpiData, slotData, queueData]) => {
-        if (isMounted) {
-          setKpis(kpiData)
-          setSlots(slotData)
-          setQueue(queueData)
-        }
-      })
-      .catch(() => {})
+    const loadStaffData = () => {
+      Promise.all([
+        fetchStaffDashboardKPIs(currentStaff.centre_id),
+        fetchCentreSlots(currentStaff.centre_id),
+        fetchCentreQueue(currentStaff.centre_id, currentStaff.centre_name),
+      ])
+        .then(([kpiData, slotData, queueData]) => {
+          if (isMounted) {
+            setKpis(kpiData)
+            setSlots(slotData)
+            setQueue(queueData)
+          }
+        })
+        .catch(() => {})
+    }
+
+    loadStaffData()
 
     const handlePriceUpdate = () => {
       if (isMounted) {
@@ -77,12 +81,16 @@ export default function StaffDashboardPage() {
 
     window.addEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
     window.addEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+    window.addEventListener('kisan_setu_queue_updated', loadStaffData)
+    window.addEventListener('kisan_setu_booking_updated', loadStaffData)
     window.addEventListener('storage', handlePriceUpdate)
 
     return () => {
       isMounted = false
       window.removeEventListener('kisan_setu_official_price_announced', handlePriceUpdate)
       window.removeEventListener('kisan_setu_msp_prices_updated', handlePriceUpdate)
+      window.removeEventListener('kisan_setu_queue_updated', loadStaffData)
+      window.removeEventListener('kisan_setu_booking_updated', loadStaffData)
       window.removeEventListener('storage', handlePriceUpdate)
     }
   }, [])

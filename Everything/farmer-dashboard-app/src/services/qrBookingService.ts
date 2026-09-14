@@ -9,7 +9,9 @@ export interface BookingRecord {
   farmer_id: string
   farmer_name: string
   farmer_phone?: string
+  centre_id?: string
   centre_name: string
+  slot_id?: string
   booking_date: string
   start_time: string
   end_time: string
@@ -17,7 +19,9 @@ export interface BookingRecord {
   quantity: number
   vehicle_number: string
   token_number: string
-  status: 'CONFIRMED' | 'CANCELLED' | 'COMPLETED'
+  bay_assigned?: string
+  called_at?: string
+  status: 'CONFIRMED' | 'CANCELLED' | 'COMPLETED' | 'SERVING' | 'CALLED' | 'HELD' | 'SKIPPED' | string
   verification_status: 'PENDING' | 'VERIFIED' | 'REJECTED'
   qr_token_hash: string
   qr_raw_token?: string

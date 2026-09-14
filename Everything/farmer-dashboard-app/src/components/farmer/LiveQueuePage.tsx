@@ -65,7 +65,10 @@ export default function LiveQueuePage() {
     const phone = farmer.mobile
     try {
       const bookings = await getFarmerBookings(fId, phone)
-      const active = bookings?.find((b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED') || null
+      const active =
+        bookings?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED') ||
+        bookings?.[0] ||
+        null
       setActiveBooking(active)
 
       const targetCentre = active ? active.centre_name : (farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
@@ -103,7 +106,10 @@ export default function LiveQueuePage() {
 
     getFarmerBookings(fId, phone).then(async (bookings) => {
       if (!isMounted) return
-      const active = bookings?.find((b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED') || null
+      const active =
+        bookings?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED') ||
+        bookings?.[0] ||
+        null
       setActiveBooking(active)
 
       const targetCentre = active ? active.centre_name : (farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)

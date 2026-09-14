@@ -998,60 +998,109 @@ export async function fetchCentreSlots(centreId = 'centre-up-vns-01', _date?: st
 // -----------------------------------------------------------------------------
 // 4. QUEUE MANAGEMENT
 // -----------------------------------------------------------------------------
-export async function fetchCentreQueue(centreId = 'centre-up-vns-01', centreName?: string): Promise<QueueItem[]> {
+// 4. QUEUE MANAGEMENT (Live Database Sync from public.bookings)
+// -----------------------------------------------------------------------------
+export async function fetchCentreQueue(
+  centreId = 'centre-up-vns-01',
+  centreName?: string
+): Promise<QueueItem[]> {
   const supabase = getSupabaseClient()
-  if (supabase) {
-    try {
-      const { data, error } = await supabase
-        .from('centre_queue_items')
-        .select('*')
-        .eq('centre_id', centreId)
-        .order('created_at', { ascending: true })
-
-      if (!error && data && data.length > 0) {
-        return data as QueueItem[]
-      }
-    } catch {
-      // fallback
-    }
-  }
-
-  let bookings: any[] = []
-  try {
-    bookings = (await getFarmerBookings('')) as any[]
-  } catch {
-    // ignore
-  }
+  const rawQuery = (centreId || '').trim()
 
   const staff = getStaffAuthSession()
   const activeCentreName = centreName || (staff.role !== 'ADMIN' ? staff.centre_name : undefined)
 
-  if (activeCentreName && activeCentreName !== 'ALL') {
-    const lower = activeCentreName.toLowerCase()
-    bookings = bookings.filter(
-      (b) =>
-        !b.centre_name ||
-        b.centre_name.toLowerCase().includes(lower) ||
-        lower.includes(b.centre_name.toLowerCase())
-    )
+  const matched = ALL_PROCUREMENT_CENTRES.find(
+    (c) =>
+      c.id.toLowerCase() === rawQuery.toLowerCase() ||
+      c.centreName.toLowerCase() === rawQuery.toLowerCase() ||
+      `centre-up-${c.id}`.toLowerCase() === rawQuery.toLowerCase() ||
+      `centre-${c.id}`.toLowerCase() === rawQuery.toLowerCase() ||
+      (activeCentreName && c.centreName.toLowerCase() === activeCentreName.toLowerCase())
+  )
+
+  const targetCentreName = activeCentreName || (matched ? matched.centreName : rawQuery)
+  const possibleIds = Array.from(
+    new Set([
+      rawQuery,
+      matched ? matched.id : '',
+      matched ? `centre-up-${matched.id}` : '',
+      matched ? `centre-${matched.id}` : '',
+      rawQuery.startsWith('centre-up-') ? rawQuery.replace('centre-up-', '') : '',
+      rawQuery.startsWith('centre-') ? rawQuery.replace('centre-', '') : '',
+      !rawQuery.startsWith('centre-') && rawQuery ? `centre-up-${rawQuery}` : '',
+    ].filter(Boolean))
+  )
+
+  let bookings: any[] = []
+
+  if (supabase) {
+    try {
+      let query = supabase
+        .from('bookings')
+        .select('*')
+        .neq('status', 'CANCELLED')
+
+      if (possibleIds.length > 0 && targetCentreName) {
+        const escapedName = targetCentreName.replace(/,/g, '').trim()
+        query = query.or(`centre_id.in.(${possibleIds.join(',')}),centre_name.ilike.%${escapedName}%`)
+      } else if (possibleIds.length > 0) {
+        query = query.in('centre_id', possibleIds)
+      } else if (targetCentreName) {
+        query = query.ilike('centre_name', `%${targetCentreName}%`)
+      }
+
+      const { data, error } = await query.order('created_at', { ascending: true })
+
+      if (!error && data && data.length > 0) {
+        bookings = data
+      }
+    } catch {
+      // ignore
+    }
   }
 
-  const activeBookings = bookings.filter((b) => b.status !== 'CANCELLED')
-  if (activeBookings.length === 0) {
+  if (bookings.length === 0) {
     return []
   }
 
-  return activeBookings.map((b, idx) => ({
-    id: b.id || `q-${idx + 1}`,
-    centre_id: centreId,
-    token_number: b.token_number || `T-${101 + idx}`,
-    booking_number: b.booking_number,
-    farmer_name: b.farmer_name,
-    slot_time: b.start_time || '10:00 AM',
-    commodity: b.commodity,
-    status: b.verification_status === 'VERIFIED' ? 'COMPLETED' : idx === 0 ? 'SERVING' : 'WAITING',
-    counter_id: `Bay ${((idx % 3) + 1)}`,
-  }))
+  return bookings.map((b, idx) => {
+    let itemStatus: QueueItem['status'] = 'WAITING'
+    if (b.status === 'COMPLETED' || b.status === 'WEIGHED' || b.status === 'PAID') {
+      itemStatus = 'COMPLETED'
+    } else if (b.status === 'SERVING' || b.status === 'CALLED' || b.status === 'PROCESSING') {
+      itemStatus = 'SERVING'
+    } else if (b.status === 'HELD') {
+      itemStatus = 'HELD'
+    } else if (b.status === 'SKIPPED') {
+      itemStatus = 'SKIPPED'
+    } else if (b.verification_status === 'VERIFIED') {
+      // Checked in at gate: if first active, display as SERVING/CALLED
+      const hasActiveServing = bookings.some((other) => other.status === 'SERVING' || other.status === 'CALLED')
+      itemStatus = !hasActiveServing && idx === 0 ? 'SERVING' : 'WAITING'
+    } else {
+      itemStatus = 'WAITING'
+    }
+
+    const slotTimeDisplay =
+      b.start_time && b.end_time
+        ? `${b.start_time} - ${b.end_time}`
+        : b.start_time || '10:00 AM'
+
+    return {
+      id: b.id || `q-${idx + 1}`,
+      centre_id: b.centre_id || (matched ? matched.id : rawQuery),
+      token_number: b.token_number || `KS-T-${101 + idx}`,
+      booking_number: b.booking_number || '',
+      farmer_name: b.farmer_name || 'Farmer',
+      slot_time: slotTimeDisplay,
+      commodity: b.commodity ? `${b.commodity} (~${b.quantity || 40} Qtl)` : 'Wheat (गेहूं)',
+      status: itemStatus,
+      counter_id: b.bay_assigned || (itemStatus === 'SERVING' ? 'Bay 2' : `Bay ${((idx % 3) + 1)}`),
+      called_at: b.called_at,
+      completed_at: b.completed_at || b.verified_at,
+    }
+  })
 }
 
 export async function updateQueueItemStatus(
@@ -1062,18 +1111,32 @@ export async function updateQueueItemStatus(
   const supabase = getSupabaseClient()
   if (supabase) {
     try {
-      await supabase
-        .from('centre_queue_items')
-        .update({
-          status: newStatus,
-          counter_id: counterId,
-          called_at: newStatus === 'SERVING' ? new Date().toISOString() : undefined,
-          completed_at: newStatus === 'COMPLETED' ? new Date().toISOString() : undefined,
-        })
-        .eq('id', itemId)
+      const updatePayload: any = {
+        updated_at: new Date().toISOString(),
+      }
+      if (newStatus === 'SERVING') {
+        updatePayload.status = 'SERVING'
+        updatePayload.verification_remarks = `Serving at ${counterId}`
+      } else if (newStatus === 'COMPLETED') {
+        updatePayload.status = 'COMPLETED'
+        updatePayload.verification_remarks = `Completed at ${counterId}`
+      } else if (newStatus === 'HELD') {
+        updatePayload.status = 'HELD'
+      } else if (newStatus === 'SKIPPED') {
+        updatePayload.status = 'SKIPPED'
+      } else if (newStatus === 'WAITING') {
+        updatePayload.status = 'CONFIRMED'
+      }
+
+      await supabase.from('bookings').update(updatePayload).eq('id', itemId)
     } catch {
       // ignore
     }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('kisan_setu_queue_updated', { detail: { itemId, newStatus, counterId } }))
+    window.dispatchEvent(new CustomEvent('kisan_setu_booking_updated'))
   }
 }
 

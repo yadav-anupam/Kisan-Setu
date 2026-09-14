@@ -233,6 +233,7 @@ export async function fetchMandiLiveStatusFromDB(
 ): Promise<DbMandiLiveStatus> {
   const dateStr = targetDate || new Date().toISOString().split('T')[0]
   const supabase = getSupabaseClient()
+  const rawQuery = (centreNameOrId || '').trim().toLowerCase()
 
   let bookings: BookingRecord[] = []
 
@@ -241,45 +242,52 @@ export async function fetchMandiLiveStatusFromDB(
       const { data, error } = await supabase
         .from('bookings')
         .select('*')
+        .neq('status', 'CANCELLED')
         .order('created_at', { ascending: true })
 
       if (!error && data && data.length > 0) {
         bookings = data as BookingRecord[]
       }
     } catch {
-      // fallback to local cache
+      // fallback
     }
-  }
-
-  if (bookings.length === 0) {
-    bookings = getFarmerBookings('') as unknown as BookingRecord[]
   }
 
   // Filter by matching centre and date (if date provided, or today)
   const centreBookings = bookings.filter((b) => {
+    const bName = (b.centre_name || '').toLowerCase()
+    const bId = (b.centre_id || '').toLowerCase()
     const matchesCentre =
-      !centreNameOrId ||
-      b.centre_name.toLowerCase().includes(centreNameOrId.toLowerCase()) ||
-      centreNameOrId.toLowerCase().includes(b.centre_name.toLowerCase())
+      !rawQuery ||
+      bName.includes(rawQuery) ||
+      rawQuery.includes(bName) ||
+      bId.includes(rawQuery) ||
+      rawQuery.includes(bId)
     const matchesDate = !dateStr || !b.booking_date || b.booking_date === dateStr || b.booking_date.includes(dateStr)
     return matchesCentre && matchesDate && b.status !== 'CANCELLED'
   })
 
-  const verified = centreBookings.filter((b) => b.verification_status === 'VERIFIED')
-  const pending = centreBookings.filter((b) => b.verification_status === 'PENDING')
+  const servingBooking = centreBookings.find((b) => b.status === 'SERVING' || b.status === 'CALLED')
+  const verified = centreBookings.filter((b) => b.verification_status === 'VERIFIED' && b.status !== 'COMPLETED')
+  const pending = centreBookings.filter((b) => b.verification_status === 'PENDING' && b.status !== 'COMPLETED')
 
   // Calculate serving token
   let servingToken = 'Yard Clear'
-  if (pending.length > 0) {
-    servingToken = pending[0].token_number
+  if (servingBooking) {
+    servingToken = servingBooking.token_number
   } else if (verified.length > 0) {
-    servingToken = verified[verified.length - 1].token_number
+    servingToken = verified[0].token_number
+  } else if (pending.length > 0) {
+    servingToken = pending[0].token_number
   }
 
-  // Calculate how many pending bookings are ahead of this farmer
-  let queueLength = pending.length
+  // Calculate how many active bookings are ahead of this farmer
+  const activeUncompleted = centreBookings.filter((b) => b.status !== 'COMPLETED')
+  let queueLength = activeUncompleted.length
   if (farmerBookingToken) {
-    const farmerIdx = pending.findIndex((b) => b.token_number === farmerBookingToken || b.id === farmerBookingToken)
+    const farmerIdx = activeUncompleted.findIndex(
+      (b) => b.token_number === farmerBookingToken || b.id === farmerBookingToken
+    )
     if (farmerIdx !== -1) {
       queueLength = farmerIdx
     }

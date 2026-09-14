@@ -35,7 +35,7 @@ export default function StaffQueuePage() {
   const loadQueue = useCallback(async () => {
     const currentStaff = getStaffAuthSession()
     setStaff(currentStaff)
-    const list = await fetchCentreQueue(currentStaff.centre_id)
+    const list = await fetchCentreQueue(currentStaff.centre_id, currentStaff.centre_name)
     setQueue(list)
   }, [])
 
@@ -52,6 +52,17 @@ export default function StaffQueuePage() {
       return
     }
     loadQueue()
+
+    const handleUpdate = () => loadQueue()
+    window.addEventListener('kisan_setu_queue_updated', handleUpdate)
+    window.addEventListener('kisan_setu_booking_updated', handleUpdate)
+    window.addEventListener('kisan_setu_booking_verified', handleUpdate)
+
+    return () => {
+      window.removeEventListener('kisan_setu_queue_updated', handleUpdate)
+      window.removeEventListener('kisan_setu_booking_updated', handleUpdate)
+      window.removeEventListener('kisan_setu_booking_verified', handleUpdate)
+    }
   }, [loadQueue, pathname, isCentreAdmin, isAdmin])
 
   const waitingCount = queue.filter((q) => q.status === 'WAITING').length
@@ -244,7 +255,7 @@ export default function StaffQueuePage() {
                 <CheckCircle2 size={14} color="#0d631b" /> Completed Today
               </div>
               <strong style={{ display: 'block', fontSize: '22px', color: '#0d631b', margin: '4px 0 1px' }}>
-                {completedCount + 74}
+                {completedCount}
               </strong>
               <small style={{ color: '#64748b', fontSize: '10.5px' }}>Batches cleared</small>
             </div>
