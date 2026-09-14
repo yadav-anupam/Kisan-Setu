@@ -318,12 +318,9 @@ export async function appointStaffOfficer(params: {
     centre_id: params.centre_id,
     centre_name: params.centre_name,
     designation: params.designation,
-    section: defaultSection,
-    shift_hours: params.shift || '08:00 AM - 04:00 PM',
-    desk_assigned: params.desk_assigned || 'Main Desk',
     status: 'ACTIVE',
-    password_hash: passwordHash,
     created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
   }
 
   const { error: insertError } = await supabase.from('staff_users').insert(dbPayload)
