@@ -3,6 +3,7 @@ import {
   CalendarCheck,
   CheckCircle2,
   Clock,
+  Cpu,
   CreditCard,
   Download,
   Eye,
@@ -43,6 +44,10 @@ import {
   subscribeToLiveQueue,
   type FarmerQueueStatus,
 } from '../../services/liveQueueService'
+import {
+  fetchAIQueueAnalysis,
+  type AIAnalysisResponse,
+} from '../../services/mlService'
 import {
   fetchDashboardMetrics,
   fetchProcurementsFromDB,
@@ -131,6 +136,7 @@ export default function FarmerDashboard() {
   // Dynamic Appointment State (Null when farmer has no active upcoming booking)
   const [appointment, setAppointment] = useState<ActiveAppointment | null>(null)
   const [farmerQueue, setFarmerQueue] = useState<FarmerQueueStatus | null>(null)
+  const [mlData, setMlData] = useState<AIAnalysisResponse | null>(null)
 
   // Slot Booking Form State
   const [newCrop, setNewCrop] = useState('Wheat (गेहूं)')
@@ -265,11 +271,35 @@ export default function FarmerDashboard() {
         setFarmerQueue(fQueue)
         const status = await fetchMandiLiveStatusFromDB(active.centre_name, active.booking_date, active.token_number)
         setMandiStatus(status)
+
+        const queueAhead = status.queue_length || (fQueue ? fQueue.farmersAhead : 0)
+        try {
+          const aiRes = await fetchAIQueueAnalysis({
+            queue_length: queueAhead,
+            active_counters: status.active_counters,
+            avg_service_time: status.avg_service_time_mins,
+            appointments_next_hour: 10,
+          })
+          setMlData(aiRes)
+        } catch {
+          // ignore
+        }
       } else {
         setAppointment(null)
         setFarmerQueue(null)
         const status = await fetchMandiLiveStatusFromDB(farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
         setMandiStatus(status)
+        try {
+          const aiRes = await fetchAIQueueAnalysis({
+            queue_length: status.queue_length,
+            active_counters: status.active_counters,
+            avg_service_time: status.avg_service_time_mins,
+            appointments_next_hour: 4,
+          })
+          setMlData(aiRes)
+        } catch {
+          // ignore
+        }
       }
     }).catch(() => {})
   }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi])
@@ -315,11 +345,35 @@ export default function FarmerDashboard() {
         if (isMounted) setFarmerQueue(fQueue)
         const status = await fetchMandiLiveStatusFromDB(active.centre_name, active.booking_date, active.token_number)
         if (isMounted) setMandiStatus(status)
+
+        const queueAhead = status.queue_length || (fQueue ? fQueue.farmersAhead : 0)
+        try {
+          const aiRes = await fetchAIQueueAnalysis({
+            queue_length: queueAhead,
+            active_counters: status.active_counters,
+            avg_service_time: status.avg_service_time_mins,
+            appointments_next_hour: 10,
+          })
+          if (isMounted) setMlData(aiRes)
+        } catch {
+          // ignore
+        }
       } else {
         setAppointment(null)
         if (isMounted) setFarmerQueue(null)
         const status = await fetchMandiLiveStatusFromDB(farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
         if (isMounted) setMandiStatus(status)
+        try {
+          const aiRes = await fetchAIQueueAnalysis({
+            queue_length: status.queue_length,
+            active_counters: status.active_counters,
+            avg_service_time: status.avg_service_time_mins,
+            appointments_next_hour: 4,
+          })
+          if (isMounted) setMlData(aiRes)
+        } catch {
+          // ignore
+        }
       }
     }).catch(() => {})
 
@@ -828,6 +882,128 @@ export default function FarmerDashboard() {
             </button>
           </div>
         </section>
+
+        {/* ==========================================================================
+            AI/ML Multi-Horizon Queue Forecast & Mandi Advisory Widget
+            ========================================================================== */}
+        {mlData && (
+          <section
+            style={{
+              background: '#ffffff',
+              border: '1.5px solid #bbf7d0',
+              borderRadius: '16px',
+              padding: '16px 20px',
+              marginBottom: '20px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#dcfce7', color: '#16a34a', display: 'grid', placeItems: 'center' }}>
+                  <Cpu size={18} />
+                </div>
+                <div>
+                  <h3 style={{ fontFamily: 'Manrope', fontSize: '15px', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                    AI Queue Forecast &amp; Mandi Congestion Prediction
+                  </h3>
+                  <small style={{ fontSize: '11px', color: '#64748b' }}>
+                    {mlData.is_live_server ? '🟢 Live FastAPI Microservice (:8000)' : '⚡ Scikit-Learn Model (Active)'} • Multi-Horizon Arrival Engine
+                  </small>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    padding: '3px 10px',
+                    borderRadius: '8px',
+                    background: mlData.queue_forecast.trend === 'DECREASING' ? '#dcfce7' : mlData.queue_forecast.trend === 'INCREASING' ? '#fee2e2' : '#f1f5f9',
+                    color: mlData.queue_forecast.trend === 'DECREASING' ? '#166534' : mlData.queue_forecast.trend === 'INCREASING' ? '#991b1b' : '#334155',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <TrendingUp size={12} /> {mlData.queue_forecast.trend}
+                </span>
+
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    padding: '3px 10px',
+                    borderRadius: '8px',
+                    background: mlData.queue_forecast.risk === 'LOW' ? '#dcfce7' : mlData.queue_forecast.risk === 'MEDIUM' ? '#fef3c7' : '#fee2e2',
+                    color: mlData.queue_forecast.risk === 'LOW' ? '#166534' : mlData.queue_forecast.risk === 'MEDIUM' ? '#92400e' : '#991b1b',
+                  }}
+                >
+                  RISK: {mlData.queue_forecast.risk}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => navigate('/queue')}
+                  style={{
+                    background: 'none',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '6px',
+                    padding: '4px 8px',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: '#0d631b',
+                    cursor: 'pointer',
+                  }}
+                >
+                  View Live Yard →
+                </button>
+              </div>
+            </div>
+
+            {/* 4-Horizon Timeline Forecast Bars */}
+            <div className="lq-forecast-bars" style={{ marginBottom: '12px' }}>
+              <div className="lq-forecast-item">
+                <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>Now</span>
+                <strong style={{ fontSize: '16px', color: '#0f172a' }}>{mlData.queue_forecast.current}</strong>
+                <small style={{ fontSize: '9.5px', color: '#94a3b8', display: 'block' }}>vehicles</small>
+              </div>
+              <div className="lq-forecast-item">
+                <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+15 min</span>
+                <strong style={{ fontSize: '16px', color: '#0d631b' }}>{mlData.queue_forecast['15_minutes']}</strong>
+                <small style={{ fontSize: '9.5px', color: '#94a3b8', display: 'block' }}>est. queue</small>
+              </div>
+              <div className="lq-forecast-item">
+                <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+30 min</span>
+                <strong style={{ fontSize: '16px', color: '#0d631b' }}>{mlData.queue_forecast['30_minutes']}</strong>
+                <small style={{ fontSize: '9.5px', color: '#94a3b8', display: 'block' }}>est. queue</small>
+              </div>
+              <div className="lq-forecast-item">
+                <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+45 min</span>
+                <strong style={{ fontSize: '16px', color: '#0d631b' }}>{mlData.queue_forecast['45_minutes']}</strong>
+                <small style={{ fontSize: '9.5px', color: '#94a3b8', display: 'block' }}>est. queue</small>
+              </div>
+              <div className="lq-forecast-item">
+                <span style={{ fontSize: '10px', color: '#64748b', display: 'block' }}>+60 min</span>
+                <strong style={{ fontSize: '16px', color: '#0d631b' }}>{mlData.queue_forecast['60_minutes']}</strong>
+                <small style={{ fontSize: '9.5px', color: '#94a3b8', display: 'block' }}>est. queue</small>
+              </div>
+            </div>
+
+            {/* AI Recommendation Alert */}
+            <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '10px 14px', fontSize: '12px', color: '#166534', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sparkles size={16} style={{ flexShrink: 0, color: '#16a34a' }} />
+              <div>
+                <strong>AI Mandi Recommendation: </strong>
+                <span>
+                  {typeof mlData.recommendation === 'string'
+                    ? mlData.recommendation
+                    : mlData.recommendation.farmer_action || 'Optimal operational pace.'}
+                </span>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ==========================================================================
             5-Column Procurement KPI Grid
