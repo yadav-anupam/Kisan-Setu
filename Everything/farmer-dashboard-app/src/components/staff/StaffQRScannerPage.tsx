@@ -18,13 +18,16 @@ import {
 import { navigate } from '../../router'
 import {
   validateQRToken,
-  confirmBookingVerification,
   getVerificationHistory,
   getVerificationHistoryAsync,
   type BookingRecord,
   type StaffUser,
   type VerificationAuditLog,
 } from '../../services/qrBookingService'
+import {
+  verifyGatePassAndJoinQueue,
+  type LiveQueueItem,
+} from '../../services/liveQueueService'
 import {
   getStaffAuthSession,
   isStaffAuthenticated,
@@ -80,6 +83,8 @@ export default function StaffQRScannerPage() {
 
   // Verification result modal state
   const [modalOpen, setModalOpen] = useState(false)
+  const [activeRawToken, setActiveRawToken] = useState<string>('')
+  const [queueEntry, setQueueEntry] = useState<LiveQueueItem | null>(null)
   const [scanResult, setScanResult] = useState<{
     status: 'VALID' | 'ALREADY_VERIFIED' | 'CANCELLED' | 'EXPIRED' | 'NOT_FOUND' | 'INVALID_QR'
     booking?: BookingRecord
@@ -197,9 +202,11 @@ export default function StaffQRScannerPage() {
 
   // Handle Token Received (From Camera or Manual)
   const handleTokenDetected = async (rawToken: string) => {
+    setActiveRawToken(rawToken)
     setIsValidating(true)
     const res = await validateQRToken(rawToken, activeStaff)
     setIsValidating(false)
+    setQueueEntry(null)
     setScanResult({
       status: res.result,
       booking: res.booking,
@@ -219,21 +226,37 @@ export default function StaffQRScannerPage() {
     handleTokenDetected(token)
   }
 
-  // Confirm Verification
+  // Confirm Verification and Join Live Queue
   const handleConfirmVerification = async () => {
     if (!scanResult?.booking?.id) return
     setIsVerifying(true)
-    const res = await confirmBookingVerification(
-      scanResult.booking.id,
+    const tokenToUse = activeRawToken || scanResult.booking.token_number || scanResult.booking.booking_number
+    const res = await verifyGatePassAndJoinQueue(
+      tokenToUse,
       activeStaff,
-      'Verified at Gate 2 Weighbridge Desk'
+      'Verified at Gate 2 Intake Desk'
     )
     setIsVerifying(false)
-    if (res.success && res.booking) {
+    if (res.success) {
+      if (res.queueEntry) {
+        setQueueEntry(res.queueEntry)
+      }
       setScanResult({
         status: 'VALID',
-        booking: res.booking,
-        message: 'Booking successfully marked as VERIFIED.',
+        booking: {
+          ...scanResult.booking,
+          status: 'CHECKED_IN',
+          verification_status: 'VERIFIED',
+          verified_at: new Date().toISOString(),
+          verified_by_name: activeStaff.name,
+        } as BookingRecord,
+        message: res.message,
+      })
+    } else {
+      setScanResult({
+        status: res.code === 'ALREADY_CHECKED_IN' ? 'ALREADY_VERIFIED' : 'NOT_FOUND',
+        booking: scanResult.booking,
+        message: res.message,
       })
     }
     refreshAudits()
@@ -668,7 +691,44 @@ export default function StaffQRScannerPage() {
                     </div>
                   </div>
 
-                  {scanResult.booking.verified_at && (
+                  {queueEntry && (
+                    <div
+                      style={{
+                        marginTop: '12px',
+                        padding: '12px 14px',
+                        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+                        border: '1.5px solid #86efac',
+                        borderRadius: '10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        gap: '8px',
+                      }}
+                    >
+                      <div>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#166534', textTransform: 'uppercase' }}>
+                          🟢 LIVE YARD QUEUE ASSIGNED
+                        </span>
+                        <div style={{ fontSize: '18px', fontWeight: 900, color: '#0d631b' }}>
+                          Queue Position #{queueEntry.queue_position}
+                        </div>
+                        <small style={{ fontSize: '11px', color: '#15803d' }}>
+                          Assigned to: <strong>{queueEntry.counter_id || 'Bay 2'}</strong> • Status: <strong>{queueEntry.status}</strong>
+                        </small>
+                      </div>
+                      <button
+                        type="button"
+                        className="fd-card-btn primary"
+                        onClick={() => navigate('/staff/queue')}
+                        style={{ padding: '6px 12px', fontSize: '11.5px' }}
+                      >
+                        Open Live Queue →
+                      </button>
+                    </div>
+                  )}
+
+                  {scanResult.booking.verified_at && !queueEntry && (
                     <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #e2e8f0', fontSize: '11.5px', color: '#166534' }}>
                       ✓ Verified By: <strong>{scanResult.booking.verified_by_name || 'Rajesh Kumar'}</strong> at{' '}
                       {new Date(scanResult.booking.verified_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

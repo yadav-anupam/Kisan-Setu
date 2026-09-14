@@ -22,6 +22,11 @@ import { fetchAIQueueAnalysis, type AIAnalysisResponse } from '../../services/ml
 import { fetchMandiLiveStatusFromDB, type DbMandiLiveStatus } from '../../services/supabaseDataService'
 import { getFarmerBookings, type BookingRecord } from '../../services/qrBookingService'
 import {
+  fetchFarmerLiveQueueStatus,
+  subscribeToLiveQueue,
+  type FarmerQueueStatus,
+} from '../../services/liveQueueService'
+import {
   ALL_PROCUREMENT_CENTRES,
 } from '../../data/procurementCentresData'
 import { GoogleMapsModal } from '../common/GoogleMapsModal'
@@ -43,6 +48,7 @@ export default function LiveQueuePage() {
   const [farmer, setFarmer] = useState(getFarmerProfile())
 
   const [activeBooking, setActiveBooking] = useState<BookingRecord | null>(null)
+  const [farmerQueue, setFarmerQueue] = useState<FarmerQueueStatus | null>(null)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [passModalOpen, setPassModalOpen] = useState(false)
   const [mapModalOpen, setMapModalOpen] = useState(false)
@@ -70,6 +76,13 @@ export default function LiveQueuePage() {
         bookings?.[0] ||
         null
       setActiveBooking(active)
+
+      if (active) {
+        const fQueue = await fetchFarmerLiveQueueStatus(fId, active.id)
+        setFarmerQueue(fQueue)
+      } else {
+        setFarmerQueue(null)
+      }
 
       const targetCentre = active ? active.centre_name : (farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
       const status = await fetchMandiLiveStatusFromDB(targetCentre, active?.booking_date, active?.token_number)
@@ -112,6 +125,13 @@ export default function LiveQueuePage() {
         null
       setActiveBooking(active)
 
+      if (active) {
+        const fQueue = await fetchFarmerLiveQueueStatus(fId, active.id)
+        if (isMounted) setFarmerQueue(fQueue)
+      } else {
+        if (isMounted) setFarmerQueue(null)
+      }
+
       const targetCentre = active ? active.centre_name : (farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
       const status = await fetchMandiLiveStatusFromDB(targetCentre, active?.booking_date, active?.token_number)
       if (isMounted) setMandiStatus(status)
@@ -133,20 +153,26 @@ export default function LiveQueuePage() {
     const handleBookingUpdate = () => {
       loadData()
     }
+    const unsubscribeQueue = subscribeToLiveQueue(
+      farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].id,
+      handleBookingUpdate
+    )
+
     window.addEventListener('kisan_setu_booking_updated', handleBookingUpdate)
     window.addEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
+    window.addEventListener('kisan_setu_booking_verified', handleBookingUpdate)
+    window.addEventListener('kisan_setu_queue_updated', handleBookingUpdate)
 
     return () => {
       isMounted = false
+      unsubscribeQueue()
       window.removeEventListener('kisan_setu_profile_updated', handleProfileUpdate)
       window.removeEventListener('kisan_setu_booking_updated', handleBookingUpdate)
       window.removeEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
+      window.removeEventListener('kisan_setu_booking_verified', handleBookingUpdate)
+      window.removeEventListener('kisan_setu_queue_updated', handleBookingUpdate)
     }
   }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi, loadData])
-
-  const estimatedMins = activeBooking
-    ? (mlData?.waiting_time.minutes ?? Math.round(mandiStatus.queue_length * 5))
-    : 0
 
   const dynamicBays: MandiBay[] = [
     {
@@ -234,8 +260,8 @@ export default function LiveQueuePage() {
                   <>
                     <div className="lq-user-token-header">
                       <div>
-                        <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#166534', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
-                          Your Booked Token
+                        <span style={{ fontSize: '10.5px', fontWeight: 700, color: farmerQueue?.isVerified ? '#166534' : '#d97706', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                          {farmerQueue?.isVerified ? '✓ Gate Verified Token' : '⚠ Gate Check-In Required'}
                         </span>
                         <div className="lq-user-token-val">{activeBooking.token_number}</div>
                       </div>
@@ -250,28 +276,45 @@ export default function LiveQueuePage() {
                       </button>
                     </div>
 
-                    <div className="lq-user-stats-grid">
-                      <div className="lq-stat-item">
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <Sparkles size={11} color="#16a34a" /> Estimated Wait
-                        </span>
-                        <strong style={{ color: '#0d631b' }}>~{estimatedMins} Mins</strong>
-                        {mlData && (
-                          <small style={{ fontSize: '9.5px', fontWeight: 800, color: mlData.waiting_time.status === 'LOW' ? '#16a34a' : mlData.waiting_time.status === 'MEDIUM' ? '#d97706' : '#dc2626' }}>
-                            {mlData.waiting_time.status} CONGESTION
+                    {!farmerQueue?.isVerified ? (
+                      <div style={{ marginTop: '8px', padding: '10px 12px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px' }}>
+                        <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#92400e', marginBottom: '4px' }}>
+                          Gate Pass Not Verified Yet
+                        </div>
+                        <p style={{ fontSize: '11px', color: '#78350f', margin: '0 0 8px', lineHeight: 1.4 }}>
+                          Your gate pass has not been verified yet. Please report to the gate for scanning and verification.
+                        </p>
+                        <button
+                          type="button"
+                          className="fd-card-btn secondary"
+                          onClick={() => setPassModalOpen(true)}
+                          style={{ padding: '6px 12px', fontSize: '11px', width: '100%', borderColor: '#f59e0b', color: '#92400e', background: '#ffffff' }}
+                        >
+                          <QrCode size={13} /> Show QR for Gate Scan
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="lq-user-stats-grid">
+                        <div className="lq-stat-item">
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <Sparkles size={11} color="#16a34a" /> Queue Position
+                          </span>
+                          <strong style={{ color: '#0d631b' }}>#{farmerQueue.queuePosition}</strong>
+                          <small style={{ fontSize: '9.5px', fontWeight: 800, color: '#166534' }}>
+                            {farmerQueue.assignedBay || 'Bay 2'}
                           </small>
-                        )}
+                        </div>
+                        <div className="lq-stat-item">
+                          <span>Farmers Ahead</span>
+                          <strong style={{ color: farmerQueue.farmersAhead > 0 ? '#d97706' : '#16a34a' }}>
+                            {farmerQueue.farmersAhead} Farmers
+                          </strong>
+                          <small style={{ fontSize: '9.5px', color: '#64748b' }}>
+                            ~{farmerQueue.estimatedWaitMinutes} min wait
+                          </small>
+                        </div>
                       </div>
-                      <div className="lq-stat-item">
-                        <span>Farmers Ahead</span>
-                        <strong style={{ color: mandiStatus.queue_length > 0 ? '#d97706' : '#16a34a' }}>
-                          {mandiStatus.queue_length} Farmers
-                        </strong>
-                        <small style={{ fontSize: '9.5px', color: '#64748b' }}>
-                          {mandiStatus.active_counters} Bays Operating
-                        </small>
-                      </div>
-                    </div>
+                    )}
                   </>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', padding: '6px 0' }}>

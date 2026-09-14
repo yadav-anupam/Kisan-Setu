@@ -39,6 +39,11 @@ import {
   type CentreSlotItem,
 } from '../../services/slotManagementService'
 import {
+  fetchFarmerLiveQueueStatus,
+  subscribeToLiveQueue,
+  type FarmerQueueStatus,
+} from '../../services/liveQueueService'
+import {
   fetchDashboardMetrics,
   fetchProcurementsFromDB,
   fetchDbtPaymentsFromDB,
@@ -125,6 +130,7 @@ export default function FarmerDashboard() {
 
   // Dynamic Appointment State (Null when farmer has no active upcoming booking)
   const [appointment, setAppointment] = useState<ActiveAppointment | null>(null)
+  const [farmerQueue, setFarmerQueue] = useState<FarmerQueueStatus | null>(null)
 
   // Slot Booking Form State
   const [newCrop, setNewCrop] = useState('Wheat (गेहूं)')
@@ -243,7 +249,7 @@ export default function FarmerDashboard() {
       setPayments(pay)
       setNotifications(notif)
       
-      const active = books?.find((b) => b.status === 'CONFIRMED' && b.verification_status !== 'VERIFIED')
+      const active = books?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED')
       if (active) {
         setAppointment({
           id: active.id,
@@ -253,12 +259,15 @@ export default function FarmerDashboard() {
           crop: active.commodity,
           quantity: active.quantity.toString(),
           token: active.token_number,
-          status: 'Upcoming',
+          status: active.status === 'CHECKED_IN' || active.verification_status === 'VERIFIED' ? 'Verified / In Yard' : 'Upcoming',
         })
+        const fQueue = await fetchFarmerLiveQueueStatus(fId, active.id)
+        setFarmerQueue(fQueue)
         const status = await fetchMandiLiveStatusFromDB(active.centre_name, active.booking_date, active.token_number)
         setMandiStatus(status)
       } else {
         setAppointment(null)
+        setFarmerQueue(null)
         const status = await fetchMandiLiveStatusFromDB(farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
         setMandiStatus(status)
       }
@@ -290,7 +299,7 @@ export default function FarmerDashboard() {
       setPayments(pay)
       setNotifications(notif)
 
-      const active = books?.find((b) => b.status === 'CONFIRMED' && b.verification_status !== 'VERIFIED')
+      const active = books?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED')
       if (active) {
         setAppointment({
           id: active.id,
@@ -300,12 +309,15 @@ export default function FarmerDashboard() {
           crop: active.commodity,
           quantity: active.quantity.toString(),
           token: active.token_number,
-          status: 'Upcoming',
+          status: active.status === 'CHECKED_IN' || active.verification_status === 'VERIFIED' ? 'Verified / In Yard' : 'Upcoming',
         })
+        const fQueue = await fetchFarmerLiveQueueStatus(fId, active.id)
+        if (isMounted) setFarmerQueue(fQueue)
         const status = await fetchMandiLiveStatusFromDB(active.centre_name, active.booking_date, active.token_number)
         if (isMounted) setMandiStatus(status)
       } else {
         setAppointment(null)
+        if (isMounted) setFarmerQueue(null)
         const status = await fetchMandiLiveStatusFromDB(farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].centreName)
         if (isMounted) setMandiStatus(status)
       }
@@ -314,13 +326,23 @@ export default function FarmerDashboard() {
     const handleBookingUpdate = () => {
       loadAllDashboardData()
     }
+    const unsubscribeQueue = subscribeToLiveQueue(
+      farmer.preferredMandi || ALL_PROCUREMENT_CENTRES[0].id,
+      handleBookingUpdate
+    )
+
     window.addEventListener('kisan_setu_booking_updated', handleBookingUpdate)
     window.addEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
+    window.addEventListener('kisan_setu_booking_verified', handleBookingUpdate)
+    window.addEventListener('kisan_setu_queue_updated', handleBookingUpdate)
 
     return () => {
       isMounted = false
+      unsubscribeQueue()
       window.removeEventListener('kisan_setu_booking_updated', handleBookingUpdate)
       window.removeEventListener('kisan_setu_booking_cancelled', handleBookingUpdate)
+      window.removeEventListener('kisan_setu_booking_verified', handleBookingUpdate)
+      window.removeEventListener('kisan_setu_queue_updated', handleBookingUpdate)
     }
   }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi, farmer.district, loadAllDashboardData])
 
@@ -679,9 +701,15 @@ export default function FarmerDashboard() {
               <div>
                 <div className="fd-card-header">
                   <h2>{fs?.liveQueue || 'Live Queue Status'}</h2>
-                  <span className="fd-status-pill live">
-                    <span className="fd-live-dot" /> {fd?.liveActive || 'Live Active'}
-                  </span>
+                  {farmerQueue?.isVerified ? (
+                    <span className="fd-status-pill live">
+                      <span className="fd-live-dot" /> Live Active #{farmerQueue.queuePosition}
+                    </span>
+                  ) : (
+                    <span className="fd-status-pill" style={{ background: '#fef3c7', color: '#92400e' }}>
+                      Gate Scan Required
+                    </span>
+                  )}
                 </div>
 
                 <div className="fd-token-row">
@@ -695,19 +723,40 @@ export default function FarmerDashboard() {
                   </div>
                 </div>
 
-                <div className="fd-queue-meta">
-                  <span>{fd?.farmersAhead || 'Farmers Ahead'}: <strong>{mandiStatus.queue_length}</strong></span>
-                  <span>{fd?.estWait || 'Est. Wait'}: <strong>{Math.round(mandiStatus.queue_length * (mandiStatus.avg_service_time_mins / Math.max(1, mandiStatus.active_counters)))} min</strong></span>
-                </div>
+                {farmerQueue?.isVerified ? (
+                  <>
+                    <div className="fd-queue-meta">
+                      <span>{fd?.farmersAhead || 'Farmers Ahead'}: <strong>{farmerQueue.farmersAhead}</strong></span>
+                      <span>{fd?.estWait || 'Est. Wait'}: <strong>~{farmerQueue.estimatedWaitMinutes} min</strong></span>
+                    </div>
 
-                <div className="fd-queue-track">
-                  <div className="fd-queue-fill" style={{ width: `${Math.min(100, Math.max(15, mandiStatus.queue_length * 15))}%` }} />
-                </div>
+                    <div className="fd-queue-track">
+                      <div className="fd-queue-fill" style={{ width: `${Math.min(100, Math.max(15, farmerQueue.farmersAhead * 15))}%` }} />
+                    </div>
 
-                <div className="fd-queue-advisory" style={{ marginTop: '12px' }}>
-                  <Info size={16} color="#166534" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Real queue intake active for {appointment.centre}. {mandiStatus.active_counters} weighbridge counters operational.</span>
-                </div>
+                    <div className="fd-queue-advisory" style={{ marginTop: '12px' }}>
+                      <Info size={16} color="#166534" style={{ flexShrink: 0, marginTop: '2px' }} />
+                      <span>Assigned to {farmerQueue.assignedBay || 'Bay 2'}. Real queue intake active for {appointment.centre}.</span>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ marginTop: '10px', padding: '10px 12px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px' }}>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#92400e', marginBottom: '2px' }}>
+                      Gate Pass Not Verified Yet
+                    </div>
+                    <p style={{ fontSize: '11px', color: '#78350f', margin: '0 0 8px', lineHeight: 1.4 }}>
+                      Your gate pass has not been verified yet. Please report to the gate for scanning and verification.
+                    </p>
+                    <button
+                      type="button"
+                      className="fd-card-btn secondary"
+                      onClick={() => setQueueModalOpen(true)}
+                      style={{ padding: '6px 10px', fontSize: '11px', width: '100%', borderColor: '#f59e0b', color: '#92400e', background: '#ffffff' }}
+                    >
+                      <QrCode size={13} /> Show QR for Gate Scan
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>

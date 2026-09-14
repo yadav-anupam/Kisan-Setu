@@ -16,6 +16,7 @@ import {
   type StaffProfile,
   type QueueItem,
 } from '../../services/staffDataService'
+import { subscribeToLiveQueue } from '../../services/liveQueueService'
 import StaffHeader from './StaffHeader'
 import StaffSidebar from './StaffSidebar'
 import CentreAdminSidebar from './CentreAdminSidebar'
@@ -53,12 +54,16 @@ export default function StaffQueuePage() {
     }
     loadQueue()
 
+    const currentStaff = getStaffAuthSession()
     const handleUpdate = () => loadQueue()
+    const unsubscribe = subscribeToLiveQueue(currentStaff.centre_id, handleUpdate)
+
     window.addEventListener('kisan_setu_queue_updated', handleUpdate)
     window.addEventListener('kisan_setu_booking_updated', handleUpdate)
     window.addEventListener('kisan_setu_booking_verified', handleUpdate)
 
     return () => {
+      unsubscribe()
       window.removeEventListener('kisan_setu_queue_updated', handleUpdate)
       window.removeEventListener('kisan_setu_booking_updated', handleUpdate)
       window.removeEventListener('kisan_setu_booking_verified', handleUpdate)
