@@ -121,6 +121,14 @@ export default function App() {
       )
     }
 
+    if (path === '/centre-admin/slots' || path === '/centre-admin/slot-management') {
+      return (
+        <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN', 'STAFF']}>
+          <StaffSlotsPage />
+        </RouteGuard>
+      )
+    }
+
     if (path === '/centre-admin/token-management' || path === '/centre-admin/tokens') {
       return (
         <RouteGuard portal="CENTRE_ADMIN" allowedRoles={['CENTRE_ADMIN', 'ADMIN']}>
@@ -529,7 +537,11 @@ export default function App() {
       path === '/dashboard' ||
       path === '/book-slot' ||
       path === '/slot-booking' ||
-      path === '/farmer-booking'
+      path === '/farmer-booking' ||
+      path === '/farmer/slots' ||
+      path === '/farmer/book-slot' ||
+      path === '/farmer-slots' ||
+      path === '/available-slots'
     ) {
       return (
         <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>

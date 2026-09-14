@@ -152,25 +152,6 @@ export default function FarmerLoginPage() {
     }
   }
 
-  const handleQuickFillFarmerA = () => {
-    setMobile('9214334494')
-    setPassword('123456')
-    setErrorMessage('')
-    if (mode === 'otp') {
-      setOtpSent(true)
-      setOtpDigits(['1', '2', '3', '4', '5', '6'])
-    }
-  }
-
-  const handleQuickFillFarmerB = () => {
-    setMobile('9876543210')
-    setPassword('123456')
-    setErrorMessage('')
-    if (mode === 'otp') {
-      setOtpSent(true)
-      setOtpDigits(['1', '2', '3', '4', '5', '6'])
-    }
-  }
 
   const activeLangObj = languages.find((l) => l.code === currentLang) || languages[0]
 
@@ -491,34 +472,6 @@ export default function FarmerLoginPage() {
                 </button>
               )}
             </form>
-
-            {/* Quick Demo Pre-fill Box */}
-            <div className="fl-demo-box" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '8px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>{fl.demoFarmer}</span>
-                <span style={{ fontSize: '11px', color: '#64748b' }}>PIN: 123456</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                <button
-                  type="button"
-                  className="fl-demo-fill-btn"
-                  onClick={handleQuickFillFarmerA}
-                  title="Farmer A: Ramesh Kumar Singh (9214334494)"
-                  style={{ textAlign: 'center', padding: '6px 8px' }}
-                >
-                  🌾 Farmer A (Ramesh)
-                </button>
-                <button
-                  type="button"
-                  className="fl-demo-fill-btn"
-                  onClick={handleQuickFillFarmerB}
-                  title="Farmer B: Suresh Patel (9876543210)"
-                  style={{ textAlign: 'center', padding: '6px 8px', background: '#eff6ff', borderColor: '#bfdbfe', color: '#1d4ed8' }}
-                >
-                  🚜 Farmer B (Suresh)
-                </button>
-              </div>
-            </div>
 
             {/* Bottom Links */}
             <div className="fl-bottom-links">

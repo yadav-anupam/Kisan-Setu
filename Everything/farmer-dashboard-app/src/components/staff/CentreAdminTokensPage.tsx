@@ -18,6 +18,9 @@ import StaffHeader from './StaffHeader'
 import CentreAdminSidebar from './CentreAdminSidebar'
 import './StaffQRScannerPage.css'
 
+import { getSupabaseClient } from '../../services/supabaseClient'
+import { generateAtomicToken, createSlotBooking } from '../../services/qrBookingService'
+
 interface DigitalToken {
   tokenNo: string
   farmerName: string
@@ -30,79 +33,11 @@ interface DigitalToken {
   issuedAt: string
 }
 
-const mockTokens: DigitalToken[] = [
-  {
-    tokenNo: 'TKN-CHR-001',
-    farmerName: 'Ramprasad Yadav',
-    farmerMobile: '9876543210',
-    commodity: 'Paddy (Grade A)',
-    estimatedQuantityQtl: 45.0,
-    slotTime: '08:00 - 09:00 AM',
-    vehicleNo: 'UP 65 BT 9081',
-    status: 'COMPLETED',
-    issuedAt: '07:45 AM',
-  },
-  {
-    tokenNo: 'TKN-CHR-002',
-    farmerName: 'Shivnarayan Maurya',
-    farmerMobile: '9876543211',
-    commodity: 'Paddy (Common)',
-    estimatedQuantityQtl: 60.0,
-    slotTime: '09:00 - 10:00 AM',
-    vehicleNo: 'UP 65 CX 4421',
-    status: 'QUALITY',
-    issuedAt: '08:30 AM',
-  },
-  {
-    tokenNo: 'TKN-CHR-003',
-    farmerName: 'Dinesh Chandra Patel',
-    farmerMobile: '9876543212',
-    commodity: 'Paddy (Common)',
-    estimatedQuantityQtl: 38.5,
-    slotTime: '10:00 - 11:00 AM',
-    vehicleNo: 'UP 65 DP 1289',
-    status: 'WEIGHMENT',
-    issuedAt: '09:15 AM',
-  },
-  {
-    tokenNo: 'TKN-CHR-004',
-    farmerName: 'Ganga Ram Bind',
-    farmerMobile: '9876543213',
-    commodity: 'Paddy (Grade A)',
-    estimatedQuantityQtl: 50.0,
-    slotTime: '11:00 - 12:00 PM',
-    vehicleNo: 'UP 65 EK 7712',
-    status: 'CALLED',
-    issuedAt: '09:40 AM',
-  },
-  {
-    tokenNo: 'TKN-CHR-005',
-    farmerName: 'Mukesh Kumar Singh',
-    farmerMobile: '9876543214',
-    commodity: 'Wheat',
-    estimatedQuantityQtl: 75.0,
-    slotTime: '12:00 - 01:00 PM',
-    vehicleNo: 'UP 65 FK 3390',
-    status: 'WAITING',
-    issuedAt: '10:05 AM',
-  },
-  {
-    tokenNo: 'TKN-CHR-006',
-    farmerName: 'Brijesh Pandey',
-    farmerMobile: '9876543215',
-    commodity: 'Paddy (Grade A)',
-    estimatedQuantityQtl: 42.0,
-    slotTime: '01:00 - 02:00 PM',
-    vehicleNo: 'UP 65 GH 6621',
-    status: 'WAITING',
-    issuedAt: '10:20 AM',
-  },
-]
-
 export default function CentreAdminTokensPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
-  const [tokens, setTokens] = useState<DigitalToken[]>(mockTokens)
+  const [tokens, setTokens] = useState<DigitalToken[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('ALL')
 
@@ -115,38 +50,94 @@ export default function CentreAdminTokensPage() {
   const [vehicleNo, setVehicleNo] = useState('')
   const [toastMsg, setToastMsg] = useState('')
 
+  const loadCentreTokens = async () => {
+    setIsLoading(true)
+    const currentStaff = getStaffAuthSession()
+    setStaff(currentStaff)
+    const supabase = getSupabaseClient()
+    if (!supabase) {
+      setTokens([])
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      let query = supabase.from('bookings').select('*').order('created_at', { ascending: false })
+      if (currentStaff.role !== 'ADMIN' && currentStaff.centre_name) {
+        query = query.eq('centre_name', currentStaff.centre_name)
+      }
+      const { data, error } = await query
+      if (!error && data) {
+        const mapped: DigitalToken[] = data.map((b: any) => ({
+          tokenNo: b.token_number || b.booking_number,
+          farmerName: b.farmer_name || 'Farmer',
+          farmerMobile: b.farmer_phone ? b.farmer_phone.replace(/^\+91\s*/, '') : '',
+          commodity: b.commodity || 'Wheat / Paddy',
+          estimatedQuantityQtl: Number(b.quantity || 0),
+          slotTime: b.start_time ? `${b.start_time} - ${b.end_time || ''}` : 'General Slot',
+          vehicleNo: b.vehicle_number || 'N/A',
+          status: (b.status === 'COMPLETED' ? 'COMPLETED' : b.verification_status === 'VERIFIED' ? 'WEIGHMENT' : b.status === 'CONFIRMED' ? 'WAITING' : 'CALLED') as any,
+          issuedAt: b.created_at ? new Date(b.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Today',
+        }))
+        setTokens(mapped)
+      } else {
+        setTokens([])
+      }
+    } catch {
+      setTokens([])
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     if (!isStaffAuthenticated()) {
       sessionStorage.setItem('kisan_setu_staff_redirect', '/centre-admin/token-management')
       navigate('/centre-admin/login')
       return
     }
-    setStaff(getStaffAuthSession())
+    loadCentreTokens()
+
+    const handleUpdate = () => loadCentreTokens()
+    window.addEventListener('kisan_setu_booking_created', handleUpdate)
+    window.addEventListener('kisan_setu_centre_slots_updated', handleUpdate)
+    return () => {
+      window.removeEventListener('kisan_setu_booking_created', handleUpdate)
+      window.removeEventListener('kisan_setu_centre_slots_updated', handleUpdate)
+    }
   }, [])
 
-  const handleIssueTokenSubmit = (e: React.FormEvent) => {
+  const handleIssueTokenSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!farmerName.trim() || !farmerMobile.trim()) return
 
-    const newToken: DigitalToken = {
-      tokenNo: `TKN-CHR-${String(tokens.length + 1).padStart(3, '0')}`,
-      farmerName: farmerName.trim(),
-      farmerMobile: farmerMobile.trim(),
-      commodity,
-      estimatedQuantityQtl: parseFloat(quantity) || 40,
-      slotTime: 'Walk-In Priority Slot',
-      vehicleNo: vehicleNo.trim() || 'Tractor-Trolley',
-      status: 'WAITING',
-      issuedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    }
+    const todayStr = new Date().toISOString().split('T')[0]
+    const atomic = generateAtomicToken(todayStr, tokens.length)
 
-    setTokens([newToken, ...tokens])
-    setIsIssueModalOpen(false)
-    setFarmerName('')
-    setFarmerMobile('')
-    setVehicleNo('')
-    setToastMsg(`Token ${newToken.tokenNo} issued to farmer ${newToken.farmerName}. Printed to slip dispenser.`)
-    setTimeout(() => setToastMsg(''), 4000)
+    try {
+      await createSlotBooking({
+        farmer_id: `WALK-IN-${Date.now().toString().slice(-6)}`,
+        farmer_name: farmerName.trim(),
+        farmer_phone: farmerMobile.trim(),
+        centre_name: staff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)',
+        centre_id: staff.centre_id,
+        booking_date: todayStr,
+        start_time: '09:00 AM',
+        end_time: '05:00 PM',
+        commodity,
+        quantity: parseFloat(quantity) || 40,
+        vehicle_number: vehicleNo.trim() || 'Tractor-Trolley',
+      })
+      setToastMsg(`Token ${atomic.tokenNumber} issued to farmer ${farmerName.trim()}. Printed to slip dispenser.`)
+      setIsIssueModalOpen(false)
+      setFarmerName('')
+      setFarmerMobile('')
+      setVehicleNo('')
+      loadCentreTokens()
+      setTimeout(() => setToastMsg(''), 4000)
+    } catch (err: any) {
+      setToastMsg(`Error issuing token: ${err.message}`)
+    }
   }
 
   const handleCallToken = (tokenNo: string) => {
@@ -352,7 +343,13 @@ export default function CentreAdminTokensPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredTokens.length === 0 ? (
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan={6} style={{ padding: '36px 16px', textAlign: 'center', color: '#16a34a' }}>
+                        Loading real live tokens from database...
+                      </td>
+                    </tr>
+                  ) : filteredTokens.length === 0 ? (
                     <tr>
                       <td colSpan={6} style={{ padding: '36px 16px', textAlign: 'center', color: '#64748b' }}>
                         No tokens found matching search or filter criteria.

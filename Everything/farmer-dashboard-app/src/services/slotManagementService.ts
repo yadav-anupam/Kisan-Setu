@@ -1,4 +1,4 @@
-﻿// =============================================================================
+// =============================================================================
 // Kisan Setu — Slot Management & Concurrency Service
 // Handles Centre-wise Slot CRUD, Capacity Control, & Atomic Booking RPC
 // =============================================================================
@@ -486,3 +486,46 @@ export async function bookSlotAtomic(
     }
   }
 }
+
+/**
+ * Fetches all confirmed farmer bookings for a specific centre slot.
+ */
+export async function fetchSlotBookings(
+  slot: CentreSlotItem
+): Promise<Array<{
+  id: string
+  booking_number: string
+  farmer_id: string
+  farmer_name: string
+  farmer_phone?: string
+  commodity: string
+  quantity: number
+  vehicle_number: string
+  token_number: string
+  status: string
+  created_at: string
+}>> {
+  const supabase = getSupabaseClient()
+  if (!supabase) return []
+
+  try {
+    const { data, error } = await supabase
+      .from('bookings')
+      .select('*')
+      .eq('centre_name', slot.centre_name)
+      .eq('booking_date', slot.slot_date)
+      .eq('start_time', slot.start_time)
+      .neq('status', 'CANCELLED')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('Error fetching slot bookings:', error)
+      return []
+    }
+    return data || []
+  } catch (err) {
+    console.error('Failed to fetch slot bookings:', err)
+    return []
+  }
+}
+

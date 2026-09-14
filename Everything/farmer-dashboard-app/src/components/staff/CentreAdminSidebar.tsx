@@ -201,12 +201,26 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
 
           <button
             type="button"
-            className={`fd-nav-item ${activeTab === 'tokens' || activeTab === 'token-management' || activeTab === 'slots' ? 'active' : ''}`}
+            className={`fd-nav-item ${activeTab === 'slots' || activeTab === 'slot-management' ? 'active' : ''}`}
+            onClick={() => handleNav('/centre-admin/slots')}
+          >
+            <Clock size={17} />
+            <span>Procurement Slots</span>
+            {(activeTab === 'slots' || activeTab === 'slot-management') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
+          </button>
+
+          <button
+            type="button"
+            className={`fd-nav-item ${activeTab === 'tokens' || activeTab === 'token-management' ? 'active' : ''}`}
             onClick={() => handleNav('/centre-admin/token-management')}
           >
             <QrCode size={17} />
-            <span>Token &amp; Slot Quotas</span>
-            {(activeTab === 'tokens' || activeTab === 'token-management' || activeTab === 'slots') && (
+            <span>Token Dispatch</span>
+            {(activeTab === 'tokens' || activeTab === 'token-management') && (
               <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
                 CURRENT
               </span>

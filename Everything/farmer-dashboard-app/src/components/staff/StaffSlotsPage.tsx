@@ -25,6 +25,7 @@ import {
   updateCentreSlot,
   deleteCentreSlot,
   copyCentreSlotsToDate,
+  fetchSlotBookings,
   type CentreSlotItem,
   type SlotStatus,
 } from '../../services/slotManagementService'
@@ -43,6 +44,7 @@ export default function StaffSlotsPage() {
   const [staff, setStaff] = useState<StaffProfile>(getStaffAuthSession)
   const [slots, setSlots] = useState<CentreSlotItem[]>([])
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
+  const [statusFilter, setStatusFilter] = useState<string>('ALL')
   const [isLoading, setIsLoading] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -51,6 +53,7 @@ export default function StaffSlotsPage() {
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [editSlotModal, setEditSlotModal] = useState<CentreSlotItem | null>(null)
   const [copyModalOpen, setCopyModalOpen] = useState(false)
+  const [viewBookingsModal, setViewBookingsModal] = useState<{ slot: CentreSlotItem; bookings: any[]; loading: boolean } | null>(null)
 
   // Form states for Create Slot
   const [newStartTime, setNewStartTime] = useState('09:00 AM')
@@ -216,6 +219,32 @@ export default function StaffSlotsPage() {
     }
   }
 
+  // 6. Publish Draft Slot
+  const handlePublishSlot = async (slot: CentreSlotItem) => {
+    setErrorMsg('')
+    const res = await updateCentreSlot(slot.id, { status: 'ACTIVE' })
+    if (res.success) {
+      setSuccessMsg(`Slot ${slot.start_time} - ${slot.end_time} is now PUBLISHED and open for farmer bookings.`)
+      loadSlots()
+      setTimeout(() => setSuccessMsg(''), 4000)
+    } else {
+      setErrorMsg(res.message)
+    }
+  }
+
+  // 7. Open View Bookings Modal
+  const handleOpenViewBookings = async (slot: CentreSlotItem) => {
+    setViewBookingsModal({ slot, bookings: [], loading: true })
+    const bookings = await fetchSlotBookings(slot)
+    setViewBookingsModal({ slot, bookings, loading: false })
+  }
+
+  const filteredSlots = slots.filter((s) => {
+    if (statusFilter === 'ALL') return true
+    if (statusFilter === 'ACTIVE' || statusFilter === 'PUBLISHED') return s.status === 'ACTIVE'
+    return s.status === statusFilter
+  })
+
   return (
     <div className="farmer-dashboard-layout" style={{ background: '#f8fafc', minHeight: '100vh' }}>
       {isCentreAdmin ? (
@@ -255,7 +284,7 @@ export default function StaffSlotsPage() {
               <p>Daily intake windows, vehicle limits, and gate allocation for <strong>{staff.centre_name}</strong></p>
             </div>
 
-            {/* Date Picker & Actions Bar */}
+            {/* Date Picker, Status Filter & Actions Bar */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#ffffff', padding: '6px 12px', borderRadius: '10px', border: '1px solid #cbd5e1' }}>
                 <Calendar size={16} color="#0d631b" />
@@ -267,6 +296,26 @@ export default function StaffSlotsPage() {
                 />
               </div>
 
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                style={{
+                  padding: '7px 12px',
+                  borderRadius: '10px',
+                  border: '1px solid #cbd5e1',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  background: '#ffffff',
+                  outline: 'none',
+                }}
+              >
+                <option value="ALL">All Slot States</option>
+                <option value="ACTIVE">PUBLISHED / ACTIVE</option>
+                <option value="DRAFT">DRAFT (Unpublished)</option>
+                <option value="FULL">FULL (Capacity Reached)</option>
+                <option value="CLOSED">CLOSED</option>
+              </select>
+
               <button
                 type="button"
                 onClick={loadSlots}
@@ -276,28 +325,24 @@ export default function StaffSlotsPage() {
                 <RefreshCw size={14} className={isLoading ? 'spin' : ''} /> Refresh
               </button>
 
-              {(isCentreAdmin || isAdmin) && (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => setCopyModalOpen(true)}
-                    style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', color: '#334155', padding: '8px 14px', borderRadius: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 700 }}
-                  >
-                    <Copy size={14} /> Copy to Date
-                  </button>
+              <button
+                type="button"
+                onClick={() => setCopyModalOpen(true)}
+                style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', color: '#334155', padding: '8px 14px', borderRadius: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 700 }}
+              >
+                <Copy size={14} /> Copy to Date
+              </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setErrorMsg('')
-                      setCreateModalOpen(true)
-                    }}
-                    style={{ background: '#0d631b', color: '#ffffff', border: 'none', padding: '8px 16px', borderRadius: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 800, boxShadow: '0 2px 8px rgba(13,99,27,0.25)' }}
-                  >
-                    <Plus size={16} /> + Create New Slot
-                  </button>
-                </>
-              )}
+              <button
+                type="button"
+                onClick={() => {
+                  setErrorMsg('')
+                  setCreateModalOpen(true)
+                }}
+                style={{ background: '#0d631b', color: '#ffffff', border: 'none', padding: '8px 16px', borderRadius: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 800, boxShadow: '0 2px 8px rgba(13,99,27,0.25)' }}
+              >
+                <Plus size={16} /> + Create New Slot
+              </button>
             </div>
           </div>
 
@@ -350,26 +395,26 @@ export default function StaffSlotsPage() {
           </section>
 
           {/* Slots Cards Grid */}
-          {slots.length === 0 ? (
+          {filteredSlots.length === 0 ? (
             <div style={{ background: '#ffffff', borderRadius: '16px', padding: '40px 20px', textAlign: 'center', border: '1px solid #e2e8f0', margin: '20px 0' }}>
               <Clock size={40} color="#94a3b8" style={{ marginBottom: '12px' }} />
-              <h3 style={{ margin: '0 0 6px', color: '#1e293b' }}>No Slots Configured for {selectedDate}</h3>
+              <h3 style={{ margin: '0 0 6px', color: '#1e293b' }}>
+                {slots.length === 0 ? `No Slots Configured for ${selectedDate}` : `No Slots Match Filter (${statusFilter})`}
+              </h3>
               <p style={{ margin: 0, color: '#64748b', fontSize: '13.5px' }}>
-                Create new procurement intake slots or copy from another day's schedule.
+                Create new procurement intake slots or adjust your date/status filter.
               </p>
-              {(isCentreAdmin || isAdmin) && (
-                <button
-                  type="button"
-                  onClick={() => setCreateModalOpen(true)}
-                  style={{ marginTop: '16px', background: '#0d631b', color: '#ffffff', border: 'none', padding: '10px 20px', borderRadius: '10px', fontWeight: 700, cursor: 'pointer' }}
-                >
-                  + Create Slot for {selectedDate}
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => setCreateModalOpen(true)}
+                style={{ marginTop: '16px', background: '#0d631b', color: '#ffffff', border: 'none', padding: '10px 20px', borderRadius: '10px', fontWeight: 700, cursor: 'pointer' }}
+              >
+                + Create Slot for {selectedDate}
+              </button>
             </div>
           ) : (
             <div className="staff-slots-cards-grid">
-              {slots.map((slot) => {
+              {filteredSlots.map((slot) => {
                 const utilPercent = Math.min(100, Math.round((slot.booked_count / (slot.capacity || 1)) * 100))
                 const available = Math.max(0, slot.capacity - slot.booked_count)
                 const pending = Math.max(0, slot.booked_count - slot.verified_count)
@@ -378,19 +423,22 @@ export default function StaffSlotsPage() {
 
                 let badgeBg = '#dcfce7'
                 let badgeColor = '#166534'
+                let badgeText = slot.status === 'ACTIVE' ? 'PUBLISHED' : slot.status
                 if (isFull) {
                   badgeBg = '#fee2e2'
                   badgeColor = '#991b1b'
+                  badgeText = 'FULL'
                 } else if (isClosed) {
                   badgeBg = '#f1f5f9'
                   badgeColor = '#64748b'
                 } else if (slot.status === 'DRAFT') {
                   badgeBg = '#fef3c7'
                   badgeColor = '#92400e'
+                  badgeText = 'DRAFT'
                 }
 
                 return (
-                  <div key={slot.id} className="staff-slot-card" style={{ borderTop: isFull ? '4px solid #ef4444' : isClosed ? '4px solid #94a3b8' : '4px solid #16a34a' }}>
+                  <div key={slot.id} className="staff-slot-card" style={{ borderTop: isFull ? '4px solid #ef4444' : isClosed ? '4px solid #94a3b8' : slot.status === 'DRAFT' ? '4px solid #f59e0b' : '4px solid #16a34a' }}>
                     <div className="staff-slot-card-header">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Clock size={18} color="#0d631b" />
@@ -402,7 +450,7 @@ export default function StaffSlotsPage() {
                         className="staff-slot-card-badge"
                         style={{ background: badgeBg, color: badgeColor, fontWeight: 800 }}
                       >
-                        {isFull ? 'FULL' : slot.status}
+                        {badgeText}
                       </span>
                     </div>
 
@@ -444,55 +492,158 @@ export default function StaffSlotsPage() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="staff-slot-actions" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <div className="staff-slot-actions" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px' }}>
+                      {slot.status === 'DRAFT' && (
+                        <button
+                          type="button"
+                          onClick={() => handlePublishSlot(slot)}
+                          style={{
+                            flex: 1,
+                            background: '#0d631b',
+                            color: '#ffffff',
+                            border: 'none',
+                            padding: '8px 12px',
+                            borderRadius: '8px',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          ✓ Publish Slot
+                        </button>
+                      )}
+
                       <button
                         type="button"
                         className="staff-slot-btn-view"
                         style={{ flex: 1 }}
-                        onClick={() => navigate(`/staff/bookings?date=${selectedDate}&slotId=${slot.id}&slotTime=${encodeURIComponent(slot.start_time)}`)}
+                        onClick={() => handleOpenViewBookings(slot)}
                       >
                         View Bookings ({slot.booked_count})
                       </button>
 
-                      {(isCentreAdmin || isAdmin) && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditSlotModal(slot)
-                              setEditCapacity(slot.capacity.toString())
-                              setEditStatus(slot.status)
-                            }}
-                            title="Edit Capacity & Status"
-                            style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer' }}
-                          >
-                            <Edit2 size={14} color="#475569" />
-                          </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditSlotModal(slot)
+                          setEditCapacity(slot.capacity.toString())
+                          setEditStatus(slot.status)
+                        }}
+                        title="Edit Capacity & Status"
+                        style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer' }}
+                      >
+                        <Edit2 size={14} color="#475569" />
+                      </button>
 
-                          <button
-                            type="button"
-                            onClick={() => handleToggleSlotStatus(slot)}
-                            title={slot.status === 'CLOSED' ? 'Re-open Slot' : 'Close Slot'}
-                            style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer' }}
-                          >
-                            {slot.status === 'CLOSED' ? <Unlock size={14} color="#16a34a" /> : <Lock size={14} color="#d97706" />}
-                          </button>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleSlotStatus(slot)}
+                        title={slot.status === 'CLOSED' ? 'Re-open Slot' : 'Close Slot'}
+                        style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer' }}
+                      >
+                        {slot.status === 'CLOSED' ? <Unlock size={14} color="#16a34a" /> : <Lock size={14} color="#d97706" />}
+                      </button>
 
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteSlot(slot)}
-                            disabled={slot.booked_count > 0}
-                            title={slot.booked_count > 0 ? 'Cannot delete slot with bookings' : 'Delete Slot'}
-                            style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 10px', cursor: slot.booked_count > 0 ? 'not-allowed' : 'pointer', opacity: slot.booked_count > 0 ? 0.4 : 1 }}
-                          >
-                            <Trash2 size={14} color="#dc2626" />
-                          </button>
-                        </>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteSlot(slot)}
+                        disabled={slot.booked_count > 0}
+                        title={slot.booked_count > 0 ? 'Cannot delete slot with bookings' : 'Delete Slot'}
+                        style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '6px 10px', cursor: slot.booked_count > 0 ? 'not-allowed' : 'pointer', opacity: slot.booked_count > 0 ? 0.4 : 1 }}
+                      >
+                        <Trash2 size={14} color="#dc2626" />
+                      </button>
                     </div>
                   </div>
                 )
               })}
+            </div>
+          )}
+
+          {/* ====================================================================
+              VIEW BOOKED FARMERS MODAL
+              ==================================================================== */}
+          {viewBookingsModal && (
+            <div className="fd-modal-overlay">
+              <div className="fd-modal-card" style={{ maxWidth: '680px' }}>
+                <div className="fd-modal-header">
+                  <div>
+                    <h2 style={{ fontSize: '17px', margin: 0 }}>
+                      Booked Farmers — {viewBookingsModal.slot.start_time} - {viewBookingsModal.slot.end_time}
+                    </h2>
+                    <p style={{ margin: '3px 0 0', fontSize: '12px', color: '#64748b' }}>
+                      {viewBookingsModal.slot.slot_date} • {viewBookingsModal.slot.centre_name}
+                    </p>
+                  </div>
+                  <button className="fd-modal-close" onClick={() => setViewBookingsModal(null)}>
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <div style={{ padding: '16px 20px', maxHeight: '420px', overflowY: 'auto' }}>
+                  {viewBookingsModal.loading ? (
+                    <div style={{ textAlign: 'center', padding: '30px', color: '#64748b' }}>
+                      <RefreshCw size={24} className="spin" style={{ margin: '0 auto 8px' }} />
+                      <div>Loading booked appointments...</div>
+                    </div>
+                  ) : viewBookingsModal.bookings.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '40px 20px', color: '#64748b' }}>
+                      <Clock size={36} color="#94a3b8" style={{ marginBottom: '8px' }} />
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>No farmers booked for this slot yet</div>
+                      <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>
+                        Capacity: {viewBookingsModal.slot.capacity} vehicles ({viewBookingsModal.slot.capacity} remaining)
+                      </div>
+                    </div>
+                  ) : (
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
+                      <thead>
+                        <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700, fontSize: '11px', textTransform: 'uppercase' }}>
+                          <th style={{ padding: '8px 10px' }}>Token / Booking #</th>
+                          <th style={{ padding: '8px 10px' }}>Farmer Details</th>
+                          <th style={{ padding: '8px 10px' }}>Commodity & Qty</th>
+                          <th style={{ padding: '8px 10px' }}>Vehicle #</th>
+                          <th style={{ padding: '8px 10px' }}>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {viewBookingsModal.bookings.map((b: any) => (
+                          <tr key={b.id || b.booking_number} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '10px' }}>
+                              <strong style={{ color: '#064e3b', display: 'block' }}>{b.token_number || b.booking_number}</strong>
+                              <small style={{ color: '#64748b' }}>{b.booking_number}</small>
+                            </td>
+                            <td style={{ padding: '10px' }}>
+                              <div style={{ fontWeight: 700, color: '#0f172a' }}>{b.farmer_name}</div>
+                              <small style={{ color: '#64748b' }}>{b.farmer_phone || b.farmer_id}</small>
+                            </td>
+                            <td style={{ padding: '10px' }}>
+                              <div>{b.commodity}</div>
+                              <small style={{ color: '#16a34a', fontWeight: 700 }}>{b.quantity} Qtl</small>
+                            </td>
+                            <td style={{ padding: '10px' }}>
+                              <span style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: 700 }}>
+                                {b.vehicle_number || 'Tractor'}
+                              </span>
+                            </td>
+                            <td style={{ padding: '10px' }}>
+                              <span style={{
+                                padding: '2px 7px',
+                                borderRadius: '99px',
+                                fontSize: '10.5px',
+                                fontWeight: 800,
+                                background: b.status === 'COMPLETED' ? '#dcfce7' : '#eff6ff',
+                                color: b.status === 'COMPLETED' ? '#166534' : '#1d4ed8',
+                              }}>
+                                {b.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -512,7 +663,7 @@ export default function StaffSlotsPage() {
                 <form onSubmit={handleCreateSlot} className="fd-modal-form">
                   <div className="fd-modal-field">
                     <label>Centre Name</label>
-                    <input type="text" disabled value={staff.centre_name || 'Alwar Central Grain Mandi'} style={{ background: '#f1f5f9' }} />
+                    <input type="text" disabled value={staff.centre_name || 'Chiraigaon 1st at Gaurakala (FCS)'} style={{ background: '#f1f5f9' }} />
                   </div>
 
                   <div className="fd-modal-field">
@@ -574,15 +725,15 @@ export default function StaffSlotsPage() {
                     <div className="fd-modal-field">
                       <label>Initial Status</label>
                       <select value={newStatus} onChange={(e) => setNewStatus(e.target.value as SlotStatus)}>
-                        <option value="ACTIVE">ACTIVE (Open for Farmers)</option>
-                        <option value="DRAFT">DRAFT (Hidden)</option>
+                        <option value="ACTIVE">PUBLISHED / ACTIVE (Open for Farmers)</option>
+                        <option value="DRAFT">DRAFT (Hidden from Farmers)</option>
                         <option value="CLOSED">CLOSED</option>
                       </select>
                     </div>
                   </div>
 
                   <button type="submit" className="fd-card-btn primary" style={{ padding: '12px', marginTop: '10px' }}>
-                    <Plus size={16} /> Save &amp; Publish Slot
+                    <Plus size={16} /> Save &amp; Issue Slot
                   </button>
                 </form>
               </div>

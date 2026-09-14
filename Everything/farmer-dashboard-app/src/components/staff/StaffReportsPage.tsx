@@ -949,76 +949,12 @@ export default function StaffReportsPage() {
                         </tr>
                       ))
                     ) : (
-                      // Default simulated batches if vault empty
-                      [
-                        {
-                          batch: 'BATCH-VNS-2026-001',
-                          token: 'TKN-CHR-001',
-                          farmer: 'Ramprasad Yadav',
-                          fid: 'FMR-UP-VNS-8841',
-                          commodity: 'Wheat (गेहूं FAQ)',
-                          weight: '45.0',
-                          moisture: '11.4',
-                          amount: '109,125',
-                          status: 'DBT CLEARED',
-                        },
-                        {
-                          batch: 'BATCH-VNS-2026-002',
-                          token: 'TKN-CHR-002',
-                          farmer: 'Shivnarayan Maurya',
-                          fid: 'FMR-UP-VNS-9012',
-                          commodity: 'Mustard (सरसों)',
-                          weight: '60.0',
-                          moisture: '7.4',
-                          amount: '339,000',
-                          status: 'PENDING APPROVAL',
-                        },
-                        {
-                          batch: 'BATCH-VNS-2026-003',
-                          token: 'TKN-CHR-003',
-                          farmer: 'Dinesh Chandra Patel',
-                          fid: 'FMR-UP-VNS-9244',
-                          commodity: 'Wheat (गेहूं FAQ)',
-                          weight: '52.5',
-                          moisture: '11.8',
-                          amount: '127,312',
-                          status: 'DBT CLEARED',
-                        },
-                      ].map((mock, idx) => (
-                        <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                          <td style={{ padding: '10px 12px', fontWeight: 700, color: '#0f172a' }}>
-                            <div>{mock.batch}</div>
-                            <small style={{ color: '#64748b', fontSize: '10.5px' }}>{mock.token}</small>
-                          </td>
-                          <td style={{ padding: '10px 12px', color: '#334155' }}>
-                            <div style={{ fontWeight: 600 }}>{mock.farmer}</div>
-                            <small style={{ color: '#94a3b8', fontSize: '10.5px' }}>{mock.fid}</small>
-                          </td>
-                          <td style={{ padding: '10px 12px', color: '#334155' }}>{mock.commodity}</td>
-                          <td style={{ padding: '10px 12px', fontWeight: 700, color: '#0d631b' }}>
-                            {mock.weight} Qtl
-                          </td>
-                          <td style={{ padding: '10px 12px', color: '#475569' }}>{mock.moisture}%</td>
-                          <td style={{ padding: '10px 12px', fontWeight: 700, color: '#0f172a' }}>
-                            ₹ {mock.amount}
-                          </td>
-                          <td style={{ padding: '10px 12px' }}>
-                            <span
-                              style={{
-                                display: 'inline-block',
-                                padding: '2px 8px',
-                                borderRadius: '99px',
-                                fontSize: '10.5px',
-                                fontWeight: 800,
-                                background: mock.status === 'DBT CLEARED' ? '#dcfce7' : '#fef3c7',
-                                color: mock.status === 'DBT CLEARED' ? '#166534' : '#b45309',
-                              }}
-                            >
-                              {mock.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))
+                      <tr>
+                        <td colSpan={7} style={{ padding: '36px 16px', textAlign: 'center', color: '#64748b' }}>
+                          <div style={{ fontSize: '14px', fontWeight: 700, color: '#475569' }}>No procurement batches recorded yet</div>
+                          <div style={{ fontSize: '12px', marginTop: '4px', color: '#94a3b8' }}>Verified weighbridge batches and billing receipts will appear here automatically.</div>
+                        </td>
+                      </tr>
                     )}
                   </tbody>
                 </table>
