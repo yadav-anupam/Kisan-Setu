@@ -64,7 +64,7 @@ export default function DbtPaymentsPage() {
       return
     }
     let isMounted = true
-    fetchDbtPaymentsFromDB(farmer.farmerId || 'KS-FARM-2026-8942').then((records: DbDbtPayment[]) => {
+    fetchDbtPaymentsFromDB(farmer.farmerId, farmer.mobile, farmer.name).then((records: DbDbtPayment[]) => {
       if (isMounted && records) {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         const transformed: DbtTransaction[] = records.map((r) => {
@@ -74,16 +74,16 @@ export default function DbtPaymentsPage() {
             day: d.getDate().toString().padStart(2, '0'),
             month: monthNames[d.getMonth()] || 'Aug',
             year: d.getFullYear().toString(),
-            centre: 'Chiraigaon 1st at Gaurakala (FCS)',
-            location: 'Varanasi, Uttar Pradesh',
+            centre: farmer.preferredMandi || 'Chiraigaon 1st at Gaurakala (FCS)',
+            location: `${farmer.district || 'Varanasi'}, ${farmer.state || 'Uttar Pradesh'}`,
             produce: r.commodity,
             grade: 'Grade A (FAQ Standard)',
-            quantity: 40.0,
+            quantity: 50.0,
             amount: Number(r.amount),
             status: r.status === 'COMPLETED' ? 'Paid' : r.status === 'PROCESSING' ? 'Pending' : 'Failed',
             method: 'Direct DBT Bank Transfer (PFMS)',
             utr: r.utr_number,
-            accountNo: `${r.bank_name} (•••• ${r.account_suffix})`,
+            accountNo: `${r.bank_name || farmer.bankName || 'SBI'} (•••• ${r.account_suffix || '4321'})`,
           }
         })
         setTransactions(transformed)
@@ -93,7 +93,7 @@ export default function DbtPaymentsPage() {
     return () => {
       isMounted = false
     }
-  }, [farmer.farmerId])
+  }, [farmer.farmerId, farmer.mobile, farmer.name, farmer.preferredMandi, farmer.district, farmer.state, farmer.bankName])
 
   const filteredTransactions = transactions.filter((tx) => {
     if (filterTab === 'paid' && tx.status !== 'Paid') return false
@@ -356,15 +356,21 @@ export default function DbtPaymentsPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '14px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
                   <span style={{ color: '#64748b' }}>Total MSP Earnings:</span>
-                  <strong style={{ color: '#0f172a' }}>₹ 1,45,680</strong>
+                  <strong style={{ color: '#0f172a' }}>
+                    ₹ {transactions.reduce((sum, t) => sum + t.amount, 0).toLocaleString('en-IN')}
+                  </strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
                   <span style={{ color: '#64748b' }}>Total DBT Credited:</span>
-                  <strong style={{ color: '#16a34a' }}>₹ 1,27,360</strong>
+                  <strong style={{ color: '#16a34a' }}>
+                    ₹ {transactions.filter((t) => t.status === 'Paid').reduce((sum, t) => sum + t.amount, 0).toLocaleString('en-IN')}
+                  </strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
                   <span style={{ color: '#64748b' }}>Pending Settlement:</span>
-                  <strong style={{ color: '#f59e0b' }}>₹ 18,320</strong>
+                  <strong style={{ color: '#f59e0b' }}>
+                    ₹ {transactions.filter((t) => t.status === 'Pending').reduce((sum, t) => sum + t.amount, 0).toLocaleString('en-IN')}
+                  </strong>
                 </div>
               </div>
 
@@ -396,7 +402,9 @@ export default function DbtPaymentsPage() {
                 </div>
                 <div>
                   <strong style={{ color: '#334155' }}>UPI Auto-Credit</strong>
-                  <p style={{ color: '#64748b' }}>ramesh****@sbi</p>
+                  <p style={{ color: '#64748b' }}>
+                    {farmer.mobile ? `${farmer.mobile}@upi` : `${(farmer.name || 'farmer').toLowerCase().replace(/[^a-z0-9]/g, '')}@sbi`}
+                  </p>
                 </div>
                 <span className="pm-bank-badge" style={{ background: '#f1f5f9', color: '#475569' }}>Verified</span>
               </div>

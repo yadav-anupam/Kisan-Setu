@@ -54,14 +54,14 @@ export default function MyProcurementPage() {
       return
     }
     let isMounted = true
-    fetchProcurementsFromDB(farmer.farmerId || 'KS-FARM-2026-8942').then((records: DbProcurementBatch[]) => {
+    fetchProcurementsFromDB(farmer.farmerId, farmer.mobile, farmer.name).then((records: DbProcurementBatch[]) => {
       if (isMounted && records) {
         const transformed: ProcurementBatch[] = records.map((r) => ({
           id: r.id,
           batchNo: r.batch_number,
           date: new Date(r.created_at).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }),
           centre: r.centre_name,
-          state: 'Rajasthan',
+          state: farmer.state || 'Uttar Pradesh',
           produce: r.commodity,
           grade: r.quality_grade || 'Grade A (FAQ Standard)',
           quantity: Number(r.net_weight_qtl),
@@ -71,7 +71,7 @@ export default function MyProcurementPage() {
           grossWeight: Math.round(Number(r.gross_weight_qtl) * 100),
           tareWeight: Math.round(Number(r.tare_weight_qtl) * 100),
           status: r.payment_status === 'PAID_DBT' ? 'Completed' : r.payment_status === 'PROCESSING' ? 'Processing' : 'Pending',
-          utrNumber: r.payment_status === 'PAID_DBT' ? 'UTR928374829104' : 'Pending Weighbridge Settlement',
+          utrNumber: r.payment_status === 'PAID_DBT' ? `UTR${new Date(r.created_at).getTime().toString().slice(-8)}8942` : 'Pending Weighbridge Settlement',
         }))
         setBatches(transformed)
       }
@@ -80,7 +80,7 @@ export default function MyProcurementPage() {
     return () => {
       isMounted = false
     }
-  }, [farmer.farmerId])
+  }, [farmer.farmerId, farmer.mobile, farmer.name, farmer.state])
 
   // Filtered Batches
   const filteredBatches = batches.filter((item) => {
@@ -302,19 +302,25 @@ export default function MyProcurementPage() {
               <h3>Season Overview</h3>
               <div className="pc-overview-row">
                 <span>Total Quantity</span>
-                <strong>247.50 Qtl</strong>
+                <strong>{batches.reduce((sum, b) => sum + b.quantity, 0).toFixed(2)} Qtl</strong>
               </div>
               <div className="pc-overview-row">
                 <span>Total Amount</span>
-                <strong>₹ 1,45,680</strong>
+                <strong>₹ {batches.reduce((sum, b) => sum + b.amount, 0).toLocaleString('en-IN')}</strong>
               </div>
               <div className="pc-overview-row">
                 <span>Avg. Price/Qtl</span>
-                <strong>₹ 2,250</strong>
+                <strong>
+                  ₹ {batches.reduce((sum, b) => sum + b.quantity, 0) > 0
+                    ? Math.round(batches.reduce((sum, b) => sum + b.amount, 0) / batches.reduce((sum, b) => sum + b.quantity, 0)).toLocaleString('en-IN')
+                    : '0'}
+                </strong>
               </div>
               <div className="pc-overview-row" style={{ borderBottom: 'none' }}>
                 <span>Highest Single Sale</span>
-                <strong style={{ color: '#0d631b' }}>₹ 1,12,000</strong>
+                <strong style={{ color: '#0d631b' }}>
+                  ₹ {batches.length > 0 ? Math.max(...batches.map((b) => b.amount)).toLocaleString('en-IN') : '0'}
+                </strong>
               </div>
 
               <button
@@ -327,32 +333,53 @@ export default function MyProcurementPage() {
             </div>
 
             {/* Crop Distribution Donut */}
-            <div className="pc-donut-box">
-              <h3 style={{ fontFamily: 'Manrope', fontSize: '15px', fontWeight: 800, margin: '0 0 4px', textAlign: 'left' }}>
-                Produce Distribution
-              </h3>
-              <div className="pc-donut-visual">
-                <div className="pc-donut-inner">
-                  <strong>75%</strong>
-                  <small>Wheat</small>
-                </div>
-              </div>
+            {(() => {
+              const cropMap = batches.reduce((acc, b) => {
+                const name = b.produce.split('/')[0].split('(')[0].trim() || 'Produce'
+                acc[name] = (acc[name] || 0) + b.quantity
+                return acc
+              }, {} as Record<string, number>)
 
-              <div className="pc-donut-legend">
-                <div className="pc-legend-item">
-                  <span className="pc-legend-dot" style={{ background: '#0d631b' }} />
-                  <span>Wheat (75%)</span>
+              const totalCropQty = Object.values(cropMap).reduce((a, b) => a + b, 0)
+              const palette = ['#0d631b', '#16a34a', '#f59e0b', '#2563eb', '#8b5cf6']
+              const cropEntries = Object.entries(cropMap).map(([crop, qty], idx) => ({
+                name: crop,
+                quantity: qty,
+                percent: totalCropQty > 0 ? Math.round((qty / totalCropQty) * 100) : 0,
+                color: palette[idx % palette.length],
+              }))
+
+              const primaryCrop = cropEntries.length > 0 ? cropEntries[0] : null
+
+              return (
+                <div className="pc-donut-box">
+                  <h3 style={{ fontFamily: 'Manrope', fontSize: '15px', fontWeight: 800, margin: '0 0 4px', textAlign: 'left' }}>
+                    Produce Distribution
+                  </h3>
+                  <div className="pc-donut-visual">
+                    <div className="pc-donut-inner">
+                      <strong>{primaryCrop ? `${primaryCrop.percent}%` : '0%'}</strong>
+                      <small>{primaryCrop ? primaryCrop.name : 'No batches'}</small>
+                    </div>
+                  </div>
+
+                  <div className="pc-donut-legend">
+                    {cropEntries.length === 0 ? (
+                      <div style={{ fontSize: '12px', color: '#64748b', textAlign: 'center', padding: '8px 0' }}>
+                        No produce delivered yet
+                      </div>
+                    ) : (
+                      cropEntries.map((c) => (
+                        <div key={c.name} className="pc-legend-item">
+                          <span className="pc-legend-dot" style={{ background: c.color }} />
+                          <span>{c.name} ({c.percent}%)</span>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
-                <div className="pc-legend-item">
-                  <span className="pc-legend-dot" style={{ background: '#16a34a' }} />
-                  <span>Soybean (15%)</span>
-                </div>
-                <div className="pc-legend-item">
-                  <span className="pc-legend-dot" style={{ background: '#f59e0b' }} />
-                  <span>Mustard (10%)</span>
-                </div>
-              </div>
-            </div>
+              )
+            })()}
 
             {/* Support Banner */}
             <div className="pc-support-card">

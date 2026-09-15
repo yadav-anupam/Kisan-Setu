@@ -64,12 +64,14 @@ export default function FarmerHistoryPage() {
     }
 
     let isMounted = true
-    const fId = farmer.farmerId || 'KS-FARM-2026-8942'
+    const fId = farmer.farmerId
+    const phone = farmer.mobile
+    const name = farmer.name
 
     Promise.all([
-      fetchProcurementsFromDB(fId),
-      fetchDbtPaymentsFromDB(fId),
-      getFarmerBookings(fId),
+      fetchProcurementsFromDB(fId, phone, name),
+      fetchDbtPaymentsFromDB(fId, phone, name),
+      getFarmerBookings(fId, phone),
     ]).then(([procurements, payments, bookings]) => {
       if (!isMounted) return
       const combined: HistoryRecord[] = []
@@ -84,7 +86,7 @@ export default function FarmerHistoryPage() {
             date: new Date(p.created_at).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }),
             time: new Date(p.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             centre: p.centre_name,
-            location: 'Procurement Mandi Yard',
+            location: `${farmer.district || 'Varanasi'}, ${farmer.state || 'Uttar Pradesh'}`,
             produce: p.commodity,
             grade: p.quality_grade || 'Grade A (FAQ Standard)',
             quantity: Number(p.net_weight_qtl),
@@ -108,7 +110,7 @@ export default function FarmerHistoryPage() {
             location: 'Direct PFMS / Aadhaar Bridge',
             produce: pay.commodity,
             grade: 'DBT Bank Disbursal',
-            quantity: 40.0,
+            quantity: 50.0,
             amount: Number(pay.amount),
             status: pay.status === 'COMPLETED' ? 'Paid' : 'Processing',
             utr: pay.utr_number,
@@ -126,7 +128,7 @@ export default function FarmerHistoryPage() {
             date: b.booking_date,
             time: b.start_time,
             centre: b.centre_name,
-            location: 'Procurement Centre Yard',
+            location: `${farmer.district || 'Varanasi'}, ${farmer.state || 'Uttar Pradesh'}`,
             produce: b.commodity,
             grade: 'Cancelled Slot Pass',
             quantity: b.quantity,
@@ -142,7 +144,7 @@ export default function FarmerHistoryPage() {
     return () => {
       isMounted = false
     }
-  }, [farmer.farmerId])
+  }, [farmer.farmerId, farmer.mobile, farmer.name, farmer.preferredMandi, farmer.district, farmer.state])
 
   const filteredRecords = historyRecords.filter((rec) => {
     if (filterTab === 'procurements' && rec.type !== 'procurement') return false

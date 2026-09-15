@@ -243,10 +243,11 @@ export default function FarmerDashboard() {
   const loadAllDashboardData = useCallback(() => {
     const fId = farmer.farmerId
     const phone = farmer.mobile
+    const name = farmer.name
     Promise.all([
-      fetchDashboardMetrics(fId, phone),
-      fetchProcurementsFromDB(fId),
-      fetchDbtPaymentsFromDB(fId),
+      fetchDashboardMetrics(fId, phone, name),
+      fetchProcurementsFromDB(fId, phone, name),
+      fetchDbtPaymentsFromDB(fId, phone, name),
       fetchNotificationsFromDB(fId),
       getFarmerBookings(fId, phone),
     ]).then(async ([m, p, pay, notif, books]) => {
@@ -302,12 +303,13 @@ export default function FarmerDashboard() {
         }
       }
     }).catch(() => {})
-  }, [farmer.farmerId, farmer.mobile, farmer.preferredMandi])
+  }, [farmer.farmerId, farmer.mobile, farmer.name, farmer.preferredMandi])
 
   useEffect(() => {
     let isMounted = true
     const fId = farmer.farmerId
     const phone = farmer.mobile
+    const name = farmer.name
 
     // Automatically load real weather (GPS first, fallback to district)
     getAutoLiveWeather(farmer.district || 'Varanasi', (fresh) => {
@@ -317,9 +319,9 @@ export default function FarmerDashboard() {
     }).catch(() => {})
 
     Promise.all([
-      fetchDashboardMetrics(fId, phone),
-      fetchProcurementsFromDB(fId),
-      fetchDbtPaymentsFromDB(fId),
+      fetchDashboardMetrics(fId, phone, name),
+      fetchProcurementsFromDB(fId, phone, name),
+      fetchDbtPaymentsFromDB(fId, phone, name),
       fetchNotificationsFromDB(fId),
       getFarmerBookings(fId, phone),
     ]).then(async ([m, p, pay, notif, books]) => {
