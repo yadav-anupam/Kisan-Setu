@@ -68,6 +68,25 @@ export default function HomePage() {
     },
   ]
 
+  const comparison = t.home.comparison || {
+    traditionalTitle: 'Traditional Mandi Challenges',
+    kisanSetuTitle: 'The Kisan Setu Solution',
+    traditionalPoints: [
+      'Farmers face long waiting times and overcrowded procurement centres.',
+      'Unclear procurement schedules make it difficult to plan visits.',
+      'Manual token and gate-entry systems cause delays and errors.',
+      'Farmers cannot track their live queue position or expected waiting time.',
+      'Lack of real-time procurement and payment updates reduces transparency.',
+    ],
+    kisanSetuPoints: [
+      'Book convenient procurement slots in advance through a digital platform.',
+      'Complete gate-pass verification and automatically join the live queue.',
+      'Track tokens, queue position, and AI-predicted waiting time in real time.',
+      'Receive live updates about weighment, quality checking, procurement, and payments.',
+      'Ensure secure, transparent, and centre-wise access for farmers and staff.',
+    ],
+  }
+
   return (
     <div className="home-page" id="top">
       <Navbar activePath="/" />
@@ -155,29 +174,15 @@ export default function HomePage() {
                   <div className="ks-comparison-icon-wrap challenge">
                     <XCircle size={22} />
                   </div>
-                  <h3>Traditional Mandi Challenges</h3>
+                  <h3>{comparison.traditionalTitle}</h3>
                 </div>
                 <ul className="ks-comparison-list">
-                  <li>
-                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
-                    <span>Farmers face long waiting times and overcrowded procurement centres.</span>
-                  </li>
-                  <li>
-                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
-                    <span>Unclear procurement schedules make it difficult to plan visits.</span>
-                  </li>
-                  <li>
-                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
-                    <span>Manual token and gate-entry systems cause delays and errors.</span>
-                  </li>
-                  <li>
-                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
-                    <span>Farmers cannot track their live queue position or expected waiting time.</span>
-                  </li>
-                  <li>
-                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
-                    <span>Lack of real-time procurement and payment updates reduces transparency.</span>
-                  </li>
+                  {comparison.traditionalPoints.map((pointText, idx) => (
+                    <li key={idx}>
+                      <ShieldAlert size={18} className="ks-comp-bullet challenge" />
+                      <span>{pointText}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -187,29 +192,15 @@ export default function HomePage() {
                   <div className="ks-comparison-icon-wrap solution">
                     <CheckCircle2 size={22} />
                   </div>
-                  <h3>The Kisan Setu Solution</h3>
+                  <h3>{comparison.kisanSetuTitle}</h3>
                 </div>
                 <ul className="ks-comparison-list">
-                  <li>
-                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
-                    <span>Book convenient procurement slots in advance through a digital platform.</span>
-                  </li>
-                  <li>
-                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
-                    <span>Complete gate-pass verification and automatically join the live queue.</span>
-                  </li>
-                  <li>
-                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
-                    <span>Track tokens, queue position, and AI-predicted waiting time in real time.</span>
-                  </li>
-                  <li>
-                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
-                    <span>Receive live updates about weighment, quality checking, procurement, and payments.</span>
-                  </li>
-                  <li>
-                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
-                    <span>Ensure secure, transparent, and centre-wise access for farmers and staff.</span>
-                  </li>
+                  {comparison.kisanSetuPoints.map((pointText, idx) => (
+                    <li key={idx}>
+                      <CheckCircle2 size={18} className="ks-comp-bullet solution" />
+                      <span>{pointText}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
