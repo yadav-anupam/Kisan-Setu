@@ -208,95 +208,6 @@
   display: block;
 }
 
-/* Floating Journey Progress Card */
-.ks-journey-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 20px 22px;
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px #e2e8f0;
-  width: 100%;
-}
-
-.ks-journey-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.ks-journey-header h3 {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text-dark);
-  margin: 0;
-}
-
-.ks-journey-badge {
-  background: var(--brand-100);
-  color: var(--brand-800);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 6px;
-}
-
-.ks-journey-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-}
-
-.ks-journey-steps::before {
-  content: '';
-  position: absolute;
-  left: 13px;
-  top: 14px;
-  bottom: 14px;
-  width: 2px;
-  background: #e2e8f0;
-  z-index: 1;
-}
-
-.ks-journey-step {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  z-index: 2;
-}
-
-.ks-journey-icon-wrap {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--brand-50);
-  color: var(--brand-primary);
-  border: 2px solid var(--brand-200);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 12px;
-}
-
-.ks-journey-step-text h4 {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin: 0;
-  line-height: 1.2;
-}
-
-.ks-journey-step-text p {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin: 1px 0 0;
-  line-height: 1.2;
-}
-
 /* ==========================================================================
    2. Live Mandi Impact Bar
    ========================================================================== */
@@ -359,6 +270,131 @@
   font-weight: 500;
   color: var(--brand-100);
   margin-top: 2px;
+}
+
+/* ==========================================================================
+   2b. Problem vs Solution Comparison Section
+   ========================================================================== */
+.ks-comparison-section {
+  padding: 0 0 52px;
+  background: #ffffff;
+}
+
+.ks-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.ks-comparison-card {
+  border-radius: 20px;
+  padding: 28px 30px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.ks-comparison-card.challenge {
+  background: linear-gradient(180deg, #fff7f7 0%, #fffbfb 100%);
+  border: 1.5px solid #fecaca;
+  box-shadow: 0 8px 24px -6px rgba(220, 38, 38, 0.06);
+}
+
+.ks-comparison-card.challenge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -6px rgba(220, 38, 38, 0.12);
+}
+
+.ks-comparison-card.solution {
+  background: linear-gradient(180deg, #f0fdf4 0%, #f7fef9 100%);
+  border: 1.5px solid #86efac;
+  box-shadow: 0 8px 24px -6px rgba(220, 38, 38, 0.08);
+}
+
+.ks-comparison-card.solution:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -6px rgba(22, 101, 52, 0.14);
+}
+
+.ks-comparison-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.ks-comparison-header.challenge {
+  border-bottom-color: rgba(239, 68, 68, 0.18);
+}
+
+.ks-comparison-header.solution {
+  border-bottom-color: rgba(22, 163, 74, 0.18);
+}
+
+.ks-comparison-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ks-comparison-icon-wrap.challenge {
+  color: #dc2626;
+}
+
+.ks-comparison-icon-wrap.solution {
+  color: #16a34a;
+}
+
+.ks-comparison-header h3 {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ks-comparison-header.challenge h3 {
+  color: #991b1b;
+}
+
+.ks-comparison-header.solution h3 {
+  color: #14532d;
+}
+
+.ks-comparison-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ks-comparison-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.ks-comp-bullet {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ks-comp-bullet.challenge {
+  color: #dc2626;
+}
+
+.ks-comp-bullet.solution {
+  color: #16a34a;
 }
 
 /* ==========================================================================
@@ -591,6 +627,11 @@
     grid-column: span 2;
   }
 
+  .ks-comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .ks-features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -629,5 +670,13 @@
 
   .ks-impact-item:last-child {
     grid-column: span 1;
+  }
+
+  .ks-comparison-card {
+    padding: 20px 18px;
+  }
+
+  .ks-comparison-header h3 {
+    font-size: 17.5px;
   }
 }

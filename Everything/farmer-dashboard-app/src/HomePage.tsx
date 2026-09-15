@@ -11,6 +11,9 @@ import {
   Users,
   Building2,
   Package,
+  XCircle,
+  CheckCircle2,
+  ShieldAlert,
 } from 'lucide-react'
 import heroFarmerImg from './assets/hero-farmer.png'
 import Navbar from './Navbar'
@@ -139,6 +142,77 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Problem vs Solution Comparison Section */}
+        <section className="ks-comparison-section">
+          <div className="ks-section-container">
+            <div className="ks-comparison-grid">
+              {/* Left Card: Traditional Mandi Challenges */}
+              <div className="ks-comparison-card challenge">
+                <div className="ks-comparison-header challenge">
+                  <div className="ks-comparison-icon-wrap challenge">
+                    <XCircle size={22} />
+                  </div>
+                  <h3>Traditional Mandi Challenges</h3>
+                </div>
+                <ul className="ks-comparison-list">
+                  <li>
+                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
+                    <span>Farmers face long waiting times and overcrowded procurement centres.</span>
+                  </li>
+                  <li>
+                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
+                    <span>Unclear procurement schedules make it difficult to plan visits.</span>
+                  </li>
+                  <li>
+                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
+                    <span>Manual token and gate-entry systems cause delays and errors.</span>
+                  </li>
+                  <li>
+                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
+                    <span>Farmers cannot track their live queue position or expected waiting time.</span>
+                  </li>
+                  <li>
+                    <ShieldAlert size={18} className="ks-comp-bullet challenge" />
+                    <span>Lack of real-time procurement and payment updates reduces transparency.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Right Card: The Kisan Setu Solution */}
+              <div className="ks-comparison-card solution">
+                <div className="ks-comparison-header solution">
+                  <div className="ks-comparison-icon-wrap solution">
+                    <CheckCircle2 size={22} />
+                  </div>
+                  <h3>The Kisan Setu Solution</h3>
+                </div>
+                <ul className="ks-comparison-list">
+                  <li>
+                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
+                    <span>Book convenient procurement slots in advance through a digital platform.</span>
+                  </li>
+                  <li>
+                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
+                    <span>Complete gate-pass verification and automatically join the live queue.</span>
+                  </li>
+                  <li>
+                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
+                    <span>Track tokens, queue position, and AI-predicted waiting time in real time.</span>
+                  </li>
+                  <li>
+                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
+                    <span>Receive live updates about weighment, quality checking, procurement, and payments.</span>
+                  </li>
+                  <li>
+                    <CheckCircle2 size={18} className="ks-comp-bullet solution" />
+                    <span>Ensure secure, transparent, and centre-wise access for farmers and staff.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
