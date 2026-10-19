@@ -92,11 +92,12 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
                 alt="Kisan Setu"
                 style={{
                   height: '36px',
-                  width: '36px',
+                  width: 'auto',
+                  maxWidth: '52px',
                   objectFit: 'contain',
                   background: '#ffffff',
-                  borderRadius: '9px',
-                  padding: '3px',
+                  borderRadius: '8px',
+                  padding: '2px 5px',
                   boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
                   flexShrink: 0,
                 }}

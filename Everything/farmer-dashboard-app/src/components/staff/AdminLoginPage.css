@@ -47,11 +47,12 @@
 
 .admin-brand-logo {
   height: 46px;
-  width: 46px;
+  width: auto;
+  max-width: 68px;
   object-fit: contain;
   background: #ffffff;
   border-radius: 12px;
-  padding: 4px;
+  padding: 4px 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
 }

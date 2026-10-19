@@ -58,12 +58,12 @@
 }
 
 .ks-footer-logo-img {
-  height: 36px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   background: #ffffff;
   border-radius: 8px;
-  padding: 2px 4px;
+  padding: 3px 6px;
 }
 
 .ks-footer-brand-text strong {

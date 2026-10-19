@@ -118,11 +118,12 @@ export default function PWAInstallPrompt() {
           src={logoImg}
           alt="Kisan Setu Logo"
           style={{
-            width: '40px',
             height: '40px',
+            width: 'auto',
+            maxWidth: '56px',
             borderRadius: '10px',
             background: '#ffffff',
-            padding: '4px',
+            padding: '3px 6px',
             flexShrink: 0,
             boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
           }}

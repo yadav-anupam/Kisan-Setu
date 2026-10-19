@@ -92,11 +92,12 @@ export default function AdminSidebar({ activeTab, isOpen, onClose }: AdminSideba
                 alt="Kisan Setu"
                 style={{
                   height: '36px',
-                  width: '36px',
+                  width: 'auto',
+                  maxWidth: '52px',
                   objectFit: 'contain',
                   background: '#ffffff',
-                  borderRadius: '9px',
-                  padding: '3px',
+                  borderRadius: '8px',
+                  padding: '2px 5px',
                   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)',
                   flexShrink: 0,
                 }}
