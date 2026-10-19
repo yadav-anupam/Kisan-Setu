@@ -16,7 +16,7 @@ import {
 import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
 import { logoutFarmer, getFarmerProfile } from '../../auth'
-import { getFarmerBookings } from '../../services/qrBookingService'
+import { getFarmerBookings, isBookingDateExpired } from '../../services/qrBookingService'
 import { fetchNotificationsFromDB } from '../../services/supabaseDataService'
 import { useLanguage } from '../../useLanguage'
 
@@ -77,7 +77,11 @@ export default function FarmerSidebar({
       if (isMounted) {
         if (bookings) {
           const upcoming = bookings.filter(
-            (b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED'
+            (b) =>
+              b.verification_status !== 'VERIFIED' &&
+              b.status !== 'CANCELLED' &&
+              b.status !== 'EXPIRED' &&
+              !isBookingDateExpired(b.booking_date)
           )
           setUpcomingCount(upcoming.length)
         }
@@ -105,7 +109,11 @@ export default function FarmerSidebar({
       getFarmerBookings(fId).then((bookings) => {
         if (isMounted && bookings) {
           const upcoming = bookings.filter(
-            (b) => b.verification_status !== 'VERIFIED' && b.status !== 'CANCELLED'
+            (b) =>
+              b.verification_status !== 'VERIFIED' &&
+              b.status !== 'CANCELLED' &&
+              b.status !== 'EXPIRED' &&
+              !isBookingDateExpired(b.booking_date)
           )
           setUpcomingCount(upcoming.length)
         }

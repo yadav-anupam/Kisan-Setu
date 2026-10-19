@@ -21,6 +21,7 @@ import {
   getFarmerRawToken,
   getFarmerBookings,
   cancelBookingInDB,
+  isBookingDateExpired,
 } from '../../services/qrBookingService'
 import {
   fetchAvailableSlotsForFarmer,
@@ -51,7 +52,7 @@ interface Appointment {
   crop: string
   quantity: string
   token: string
-  status: 'Upcoming' | 'Confirmed' | 'Completed' | 'Cancelled'
+  status: 'Upcoming' | 'Confirmed' | 'Completed' | 'Cancelled' | 'Expired'
 }
 
 export default function MyAppointmentsPage() {
@@ -129,6 +130,21 @@ export default function MyAppointmentsPage() {
         const transformed: Appointment[] = records.map((r) => {
           const parsed = new Date(r.booking_date || Date.now())
           const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === r.centre_name)
+          const isCompleted = r.verification_status === 'VERIFIED' || r.status === 'COMPLETED'
+          const isCancelled = r.status === 'CANCELLED'
+          const isExpired = r.status === 'EXPIRED' || (isBookingDateExpired(r.booking_date) && !isCompleted && !isCancelled)
+
+          let mappedStatus: 'Upcoming' | 'Confirmed' | 'Completed' | 'Cancelled' | 'Expired' = 'Upcoming'
+          if (isCompleted) {
+            mappedStatus = 'Completed'
+          } else if (isCancelled) {
+            mappedStatus = 'Cancelled'
+          } else if (isExpired) {
+            mappedStatus = 'Expired'
+          } else {
+            mappedStatus = 'Upcoming'
+          }
+
           return {
             id: r.id || r.booking_number,
             date: r.booking_date,
@@ -141,11 +157,11 @@ export default function MyAppointmentsPage() {
             crop: r.commodity,
             quantity: r.quantity.toString(),
             token: r.token_number,
-            status: r.verification_status === 'VERIFIED' ? 'Completed' : r.status === 'CANCELLED' ? 'Cancelled' : 'Upcoming',
+            status: mappedStatus,
           }
         })
         const upcoming = transformed.filter((a) => a.status === 'Upcoming' || a.status === 'Confirmed')
-        const past = transformed.filter((a) => a.status === 'Completed' || a.status === 'Cancelled')
+        const past = transformed.filter((a) => a.status === 'Completed' || a.status === 'Cancelled' || a.status === 'Expired')
         setUpcomingList(upcoming)
         setPastList(past)
       } else {
@@ -179,6 +195,21 @@ export default function MyAppointmentsPage() {
         const transformed: Appointment[] = records.map((r) => {
           const parsed = new Date(r.booking_date || Date.now())
           const matched = ALL_PROCUREMENT_CENTRES.find((c) => c.centreName === r.centre_name)
+          const isCompleted = r.verification_status === 'VERIFIED' || r.status === 'COMPLETED'
+          const isCancelled = r.status === 'CANCELLED'
+          const isExpired = r.status === 'EXPIRED' || (isBookingDateExpired(r.booking_date) && !isCompleted && !isCancelled)
+
+          let mappedStatus: 'Upcoming' | 'Confirmed' | 'Completed' | 'Cancelled' | 'Expired' = 'Upcoming'
+          if (isCompleted) {
+            mappedStatus = 'Completed'
+          } else if (isCancelled) {
+            mappedStatus = 'Cancelled'
+          } else if (isExpired) {
+            mappedStatus = 'Expired'
+          } else {
+            mappedStatus = 'Upcoming'
+          }
+
           return {
             id: r.id || r.booking_number,
             date: r.booking_date,
@@ -191,11 +222,11 @@ export default function MyAppointmentsPage() {
             crop: r.commodity,
             quantity: r.quantity.toString(),
             token: r.token_number,
-            status: r.verification_status === 'VERIFIED' ? 'Completed' : r.status === 'CANCELLED' ? 'Cancelled' : 'Upcoming',
+            status: mappedStatus,
           }
         })
         const upcoming = transformed.filter((a) => a.status === 'Upcoming' || a.status === 'Confirmed')
-        const past = transformed.filter((a) => a.status === 'Completed' || a.status === 'Cancelled')
+        const past = transformed.filter((a) => a.status === 'Completed' || a.status === 'Cancelled' || a.status === 'Expired')
         setUpcomingList(upcoming)
         setPastList(past)
       } else {
@@ -490,19 +521,21 @@ export default function MyAppointmentsPage() {
                 <div className="ap-token-col">
                   <small>Token Number</small>
                   <strong style={{ color: '#334155' }}>{apt.token}</strong>
-                  <span className="ap-status-tag completed">
-                    {apt.status === 'Completed' ? '✓ Completed' : '✕ Cancelled'}
+                  <span className={`ap-status-tag ${apt.status.toLowerCase()}`}>
+                    {apt.status === 'Completed' ? '✓ Completed' : apt.status === 'Expired' ? '⏱ Expired' : '✕ Cancelled'}
                   </span>
                 </div>
 
                 {/* Actions Column */}
                 <div className="ap-actions-col">
-                  <button
-                    className="ap-action-btn"
-                    onClick={() => alert('Downloading official weighment receipt & DBT confirmation (PDF)...')}
-                  >
-                    <Download size={14} /> Download Receipt
-                  </button>
+                  {apt.status === 'Completed' && (
+                    <button
+                      className="ap-action-btn"
+                      onClick={() => alert('Downloading official weighment receipt & DBT confirmation (PDF)...')}
+                    >
+                      <Download size={14} /> Download Receipt
+                    </button>
+                  )}
                   <button
                     className="ap-action-btn"
                     onClick={() => {

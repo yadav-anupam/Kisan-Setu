@@ -33,6 +33,8 @@ import {
   getFarmerBookings,
   type BookingRecord,
   getFarmerRawToken,
+  isBookingDateExpired,
+  isBookingToday,
 } from '../../services/qrBookingService'
 import {
   fetchAvailableSlotsForFarmer,
@@ -256,7 +258,18 @@ export default function FarmerDashboard() {
       setPayments(pay)
       setNotifications(notif)
       
-      const active = books?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED')
+      const isCheckedIn = (b: BookingRecord) =>
+        b.status === 'CHECKED_IN' || b.status === 'SERVING' || b.status === 'CALLED'
+      const isFutureOrToday = (b: BookingRecord) =>
+        b.status !== 'COMPLETED' &&
+        b.status !== 'CANCELLED' &&
+        b.status !== 'EXPIRED' &&
+        !isBookingDateExpired(b.booking_date)
+
+      const active =
+        books?.find(isCheckedIn) ||
+        books?.filter(isFutureOrToday).sort((a, b) => (a.booking_date || '').localeCompare(b.booking_date || ''))[0] ||
+        null
       if (active) {
         setAppointment({
           id: active.id,
@@ -331,7 +344,18 @@ export default function FarmerDashboard() {
       setPayments(pay)
       setNotifications(notif)
 
-      const active = books?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED')
+      const isCheckedIn = (b: BookingRecord) =>
+        b.status === 'CHECKED_IN' || b.status === 'SERVING' || b.status === 'CALLED'
+      const isFutureOrToday = (b: BookingRecord) =>
+        b.status !== 'COMPLETED' &&
+        b.status !== 'CANCELLED' &&
+        b.status !== 'EXPIRED' &&
+        !isBookingDateExpired(b.booking_date)
+
+      const active =
+        books?.find(isCheckedIn) ||
+        books?.filter(isFutureOrToday).sort((a, b) => (a.booking_date || '').localeCompare(b.booking_date || ''))[0] ||
+        null
       if (active) {
         setAppointment({
           id: active.id,
@@ -761,9 +785,13 @@ export default function FarmerDashboard() {
                     <span className="fd-status-pill live">
                       <span className="fd-live-dot" /> Live Active #{farmerQueue.queuePosition}
                     </span>
-                  ) : (
+                  ) : isBookingToday(appointment.date) || appointment.status === 'Verified / In Yard' ? (
                     <span className="fd-status-pill" style={{ background: '#fef3c7', color: '#92400e' }}>
                       Gate Scan Required
+                    </span>
+                  ) : (
+                    <span className="fd-status-pill" style={{ background: '#e0f2fe', color: '#0369a1' }}>
+                      Scheduled Slot
                     </span>
                   )}
                 </div>
@@ -795,13 +823,13 @@ export default function FarmerDashboard() {
                       <span>Assigned to {farmerQueue.assignedBay || 'Bay 2'}. Real queue intake active for {appointment.centre}.</span>
                     </div>
                   </>
-                ) : (
+                ) : isBookingToday(appointment.date) || appointment.status === 'Verified / In Yard' ? (
                   <div style={{ marginTop: '10px', padding: '10px 12px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px' }}>
                     <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#92400e', marginBottom: '2px' }}>
                       Gate Pass Not Verified Yet
                     </div>
                     <p style={{ fontSize: '11px', color: '#78350f', margin: '0 0 8px', lineHeight: 1.4 }}>
-                      Your gate pass has not been verified yet. Please report to the gate for scanning and verification.
+                      Your appointment is today! Please report to the Mandi gate for QR scanning and yard check-in.
                     </p>
                     <button
                       type="button"
@@ -810,6 +838,23 @@ export default function FarmerDashboard() {
                       style={{ padding: '6px 10px', fontSize: '11px', width: '100%', borderColor: '#f59e0b', color: '#92400e', background: '#ffffff' }}
                     >
                       <QrCode size={13} /> Show QR for Gate Scan
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ marginTop: '10px', padding: '10px 12px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px' }}>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#166534', marginBottom: '2px' }}>
+                      Upcoming Appointment: {appointment.date}
+                    </div>
+                    <p style={{ fontSize: '11px', color: '#14532d', margin: '0 0 8px', lineHeight: 1.4 }}>
+                      Slot booked at {appointment.centre} for {appointment.time}. Live gate queue tracking will activate on your appointment date.
+                    </p>
+                    <button
+                      type="button"
+                      className="fd-card-btn secondary"
+                      onClick={() => setQueueModalOpen(true)}
+                      style={{ padding: '6px 10px', fontSize: '11px', width: '100%', borderColor: '#86efac', color: '#166534', background: '#ffffff' }}
+                    >
+                      <QrCode size={13} /> View QR Gate Pass
                     </button>
                   </div>
                 )}

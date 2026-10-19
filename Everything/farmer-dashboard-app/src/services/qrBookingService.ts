@@ -89,6 +89,31 @@ export async function hashTokenSHA256(rawToken: string): Promise<string> {
 }
 
 // -----------------------------------------------------------------------------
+// Booking Date & Expiry Utilities
+// -----------------------------------------------------------------------------
+export function getLocalTodayDateString(): string {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+export function isBookingDateExpired(bookingDate?: string): boolean {
+  if (!bookingDate) return false
+  const todayStr = getLocalTodayDateString()
+  const dateStr = bookingDate.trim().slice(0, 10)
+  return dateStr < todayStr
+}
+
+export function isBookingToday(bookingDate?: string): boolean {
+  if (!bookingDate) return false
+  const todayStr = getLocalTodayDateString()
+  const dateStr = bookingDate.trim().slice(0, 10)
+  return dateStr === todayStr
+}
+
+// -----------------------------------------------------------------------------
 // Persistent Raw Token Vault (Delivered only to Farmer frontend)
 // -----------------------------------------------------------------------------
 const STORAGE_FARMER_TOKENS_KEY = 'kisan_setu_farmer_qr_tokens'
@@ -240,7 +265,28 @@ export async function getFarmerBookings(farmerId: string, farmerPhone?: string):
       throw new Error(`Database error fetching bookings: ${error.message}`)
     }
 
-    return (data || []) as BookingRecord[]
+    const records = (data || []) as BookingRecord[]
+    const expiredIds: string[] = []
+
+    records.forEach((b) => {
+      if (b.status !== 'COMPLETED' && b.status !== 'CANCELLED' && b.verification_status !== 'VERIFIED') {
+        if (isBookingDateExpired(b.booking_date)) {
+          b.status = 'EXPIRED'
+          expiredIds.push(b.id)
+        }
+      }
+    })
+
+    if (expiredIds.length > 0) {
+      Promise.resolve(
+        supabase
+          .from('bookings')
+          .update({ status: 'EXPIRED' })
+          .in('id', expiredIds)
+      ).catch(() => {})
+    }
+
+    return records
   } catch (err: any) {
     throw new Error(`Database error fetching bookings: ${err.message}`)
   }
@@ -255,7 +301,15 @@ export async function getAllBookingsFromDB(): Promise<BookingRecord[]> {
     try {
       const { data, error } = await supabase.from('bookings').select('*').order('created_at', { ascending: false })
       if (!error && data) {
-        return data as BookingRecord[]
+        const records = data as BookingRecord[]
+        records.forEach((b) => {
+          if (b.status !== 'COMPLETED' && b.status !== 'CANCELLED' && b.verification_status !== 'VERIFIED') {
+            if (isBookingDateExpired(b.booking_date)) {
+              b.status = 'EXPIRED'
+            }
+          }
+        })
+        return records
       }
     } catch {
       console.error('Failed to fetch bookings')
@@ -364,6 +418,22 @@ export async function validateQRToken(
       remarks: 'Attempted to scan cancelled booking',
     })
     return { result: 'CANCELLED', booking, message: 'This booking has been cancelled and cannot be verified.' }
+  }
+
+  // Expired Check
+  if (booking.status === 'EXPIRED' || (isBookingDateExpired(booking.booking_date) && booking.verification_status !== 'VERIFIED')) {
+    await recordAuditLog({
+      booking_id: booking.id,
+      booking_number: booking.booking_number,
+      farmer_name: booking.farmer_name,
+      staff_id: staffUser.id,
+      staff_name: staffUser.name,
+      centre_name: staffUser.centre_name,
+      action: 'SCAN',
+      result: 'EXPIRED',
+      remarks: `Attempted to scan expired booking from ${booking.booking_date}`,
+    })
+    return { result: 'EXPIRED', booking, message: `This booking expired on ${booking.booking_date}. Please book a new slot.` }
   }
 
   // Already Verified Check

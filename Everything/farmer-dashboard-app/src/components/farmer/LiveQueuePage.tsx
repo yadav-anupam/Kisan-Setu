@@ -20,7 +20,7 @@ import { getFarmerProfile, isFarmerLoggedIn, setRedirectAfterLogin } from '../..
 import { navigate } from '../../router'
 import { fetchAIQueueAnalysis, type AIAnalysisResponse } from '../../services/mlService'
 import { fetchMandiLiveStatusFromDB, type DbMandiLiveStatus } from '../../services/supabaseDataService'
-import { getFarmerBookings, type BookingRecord } from '../../services/qrBookingService'
+import { getFarmerBookings, type BookingRecord, isBookingToday } from '../../services/qrBookingService'
 import {
   fetchFarmerLiveQueueStatus,
   subscribeToLiveQueue,
@@ -71,9 +71,17 @@ export default function LiveQueuePage() {
     const phone = farmer.mobile
     try {
       const bookings = await getFarmerBookings(fId, phone)
+      const isCheckedIn = (b: BookingRecord) =>
+        b.status === 'CHECKED_IN' || b.status === 'SERVING' || b.status === 'CALLED'
+      const isTodayValid = (b: BookingRecord) =>
+        b.status !== 'COMPLETED' &&
+        b.status !== 'CANCELLED' &&
+        b.status !== 'EXPIRED' &&
+        isBookingToday(b.booking_date)
+
       const active =
-        bookings?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED') ||
-        bookings?.[0] ||
+        bookings?.find(isCheckedIn) ||
+        bookings?.find(isTodayValid) ||
         null
       setActiveBooking(active)
 
@@ -119,9 +127,17 @@ export default function LiveQueuePage() {
 
     getFarmerBookings(fId, phone).then(async (bookings) => {
       if (!isMounted) return
+      const isCheckedIn = (b: BookingRecord) =>
+        b.status === 'CHECKED_IN' || b.status === 'SERVING' || b.status === 'CALLED'
+      const isTodayValid = (b: BookingRecord) =>
+        b.status !== 'COMPLETED' &&
+        b.status !== 'CANCELLED' &&
+        b.status !== 'EXPIRED' &&
+        isBookingToday(b.booking_date)
+
       const active =
-        bookings?.find((b) => b.status !== 'COMPLETED' && b.status !== 'CANCELLED') ||
-        bookings?.[0] ||
+        bookings?.find(isCheckedIn) ||
+        bookings?.find(isTodayValid) ||
         null
       setActiveBooking(active)
 
