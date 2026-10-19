@@ -906,9 +906,9 @@ export default function FarmerDashboard() {
                   <div className="fd-quick-icon"><PlusCircle size={18} /></div>
                   <span>{fs?.bookNewSlot || 'Book Slot'}</span>
                 </div>
-                <div className="fd-quick-tile" onClick={() => navigate('/my-procurement')}>
+                <div className="fd-quick-tile" onClick={() => navigate('/mandis')}>
                   <div className="fd-quick-icon"><MapPin size={18} /></div>
-                  <span>{fs?.myProcurement || 'Batches'}</span>
+                  <span>Mandi Locations</span>
                 </div>
                 <div className="fd-quick-tile" onClick={() => setQueueModalOpen(true)}>
                   <div className="fd-quick-icon"><QrCode size={18} /></div>

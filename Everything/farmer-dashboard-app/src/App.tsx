@@ -15,6 +15,7 @@ import FarmerHistoryPage from './components/farmer/FarmerHistoryPage'
 import FarmerNotificationsPage from './components/farmer/FarmerNotificationsPage'
 import FarmerProfilePage from './components/farmer/FarmerProfilePage'
 import LiveQueuePage from './components/farmer/LiveQueuePage'
+import FarmerMandisPage from './components/farmer/FarmerMandisPage'
 import StaffLoginPage from './components/staff/StaffLoginPage'
 import StaffDashboardPage from './components/staff/StaffDashboardPage'
 import StaffQRScannerPage from './components/staff/StaffQRScannerPage'
@@ -528,6 +529,19 @@ export default function App() {
       return (
         <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
           <LiveQueuePage />
+        </RouteGuard>
+      )
+    }
+
+    if (
+      path === '/mandis' ||
+      path === '/find-mandis' ||
+      path === '/mandi-locations' ||
+      path === '/farmer-mandis'
+    ) {
+      return (
+        <RouteGuard portal="FARMER" allowedRoles={['FARMER']}>
+          <FarmerMandisPage />
         </RouteGuard>
       )
     }

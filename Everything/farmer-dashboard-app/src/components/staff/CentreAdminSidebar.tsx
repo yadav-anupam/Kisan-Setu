@@ -13,6 +13,7 @@ import {
   QrCode,
   Clock,
   IndianRupee,
+  MapPin,
 } from 'lucide-react'
 import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
@@ -250,6 +251,20 @@ export default function CentreAdminSidebar({ activeTab, isOpen, onClose }: Centr
             <IndianRupee size={17} />
             <span>DBT Batch Approvals</span>
             {(activeTab === 'procurement' || activeTab === 'payments') && (
+              <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                CURRENT
+              </span>
+            )}
+          </button>
+
+          <button
+            type="button"
+            className={`fd-nav-item ${activeTab === 'centres' || activeTab === 'location' ? 'active' : ''}`}
+            onClick={() => handleNav('/staff/centres')}
+          >
+            <MapPin size={17} />
+            <span>Mandi Gate &amp; Location</span>
+            {(activeTab === 'centres' || activeTab === 'location') && (
               <span className="fd-nav-badge" style={{ background: '#22c55e', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
                 CURRENT
               </span>

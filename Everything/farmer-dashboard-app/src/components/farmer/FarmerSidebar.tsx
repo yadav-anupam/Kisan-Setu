@@ -12,6 +12,7 @@ import {
   Users,
   X,
   Bell,
+  MapPin,
 } from 'lucide-react'
 import logoImg from '../../assets/logo.png'
 import { navigate } from '../../router'
@@ -26,6 +27,7 @@ interface FarmerSidebarProps {
     | 'appointments'
     | 'book-slot'
     | 'queue'
+    | 'mandis'
     | 'procurement'
     | 'payments'
     | 'history'
@@ -151,6 +153,8 @@ export default function FarmerSidebar({
       }
     } else if (page === 'queue') {
       navigate('/queue')
+    } else if (page === 'mandis') {
+      navigate('/mandis')
     } else if (page === 'procurement') {
       navigate('/my-procurement')
     } else if (page === 'payments') {
@@ -250,6 +254,15 @@ export default function FarmerSidebar({
           >
             <Users size={18} />
             <span>{fs.liveQueue}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`fd-nav-item ${activePage === 'mandis' ? 'active' : ''}`}
+            onClick={() => handleItemClick('mandis')}
+          >
+            <MapPin size={18} />
+            <span>Mandi Locations</span>
           </button>
 
           {/* Section: Procurement & DBT */}

@@ -188,6 +188,26 @@ export default function MyAppointmentsPage() {
 
     window.addEventListener('kisan_setu_profile_updated', handleProfileUpdate)
 
+    // Check if farmer arrived from Mandi Locations directory with preselected centre
+    const preselectedCode = sessionStorage.getItem('kisan_setu_preselected_centre')
+    const preselectedName = sessionStorage.getItem('kisan_setu_preselected_centre_name')
+    if (preselectedCode || preselectedName) {
+      sessionStorage.removeItem('kisan_setu_preselected_centre')
+      sessionStorage.removeItem('kisan_setu_preselected_centre_name')
+
+      const matched = ALL_PROCUREMENT_CENTRES.find(
+        (c) =>
+          (preselectedCode && c.id.toLowerCase() === preselectedCode.toLowerCase()) ||
+          (preselectedName && c.centreName.toLowerCase().includes(preselectedName.toLowerCase()))
+      )
+      if (matched) {
+        setSelectedCentre(matched.centreName)
+      } else if (preselectedName) {
+        setSelectedCentre(preselectedName)
+      }
+      setBookingModalOpen(true)
+    }
+
     getFarmerBookings(farmer.farmerId, farmer.mobile).then((records) => {
       if (!isMounted) return
       if (records && records.length > 0) {
